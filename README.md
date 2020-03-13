@@ -2,8 +2,6 @@
 
 Website Business Owner (Symfony, Twig, Doctrine)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Download Symfony : 
-    https://symfony.com/download
 
   Download Composer :
     https://getcomposer.org/download/
