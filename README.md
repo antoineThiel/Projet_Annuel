@@ -32,3 +32,25 @@ Doctrine :
     php bin/console make:entity
     It will create the Entity, the Repository for the Entity
     
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Qrencode C
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Install :
+    
+    git clone https://github.com/fukuchi/libqrencode.git
+  
+    apt install :
+      autoconf
+      libtool
+      pkg-config
+      libpng-dev
+    
+    cmd (sudo): 
+      autogen.sh
+      ./configure
+       make install
+       ldconfig
+   
+   Compilation : 
+        gcc -o "nom_de_ortie" main.c -lqrencode -lpng
