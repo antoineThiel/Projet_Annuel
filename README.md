@@ -12,7 +12,7 @@ Website Business Owner (Symfony, Twig, Doctrine)
     composer install
 
   Update Project : 
-    compsoer update
+    composer update
 
 Doctrine : 
   In the ".env" file you have to configure the DATABASE_URL link with your setup.
