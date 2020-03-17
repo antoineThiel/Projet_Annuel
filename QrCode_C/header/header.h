@@ -8,3 +8,4 @@
 #include <gtk/gtk.h>
 
 int qrEncode(char *string);
+void win_inscription();
