@@ -35,7 +35,7 @@ void win_inscription(){
     phone = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_phone"));
 
     button_valid = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "button_valid"));
-    g_signal_connect(button_valid, "clicked", G_CALLBACK(check_fields /*A faire*/), /*struct*/);
+  //  g_signal_connect(button_valid, "clicked", G_CALLBACK(check_fields /*A faire*/), /*struct*/);
         
     gtk_widget_show(window);
 };
