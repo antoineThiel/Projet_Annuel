@@ -54,4 +54,7 @@ Qrencode C
        ldconfig
    
    Compilation : 
-        gcc -o "nom_de_ortie" main.c -lqrencode -lpng
+        make compil
+   
+   Lancement : 
+        make launch
