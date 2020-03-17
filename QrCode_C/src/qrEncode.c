@@ -1,10 +1,4 @@
-#include <stdio.h>
-#include "qrencode.h"
-#include <errno.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include <png.h>
+#include "../header/header.h"
 
 #define INCHES_PER_METER (100.0/2.54)
 
@@ -24,9 +18,8 @@ static unsigned int bg_color[4] = {255, 255, 255, 255};
 
 static int writePNG(QRcode *qrcode, const char *outfile);
 
-int main()
+int qrEncode(char *line)
 {
-const char * line = "The stuff you want to encode";
         QRcode *myqrcode;
         myqrcode = QRcode_encodeString(line, 4, QR_ECLEVEL_H, QR_MODE_8,1);
         writePNG(myqrcode,"filename.png");
