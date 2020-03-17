@@ -45,6 +45,7 @@ Qrencode C
       libtool
       pkg-config
       libpng-dev
+      libgtk-3-dev
     
     cmd (sudo): 
       autogen.sh
