@@ -28,7 +28,6 @@ return 0;
 }
 
 
-
 static int writePNG(QRcode *qrcode, const char *outfile)
 {
     static FILE *fp; // avoid clobbering by setjmp.
