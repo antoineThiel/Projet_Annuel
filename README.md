@@ -37,8 +37,6 @@ Qrencode C
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Install :
-    
-    git clone https://github.com/fukuchi/libqrencode.git
   
     apt install :
       autoconf
@@ -47,8 +45,10 @@ Qrencode C
       libpng-dev
       libgtk-3-dev
     
-    cmd (sudo): 
-      autogen.sh
+    git clone https://github.com/fukuchi/libqrencode.git
+    
+    cmd (sudo) dans libqrencode: 
+      ./autogen.sh
       ./configure
        make install
        ldconfig
