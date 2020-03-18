@@ -37,20 +37,24 @@ Qrencode C
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Install :
-    
-    git clone https://github.com/fukuchi/libqrencode.git
   
     apt install :
       autoconf
       libtool
       pkg-config
       libpng-dev
+      libgtk-3-dev
     
-    cmd (sudo): 
-      autogen.sh
+    git clone https://github.com/fukuchi/libqrencode.git
+    
+    cmd (sudo) dans libqrencode: 
+      ./autogen.sh
       ./configure
        make install
        ldconfig
    
    Compilation : 
-        gcc -o "nom_de_ortie" main.c -lqrencode -lpng
+        make compil
+   
+   Lancement : 
+        make launch
