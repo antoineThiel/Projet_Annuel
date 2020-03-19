@@ -1,2 +1,5 @@
 bin/test
 filename.png
+cmake-build-debug
+/CMakeLists.txt
+.idea
