@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "qrencode.h"
+#include <qrencode.h>
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
