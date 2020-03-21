@@ -11,7 +11,7 @@ compil:
 	-I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
 	-lgtk-3 -lgdk-3 -lpangocairo-1.0 -lpango-1.0 -latk-1.0 -lcairo-gobject -lcairo \
 	-lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -L/usr/lib/x86_64-linux-gnu \
-	;
+	
 	@# echo build took : $(($(date +%s)-$(cat  _time_$@.txt))) 
 	@echo build took : IDK yet 
 	@rm _time_$@.txt

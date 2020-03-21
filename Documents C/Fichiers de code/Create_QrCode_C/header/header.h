@@ -14,13 +14,13 @@
 
 int qrEncode(char *string);     
 void win_inscription();
-char* check_fields( GtkWidget *widget, GtkWidget **inputsArray);
+void check_fields( GtkWidget *widget, GtkWidget **inputsArray);
 
 
 
 bool validCasualString(const char* someString);
-
 bool validEmail(const char* email);
+
 bool validPwd(const char* password);
 bool validAddr(const char* address);
 bool validLicense(const char* LicenseNbr);

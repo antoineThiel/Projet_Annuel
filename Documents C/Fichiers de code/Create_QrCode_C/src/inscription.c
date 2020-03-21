@@ -55,18 +55,25 @@ void win_inscription(){
 	gtk_widget_show(window);
 };
 
-char* check_fields( GtkWidget *widget, GtkWidget **inputsArray){
+void check_fields( GtkWidget *widget, GtkWidget **inputsArray){
 
   	gchar* inputs[FIELDS_QTY];
 
+    bool (*functionArray[FIELDS_QTY])(const char*) =  { validCasualString , validCasualString ,validEmail , validPwd , validLicense, validLicense, validPhone};
+    // bool functionArray[FIELDS_QTY] = {validEmail , validCasualString , NULL , NULL, NULL, NULL, NULL};
+    bool allChecked = true;
+
   	for (u_int8_t i = 0; i < FIELDS_QTY; i++)
   	{
-		const gchar *tmp = gtk_entry_get_text(GTK_ENTRY(inputsArray[i]));
-		inputs[i] = tmp;
-		printf("%s\n",tmp);
+		allChecked &= functionArray[i](gtk_entry_get_text(GTK_ENTRY(inputsArray[i])) ) ;
+		printf("%s\n",gtk_entry_get_text(GTK_ENTRY(inputsArray[i])));
   	}
   
-  
+    if(allChecked){
+      printf("WOAWWW\n");
+    }else{
+      printf("missing smtg\n");
+    }
   
   	char* inputString = malloc(sizeof(char) * 500);
   	if(inputString == NULL){
@@ -74,7 +81,6 @@ char* check_fields( GtkWidget *widget, GtkWidget **inputsArray){
 		exit(1);
   	}
 
-  	return inputString;
 
 }
 
@@ -118,49 +124,36 @@ bool validEmail(const char* email){
 	  GMatchInfo *match_info;
 
 	regex2 = g_regex_new ("^[a-z][a-z0-9.]{2,35}[@]{1}[a-z]{2,8}[.]{1}(fr|com|eu){1}", 0, 0, NULL);
-  	g_regex_match (regex2, "tho.mas.tres@gmail.fr", 0, &match_info);
+  g_regex_match (regex2, email, 0, &match_info);
 
-	while (g_match_info_matches (match_info))
+	if(g_match_info_matches (match_info))
     {
       gchar *word = g_match_info_fetch (match_info, 0);
       g_print ("Found: %s\n", word);
       g_free (word);
       g_match_info_next (match_info, NULL);
+      return true;
     }
   	g_match_info_free (match_info);
   	g_regex_unref (regex2);
 
-	return true;
+	return false;
 }
 
-	/*   
-	// int buff = regcomp(&regex, "[:alnum:]{2-35}@[:alpha:]{2-8}[.][fr | com | eu]", 0);
-	int buff = regcomp(&regex, "[a-zA-Z0-9.][@][a-zA-Z]", 0);
-  	
-// +@[a-zA-Z0-9].[a-zA-Z0-9]/
 
-	if (buff) {
-	  	fprintf(stderr, "Could not compile regex\n");
-	  	exit(1);
-  	}
-
-		buff = regexec(&regex, "azerty.azerty@gmail.", 0, NULL, 0);
-	if (!buff) {
-		regfree(&regex);
-		printf("yepeee\n");
-    	return true;
-	}
-	else if (buff == REG_NOMATCH) {
-		regfree(&regex);
-		printf("buhhh\n");
-		return false;
-	}
-	else {
-	    regerror(buff, &regex, msgbuf, sizeof(msgbuf));
-	    fprintf(stderr, "Regex match failed: %s\n", msgbuf);
-	    exit(1);
-	}
-
-
+bool validPwd(const char* password){
+  printf("checking pwd...\n");
+  return true;
 }
- */
+bool validAddr(const char* address){
+  printf("checking adress...\n");
+  return true;
+}
+bool validLicense(const char* LicenseNbr){
+  printf("checking license...\n");
+  return true;
+}
+bool validPhone(const char* phoneNbr){
+  printf("checking phone...\n");
+  return true;
+}
