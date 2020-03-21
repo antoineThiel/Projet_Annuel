@@ -12,6 +12,8 @@
 #include <glib.h>
 #include <stdbool.h>
 
+#include <curl/curl.h>
+
 int qrEncode(char *string);     
 void win_inscription();
 void check_fields( GtkWidget *widget, GtkWidget **inputsArray);
