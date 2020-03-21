@@ -1,0 +1,9 @@
+//TODO create script for future coworkers/users
+
+        -install libraries
+        -install dependencies , such as composer
+
+        -if necessary install apache... mysql
+
+        -update composer 
+        -build what has to be built
