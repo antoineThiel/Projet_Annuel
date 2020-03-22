@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f0aa134c748f7bb4398f0b93f0f19bb9",
+    "content-hash": "194691cc1aa7a5f92bb3523e76ed500c",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1258,6 +1258,71 @@
             "time": "2014-01-12T16:20:24+00:00"
         },
         {
+            "name": "kevinpapst/adminlte-bundle",
+            "version": "3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kevinpapst/AdminLTEBundle.git",
+                "reference": "d1e0d21b497b7bf864138aba4b645379e6b51b83"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kevinpapst/AdminLTEBundle/zipball/d1e0d21b497b7bf864138aba4b645379e6b51b83",
+                "reference": "d1e0d21b497b7bf864138aba4b645379e6b51b83",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/config": ">4.1",
+                "symfony/dependency-injection": ">4.0",
+                "symfony/event-dispatcher": ">4.3",
+                "symfony/http-foundation": ">4.0",
+                "symfony/http-kernel": ">4.0",
+                "symfony/options-resolver": ">4.0",
+                "symfony/security-core": ">4.0",
+                "twig/twig": ">2.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.10",
+                "knplabs/knp-menu-bundle": "^2.2",
+                "phpspec/prophecy": "^1.6",
+                "phpstan/phpstan": "^0.11.8",
+                "phpstan/phpstan-phpunit": "^0.11",
+                "phpunit/phpunit": "^7.3",
+                "symfony/framework-bundle": ">4.0"
+            },
+            "suggest": {
+                "friendsofsymfony/user-bundle": "Allows easy user management and security support",
+                "knplabs/knp-menu-bundle": "Allows easy menu integration"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "KevinPapst\\AdminLTEBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kevin Papst",
+                    "homepage": "https://www.kevinpapst.de"
+                },
+                {
+                    "name": "Marc Bach",
+                    "homepage": "http://www.avanzu.de"
+                },
+                {
+                    "name": "Ángel Guzmán Maeso",
+                    "homepage": "https://shakaran.net/blog"
+                }
+            ],
+            "description": "Admin theme bundle for Symfony 4 based on AdminLTE 2.4.8 with FOSUserBundle support",
+            "time": "2019-09-25T16:11:41+00:00"
+        },
+        {
             "name": "laminas/laminas-code",
             "version": "3.4.1",
             "source": {
@@ -2109,6 +2174,28 @@
                 "controllers"
             ],
             "time": "2019-12-27T08:57:19+00:00"
+        },
+        {
+            "name": "symfony/apache-pack",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/apache-pack.git",
+                "reference": "3aa5818d73ad2551281fc58a75afd9ca82622e6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/apache-pack/zipball/3aa5818d73ad2551281fc58a75afd9ca82622e6c",
+                "reference": "3aa5818d73ad2551281fc58a75afd9ca82622e6c",
+                "shasum": ""
+            },
+            "type": "symfony-pack",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A pack for Apache support in Symfony",
+            "time": "2017-12-12T01:46:35+00:00"
         },
         {
             "name": "symfony/asset",

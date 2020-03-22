@@ -3,6 +3,15 @@
 Website Business Owner (Symfony, Twig, Doctrine)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+  Xampp 7.4.3 prefered
+  add "127.0.0.1 drivncook.local" to c://windows/system32/hosts
+  configure xampp/apache/conf/extras/httpd-vhosts.conf
+     add 
+     <VirtualHost *:80>
+         DocumentRoot "C:/xampp/htdocs/Projet_Annuel/Documents_Web/Fichiers_de_code/Website_Business_Owner/public/"
+         ServerName drivncook.local
+     </VirtualHost>
+
   Download Composer :
     https://getcomposer.org/download/
 
