@@ -13,7 +13,7 @@ int main(int argc, char** argv){
     curl_easy_setopt(easyHandle, CURLOPT_URL, "http://localhost/Projet_Annuel/Documents%20Web/test.php"); // setpopt takes (Handler , cURL DEFINE value , string matching the 2nd argument )
     /*
     ** CURLOPT_WRITEDATA : precise where to write server's response (stdout by default) ; aka CURLOPT_FILE...
-    ** CURLOPT_WRITEFUNCTION : defining callback function from where the data should come
+    ** CURLOPT_WRITEFUNCTION : defining callback function for what to do with data
     ** CURLOPT_ERRORBUFFER : define file where to write any error that occured during transfert
 
     "less important"
@@ -40,7 +40,8 @@ int main(int argc, char** argv){
     abort the operation and return with an error code.
     */
 
-    printf("returns : %d\n" , success);
-
+    if(success != 0){
+        printf("Error occured during request :/");
+    }
     return 0;
 }
