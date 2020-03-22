@@ -23,7 +23,7 @@ int main(int argc, char** argv){
 
     CURL* easyHandle = curl_easy_init(); // creating our curl requester Handler
 
-    curl_easy_setopt(easyHandle, CURLOPT_URL, "http://localhost:80/Projet_Annuel/Documents_Web/test.php"); // setpopt takes (Handler , cURL DEFINE value , string matching the 2nd argument )  (by default http , but we can provide any other {DICT, FTP, IMAP, LDAP, POP3 or SMTP} )
+    curl_easy_setopt(easyHandle, CURLOPT_URL, "http://localhost:80/Projet_Annuel/Documents_Web/curl.php"); // setpopt takes (Handler , cURL DEFINE value , string matching the 2nd argument )  (by default http , but we can provide any other {DICT, FTP, IMAP, LDAP, POP3 or SMTP} )
 
     // ABOUT URL specifications : HTTP
 
