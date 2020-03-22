@@ -4,8 +4,6 @@
 #include <string.h>
 
 
-size_t write_data(void *buffer, size_t size, size_t nmemb, void *userp);
-
 int main(int argc, char** argv){
 
 
@@ -60,16 +58,15 @@ int main(int argc, char** argv){
     char* imgBuff = malloc(size * sizeof(char));
     fread(imgBuff, 1 , size , qrCode);  
     
-
     char* test = malloc(size * sizeof(char)+10);
     strcpy(test , "img=");
     strcat(test , imgBuff);
 
     curl_easy_setopt(easyHandle , CURLOPT_WRITEDATA , result);
-    // curl_easy_setopt(easyHandle, CURLOPT_POSTFIELDSIZE, size * sizeof(char)+10);
+    curl_easy_setopt(easyHandle, CURLOPT_POSTFIELDSIZE, size * sizeof(char)+10);
     // curl_easy_setopt(easyHandle , CURLOPT_POSTFIELDS , test);
     
-    curl_easy_setopt(easyHandle , CURLOPT_POSTFIELDS , "img=test");
+    curl_easy_setopt(easyHandle , CURLOPT_POSTFIELDS , test);
 
     free(imgBuff);
    
