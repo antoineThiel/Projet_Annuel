@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ProductOrigin{% endblock %}
+
+{% block body %}
+    <h1>Create new ProductOrigin</h1>
+
+    {{ include('product_origin/_form.html.twig') }}
+
+    <a href="{{ path('product_origin_index') }}">back to list</a>
+{% endblock %}

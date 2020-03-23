@@ -1,0 +1,59 @@
+{% extends '@AdminLTE/layout/default-layout.html.twig' %}
+
+{% block title %}Franchisee index{% endblock %}
+
+{% block body %}
+
+    {% block page_title %}
+        <h1>Franchisee List</h1>
+        {% block page_subtitle %}
+            <p></p>
+        {% endblock %}
+    {% endblock %}
+
+    {% block page_content %}
+    <h1>Franchisee index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>LastName</th>
+                <th>FirstName</th>
+                <th>Mail</th>
+                <th>City</th>
+                <th>PostalCode</th>
+                <th>Address</th>
+                <th>License</th>
+                <th>Phone</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for franchisee in franchisees %}
+            <tr>
+                <td>{{ franchisee.id }}</td>
+                <td>{{ franchisee.lastName }}</td>
+                <td>{{ franchisee.firstName }}</td>
+                <td>{{ franchisee.mail }}</td>
+                <td>{{ franchisee.city }}</td>
+                <td>{{ franchisee.postalCode }}</td>
+                <td>{{ franchisee.address }}</td>
+                <td>{{ franchisee.license }}</td>
+                <td>{{ franchisee.phone }}</td>
+                <td>
+                    <a href="{{ path('franchisee_show', {'id': franchisee.id}) }}">show</a>
+                    <a href="{{ path('franchisee_edit', {'id': franchisee.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('franchisee_new') }}">Create new</a>
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProductOrigin index{% endblock %}
+
+{% block body %}
+    <h1>ProductOrigin index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Country</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product_origin in product_origins %}
+            <tr>
+                <td>{{ product_origin.id }}</td>
+                <td>{{ product_origin.country }}</td>
+                <td>
+                    <a href="{{ path('product_origin_show', {'id': product_origin.id}) }}">show</a>
+                    <a href="{{ path('product_origin_edit', {'id': product_origin.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('product_origin_new') }}">Create new</a>
+{% endblock %}

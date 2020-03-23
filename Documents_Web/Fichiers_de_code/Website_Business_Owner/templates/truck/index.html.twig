@@ -1,0 +1,51 @@
+{% extends '@AdminLTE/layout/default-layout.html.twig' %}
+
+{% block title %}Truck list{% endblock %}
+
+{% block body %}
+
+    {% block page_title %}
+        <h1>Truck List</h1>
+        {% block page_subtitle %}
+            <p></p>
+        {% endblock %}
+    {% endblock %}
+
+    {% block page_content %}
+        <h1>Truck index</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Registration</th>
+                    <th>Longitude</th>
+                    <th>Latitude</th>
+                    <th>Franchisee</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for truck in trucks %}
+                <tr>
+                    <td>{{ truck.id }}</td>
+                    <td>{{ truck.registration }}</td>
+                    <td>{{ truck.longitude }}</td>
+                    <td>{{ truck.latitude }}</td>
+                    <td>{{ truck.franchisee }}</td>
+                    <td>
+                        <a href="{{ path('truck_show', {'id': truck.id}) }}">show</a>
+                        <a href="{{ path('truck_edit', {'id': truck.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('truck_new') }}">Create new</a>
+    {% endblock %}
+{% endblock %}

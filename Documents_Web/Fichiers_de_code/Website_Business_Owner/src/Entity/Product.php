@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,9 +29,26 @@ class Product
     private $price;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Dish", inversedBy="products")
+     */
+    private $dish;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ProductOrigin", inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $origin;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ProductCategory", inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+    public function __construct()
+    {
+        $this->dish = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -60,12 +79,50 @@ class Product
         return $this;
     }
 
-    public function getCategory(): ?string
+    /**
+     * @return Collection|Dish[]
+     */
+    public function getDish(): Collection
+    {
+        return $this->dish;
+    }
+
+    public function addDish(Dish $dish): self
+    {
+        if (!$this->dish->contains($dish)) {
+            $this->dish[] = $dish;
+        }
+
+        return $this;
+    }
+
+    public function removeDish(Dish $dish): self
+    {
+        if ($this->dish->contains($dish)) {
+            $this->dish->removeElement($dish);
+        }
+
+        return $this;
+    }
+
+    public function getOrigin(): ?ProductOrigin
+    {
+        return $this->origin;
+    }
+
+    public function setOrigin(?ProductOrigin $origin): self
+    {
+        $this->origin = $origin;
+
+        return $this;
+    }
+
+    public function getCategory(): ?ProductCategory
     {
         return $this->category;
     }
 
-    public function setCategory(string $category): self
+    public function setCategory(?ProductCategory $category): self
     {
         $this->category = $category;
 

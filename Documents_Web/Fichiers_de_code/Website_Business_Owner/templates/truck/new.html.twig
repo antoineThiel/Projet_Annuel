@@ -1,0 +1,18 @@
+{% extends '@AdminLTE/layout/default-layout.html.twig' %}
+
+{% block title %}New Truck{% endblock %}
+
+{% block body %}
+
+    {% block page_title %}
+        <h1>Create new Truck</h1>
+        {% block page_subtitle %}
+            <p></p>
+        {% endblock %}
+    {% endblock %}
+    {% block page_content %}
+        {{ include('truck/_form.html.twig') }}
+
+        <a href="{{ path('truck_index') }}">back to list</a>
+    {% endblock %}
+{% endblock %}
