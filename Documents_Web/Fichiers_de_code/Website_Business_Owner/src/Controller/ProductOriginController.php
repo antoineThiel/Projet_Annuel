@@ -11,12 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/product/origin")
+ * @Route("/")
  */
 class ProductOriginController extends AbstractController
 {
     /**
-     * @Route("/", name="product_origin_index", methods={"GET"})
+     * @Route("/admin/product_origin", name="product_origin_index", methods={"GET"})
      */
     public function index(ProductOriginRepository $productOriginRepository): Response
     {
@@ -26,7 +26,7 @@ class ProductOriginController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="product_origin_new", methods={"GET","POST"})
+     * @Route("/admin/product_origin/new", name="product_origin_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -49,7 +49,7 @@ class ProductOriginController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="product_origin_show", methods={"GET"})
+     * @Route("/product_origin/{id}", name="product_origin_show", methods={"GET"})
      */
     public function show(ProductOrigin $productOrigin): Response
     {
@@ -59,7 +59,7 @@ class ProductOriginController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="product_origin_edit", methods={"GET","POST"})
+     * @Route("/admin/product_origin/{id}/edit", name="product_origin_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, ProductOrigin $productOrigin): Response
     {
@@ -79,7 +79,7 @@ class ProductOriginController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="product_origin_delete", methods={"DELETE"})
+     * @Route("/admin/product_origin/{id}", name="product_origin_delete", methods={"DELETE"})
      */
     public function delete(Request $request, ProductOrigin $productOrigin): Response
     {

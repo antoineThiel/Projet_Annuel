@@ -11,12 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/dish")
+ * @Route("/")
  */
 class DishController extends AbstractController
 {
     /**
-     * @Route("/", name="dish_index", methods={"GET"})
+     * @Route("/admin/dish", name="dish_index", methods={"GET"})
      */
     public function index(DishRepository $dishRepository): Response
     {
@@ -26,7 +26,7 @@ class DishController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="dish_new", methods={"GET","POST"})
+     * @Route("/admin/dish/new", name="dish_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -49,7 +49,7 @@ class DishController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="dish_show", methods={"GET"})
+     * @Route("/dish/{id}", name="dish_show", methods={"GET"})
      */
     public function show(Dish $dish): Response
     {
@@ -59,7 +59,7 @@ class DishController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="dish_edit", methods={"GET","POST"})
+     * @Route("/admin/dish/{id}/edit", name="dish_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Dish $dish): Response
     {
@@ -79,7 +79,7 @@ class DishController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="dish_delete", methods={"DELETE"})
+     * @Route("/admin/dish/{id}", name="dish_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Dish $dish): Response
     {

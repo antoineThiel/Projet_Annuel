@@ -11,12 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/product/category")
+ * @Route("/")
  */
 class ProductCategoryController extends AbstractController
 {
     /**
-     * @Route("/", name="product_category_index", methods={"GET"})
+     * @Route("/admin/product_category", name="product_category_index", methods={"GET"})
      */
     public function index(ProductCategoryRepository $productCategoryRepository): Response
     {
@@ -26,7 +26,7 @@ class ProductCategoryController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="product_category_new", methods={"GET","POST"})
+     * @Route("/admin/product_category/new", name="product_category_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -49,7 +49,7 @@ class ProductCategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="product_category_show", methods={"GET"})
+     * @Route("/product_category/{id}", name="product_category_show", methods={"GET"})
      */
     public function show(ProductCategory $productCategory): Response
     {
@@ -59,7 +59,7 @@ class ProductCategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="product_category_edit", methods={"GET","POST"})
+     * @Route("/admin/product_category/{id}/edit", name="product_category_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, ProductCategory $productCategory): Response
     {
@@ -79,7 +79,7 @@ class ProductCategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="product_category_delete", methods={"DELETE"})
+     * @Route("/admin/product_category/{id}", name="product_category_delete", methods={"DELETE"})
      */
     public function delete(Request $request, ProductCategory $productCategory): Response
     {

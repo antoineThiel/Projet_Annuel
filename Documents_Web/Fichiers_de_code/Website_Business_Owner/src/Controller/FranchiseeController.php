@@ -11,12 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/franchisee")
+ * @Route("/")
  */
 class FranchiseeController extends AbstractController
 {
     /**
-     * @Route("/", name="franchisee_index", methods={"GET"})
+     * @Route("/admin/franchisee", name="franchisee_index", methods={"GET"})
      */
     public function index(FranchiseeRepository $franchiseeRepository): Response
     {
@@ -26,7 +26,7 @@ class FranchiseeController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="franchisee_new", methods={"GET","POST"})
+     * @Route("/admin/franchisee/new", name="franchisee_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -49,7 +49,7 @@ class FranchiseeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="franchisee_show", methods={"GET"})
+     * @Route("/franchisee/{id}", name="franchisee_show", methods={"GET"})
      */
     public function show(Franchisee $franchisee): Response
     {
@@ -59,7 +59,7 @@ class FranchiseeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="franchisee_edit", methods={"GET","POST"})
+     * @Route("/admin/franchisee/{id}/edit", name="franchisee_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Franchisee $franchisee): Response
     {
@@ -79,7 +79,7 @@ class FranchiseeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="franchisee_delete", methods={"DELETE"})
+     * @Route("/admin/franchisee/{id}", name="franchisee_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Franchisee $franchisee): Response
     {
