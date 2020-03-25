@@ -1,10 +1,12 @@
 <?php 
 
-shell_exec("createfile.out");
+//shell_exec("createfile.out");
 
-// var_dump($_POST);
-// echo "<strong>" .$_POST['img'] ."</strong>";
+ var_dump($_POST);
+if(empty($_POST)){
+ echo "test debug";
+}
 
 return;
-?>
+
 
