@@ -1,0 +1,71 @@
+<aside class="main-sidebar sidebar-light-blue elevation-4">
+    <!-- Brand Logo -->
+    <a href="{{ path('home') }}" class="brand-link">
+        <img src="{{ asset('Images/logo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+             style="opacity: .8">
+        <span class="brand-text font-weight-light">DRIV'N COOK</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon fas fa-folder"></i>
+                        <p>Products
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ path('product_index') }}" class="nav-link">
+                                <p>Products</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('product_origin_index') }}" class="nav-link">
+                                <p>Origins</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('product_category_index') }}" class="nav-link">
+                                <p>Categories</p>
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path('franchisee_index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Franchisee</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path('truck_index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-truck"></i>
+                        <p>Trucks</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path('dish_index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-leaf"></i>
+                        <p>Dishes</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path('user_index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>Admin user</p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

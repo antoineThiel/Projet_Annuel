@@ -4,8 +4,47 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "30ecf3032d354af608071a62f7862abe",
+    "content-hash": "739d6537d50a0946bb85848c7be9b42a",
     "packages": [
+        {
+            "name": "almasaeed2010/adminlte",
+            "version": "v3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ColorlibHQ/AdminLTE.git",
+                "reference": "0e48302342e9c04174ed73902b08324d47d4e792"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ColorlibHQ/AdminLTE/zipball/0e48302342e9c04174ed73902b08324d47d4e792",
+                "reference": "0e48302342e9c04174ed73902b08324d47d4e792",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Colorlib"
+                }
+            ],
+            "description": "AdminLTE - admin control panel and dashboard that's based on Bootstrap 4",
+            "homepage": "http://adminlte.io/",
+            "keywords": [
+                "JS",
+                "admin",
+                "back-end",
+                "css",
+                "less",
+                "responsive",
+                "template",
+                "theme",
+                "web"
+            ],
+            "time": "2020-01-17T08:05:37+00:00"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.8.0",
@@ -1349,6 +1388,134 @@
             ],
             "description": "Admin theme bundle for Symfony 4 based on AdminLTE 2.4.8 with FOSUserBundle support",
             "time": "2019-09-25T16:11:41+00:00"
+        },
+        {
+            "name": "knplabs/knp-menu",
+            "version": "v3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KnpLabs/KnpMenu.git",
+                "reference": "df1a329c60e4d96146a6e72d5604d8df010d85c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KnpLabs/KnpMenu/zipball/df1a329c60e4d96146a6e72d5604d8df010d85c9",
+                "reference": "df1a329c60e4d96146a6e72d5604d8df010d85c9",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2"
+            },
+            "conflict": {
+                "twig/twig": "<1.40 || >=2,<2.9"
+            },
+            "require-dev": {
+                "phpspec/prophecy": "^1.8",
+                "psr/container": "^1.0",
+                "symfony/http-foundation": "^3.4 || ^4.2|| ^5.0",
+                "symfony/phpunit-bridge": "^3.3 || ^4.2|| ^5.0",
+                "symfony/routing": "^3.4 || ^4.2|| ^5.0",
+                "twig/twig": "^1.40 || ^2.9 || ^3.0"
+            },
+            "suggest": {
+                "twig/twig": "for the TwigRenderer and the integration with your templates"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Knp\\Menu\\": "src/Knp/Menu"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "KnpLabs",
+                    "homepage": "https://knplabs.com"
+                },
+                {
+                    "name": "Christophe Coevoet",
+                    "email": "stof@notk.org"
+                },
+                {
+                    "name": "The Community",
+                    "homepage": "https://github.com/KnpLabs/KnpMenu/contributors"
+                }
+            ],
+            "description": "An object oriented menu library",
+            "homepage": "https://knplabs.com",
+            "keywords": [
+                "menu",
+                "tree"
+            ],
+            "time": "2019-12-01T13:01:06+00:00"
+        },
+        {
+            "name": "knplabs/knp-menu-bundle",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KnpLabs/KnpMenuBundle.git",
+                "reference": "2795e236db1d807040762be9a2813ab8c6ed0569"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KnpLabs/KnpMenuBundle/zipball/2795e236db1d807040762be9a2813ab8c6ed0569",
+                "reference": "2795e236db1d807040762be9a2813ab8c6ed0569",
+                "shasum": ""
+            },
+            "require": {
+                "knplabs/knp-menu": "^3.0",
+                "php": "^7.2",
+                "symfony/framework-bundle": "^3.4 | ^4.2 | ^5.0"
+            },
+            "require-dev": {
+                "phpspec/prophecy": "^1.8",
+                "symfony/expression-language": "^3.4 | ^4.2 | ^5.0",
+                "symfony/phpunit-bridge": "^3.4 | ^4.2 | ^5.0",
+                "symfony/templating": "^3.4 | ^4.0 | ^5.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Knp\\Bundle\\MenuBundle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Knplabs",
+                    "homepage": "http://knplabs.com"
+                },
+                {
+                    "name": "Christophe Coevoet",
+                    "email": "stof@notk.org"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://github.com/KnpLabs/KnpMenuBundle/contributors"
+                }
+            ],
+            "description": "This bundle provides an integration of the KnpMenu library",
+            "keywords": [
+                "menu"
+            ],
+            "time": "2019-12-01T13:07:41+00:00"
         },
         {
             "name": "laminas/laminas-code",

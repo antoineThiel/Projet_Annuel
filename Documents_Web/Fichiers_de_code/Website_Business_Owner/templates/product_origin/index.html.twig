@@ -1,35 +1,52 @@
 {% extends 'base.html.twig' %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    {% block title %}{% endblock %}
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Starter Page</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- Main content -->
+    <section class="content">
+        <h1>ProductOrigin index</h1>
 
-{% block title %}ProductOrigin index{% endblock %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Country</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for product_origin in product_origins %}
+                <tr>
+                    <td>{{ product_origin.id }}</td>
+                    <td>{{ product_origin.country }}</td>
+                    <td>
+                        <a href="{{ path('product_origin_show', {'id': product_origin.id}) }}">show</a>
+                        <a href="{{ path('product_origin_edit', {'id': product_origin.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-{% block body %}
-    <h1>ProductOrigin index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Country</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for product_origin in product_origins %}
-            <tr>
-                <td>{{ product_origin.id }}</td>
-                <td>{{ product_origin.country }}</td>
-                <td>
-                    <a href="{{ path('product_origin_show', {'id': product_origin.id}) }}">show</a>
-                    <a href="{{ path('product_origin_edit', {'id': product_origin.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('product_origin_new') }}">Create new</a>
+        <a href="{{ path('product_origin_new') }}">Create new</a>
+    </section>
+</div>
 {% endblock %}

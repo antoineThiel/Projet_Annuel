@@ -29,13 +29,13 @@ class Dish
     private $price;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="dish")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Product")
      */
-    private $products;
+    private $product;
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
+        $this->product = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -70,16 +70,15 @@ class Dish
     /**
      * @return Collection|Product[]
      */
-    public function getProducts(): Collection
+    public function getProduct(): Collection
     {
-        return $this->products;
+        return $this->product;
     }
 
     public function addProduct(Product $product): self
     {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->addDish($this);
+        if (!$this->product->contains($product)) {
+            $this->product[] = $product;
         }
 
         return $this;
@@ -87,9 +86,8 @@ class Dish
 
     public function removeProduct(Product $product): self
     {
-        if ($this->products->contains($product)) {
-            $this->products->removeElement($product);
-            $product->removeDish($this);
+        if ($this->product->contains($product)) {
+            $this->product->removeElement($product);
         }
 
         return $this;
