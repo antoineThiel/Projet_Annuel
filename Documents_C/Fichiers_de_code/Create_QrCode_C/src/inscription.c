@@ -59,24 +59,23 @@ void check_fields( GtkWidget *widget, GtkWidget **inputsArray){
 
   	gchar* inputs[FIELDS_QTY];
 
-    bool (*functionArray[FIELDS_QTY])(const char*) =  { validCasualString , validCasualString ,validEmail , validPwd , validLicense, validLicense, validPhone};
-    // bool functionArray[FIELDS_QTY] = {validEmail , validCasualString , NULL , NULL, NULL, NULL, NULL};
+    bool (*functionArray[FIELDS_QTY])(const char*) =  { validCasualString , validCasualString ,validEmail , validPwd , validAddr, validLicense, validPhone};
+    
     bool allChecked = true;
 
   	for (u_int8_t i = 0; i < FIELDS_QTY; i++)
   	{
-		bool isCurrentInputCorrect;
+		bool isCurrentInputCorrect = true;
 		isCurrentInputCorrect = allChecked &= functionArray[i](gtk_entry_get_text(GTK_ENTRY(inputsArray[i])) ) ;
-		printf("%s\n",gtk_entry_get_text(GTK_ENTRY(inputsArray[i])));
 		if(!isCurrentInputCorrect){
-			printf("error during %d process", i);
+			printf("error during process n°%d \n", i);
 		}
   	}
   
     if(allChecked){
-      printf("WOAWWW\n");
+      printf("\nWOAWWW\n");
     }else{
-      printf("missing smtg\n");
+      printf("\nmissing smtg\n");
     }
   
   	char* inputString = malloc(sizeof(char) * 500);
@@ -105,15 +104,15 @@ void check_fields( GtkWidget *widget, GtkWidget **inputsArray){
 bool validCasualString(const char* someString){
   	__uint8_t length = strlen(someString);
 
-	  if(length >= 2  && length <= 30){
+	if(length >= 2  && length <= 30){
 
 		length -= 1; 
 		while(length){
-	  	if(  !(someString[length] >= 'a' && someString[length] <= 'z') || (someString[length] >= 'A' && someString[length] <= 'Z') ){
-			return false;
-	  	}
+	  		if(  !(someString[length] >= 'a' && someString[length] <= 'z') || (someString[length] >= 'A' && someString[length] <= 'Z') ){
+				return false;
+	  		}
 	  
-	  	length--;
+	  		length--;
 		}
 		return true;
   	}
@@ -124,11 +123,11 @@ bool validEmail(const char* email){
   	regex_t regex;
 	char msgbuf[100];
   	
-	  GRegex *regex2;
-	  GMatchInfo *match_info;
+	GRegex *regex2;
+	GMatchInfo *match_info;
 
 	regex2 = g_regex_new ("^[a-z][a-z0-9.]{2,35}[@]{1}[a-z]{2,8}[.]{1}(fr|com|eu){1}", 0, 0, NULL);
-  g_regex_match (regex2, email, 0, &match_info);
+  	g_regex_match (regex2, email, 0, &match_info);
 
 	if(g_match_info_matches (match_info))
     {
@@ -147,7 +146,7 @@ bool validEmail(const char* email){
 
 bool validPwd(const char* password){
   	
-	if(strlen(password) > 8 && strpbrk(password , "0123456789") == NULL){
+	if(strlen(password) > 8 && strpbrk(password , "0123456789") != NULL){
 		return true;
 	}
 
