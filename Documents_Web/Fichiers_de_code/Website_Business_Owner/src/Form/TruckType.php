@@ -15,7 +15,6 @@ class TruckType extends AbstractType
             ->add('registration')
             ->add('longitude')
             ->add('latitude')
-            ->add('franchisee')
         ;
     }
 

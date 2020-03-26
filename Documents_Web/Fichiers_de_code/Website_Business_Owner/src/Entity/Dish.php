@@ -29,9 +29,9 @@ class Dish
     private $price;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Product")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Product", cascade={"persist"})
      */
-    private $product;
+    private ArrayCollection $product;
 
     public function __construct()
     {

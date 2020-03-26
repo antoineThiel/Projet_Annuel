@@ -18,9 +18,12 @@ class DishType extends AbstractType
         $builder
             ->add('name')
             ->add('price')
-            ->add('product', EntityType::class, [
-                'class' => Product::class,
-                'choice_label' => 'name'
+            ->add('product', CollectionType::class, [
+                'entry_type' => ProductType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'by_reference' => false,
+                'allow_delete' => true
             ])
         ;
     }

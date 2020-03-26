@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Franchisee;
+use App\Entity\Truck;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,7 +24,10 @@ class FranchiseeType extends AbstractType
             ->add('phone')
             ->add('dish')
             ->add('product')
-            ->add('truck')
+            ->add('truck', EntityType::class, [
+                'class' => Truck::class,
+                'choice_label' => 'registration'
+            ])
         ;
     }
 
