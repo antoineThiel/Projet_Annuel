@@ -1,8 +1,10 @@
 <?php 
 
-// var_dump($_POST);
+shell_exec("createfile.out");
 
-echo $_POST['img'];
+// var_dump($_POST);
+// echo "<strong>" .$_POST['img'] ."</strong>";
 
 return;
 ?>
+

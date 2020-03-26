@@ -7,7 +7,7 @@
 int main(int argc, char** argv){
 
 
-    FILE* qrCode = fopen("filename.png" , "r");
+    FILE* qrCode = fopen("filename.png" , "rt");
     if(qrCode == NULL){
         printf("failed to open qrCode");
         return 1;
@@ -58,12 +58,12 @@ int main(int argc, char** argv){
     char* imgBuff = malloc(size * sizeof(char));
     fread(imgBuff, 1 , size , qrCode);  
     
-    char* test = malloc(size * sizeof(char)+10);
+    char* test = malloc(size * sizeof(char)+4);
     strcpy(test , "img=");
     strcat(test , imgBuff);
 
     curl_easy_setopt(easyHandle , CURLOPT_WRITEDATA , result);
-    curl_easy_setopt(easyHandle, CURLOPT_POSTFIELDSIZE, size * sizeof(char)+10);
+    curl_easy_setopt(easyHandle, CURLOPT_POSTFIELDSIZE, size * sizeof(char)+4);
     // curl_easy_setopt(easyHandle , CURLOPT_POSTFIELDS , test);
     
     curl_easy_setopt(easyHandle , CURLOPT_POSTFIELDS , test);

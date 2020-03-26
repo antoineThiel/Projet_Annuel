@@ -65,8 +65,12 @@ void check_fields( GtkWidget *widget, GtkWidget **inputsArray){
 
   	for (u_int8_t i = 0; i < FIELDS_QTY; i++)
   	{
-		allChecked &= functionArray[i](gtk_entry_get_text(GTK_ENTRY(inputsArray[i])) ) ;
+		bool isInputCorrect = true;
+		isInputCorrect = allChecked &= functionArray[i](gtk_entry_get_text(GTK_ENTRY(inputsArray[i])) ) ;
 		printf("%s\n",gtk_entry_get_text(GTK_ENTRY(inputsArray[i])));
+		if(!isInputCorrect){
+			printf("error on %d input" , i);
+		}
   	}
   
     if(allChecked){
