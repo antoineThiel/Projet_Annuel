@@ -65,8 +65,12 @@ void check_fields( GtkWidget *widget, GtkWidget **inputsArray){
 
   	for (u_int8_t i = 0; i < FIELDS_QTY; i++)
   	{
-		allChecked &= functionArray[i](gtk_entry_get_text(GTK_ENTRY(inputsArray[i])) ) ;
+		bool isCurrentInputCorrect;
+		isCurrentInputCorrect = allChecked &= functionArray[i](gtk_entry_get_text(GTK_ENTRY(inputsArray[i])) ) ;
 		printf("%s\n",gtk_entry_get_text(GTK_ENTRY(inputsArray[i])));
+		if(!isCurrentInputCorrect){
+			printf("error during %d process", i);
+		}
   	}
   
     if(allChecked){
@@ -129,7 +133,7 @@ bool validEmail(const char* email){
 	if(g_match_info_matches (match_info))
     {
       gchar *word = g_match_info_fetch (match_info, 0);
-      g_print ("Found: %s\n", word);
+    //   g_print ("Found: %s\n", word);
       g_free (word);
       g_match_info_next (match_info, NULL);
       return true;
@@ -142,18 +146,64 @@ bool validEmail(const char* email){
 
 
 bool validPwd(const char* password){
-  printf("checking pwd...\n");
-  return true;
+  	
+	if(strlen(password) > 8 && strpbrk(password , "0123456789") == NULL){
+		return true;
+	}
+
+	return false;
+
 }
+//TODO: define the rules to have a proper address
 bool validAddr(const char* address){
   printf("checking adress...\n");
   return true;
 }
-bool validLicense(const char* LicenseNbr){
-  printf("checking license...\n");
-  return true;
+
+
+bool validLicense(const char* licenseNbr){
+  	regex_t regex;
+	char msgbuf[100];
+  	
+	GRegex *regex2;
+	GMatchInfo *match_info;
+
+	regex2 = g_regex_new ("^[0-9]{2}[A-Z]{2}[0-9]{5}?", 0, 0, NULL);
+  	g_regex_match (regex2, licenseNbr, 0, &match_info);
+
+	if(g_match_info_matches (match_info))
+    {
+      gchar *word = g_match_info_fetch (match_info, 0);
+    //   g_print ("Found: %s\n", word);
+      g_free (word);
+      g_match_info_next (match_info, NULL);
+      return true;
+    }
+  	g_match_info_free (match_info);
+  	g_regex_unref (regex2);
+
+	return false;
 }
 bool validPhone(const char* phoneNbr){
-  printf("checking phone...\n");
-  return true;
+  regex_t regex;
+	char msgbuf[100];
+  	
+	  GRegex *regex2;
+	  GMatchInfo *match_info;
+
+	regex2 = g_regex_new ("[0]{1}[0-9]{9}", 0, 0, NULL);
+  g_regex_match (regex2, phoneNbr, 0, &match_info);
+
+	if(g_match_info_matches (match_info))
+    {
+      gchar *word = g_match_info_fetch (match_info, 0);
+    //   g_print ("Found: %s\n", word);
+      g_free (word);
+      g_match_info_next (match_info, NULL);
+      return true;
+    }
+  	g_match_info_free (match_info);
+  	g_regex_unref (regex2);
+
+	return false;
 }
