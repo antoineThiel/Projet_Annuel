@@ -36,6 +36,8 @@ void win_inscription(){
 	// password = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_passw"));
 	formFields[3] = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_passw"));
 
+	gtk_entry_set_visibility (GTK_ENTRY(formFields[3]), false);
+
 	// address = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_addre"));
 	formFields[4] = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_addre"));
 
@@ -66,7 +68,7 @@ void check_fields( GtkWidget *widget, GtkWidget **inputsArray){
   	for (u_int8_t i = 0; i < FIELDS_QTY; i++)
   	{
 		bool isCurrentInputCorrect = true;
-		isCurrentInputCorrect = allChecked &= functionArray[i](gtk_entry_get_text(GTK_ENTRY(inputsArray[i])) ) ;
+		allChecked = isCurrentInputCorrect &= functionArray[i](gtk_entry_get_text(GTK_ENTRY(inputsArray[i])) ) ;
 		if(!isCurrentInputCorrect){
 			printf("error during process n°%d \n", i);
 		}
