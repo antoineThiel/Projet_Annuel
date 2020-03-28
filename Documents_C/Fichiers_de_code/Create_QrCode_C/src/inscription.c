@@ -2,6 +2,18 @@
 #define FIELDS_QTY 9
 
 GtkBuilder* mainBuilder;
+const char[][] fieldsNames = {
+	{"Last Name"},
+	{"First Name"},
+	{"E-mail"},
+	{"Password"},
+	{"Postal Code"},
+	{"Town"},
+	{"Street Address"},
+	{"License number"},
+	{"Phone number"}
+}
+
 
 void win_inscription(){
 
@@ -14,6 +26,7 @@ void win_inscription(){
 	// GtkWidget *license;
 	// GtkWidget *phone;
 	GtkWidget *button_valid;
+	GtkWidget *button_pssw;
 
 	GtkWidget **formFields;
 	formFields = malloc(FIELDS_QTY * sizeof(GtkWidget));
@@ -37,7 +50,9 @@ void win_inscription(){
 	formFields[3] = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_passw"));
 
 	gtk_entry_set_visibility(GTK_ENTRY(formFields[3]), false);
-	//TODO: g signal to toggle visibility
+	button_pssw = GTK_WIDGET(gtk_builder_get_object(mainBuilder,"toggle_visibility"));
+
+	g_signal_connect(button_pssw, "clicked", G_CALLBACK(psswHide), formFields[3]);
 
 	// address = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_addre"));
 	formFields[4] = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_addr"));
@@ -88,12 +103,6 @@ void check_fields( GtkWidget *widget, GtkWidget **inputsArray){
     }else{
       printf("\nmissing smtg\n");
     }
-  
-  	char* inputString = malloc(sizeof(char) * 500);
-  	if(inputString == NULL){
-		printf("manque d'espace mémoire; sortie...");
-		exit(1);
-  	}
 
 
 }
@@ -113,21 +122,26 @@ void check_fields( GtkWidget *widget, GtkWidget **inputsArray){
 // }
 
 bool validCasualString(const char* someString){
-  	__uint8_t length = strlen(someString);
+  	char msgbuf[100];
+  	
+	GRegex *regex;
+	GMatchInfo *match_info;
 
-	if(length >= 2  && length <= 30){
+	regex = g_regex_new ("^[a-zA-Z-À-ÿ ']+$", 0, 0, NULL);
+  	g_regex_match (regex, someString, 0, &match_info);
 
-		length -= 1; 
-		while(length){
-	  		if(  !(someString[length] >= 'a' && someString[length] <= 'z') || (someString[length] >= 'A' && someString[length] <= 'Z') ){
-				return false;
-	  		}
-	  
-	  		length--;
-		}
-		return true;
-  	}
-  	return false;
+	if(g_match_info_matches (match_info))
+    {
+      gchar *word = g_match_info_fetch (match_info, 0);
+    //   g_print ("Found: %s\n", word);
+      g_free (word);
+      g_match_info_next (match_info, NULL);
+      return true;
+    }
+  	g_match_info_free (match_info);
+  	g_regex_unref (regex);
+
+	return false;
 }
 
 bool validEmail(const char* email){
@@ -222,13 +236,14 @@ bool validTown(const char* townName){
 
 	GRegex *regex;
 	GMatchInfo *match_info;
-
-	regex = g_regex_new ("^[A-Z][a-z-]+[!-]$", 0, 0, NULL);
+	regex = g_regex_new ("^[A-Za-z][a-z-À-ÿ]+[^[:punct:]]$", 0, 0, NULL);
 	g_regex_match (regex, townName, 0, &match_info);
 
 	if(g_match_info_matches (match_info))
 	{
 		gchar *word = g_match_info_fetch (match_info, 0);
+		g_print ("Found: %s\n", word);
+
 		g_free (word);
 		g_match_info_next (match_info, NULL);
 		return true;
@@ -259,4 +274,17 @@ bool validPostalCode(const char* postal){
 	g_regex_unref (regex);
 
 	return false;
+}
+
+
+void psswHide(GtkWidget *this , GtkEntry* pswdInput){
+	if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(this) )){
+		
+		gtk_entry_set_visibility(pswdInput, true);
+		gtk_button_set_label(GTK_BUTTON(this), "Cacher");
+	}else{
+
+		gtk_entry_set_visibility(pswdInput, false);
+		gtk_button_set_label(GTK_BUTTON(this), "Afficher");
+	}
 }

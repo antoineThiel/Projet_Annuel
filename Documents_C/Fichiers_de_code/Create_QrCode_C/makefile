@@ -1,6 +1,6 @@
 build:
 	@echo "*********** Compilation execution *********** "
-	@/usr/bin/time --format="Build Duration: %E" make -s
+	@/usr/bin/time --format="Build Duration: %E" make -s compil
 
 
 compil:

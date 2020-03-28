@@ -17,6 +17,7 @@
 int qrEncode(char *string);     
 void win_inscription();
 void check_fields( GtkWidget *widget, GtkWidget **inputsArray);
+void psswHide(GtkWidget *this , GtkEntry* pswdInput);
 
 
 
