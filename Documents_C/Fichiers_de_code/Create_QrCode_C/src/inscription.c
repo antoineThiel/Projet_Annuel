@@ -2,6 +2,8 @@
 #define FIELDS_QTY 9
 
 GtkBuilder* mainBuilder;
+GtkWidget *window;
+
 const char fieldsNames[][20] = {
 	{"Last Name"},
 	{"First Name"},
@@ -29,7 +31,6 @@ const char fieldsIds[][20] = {
 
 void win_inscription(){
 
-	GtkWidget *window;
 	
 	GtkWidget *button_valid;
 	GtkWidget *button_pssw;
@@ -64,6 +65,8 @@ void win_inscription(){
 void check_fields( GtkWidget *widget, GtkWidget **inputsArray){
 
   	gchar* inputs[FIELDS_QTY];
+	gchar* wrongInputs = malloc(500*sizeof(gchar));
+	strcpy(wrongInputs,"");
 
     bool (*functionArray[FIELDS_QTY])(const char*) =  { validCasualString , validCasualString ,validEmail , validPwd , validPostalCode, validTown,validAddr, validLicense, validPhone};
     
@@ -76,33 +79,32 @@ void check_fields( GtkWidget *widget, GtkWidget **inputsArray){
 		allChecked &= isCurrentInputCorrect; 
 		printf("%s\n",gtk_entry_get_text(GTK_ENTRY(inputsArray[i])));
 		if(!isCurrentInputCorrect){
-			//TODO : call displayError to notify the user
-			printf("error on input n°%d \n", i+1);
+			sprintf(wrongInputs, "%s \n%s" , wrongInputs , fieldsNames[i]);
 		}
   	}
   
     if(allChecked){
       printf("\nWOAWWW\n");
     }else{
-      printf("\nmissing smtg\n");
+		displayError(wrongInputs);
     }
-
-
 }
 
 // Tant que 'window' n'est pas déclarée en tant que globale, ne vas pas marcher)
-// void displayError(GtkWidget *parent_window->voir dessous/dessus, const gchar *line -> message a faire passer){
-//   GtkWidget *dialog, *label, content_area;
-//   GtkDialogFlags flags;
+void displayError(const gchar *wrongInputs){
+	g_print("%s",wrongInputs);
+	GtkWidget *dialog, *label, *content_area;
+	GtkDialogFlags flags;
   
-//   flags = GTK_DIALOG_DESTROY_WITH_PARENT;
-//   dialog = gtk_gtk_dialog_new_with_buttons ("Erreur", /* parent window -> faut que la fenetre soit en globale, du coup*/, flags, "ok", GTK_RESPONSE_NONE, NULL);
-//   content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
-//   label = gtk_label_new(line);
-//   g_signal_connect_swapped(dialog, "response", G_CALLBACK(gtk_widget_destroy), dialog);
-//   gtk_container_add(GTK_CONTAINER(content_area), label);
-//   gtk_widget_show_all(dialog);
-// }
+	flags = GTK_DIALOG_DESTROY_WITH_PARENT;
+	dialog = gtk_dialog_new_with_buttons ("Erreur", GTK_WINDOW(window) , flags, "ok", GTK_RESPONSE_NONE, NULL);
+	content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
+	label = gtk_label_new(wrongInputs);
+	g_signal_connect_swapped(dialog, "response", G_CALLBACK(gtk_widget_destroy), dialog);
+	gtk_container_add(GTK_CONTAINER(content_area), label);
+	gtk_container_set_border_width(GTK_CONTAINER(dialog) , 35);
+	gtk_widget_show_all(dialog);
+}
 
 bool validCasualString(const char* someString){
   	char msgbuf[100];
@@ -176,7 +178,7 @@ bool validLicense(const char* licenseNbr){
 	GRegex *regex;
 	GMatchInfo *match_info;
 
-	regex = g_regex_new ("^[0-9]{2}[A-Z]{2}[0-9]{5}$", 0, 0, NULL);
+	regex = g_regex_new ("^[0-9]{12}$", 0, 0, NULL);
   	g_regex_match (regex, licenseNbr, 0, &match_info);
 
 	if(g_match_info_matches (match_info))
