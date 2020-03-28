@@ -1,0 +1,108 @@
+<div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        {% block title %}
+                            <h1 class="m-0 text-dark">Dashboard</h1>
+                        {% endblock %}
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card card-primary card-outline">
+                            <div class="card-body">
+                                <h5 class="card-title">Products numbers</h5>
+                                <p class="card-text">
+                                    There is {{ productnbre }} products registered in our database
+                                </p>
+                                <p class="card-text">
+                                    There is {{ catnbre }} categories registered in our database
+                                </p>
+                                <p class="card-text">
+                                    There is {{ originbre }} origins registered in our database
+                                </p>
+                                <a href="{{ path('product_new')}}" class="card-link">Add product</a>
+                                <a href="{{ path('product_category_new')}}" class="card-link">Add cateogries</a>
+                                <a href="{{ path('product_origin_new') }}" class="card-link">Add origins</a>
+                            </div>
+                        </div>
+
+                        <div class="card card-primary card-outline">
+                            <div class="card-body">
+                                <h5 class="card-title">Trucks whereabouts</h5>
+                                <p class="card-text">
+                                    There is {{ trucknbre }} tucks registered in our database
+                                </p>
+                                <p class="card-text">
+                                    {{ trucknbreused }} are rented by franchisee
+                                </p>
+                                <p class="card-text">
+                                    {{ truckunused }} are available
+                                </p>
+                                <a href="{{ path('truck_new') }}" class="card-link">Add more</a>
+                            </div>
+                        </div><!-- /.card -->
+
+                        <div class="card card-primary card-outline">
+                            <div class="card-body">
+                                <h5 class="card-title">Franchisee</h5>
+                                <p class="card-text">
+                                    There is {{ franchiseenbre }} franchisee who joins our great franchise !
+                                </p>
+                                <a href="{{ path('franchisee_new') }}" class="card-link">Add more</a>
+                            </div>
+                        </div>
+                        <div class="card card-primary card-outline">
+                            <div class="card-body">
+                                <h5 class="card-title">Dishes</h5>
+                                <p class="card-text">
+                                    There is {{ dishnbre }} dish registered in our database
+                                </p>
+                                <a href="{{ path('dish_new') }}" class="card-link">Add more</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col-md-6 -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="m-0">Featured</h5>
+                            </div>
+                            <div class="card-body">
+                                <h6 class="card-title">Special title treatment</h6>
+
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <h5 class="m-0">Featured</h5>
+                            </div>
+                            <div class="card-body">
+                                <h6 class="card-title">Special title treatment</h6>
+
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col-md-6 -->
+                </div>
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+    </div>

@@ -4,7 +4,7 @@ Website Business Owner (Symfony, Twig, Doctrine)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Xampp 7.4.3 prefered
-  add "127.0.0.1 drivncook.local" to c://windows/system32/hosts
+  add "127.0.0.1 drivncook.local" to c://windows/system32/driver/etc/hosts
   configure xampp/apache/conf/extras/httpd-vhosts.conf
      add 
      <VirtualHost *:80>

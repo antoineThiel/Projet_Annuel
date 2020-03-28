@@ -1,6 +1,12 @@
 <?php 
 
-var_dump($_POST);
+//shell_exec("createfile.out");
+
+ var_dump($_POST);
+if(empty($_POST)){
+ echo "test debug";
+}
 
 return;
-?>
+
+

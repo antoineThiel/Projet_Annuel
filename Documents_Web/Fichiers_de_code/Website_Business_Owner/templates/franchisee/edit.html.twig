@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Franchisee{% endblock %}
+
+{% block body %}
+        {% block page_title %}
+            <h1>Edit Franchisee</h1>
+            {% block page_subtitle %}
+                <p></p>
+            {% endblock %}
+        {% endblock %}
+
+    {% block page_content %}
+        {{ include('franchisee/_form.html.twig', {'button_label': 'Update'}) }}
+        <a href="{{ path('franchisee_index') }}">back to list</a>
+        {{ include('franchisee/_delete_form.html.twig') }}
+    {% endblock %}
+{% endblock %}
