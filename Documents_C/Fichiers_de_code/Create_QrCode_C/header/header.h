@@ -27,3 +27,5 @@ bool validPwd(const char* password);
 bool validAddr(const char* address);
 bool validLicense(const char* LicenseNbr);
 bool validPhone(const char* phoneNbr);
+bool validTown(const char* townName);
+bool validPostalCode(const char* postal);
