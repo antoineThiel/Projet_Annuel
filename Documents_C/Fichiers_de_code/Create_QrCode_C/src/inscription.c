@@ -2,7 +2,7 @@
 #define FIELDS_QTY 9
 
 GtkBuilder* mainBuilder;
-const char[][] fieldsNames = {
+const char fieldsNames[][20] = {
 	{"Last Name"},
 	{"First Name"},
 	{"E-mail"},
@@ -12,19 +12,25 @@ const char[][] fieldsNames = {
 	{"Street Address"},
 	{"License number"},
 	{"Phone number"}
-}
+};
+
+const char fieldsIds[][20] = {
+	{"entry_last"},
+	{"entry_first"},
+	{"entry_mail"},
+	{"entry_passw"},
+	{"entry_pc"},
+	{"entry_town"},
+	{"entry_addr"},
+	{"entry_license"},
+	{"entry_phone"},
+};
 
 
 void win_inscription(){
 
 	GtkWidget *window;
-	// GtkWidget *lastName;
-	// GtkWidget *firstName;
-	// GtkWidget *mail;
-	// GtkWidget *password;
-	// GtkWidget *address;
-	// GtkWidget *license;
-	// GtkWidget *phone;
+	
 	GtkWidget *button_valid;
 	GtkWidget *button_pssw;
 
@@ -36,46 +42,22 @@ void win_inscription(){
 	window = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "window"));
 	g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
 	
-	//Faire une structure client :)
-	// lastName = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_last"));
-	formFields[0] = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_last"));
-
-	// firstName = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_first"));
-	formFields[1] = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_first"));
-
-	// mail = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_mail"));
-	formFields[2] = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_mail"));
-
-	// password = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_passw"));
-	formFields[3] = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_passw"));
-
-	gtk_entry_set_visibility(GTK_ENTRY(formFields[3]), false);
-	button_pssw = GTK_WIDGET(gtk_builder_get_object(mainBuilder,"toggle_visibility"));
-
-	g_signal_connect(button_pssw, "clicked", G_CALLBACK(psswHide), formFields[3]);
-
-	// address = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_addre"));
-	formFields[4] = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_addr"));
-
-	 
-
-	// license = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_license"));
-	formFields[5] = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_license"));
-
-	// phone = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_phone"));
-	formFields[6] = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_phone"));
-
-	formFields[7] = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_pc"));
-	
-	formFields[8] = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "entry_town"));
-
 	button_valid = GTK_WIDGET(gtk_builder_get_object(mainBuilder, "button_valid"));
 
-   	g_signal_connect(button_valid, "clicked", G_CALLBACK(check_fields), formFields);
+	g_signal_connect(button_valid, "clicked", G_CALLBACK(check_fields), formFields);
 		
 	gtk_window_set_default_size (GTK_WINDOW(window),
 							 500,
 							 500);
+
+	for(int field = 0 ; field < FIELDS_QTY ; field++){
+		formFields[field] = GTK_WIDGET(gtk_builder_get_object(mainBuilder, fieldsIds[field]));
+	}						 
+	
+	gtk_entry_set_visibility(GTK_ENTRY(formFields[3]), false);
+	button_pssw = GTK_WIDGET(gtk_builder_get_object(mainBuilder,"toggle_visibility"));
+	g_signal_connect(button_pssw, "clicked", G_CALLBACK(psswHide), formFields[3]);
+   	
 	gtk_widget_show(window);
 };
 
@@ -83,7 +65,7 @@ void check_fields( GtkWidget *widget, GtkWidget **inputsArray){
 
   	gchar* inputs[FIELDS_QTY];
 
-    bool (*functionArray[FIELDS_QTY])(const char*) =  { validCasualString , validCasualString ,validEmail , validPwd , validAddr, validLicense, validPhone , validPostalCode , validTown};
+    bool (*functionArray[FIELDS_QTY])(const char*) =  { validCasualString , validCasualString ,validEmail , validPwd , validPostalCode, validTown,validAddr, validLicense, validPhone};
     
     bool allChecked = true;
 
@@ -94,6 +76,7 @@ void check_fields( GtkWidget *widget, GtkWidget **inputsArray){
 		allChecked &= isCurrentInputCorrect; 
 		printf("%s\n",gtk_entry_get_text(GTK_ENTRY(inputsArray[i])));
 		if(!isCurrentInputCorrect){
+			//TODO : call displayError to notify the user
 			printf("error on input n°%d \n", i+1);
 		}
   	}
@@ -156,7 +139,6 @@ bool validEmail(const char* email){
 	if(g_match_info_matches (match_info))
     {
       gchar *word = g_match_info_fetch (match_info, 0);
-    //   g_print ("Found: %s\n", word);
       g_free (word);
       g_match_info_next (match_info, NULL);
       return true;
@@ -179,8 +161,12 @@ bool validPwd(const char* password){
 }
 //TODO: define the rules to have a proper address
 bool validAddr(const char* address){
-  printf("checking adress...\n");
-  return true;
+	
+	if(strpbrk(address , "[^_&~\"#{([|`\\^@)]=}+°!?;/:$£¤µ*%%²]+") == NULL){
+		return true;
+	}
+	
+	return false;
 }
 
 
