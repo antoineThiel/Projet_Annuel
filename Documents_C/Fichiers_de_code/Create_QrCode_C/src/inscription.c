@@ -60,12 +60,17 @@ void win_inscription(){
 	g_signal_connect(button_pssw, "clicked", G_CALLBACK(psswHide), formFields[3]);
    	
 	gtk_widget_show(window);
+
 };
 
 void check_fields( GtkWidget *widget, GtkWidget **inputsArray){
 
   	gchar* inputs[FIELDS_QTY];
 	gchar* wrongInputs = malloc(500*sizeof(gchar));
+	if(wrongInputs == NULL){
+		printf("Erreur mémoire , arrêt.");
+		exit(1);
+	}
 	strcpy(wrongInputs,"");
 
     bool (*functionArray[FIELDS_QTY])(const char*) =  { validCasualString , validCasualString ,validEmail , validPwd , validPostalCode, validTown,validAddr, validLicense, validPhone};
@@ -88,23 +93,66 @@ void check_fields( GtkWidget *widget, GtkWidget **inputsArray){
     }else{
 		displayError(wrongInputs);
     }
+
+	free(wrongInputs);
+	// free(inputsArray);
 }
 
-// Tant que 'window' n'est pas déclarée en tant que globale, ne vas pas marcher)
-void displayError(const gchar *wrongInputs){
-	g_print("%s",wrongInputs);
+void displayError(gchar *wrongInputs){
 	GtkWidget *dialog, *label, *content_area;
 	GtkDialogFlags flags;
-  
+
+	bool isPlural = getCRinstring(wrongInputs);
+
+	
+	char **futureSurrounding = malloc(2 * sizeof(char*));
+	if(futureSurrounding == NULL){
+		g_print("Erreur mémoire... sortie");
+		exit(1);
+	}
+	for(int i = 0 ; i < 2 ; i++){
+		futureSurrounding[i] = malloc(25 * sizeof(char));
+		if(futureSurrounding[i] == NULL){
+			printf("Erreur mémoire.. sortie");
+			exit(1);
+		}
+	}
+
+	if(isPlural){
+		strcpy(futureSurrounding[0] , "Les champs :" );
+		strcpy(futureSurrounding[1] , "présentent des erreurs");
+	}else{
+		strcpy(futureSurrounding[0] , "Le champ :" );
+		strcpy(futureSurrounding[1] , "présente des erreurs");
+	}
+	
+	prepareErrorText(wrongInputs , futureSurrounding);
+	
+	for(int i = 0 ; i < 2 ; i++){
+		free(futureSurrounding[i]);
+	}
+	free(futureSurrounding);
+
 	flags = GTK_DIALOG_DESTROY_WITH_PARENT;
 	dialog = gtk_dialog_new_with_buttons ("Erreur", GTK_WINDOW(window) , flags, "ok", GTK_RESPONSE_NONE, NULL);
+	
 	content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
 	label = gtk_label_new(wrongInputs);
+	
 	g_signal_connect_swapped(dialog, "response", G_CALLBACK(gtk_widget_destroy), dialog);
+	
 	gtk_container_add(GTK_CONTAINER(content_area), label);
-	gtk_container_set_border_width(GTK_CONTAINER(dialog) , 35);
+	gtk_container_set_border_width(GTK_CONTAINER(dialog) , 60);
+	
 	gtk_widget_show_all(dialog);
 }
+
+void prepareErrorText(char* wrongInputs , char **surroundingText){
+	char tmp[500];
+	sprintf(tmp , "%s\n%s\n\n%s" ,  surroundingText[0] , wrongInputs , surroundingText[1]);
+	strcpy(wrongInputs , tmp);
+}
+
 
 bool validCasualString(const char* someString){
   	char msgbuf[100];

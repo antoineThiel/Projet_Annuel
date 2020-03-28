@@ -31,4 +31,9 @@ bool validPhone(const char* phoneNbr);
 bool validTown(const char* townName);
 bool validPostalCode(const char* postal);
 
-void displayError(const gchar *line);
+void displayError(gchar *line);
+void prepareErrorText(char* wrongInputs , char **surroundingText);
+
+
+bool getCRinstring(const char* wrongInputs);
+
