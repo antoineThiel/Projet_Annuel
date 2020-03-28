@@ -131,14 +131,13 @@ bool validCasualString(const char* someString){
 }
 
 bool validEmail(const char* email){
-  	regex_t regex;
 	char msgbuf[100];
   	
-	GRegex *regex2;
+	GRegex *regex;
 	GMatchInfo *match_info;
 
-	regex2 = g_regex_new ("^[a-z][a-z0-9.]{2,35}[@]{1}[a-z]{2,8}[.]{1}(fr|com|eu){1}$", 0, 0, NULL);
-  	g_regex_match (regex2, email, 0, &match_info);
+	regex = g_regex_new ("^[a-z][a-z0-9.]{2,35}[@]{1}[a-z]{2,8}[.]{1}(fr|com|eu){1}$", 0, 0, NULL);
+  	g_regex_match (regex, email, 0, &match_info);
 
 	if(g_match_info_matches (match_info))
     {
@@ -149,7 +148,7 @@ bool validEmail(const char* email){
       return true;
     }
   	g_match_info_free (match_info);
-  	g_regex_unref (regex2);
+  	g_regex_unref (regex);
 
 	return false;
 }
@@ -172,14 +171,13 @@ bool validAddr(const char* address){
 
 
 bool validLicense(const char* licenseNbr){
-  	regex_t regex;
 	char msgbuf[100];
   	
-	GRegex *regex2;
+	GRegex *regex;
 	GMatchInfo *match_info;
 
-	regex2 = g_regex_new ("^[0-9]{2}[A-Z]{2}[0-9]{5}$", 0, 0, NULL);
-  	g_regex_match (regex2, licenseNbr, 0, &match_info);
+	regex = g_regex_new ("^[0-9]{2}[A-Z]{2}[0-9]{5}$", 0, 0, NULL);
+  	g_regex_match (regex, licenseNbr, 0, &match_info);
 
 	if(g_match_info_matches (match_info))
     {
@@ -190,19 +188,18 @@ bool validLicense(const char* licenseNbr){
       return true;
     }
   	g_match_info_free (match_info);
-  	g_regex_unref (regex2);
+  	g_regex_unref (regex);
 
 	return false;
 }
 bool validPhone(const char* phoneNbr){
-	regex_t regex;
 	char msgbuf[100];
 
-	GRegex *regex2;
+	GRegex *regex;
 	GMatchInfo *match_info;
 
-	regex2 = g_regex_new ("^[0]{1}[0-9]{9}$", 0, 0, NULL);
-	g_regex_match (regex2, phoneNbr, 0, &match_info);
+	regex = g_regex_new ("^[0]{1}[0-9]{9}$", 0, 0, NULL);
+	g_regex_match (regex, phoneNbr, 0, &match_info);
 
 	if(g_match_info_matches (match_info))
 	{
@@ -213,7 +210,7 @@ bool validPhone(const char* phoneNbr){
 		return true;
 	}
 	g_match_info_free (match_info);
-	g_regex_unref (regex2);
+	g_regex_unref (regex);
 
 	return false;
 }
@@ -221,14 +218,13 @@ bool validPhone(const char* phoneNbr){
 
 
 bool validTown(const char* townName){
-	regex_t regex;
 	char msgbuf[100];
 
-	GRegex *regex2;
+	GRegex *regex;
 	GMatchInfo *match_info;
 
-	regex2 = g_regex_new ("^[A-Z][a-z-]+[!-]$", 0, 0, NULL);
-	g_regex_match (regex2, townName, 0, &match_info);
+	regex = g_regex_new ("^[A-Z][a-z-]+[!-]$", 0, 0, NULL);
+	g_regex_match (regex, townName, 0, &match_info);
 
 	if(g_match_info_matches (match_info))
 	{
@@ -238,7 +234,7 @@ bool validTown(const char* townName){
 		return true;
 	}
 	g_match_info_free (match_info);
-	g_regex_unref (regex2);
+	g_regex_unref (regex);
 
 	return false;
 }
