@@ -5,7 +5,6 @@
              style="opacity: .8">
         <span class="brand-text font-weight-light">DRIV'N COOK</span>
     </a>
-
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar Menu -->
@@ -41,8 +40,12 @@
                                 <p>Categories</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ path('dish_index') }}" class="nav-link">
+                                <p>Dish</p>
+                            </a>
+                        </li>
                     </ul>
-
                 </li>
                 <li class="nav-item">
                     <a href="{{ path('franchisee_index') }}" class="nav-link">
@@ -54,12 +57,6 @@
                     <a href="{{ path('truck_index') }}" class="nav-link">
                         <i class="nav-icon fas fa-truck"></i>
                         <p>Trucks</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ path('dish_index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-leaf"></i>
-                        <p>Dishes</p>
                     </a>
                 </li>
                 <li class="nav-item">
