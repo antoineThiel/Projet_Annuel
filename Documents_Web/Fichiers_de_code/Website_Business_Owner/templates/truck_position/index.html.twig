@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    {% block title %}{% endblock %}
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Starter Page</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- Main content -->
+    <section class="content">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Longitude</th>
+                <th>Latitude</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for truck_position in truck_positions %}
+            <tr>
+                <td>{{ truck_position.id }}</td>
+                <td>{{ truck_position.longitude }}</td>
+                <td>{{ truck_position.latitude }}</td>
+                <td>{{ truck_position.date ? truck_position.date|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('truck_position_show', {'id': truck_position.id}) }}">show</a>
+                    <a href="{{ path('truck_position_edit', {'id': truck_position.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('truck_position_new') }}">Create new</a>
+    </section>
+</div>
+{% endblock %}
