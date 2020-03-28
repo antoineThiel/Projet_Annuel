@@ -64,20 +64,16 @@ class Franchisee
     private $truck;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Dish")
+     * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="franchisee", orphanRemoval=true)
      */
-    private $dish;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Product")
-     */
-    private $product;
+    private $invoices;
 
     public function __construct()
     {
         $this->truck = new ArrayCollection();
         $this->dish = new ArrayCollection();
         $this->product = new ArrayCollection();
+        $this->invoices = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -212,60 +208,39 @@ class Franchisee
         return $this;
     }
 
-    /**
-     * @return Collection|Dish[]
-     */
-    public function getDish(): Collection
-    {
-        return $this->dish;
-    }
-
-    public function addDish(Dish $dish): self
-    {
-        if (!$this->dish->contains($dish)) {
-            $this->dish[] = $dish;
-        }
-
-        return $this;
-    }
-
-    public function removeDish(Dish $dish): self
-    {
-        if ($this->dish->contains($dish)) {
-            $this->dish->removeElement($dish);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Product[]
-     */
-    public function getProduct(): Collection
-    {
-        return $this->product;
-    }
-
-    public function addProduct(Product $product): self
-    {
-        if (!$this->product->contains($product)) {
-            $this->product[] = $product;
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        if ($this->product->contains($product)) {
-            $this->product->removeElement($product);
-        }
-
-        return $this;
-    }
-
     public function __toString(): string
     {
         return $this->lastName;
+    }
+
+    /**
+     * @return Collection|Invoice[]
+     */
+    public function getInvoices(): Collection
+    {
+        return $this->invoices;
+    }
+
+    public function addInvoice(Invoice $invoice): self
+    {
+        if (!$this->invoices->contains($invoice)) {
+            $this->invoices[] = $invoice;
+            $invoice->setFranchisee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvoice(Invoice $invoice): self
+    {
+        if ($this->invoices->contains($invoice)) {
+            $this->invoices->removeElement($invoice);
+            // set the owning side to null (unless already changed)
+            if ($invoice->getFranchisee() === $this) {
+                $invoice->setFranchisee(null);
+            }
+        }
+
+        return $this;
     }
 }
