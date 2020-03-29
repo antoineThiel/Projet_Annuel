@@ -5,6 +5,7 @@ build:
 
 compil:
 	@gcc -o bin/test src/*.c -lqrencode -lpng -pthread -I/usr/include/gtk-3.0 \
+	-Wall -Wextra \
 	-I/usr/include/at-spi2-atk/2.0 -I/usr/include/at-spi-2.0 -I/usr/include/dbus-1.0 \
 	-I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/gtk-3.0 \
 	-I/usr/include/gio-unix-2.0/ -I/usr/include/cairo -I/usr/include/pango-1.0 \

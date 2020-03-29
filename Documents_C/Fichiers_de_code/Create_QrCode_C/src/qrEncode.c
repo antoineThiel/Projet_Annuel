@@ -1,18 +1,18 @@
-#include "../header/header.h"
+#include "../header/all.h"
 
 #define INCHES_PER_METER (100.0/2.54)
 
-static int casesensitive = 0;
-static int eightbit = 0;
-static int version = 0;
+// static int casesensitive = 0;
+// static int eightbit = 0;
+// static int version = 0;
 static int size = 3;
 static int margin = 3;
 static int dpi = 72;
-static int structured = 0;
-static int rle = 0;
-static int micro = 0;
-static QRecLevel level = QR_ECLEVEL_L;
-static QRencodeMode hint = QR_MODE_8;
+// static int structured = 0;
+// static int rle = 0;
+// static int micro = 0;
+// static QRecLevel level = QR_ECLEVEL_L;
+// static QRencodeMode hint = QR_MODE_8;
 static unsigned int fg_color[4] = {0, 0, 0, 255};
 static unsigned int bg_color[4] = {255, 255, 255, 255};
 

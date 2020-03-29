@@ -1,5 +1,4 @@
-#include "../header/header.h"
-
+#include "../header/all.h"
 
 int main(int argc, char *argv[]){
 
