@@ -20,7 +20,7 @@ int main(/*int argc, char** argv*/){
 
 	CURL* easyHandle = curl_easy_init(); // creating our curl requester Handler
 
-	curl_easy_setopt(easyHandle, CURLOPT_URL, "http://localhost/curling"); // setpopt takes (Handler , cURL DEFINE value , string matching the 2nd argument )  (by default http , but we can provide any other {DICT, FTP, IMAP, LDAP, POP3 or SMTP} )
+	curl_easy_setopt(easyHandle, CURLOPT_URL, "http://localhost/curling?value=iloveitIdidit"); // setpopt takes (Handler , cURL DEFINE value , string matching the 2nd argument )  (by default http , but we can provide any other {DICT, FTP, IMAP, LDAP, POP3 or SMTP} )
 
 	// ABOUT URL specifications : HTTP
 
@@ -62,10 +62,11 @@ int main(/*int argc, char** argv*/){
 	strcat(test , imgBuff);
 
 	curl_easy_setopt(easyHandle , CURLOPT_WRITEDATA , result);
-	curl_easy_setopt(easyHandle, CURLOPT_POSTFIELDSIZE, size * sizeof(char)+4);
-	// curl_easy_setopt(easyHandle , CURLOPT_POSTFIELDS , test);
+	// curl_easy_setopt(easyHandle, CURLOPT_POSTFIELDSIZE, size * sizeof(char)+4);
+	// // curl_easy_setopt(easyHandle , CURLOPT_POSTFIELDS , test);
 
-	curl_easy_setopt(easyHandle , CURLOPT_POSTFIELDS , test);
+	// curl_easy_setopt(easyHandle , CURLOPT_POSTFIELDS , test);
+	curl_easy_setopt(easyHandle, CURLOPT_HTTPGET, 1L);
 
 	free(imgBuff);
    

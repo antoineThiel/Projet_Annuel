@@ -14,11 +14,11 @@ class CurlController extends AbstractController
      */
     public function index(): Response
     {
-//        dump($_POST);
-//        die();
-        return $this->render('curl/html.twig',[
-            'content' => 'test',
-        ]);
+        var_dump($_GET);
+        die();
+//        return $this->render('curl/html.twig',[
+//            'content' => $_GET['value'],
+//        ]);
 
     }
 
