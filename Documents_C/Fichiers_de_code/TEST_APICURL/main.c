@@ -6,7 +6,7 @@
 int main(/*int argc, char** argv*/){
 
 
-	FILE* qrCode = fopen("filename.png" , "rt");
+	FILE* qrCode = fopen("recent.png" , "rt");
 	if(qrCode == NULL){
 		printf("failed to open qrCode");
 		return 1;

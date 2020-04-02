@@ -22,8 +22,10 @@ int qrEncode(char *line)
 {
         QRcode *myqrcode;
         myqrcode = QRcode_encodeString(line, 4, QR_ECLEVEL_H, QR_MODE_8,1);
-        writePNG(myqrcode,"filename.png");
+        writePNG(myqrcode,"recent.png");
         QRcode_free(myqrcode);
+
+        sendCurl();
 return 0;
 }
 
@@ -99,53 +101,53 @@ static int writePNG(QRcode *qrcode, const char *outfile)
         PNG_INTERLACE_NONE,
         PNG_COMPRESSION_TYPE_DEFAULT,
         PNG_FILTER_TYPE_DEFAULT);
-png_set_pHYs(png_ptr, info_ptr,
-        dpi * INCHES_PER_METER,
-        dpi * INCHES_PER_METER,
-        PNG_RESOLUTION_METER);
-png_write_info(png_ptr, info_ptr);
+    png_set_pHYs(png_ptr, info_ptr,
+            dpi * INCHES_PER_METER,
+            dpi * INCHES_PER_METER,
+            PNG_RESOLUTION_METER);
+    png_write_info(png_ptr, info_ptr);
 
-/* top margin */
-memset(row, 0xff, (realwidth + 7) / 8);
-for(y=0; y<margin * size; y++) {
-    png_write_row(png_ptr, row);
-}
-
-/* data */
-p = qrcode->data;
-for(y=0; y<qrcode->width; y++) {
-    bit = 7;
+    /* top margin */
     memset(row, 0xff, (realwidth + 7) / 8);
-    q = row;
-    q += margin * size / 8;
-    bit = 7 - (margin * size % 8);
-    for(x=0; x<qrcode->width; x++) {
-        for(xx=0; xx<size; xx++) {
-            *q ^= (*p & 1) << bit;
-            bit--;
-            if(bit < 0) {
-                q++;
-                bit = 7;
-            }
-        }
-        p++;
-    }
-    for(yy=0; yy<size; yy++) {
+    for(y=0; y<margin * size; y++) {
         png_write_row(png_ptr, row);
     }
-}
-/* bottom margin */
-memset(row, 0xff, (realwidth + 7) / 8);
-for(y=0; y<margin * size; y++) {
-    png_write_row(png_ptr, row);
-}
 
-png_write_end(png_ptr, info_ptr);
-png_destroy_write_struct(&png_ptr, &info_ptr);
+    /* data */
+    p = qrcode->data;
+    for(y=0; y<qrcode->width; y++) {
+        bit = 7;
+        memset(row, 0xff, (realwidth + 7) / 8);
+        q = row;
+        q += margin * size / 8;
+        bit = 7 - (margin * size % 8);
+        for(x=0; x<qrcode->width; x++) {
+            for(xx=0; xx<size; xx++) {
+                *q ^= (*p & 1) << bit;
+                bit--;
+                if(bit < 0) {
+                    q++;
+                    bit = 7;
+                }
+            }
+            p++;
+        }
+        for(yy=0; yy<size; yy++) {
+            png_write_row(png_ptr, row);
+        }
+    }
+    /* bottom margin */
+    memset(row, 0xff, (realwidth + 7) / 8);
+    for(y=0; y<margin * size; y++) {
+        png_write_row(png_ptr, row);
+    }
 
-fclose(fp);
-free(row);
-free(palette);
+    png_write_end(png_ptr, info_ptr);
+    png_destroy_write_struct(&png_ptr, &info_ptr);
 
-return 0;
+    fclose(fp);
+    free(row);
+    free(palette);
+
+    return 0;
 }

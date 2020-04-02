@@ -8,8 +8,6 @@ int main(int argc, char *argv[]){
     win_inscription();
     gtk_main();
     
-    // char* string = "coucou thiel ahah";
-    // qrEncode(string); 
-
+    
     return 0;
 }
