@@ -3,24 +3,29 @@
 #include <string.h>
 #include <curl/curl.h>
 
+static size_t readfunc(void *ptr, size_t size, size_t nmemb, void *stream);
+
+
 int main(/*int argc, char** argv*/){
 
 
-	FILE* qrCode = fopen("recent.png" , "rt");
-	if(qrCode == NULL){
-		printf("failed to open qrCode");
-		return 1;
-	}
+	
 	FILE* result = fopen("result.html" , "w");
 	if(result == NULL){
 		printf("failed to create result.html");
 		return 1;
 	}
+	FILE* fileToSend = fopen("tosend.txt", "rb");
+	if(!fileToSend){
+		printf("failed to read file");
+		return -1;
+	}
 	curl_global_init(CURL_GLOBAL_ALL); //REQUIRED , w/out this NO request will be executed
 
 	CURL* easyHandle = curl_easy_init(); // creating our curl requester Handler
 
-	curl_easy_setopt(easyHandle, CURLOPT_URL, "http://localhost/curling?value=iloveitIdidit"); // setpopt takes (Handler , cURL DEFINE value , string matching the 2nd argument )  (by default http , but we can provide any other {DICT, FTP, IMAP, LDAP, POP3 or SMTP} )
+	curl_easy_setopt(easyHandle, CURLOPT_UPLOAD, 1L);
+	curl_easy_setopt(easyHandle, CURLOPT_URL, "ftp://curlReceiver:none@localhost/Fichiers_de_code/test.test"); // setpopt takes (Handler , cURL DEFINE value , string matching the 2nd argument )  (by default http , but we can provide any other {DICT, FTP, IMAP, LDAP, POP3 or SMTP} )
 
 	// ABOUT URL specifications : HTTP
 
@@ -51,25 +56,29 @@ int main(/*int argc, char** argv*/){
 
 	// curl_easy_setopt(easyHandle, CURLOPT_UPLOAD, 1L);
 	// curl_easy_setopt(easyHandle, CURLOPT_READDATA, file_to_send);
-	fseek(qrCode , 0 , SEEK_END);
-	long size = ftell(qrCode);
-	fseek(qrCode , 0 , SEEK_SET);
-	char* imgBuff = malloc(size * sizeof(char));
-	fread(imgBuff, 1 , size , qrCode);  
+	// fseek(qrCode , 0 , SEEK_END);
+	// long size = ftell(qrCode);
+	// fseek(qrCode , 0 , SEEK_SET);
+	// char* imgBuff = malloc(size * sizeof(char));
+	// fread(imgBuff, 1 , size , qrCode);  
 
-	char* test = malloc(size * sizeof(char)+4);
-	strcpy(test , "img=");
-	strcat(test , imgBuff);
+	// char* test = malloc(size * sizeof(char)+4);
+	// strcpy(test , "img=");
+	// strcat(test , imgBuff);
 
+	curl_easy_setopt(easyHandle, CURLOPT_READDATA, fileToSend);
 	curl_easy_setopt(easyHandle , CURLOPT_WRITEDATA , result);
 	// curl_easy_setopt(easyHandle, CURLOPT_POSTFIELDSIZE, size * sizeof(char)+4);
 	// // curl_easy_setopt(easyHandle , CURLOPT_POSTFIELDS , test);
 
 	// curl_easy_setopt(easyHandle , CURLOPT_POSTFIELDS , test);
-	curl_easy_setopt(easyHandle, CURLOPT_HTTPGET, 1L);
+	// curl_easy_setopt(easyHandle, CURLOPT_HTTPGET, 1L);
 
-	free(imgBuff);
+	// free(imgBuff);
    
+    curl_easy_setopt(easyHandle, CURLOPT_VERBOSE, 1L);
+  	curl_easy_setopt(easyHandle, CURLOPT_READFUNCTION, readfunc);
+	curl_easy_setopt(easyHandle, CURLOPT_APPEND, 1L);
 	CURLcode success = curl_easy_perform(easyHandle);  // execute current request
 
     /* According to https://curl.haxx.se/libcurl/c/libcurl-tutorial.html
@@ -83,9 +92,26 @@ int main(/*int argc, char** argv*/){
     the exact same amount of bytes that was passed to it, libcurl will 
     abort the operation and return with an error code.
     */
+   fclose(fileToSend);
+   fclose(result);
 	curl_easy_cleanup(easyHandle);
 	if(success != 0){
 		printf("Error occured during request :/");
 	}
 	return 0;
+}
+
+
+
+static size_t readfunc(void *ptr, size_t size, size_t nmemb, void *stream)
+{
+  FILE *f = (FILE *)stream;
+  size_t n;
+ 
+  if(ferror(f))
+    return CURL_READFUNC_ABORT;
+ 
+  n = fread(ptr, size, nmemb, f) * size;
+ 
+  return n;
 }
