@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Dish;
+use App\Entity\Product;
+use App\Entity\ProductCategory;
+use App\Entity\ProductOrigin;
 use App\Form\DishType;
 use App\Repository\DishRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,6 +34,23 @@ class DishController extends AbstractController
     public function new(Request $request): Response
     {
         $dish = new Dish();
+        $dish->setName('lasagne');
+        $dish->setPrice('10');
+
+        $cat = new ProductCategory();
+        $cat->setName('féculent');
+
+        $ori = new ProductOrigin();
+        $ori->setCountry('italy');
+
+        $product = new Product();
+        $product->setName('Pates');
+        $product->setPrice('3');
+        $product->setCategory(NULL);
+        $product->setOrigin(NULL);
+
+        $dish->addProduct($product);
+
         $form = $this->createForm(DishType::class, $dish);
         $form->handleRequest($request);
 
