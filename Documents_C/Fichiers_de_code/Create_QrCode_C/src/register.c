@@ -87,7 +87,7 @@ void check_fields( GtkWidget *widget, GtkWidget **inputsArray){
   
     if(allChecked){
 		prepareTextForQrCode(inputsArray);
-		g_print("all fields filled successfully");
+		// g_print("all fields filled successfully");
     }else{
 		displayError(wrongInputs);
     }
@@ -166,7 +166,6 @@ bool validCasualString(const char* someString){
 	if(g_match_info_matches (match_info))
     {
       gchar *word = g_match_info_fetch (match_info, 0);
-    //   g_print ("Found: %s\n", word);
       g_free (word);
       g_match_info_next (match_info, NULL);
       return true;
@@ -230,7 +229,6 @@ bool validLicense(const char* licenseNbr){
 	if(g_match_info_matches (match_info))
     {
       gchar *word = g_match_info_fetch (match_info, 0);
-    //   g_print ("Found: %s\n", word);
       g_free (word);
       g_match_info_next (match_info, NULL);
       return true;
@@ -251,7 +249,6 @@ bool validPhone(const char* phoneNbr){
 	if(g_match_info_matches (match_info))
 	{
 		gchar *word = g_match_info_fetch (match_info, 0);
-	//   g_print ("Found: %s\n", word);
 		g_free (word);
 		g_match_info_next (match_info, NULL);
 		return true;
@@ -274,7 +271,6 @@ bool validTown(const char* townName){
 	if(g_match_info_matches (match_info))
 	{
 		gchar *word = g_match_info_fetch (match_info, 0);
-		g_print ("Found: %s\n", word);
 
 		g_free (word);
 		g_match_info_next (match_info, NULL);

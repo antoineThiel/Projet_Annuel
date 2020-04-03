@@ -21,6 +21,6 @@ void prepareTextForQrCode(GtkWidget **inputsArray){
 	free(inputsArray);
 
 	qrEncode(line);
-
+	//TODO: set gtk_main_quit timeout
 	gtk_main_quit();
 }
