@@ -3,8 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Dish;
+use App\Entity\Product;
+use App\Entity\ProductCategory;
+use App\Entity\ProductOrigin;
 use App\Form\DishType;
 use App\Repository\DishRepository;
+use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,9 +32,12 @@ class DishController extends AbstractController
     /**
      * @Route("/admin/dish/new", name="dish_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ProductRepository $productRepository): Response
     {
         $dish = new Dish();
+        $dish->setName('lasagne');
+        $dish->setPrice('10');
+
         $form = $this->createForm(DishType::class, $dish);
         $form->handleRequest($request);
 

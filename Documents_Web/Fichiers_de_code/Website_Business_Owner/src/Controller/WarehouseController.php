@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Warehouse;
+use App\Entity\WarehouseDish;
+use App\Entity\WarehouseProduct;
 use App\Form\WarehouseType;
 use App\Repository\WarehouseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,7 +30,22 @@ class WarehouseController extends AbstractController
      */
     public function new(Request $request): Response
     {
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $product = $entityManager->getRepository('App\Entity\Product')->findOneBy(['name' => 'coca']);
+
         $warehouse = new Warehouse();
+        $warehouse->setAddress("rue de paris");
+        $warehouse->setCity("Paris");
+
+        $warehouseProduct = new WarehouseProduct();
+        $warehouseDish = new WarehouseDish();
+
+        $warehouse->addWarehouseProduct($warehouseProduct);
+        $warehouse->addWarehouseDish($warehouseDish);
+
+
         $form = $this->createForm(WarehouseType::class, $warehouse);
         $form->handleRequest($request);
 
