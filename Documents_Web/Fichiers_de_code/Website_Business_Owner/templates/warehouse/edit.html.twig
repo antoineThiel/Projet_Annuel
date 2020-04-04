@@ -18,7 +18,13 @@
     </div>
     <!-- Main content -->
     <section class="content">
+        <div class="card card-outline">
+            <div class="card-header card-primary">
+                <strong>Edit Warehouse</strong>
+            </div>
+            <div class="card-body">
         {{ include('warehouse/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('warehouse/_delete_form.html.twig') }}
     </section>
 </div>
 {% endblock %}

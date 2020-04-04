@@ -14,7 +14,7 @@ $(document).ready(function () {
     $collectionHolder.data('index', $collectionHolder.find('.card').length)
     // finds all the panels in the list and foreach one of them we add a remove button to it
     // add remove button to existing items
-    $collectionHolder.find('.card').each(function () {
+    $collectionHolder.find('.row').each(function () {
         // $(this) means the current panel that we are at
         // which means we pass the panel to the addRemoveButton function
         // inside the function we create a footer and remove link and append them to the panel
@@ -48,12 +48,12 @@ function addNewForm() {
     // incrementing the index data and setting it again to the collectionHolder
     $collectionHolder.data('index', index+1);
     // create the panel-body and append the form to it
-    var $panelBody = $('<div id="#test"></div>').append(newForm);
+    var $panelBody = $('<div class="mt-1"></div>').append(newForm);
     // append the removebutton to the new panel
-    addRemoveButton($panelBody.children('.card'));
+    addRemoveButton($panelBody.children('.row'));
     // append the panel to the addNewItem
     // we are doing it this way to that the link is always at the bottom of the collectionHolder
-    $addNewItem.before($panelBody);
+    $collectionHolder.children('.card').children('.card-body').append($panelBody);
 }
 
 /**
@@ -62,13 +62,16 @@ function addNewForm() {
  */
 function addRemoveButton ($panel) {
     // create remove button
-    var $removeButton = $('<a href="#" class="btn btn-danger">Remove</a>');
+    var $removeButton = $('' +
+        '<div class="col-sm-1"></div>' +
+        '<a href="#" class="btn btn-danger col-sm-2">Remove</a>' +
+        '<div class="col-sm-1"></div>');
     // handle the click event of the remove button
     $removeButton.click(function (e) {
         e.preventDefault();
         // gets the parent of the button that we clicked on "the panel" and animates it
         // after the animation is done the element (the panel) is removed from the html
-        $(e.target).parent('.card').slideUp(1000, function () {
+        $(e.target).parent('.row').slideUp(1000, function () {
             $(this).remove();
         })
     });
