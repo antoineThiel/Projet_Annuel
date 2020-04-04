@@ -12,7 +12,10 @@ int main(void){
 		abort();
 	}
 
-	/* ... */
+	if (quirc_resize(qr, 640, 480) < 0) {
+    perror("Failed to allocate video memory");
+    abort();
+}
 
 	quirc_destroy(qr);
 	printf("end\n");
