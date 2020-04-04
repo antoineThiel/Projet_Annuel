@@ -97,6 +97,7 @@ class Warehouse
     {
         if (!$this->warehouseProduct->contains($warehouseProduct)) {
             $this->warehouseProduct[] = $warehouseProduct;
+            $warehouseProduct->setWarehouse($this);
         }
 
         return $this;
@@ -125,6 +126,7 @@ class Warehouse
     {
         if (!$this->warehouseDish->contains($warehouseDish)) {
             $this->warehouseDish[] = $warehouseDish;
+            $warehouseDish->setWarehouse($this);
         }
 
         return $this;

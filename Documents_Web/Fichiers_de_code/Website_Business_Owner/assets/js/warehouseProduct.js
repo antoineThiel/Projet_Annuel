@@ -47,18 +47,13 @@ function addNewForm() {
     newForm = newForm.replace(/__name__/g, index);
     // incrementing the index data and setting it again to the collectionHolder
     $collectionHolder.data('index', index+1);
-    // create the panel
-    // this is the panel that will be appending to the collectionHolder
-    var $panel = $('<div class="card card-warning"><div class="card-header"><strong>Product</strong></div></div>');
     // create the panel-body and append the form to it
-    var $panelBody = $('<div class="card-body"></div>').append(newForm);
-    // append the body to the panel
-    $panel.append($panelBody);
+    var $panelBody = $('<div id="test"></div>').append(newForm);
     // append the removebutton to the new panel
-    addRemoveButton($panel);
+    addRemoveButton($panelBody.children('.card'));
     // append the panel to the addNewItem
     // we are doing it this way to that the link is always at the bottom of the collectionHolder
-    $addNewItem.before($panel);
+    $addNewItem.before($panelBody);
 }
 
 /**
@@ -68,17 +63,15 @@ function addNewForm() {
 function addRemoveButton ($panel) {
     // create remove button
     var $removeButton = $('<a href="#" class="btn btn-danger">Remove</a>');
-    // appending the removebutton to the panel footer
-    var $panelFooter = $('<div class="card-footer"></div>').append($removeButton);
     // handle the click event of the remove button
     $removeButton.click(function (e) {
         e.preventDefault();
         // gets the parent of the button that we clicked on "the panel" and animates it
         // after the animation is done the element (the panel) is removed from the html
-        $(e.target).parents('.card-warning').slideUp(1000, function () {
+        $(e.target).parent('.card').slideUp(1000, function () {
             $(this).remove();
         })
     });
     // append the footer to the panel
-    $panel.append($panelFooter);
+    $panel.append($removeButton);
 }

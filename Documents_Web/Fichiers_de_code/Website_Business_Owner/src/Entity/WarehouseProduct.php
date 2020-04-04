@@ -51,8 +51,6 @@ class WarehouseProduct
         $this->id = $id;
     }
 
-
-
     /**
      * @return mixed
      */
