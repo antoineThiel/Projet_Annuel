@@ -11,6 +11,7 @@
 #include <curl/curl.h>
 
 #include <qrencode.h>
+#include <quirc.h>
 
 #include <glib.h>
 #include <gtk/gtk.h>
