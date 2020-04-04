@@ -1,0 +1,57 @@
+{
+  "entrypoints": {
+    "app": {
+      "js": [
+        "/build/runtime.js",
+        "/build/app.js"
+      ],
+      "css": [
+        "/build/app.css"
+      ]
+    },
+    "jquery": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~adminltejs~bootstrapJs~jquery~warehouseDish~warehouseProduct.js",
+        "/build/vendors~adminltejs~bootstrapJs~jquery.js",
+        "/build/vendors~bootstrapJs~jquery.js",
+        "/build/jquery.js"
+      ]
+    },
+    "adminltejs": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~adminltejs~bootstrapJs~jquery~warehouseDish~warehouseProduct.js",
+        "/build/vendors~adminltejs~bootstrapJs~jquery.js",
+        "/build/adminltejs.js"
+      ]
+    },
+    "bootstrapJs": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~adminltejs~bootstrapJs~jquery~warehouseDish~warehouseProduct.js",
+        "/build/vendors~bootstrapJs~warehouseDish~warehouseProduct.js",
+        "/build/vendors~adminltejs~bootstrapJs~jquery.js",
+        "/build/vendors~bootstrapJs~jquery.js",
+        "/build/vendors~bootstrapJs.js",
+        "/build/bootstrapJs.js"
+      ]
+    },
+    "warehouseProduct": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~adminltejs~bootstrapJs~jquery~warehouseDish~warehouseProduct.js",
+        "/build/vendors~bootstrapJs~warehouseDish~warehouseProduct.js",
+        "/build/warehouseProduct.js"
+      ]
+    },
+    "warehouseDish": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~adminltejs~bootstrapJs~jquery~warehouseDish~warehouseProduct.js",
+        "/build/vendors~bootstrapJs~warehouseDish~warehouseProduct.js",
+        "/build/warehouseDish.js"
+      ]
+    }
+  }
+}
