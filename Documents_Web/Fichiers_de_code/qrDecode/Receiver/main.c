@@ -4,20 +4,44 @@
 
 #include "tests/dbgutil.h"
 #include "tests/inspect.h"
+typedef struct franchise{
+	char last_name[30];
+	char first_name[40];
+	char email[40];
+	char city[30];
+	char postal_code[5];
+	char address[255];
+	char licence[12];
+	char phone[10];
+
+}franchise;
+
 char* qrDecode(void);
 
 int main(void){
-	char* result = qrDecode();
+	//TODO: create connection to DB
+	char* result;
+	franchise newUser;
 
-	if(result != NULL){
+	if(  (result = qrDecode() ) != NULL){
 		printf("\n voila \n%s", result);
 		free(result);
 	}
+
+	if( (splitString(&newUser , result) ) == NULL ){
+		printf("Impossible de lire le fichier");
+		free(result);
+		exit(1);
+	}
 	
+	free(result);
+
+	insertDB(&newUser);
+
 	
 	return 0;
 }
-
+//TODO : implement splitString and insertDB
 
 char* qrDecode(){
 	int num_codes;
@@ -33,7 +57,7 @@ char* qrDecode(){
 	}
 	quirc_begin(qr, NULL , NULL);
 
-	int status = load_png(qr, "recent.png");
+	int status = load_png(qr, "newFranchise.png");
 
 
 	quirc_end(qr);
@@ -49,10 +73,14 @@ char* qrDecode(){
 		return NULL;
 	} else {
 		printf("  Decoding successful:\n");
-		printf("    Payload: %s\n", data.payload);
+		// printf("    Payload: %s\n", data.payload);
 
 		foundText = malloc(sizeof(char) * data.payload_len);
-		strcpy(foundText,data.payload);
+		if(foundText == NULL){
+			printf("Manque d'espace memoire, arrêt");
+			exit(1);
+		}
+		strcpy(foundText,(char*)(data.payload));
 		return foundText;
 	}
 	
