@@ -4,44 +4,51 @@
 
 #include "tests/dbgutil.h"
 #include "tests/inspect.h"
-typedef struct franchise{
-	char last_name[30];
-	char first_name[40];
-	char email[40];
-	char city[30];
-	char postal_code[5];
-	char address[255];
-	char licence[12];
-	char phone[10];
-
-}franchise;
 
 char* qrDecode(void);
+int splitString(char **newUser , char *result);
+void insertDB(char **newUser);
+void destroyUser(char **user);
 
 int main(void){
 	//TODO: create connection to DB
 	char* result;
-	franchise newUser;
+	char **newUser = malloc(9 * sizeof(char*));
+	if(newUser == NULL){
+		printf("not enought space...");
+		exit(EXIT_FAILURE);
+	}
+	for(int i = 0 ; i < 9 ; i++){
+		newUser[i] = malloc(120 * sizeof(char));
+		if(newUser[i] == NULL){
+			printf("manque d'espace...");
+			exit(EXIT_FAILURE);
+		}
+	}
 
 	if(  (result = qrDecode() ) != NULL){
 		printf("\n voila \n%s", result);
-		free(result);
+		// free(result);
 	}
 
-	if( (splitString(&newUser , result) ) == NULL ){
+	if( splitString(newUser , result)  != 0 ){
 		printf("Impossible de lire le fichier");
 		free(result);
 		exit(1);
 	}
 	
+	for(int i = 0; i < 9 ; i++){
+		printf("\n%s",newUser[i]);
+	}
+
 	free(result);
 
-	insertDB(&newUser);
-
+	// insertDB(newUser);
+	destroyUser(newUser);
 	
 	return 0;
 }
-//TODO : implement splitString and insertDB
+//TODO : implement  insertDB
 
 char* qrDecode(){
 	int num_codes;
@@ -85,4 +92,44 @@ char* qrDecode(){
 	}
 	
 	printf("end\n");
+}
+
+
+int splitString(char **newUser , char *result){
+	char* copy;
+	char* nextBloc = result;
+
+	char* fieldSeparator; 
+	int fieldNbr = 0;
+
+	while( 	
+		copy = nextBloc+1 , // avoiding ';' itself 
+		fieldSeparator = strchr(copy , ':')+2 , //avoiding ':' itself + extra space
+		(nextBloc = strchr(copy , ';') ) != NULL)
+		{
+		
+		*nextBloc = '\0';
+
+		strcpy(newUser[fieldNbr] , fieldSeparator );
+		fieldNbr++;
+		
+
+		
+	}
+
+	return 0;
+}
+
+
+
+void insertDB(char **newUser){
+	printf("insertion");
+}
+
+void destroyUser(char** user){
+	for(int i = 0 ; i < 9 ; i++){
+		free(user[i]);
+	}
+	free(user);
+	
 }
