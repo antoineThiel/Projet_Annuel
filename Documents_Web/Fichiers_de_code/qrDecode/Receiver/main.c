@@ -1,6 +1,7 @@
 #include <quirc.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <mysql/mysql.h>
 
 #include "tests/dbgutil.h"
 #include "tests/inspect.h"
@@ -28,7 +29,6 @@ int main(void){
 
 	if(  (result = qrDecode() ) != NULL){
 		printf("\n voila \n%s", result);
-		// free(result);
 	}
 
 	if( splitString(newUser , result)  != 0 ){
@@ -37,13 +37,14 @@ int main(void){
 		exit(1);
 	}
 	
-	for(int i = 0; i < 9 ; i++){
-		printf("\n%s",newUser[i]);
-	}
+	// for(int i = 0; i < 9 ; i++){
+	// 	printf("\n%s",newUser[i]);
+	// }
 
 	free(result);
 
-	// insertDB(newUser);
+	insertDB(newUser);
+	
 	destroyUser(newUser);
 	
 	return 0;
@@ -123,7 +124,25 @@ int splitString(char **newUser , char *result){
 
 
 void insertDB(char **newUser){
-	printf("insertion");
+	MYSQL* connector;
+
+	char *server = "localhost";
+	char *user = "projectUser";
+	//set the password for mysql server here
+	char *password = "projectUser"; /* set me first */
+	char *database = "project";
+
+	connector = mysql_init(NULL);
+	printf("yeah buddy");
+	/* Connect to database */
+	if (!mysql_real_connect(connector, server,
+		user, password, database, 0, NULL, 0)) {
+		fprintf(stderr, "%s\n", mysql_error(connector));
+		exit(1);
+	}
+
+	mysql_close(connector);
+
 }
 
 void destroyUser(char** user){
