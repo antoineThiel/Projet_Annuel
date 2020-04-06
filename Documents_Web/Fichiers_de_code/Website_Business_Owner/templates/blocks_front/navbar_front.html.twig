@@ -1,0 +1,55 @@
+<!--Navbar -->
+<nav class="mb-1 navbar navbar-expand-lg navbar-light" style="background-color: #80c2e0;">
+    <a href="{{ path('home') }}" class="navbar-brand white-text" >
+        <img src="{{ asset('Images/logo2.png') }}" alt="Home" class="brand-image rounded-circle z-depth-2 w-25">
+        Driv'n Cook
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+            aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link white-text" href="#">Home
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link white-text" href="#">Page 1</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link white-text" href="#">Page 2</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle white-text" id="navbarDropdownMenuLink-555" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">List Page X
+                </a>
+                <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-555" style="background-color: #80c2e0;">
+                    <a class="dropdown-item white-text" style="background-color: #80c2e0;" href="#">Action 1</a>
+                    <a class="dropdown-item white-text" style="background-color: #80c2e0;" href="#">Action 2</a>
+                    <a class="dropdown-item white-text" style="background-color: #80c2e0;" href="#">Action 3</a>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto nav-flex-icons">
+            <li class="nav-item">
+                <a class="nav-link waves-effect waves-light">
+                    <i class="fas fa-envelope white-text"></i>
+                </a>
+            </li>
+            <li class="nav-item avatar dropdown">
+                <a class="nav-link dropdown-toggle white-text" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    {{ app.user.username }}
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                     aria-labelledby="navbarDropdownMenuLink-55" style="background-color: #80c2e0;">
+                    <a class="dropdown-item white-text" style="background-color: #80c2e0;" href="#">Profil</a>
+                    <a class="dropdown-item white-text" style="background-color: #80c2e0;" href="#">Paramètre</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!--/.Navbar -->
