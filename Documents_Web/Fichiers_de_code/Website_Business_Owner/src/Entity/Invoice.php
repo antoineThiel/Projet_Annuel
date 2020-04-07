@@ -27,7 +27,7 @@ class Invoice
     private $ammount;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Order", inversedBy="invoice", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\OrderByFranchisee", inversedBy="invoice", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $linkedOrder;
@@ -67,12 +67,12 @@ class Invoice
         return $this;
     }
 
-    public function getLinkedOrder(): ?order
+    public function getLinkedOrder(): ?OrderByFranchisee
     {
         return $this->linkedOrder;
     }
 
-    public function setLinkedOrder(order $linkedOrder): self
+    public function setLinkedOrder(OrderByFranchisee $linkedOrder): self
     {
         $this->linkedOrder = $linkedOrder;
 

@@ -46,9 +46,6 @@ class HomepageController extends AbstractController
 
         $trucknbre = $truckRepository->findAll();
         $trucknbre = count($trucknbre);
-        $trucknbreused = $truckRepository->findByUsers();
-        $trucknbreused = count($trucknbreused);
-        $truckUnused = $trucknbre - $trucknbreused;
 
         $franchiseenbre = $franchiseeRepository->findAll();
         $franchiseenbre = count($franchiseenbre);
@@ -61,8 +58,6 @@ class HomepageController extends AbstractController
             'catnbre' => $catnbre,
             'originbre' => $originbre,
             'trucknbre' => $trucknbre,
-            'trucknbreused' => $trucknbreused,
-            'truckunused' => $truckUnused,
             'franchiseenbre' => $franchiseenbre,
             'dishnbre' => $dishnbre
         ]);

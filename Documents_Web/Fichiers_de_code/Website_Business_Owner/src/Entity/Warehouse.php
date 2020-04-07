@@ -50,6 +50,11 @@ class Warehouse
      */
     private Collection $warehouseDish;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\OrderByFranchisee", mappedBy="warehouse", cascade={"persist", "remove"})
+     */
+    private $linkedOrder;
+
     public function __construct()
     {
         $this->warehouseProduct = new ArrayCollection();
@@ -137,6 +142,23 @@ class Warehouse
         if ($this->warehouseDish->contains($warehouseDish)) {
             $this->warehouseDish->removeElement($warehouseDish);
             $warehouseDish->setWarehouse(NULL);
+        }
+
+        return $this;
+    }
+
+    public function getLinkedOrder(): ?OrderByFranchisee
+    {
+        return $this->linkedOrder;
+    }
+
+    public function setLinkedOrder(OrderByFranchisee $linkedOrder): self
+    {
+        $this->linkedOrder = $linkedOrder;
+
+        // set the owning side of the relation if necessary
+        if ($linkedOrder->getWarehouse() !== $this) {
+            $linkedOrder->setWarehouse($this);
         }
 
         return $this;

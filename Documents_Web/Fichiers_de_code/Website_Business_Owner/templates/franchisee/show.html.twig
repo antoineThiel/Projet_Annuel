@@ -1,54 +1,78 @@
 {% extends 'base.html.twig' %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    {% block title %}{% endblock %}
+                </div><!-- /.col -->
+                <!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- Main content -->
+    <section class="content">
+        <h1>{{ franchisee.lastName }} {{ franchisee.firstName }}</h1>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <strong>You <3</strong>
+                    </div>
+                    <div class="card-body">
+                        <p>{{ franchisee.lastName}}</p>
+                        <p>{{ franchisee.firstName }}</p>
+                        <p>{{ franchisee.mail }}</p>
+                        <p>{{ franchisee.city }}</p>
+                        <p>{{ franchisee.postalCode }}</p>
+                        <p>{{ franchisee.address }}</p>
+                        <p>{{ franchisee.license }}</p>
+                        <p>{{ franchisee.phone }}</p>
+                        <p><a href="{{ path('franchisee_edit', { id: franchisee.id } ) }}">Change some stuff (Si ils ont le droit)</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <strong>Your lasts orders</strong>
+                    </div>
+                    <div class="card-body">
+                        <p>Your last 10 orders : </p>
+                       {# TODO: get last invoices of the franchisee #}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <strong>Need more stuff ?</strong>
+                    </div>
+                    <div class="card-body">
+                        <p><a href="{{ path('order_new') }}">Place an order</a></p>
+                        {# TODO: link the page to create an order #}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <strong>Want to tell us something ?</strong>
+                    </div>
+                    <div class="card-body">
+                        <p><a href="#">Problem with your truck ?</a></p>
+                        {# TODO: link the page to fill a truck complaint form #}
+                        <p><a href="{{ path('invoice_new') }}">Tell us about your month</a></p>
+                        {# TODO: link the page to fill a number declaration #}
+                        <p><a href="#">Tell us anything else</a></p>
+                        {# TODO: link the page to fill a form #}
+                    </div>
+                </div>
+            </div>
+        </div>
 
-{% block title %}Franchisee{% endblock %}
 
-{% block body %}
-    <h1>Franchisee</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ franchisee.id }}</td>
-            </tr>
-            <tr>
-                <th>LastName</th>
-                <td>{{ franchisee.lastName }}</td>
-            </tr>
-            <tr>
-                <th>FirstName</th>
-                <td>{{ franchisee.firstName }}</td>
-            </tr>
-            <tr>
-                <th>Mail</th>
-                <td>{{ franchisee.mail }}</td>
-            </tr>
-            <tr>
-                <th>City</th>
-                <td>{{ franchisee.city }}</td>
-            </tr>
-            <tr>
-                <th>PostalCode</th>
-                <td>{{ franchisee.postalCode }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{ franchisee.address }}</td>
-            </tr>
-            <tr>
-                <th>License</th>
-                <td>{{ franchisee.license }}</td>
-            </tr>
-            <tr>
-                <th>Phone</th>
-                <td>{{ franchisee.phone }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('franchisee_index') }}">back to list</a>
-
-    <a href="{{ path('franchisee_edit', {'id': franchisee.id}) }}">edit</a>
-
-    {{ include('franchisee/_delete_form.html.twig') }}
+    </section>
+</div>
 {% endblock %}
