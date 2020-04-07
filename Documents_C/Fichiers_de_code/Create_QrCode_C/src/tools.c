@@ -18,12 +18,9 @@ void prepareTextForQrCode(GtkWidget **inputsArray){
 	for(int i = 0 ; i < FIELDS_QTY ; i++){
 		sprintf(line , "%s%s : %s ; " , line , fieldsNames[i] , gtk_entry_get_text(GTK_ENTRY(inputsArray[i])) );
 	}
-	g_print("\n%s\n" , line);
 	free(inputsArray);
 
 	qrEncode(line);
-
+	//TODO: set gtk_main_quit timeout
 	gtk_main_quit();
-	printf("qrCode envoyé");
-
 }
