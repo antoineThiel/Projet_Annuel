@@ -59,18 +59,17 @@ class Franchisee
     private $phone;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Truck", mappedBy="franchisee")
-     */
-    private $truck;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="franchisee", orphanRemoval=true)
      */
     private $invoices;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Truck", inversedBy="franchise", cascade={"persist", "remove"})
+     */
+    private $truck;
+
     public function __construct()
     {
-        $this->truck = new ArrayCollection();
         $this->dish = new ArrayCollection();
         $this->product = new ArrayCollection();
         $this->invoices = new ArrayCollection();
@@ -177,36 +176,6 @@ class Franchisee
         return $this;
     }
 
-    /**
-     * @return Collection|Truck[]
-     */
-    public function getTruck(): Collection
-    {
-        return $this->truck;
-    }
-
-    public function addTruck(Truck $truck): self
-    {
-        if (!$this->truck->contains($truck)) {
-            $this->truck[] = $truck;
-            $truck->setFranchisee($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTruck(Truck $truck): self
-    {
-        if ($this->truck->contains($truck)) {
-            $this->truck->removeElement($truck);
-            // set the owning side to null (unless already changed)
-            if ($truck->getFranchisee() === $this) {
-                $truck->setFranchisee(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function __toString(): string
     {
@@ -240,6 +209,18 @@ class Franchisee
                 $invoice->setFranchisee(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTruck(): ?Truck
+    {
+        return $this->truck;
+    }
+
+    public function setTruck(?Truck $truck): self
+    {
+        $this->truck = $truck;
 
         return $this;
     }
