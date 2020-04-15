@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\OrderByFranchisee;
+use App\Form\OrderFirstType;
 use App\Form\OrderType;
 use App\Repository\OrderByFranchiseeRepository;
+use App\Repository\WarehouseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,13 +26,29 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/admin/order/new", name="order_new", methods={"GET","POST"})
+     * @Route("/admin/order/new", name="order_new_warehouse", methods={"GET", "POST"})
      */
-    public function new(Request $request): Response
+    public function newWarehouse(Request $request)
     {
         $order = new OrderByFranchisee();
+        $form = $this->createForm(OrderFirstType::class, $order);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+           return $this->new($request, $order);
+        }
+        return $this->render('order/firstNew.html.twig', [
+            'order' => $order,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/order/new/begin", name="order_new", methods={"GET","POST"})
+     */
+    public function new(Request $request, OrderByFranchisee $order): Response
+    {
         $order->setDate(New \DateTime());
-        $form = $this->createForm(OrderType::class, $order);
+        $form = $this->createForm(OrderType::class, $order, ['data' => $order->getWarehouse()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

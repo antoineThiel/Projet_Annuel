@@ -16,19 +16,17 @@ class OrderType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
             ->add('date', DateType::class, [
                 'widget' => 'single_text',
                 'disabled' => true
             ])
-            ->add('warehouse', EntityType::class, [
-                'class' => Warehouse::class,
-                'choice_label' => 'address'
-            ])
             ->add('orderProduct', CollectionType::class, [
                 'entry_type' => OrderProductEmbeddedForm::class,
                 'entry_options' => [
-                    'label' => false
+                    'label' => false,
+                    'data' => $options['data']
                 ],
                 'by_reference' => false,
                 'allow_add' => true,
