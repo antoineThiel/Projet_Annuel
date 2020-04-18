@@ -127,12 +127,15 @@ void insertDB(char **newUser){
 	MYSQL* connector;
 
 	char *server = "localhost";
-	char *user = "projectUser";
+	char *user = "admin";
 	//set the password for mysql server here
-	char *password = "projectUser"; /* set me first */
+	char *password = "root"; /* set me first */
 	char *database = "project";
 
 	connector = mysql_init(NULL);
+	
+	char query[300];
+	
 	printf("yeah buddy");
 	/* Connect to database */
 	if (!mysql_real_connect(connector, server,
@@ -140,6 +143,8 @@ void insertDB(char **newUser){
 		fprintf(stderr, "%s\n", mysql_error(connector));
 		exit(1);
 	}
+
+
 
 	mysql_close(connector);
 

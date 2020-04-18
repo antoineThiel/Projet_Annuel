@@ -98,8 +98,7 @@ cURL
 
   Install : 
     apt install:
-      libculr4-openssl-dev
-      (maybe)libssh2-1-dev
+      libcurl4-openssl-dev
 
 
     make sure you have an apache server RUNNING
@@ -114,4 +113,20 @@ MySQL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   Install :
     libmysqlclient-dev
+    
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Quirc
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    git clone git@github.com:dlbeer/quirc.git  
+
+    cd quirc
+
+    sudo apt-get install libjpeg-dev (in case you don't have it)
+    sudo apt install libsdl-gfx1.2-dev 
+    sudo apt-get install libsdl1.2-dev 
+
+    sudo make install
     
