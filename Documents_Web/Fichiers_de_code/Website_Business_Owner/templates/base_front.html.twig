@@ -20,6 +20,7 @@
 <div class="wrapper">
 
     {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_script_tags('connectCardFront') }}
     <!-- Navbar -->
     {% include 'blocks_front/navbar_front.html.twig' %}
     <!-- /.navbar -->
@@ -29,6 +30,7 @@
     <!-- Content Wrapper. Contains page content -->
     {% block content %}
         {% include 'blocks_front/profil_front.html.twig' %}
+        {%  include 'blocks_front/connexion_front.html.twig' %}
     {% endblock content %}
     <!-- /.content-wrapper -->
 
