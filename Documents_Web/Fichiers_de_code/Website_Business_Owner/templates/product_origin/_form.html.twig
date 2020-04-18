@@ -1,6 +1,10 @@
 <div class="card card-primary card-outline">
     <div class="card-header">
-        <h3>Create new origin</h3>
+            {% if(app.request.attributes.get('_route') == 'product_origin_new') %}
+                <h3>Create Origin</h3>
+            {% else %}
+                <h3>Edit Origin</h3>
+            {% endif %}
     </div>
     <div class="card-body">
         {{ form_start(form) }}

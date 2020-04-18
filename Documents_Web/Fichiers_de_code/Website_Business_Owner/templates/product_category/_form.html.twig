@@ -1,6 +1,10 @@
 <div class="card card-primary card-outline">
     <div class="card-header">
-        <h3>Create new category</h3>
+        {% if(app.request.attributes.get('_route') == 'product_category_new') %}
+            <h3>Create Category</h3>
+        {% else %}
+            <h3>Edit Category</h3>
+        {% endif %}
     </div>
     <div class="card-body">
         {{ form_start(form) }}

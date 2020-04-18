@@ -1,6 +1,10 @@
 <div class="card card-primary card-outline">
     <div class="card-header">
-        <h3>Create new product</h3>
+        {% if(app.request.attributes.get('_route') == 'product_new') %}
+            <h3>Create product</h3>
+        {% else %}
+            <h3>Edit Product</h3>
+        {% endif %}
     </div>
     <div class="card-body">
         {{ form_start(form) }}
@@ -19,7 +23,13 @@
         <div class="form-group">
             {{ form_row(form.origin) }}
         </div>
-        <button class="btn btn-primary">Add</button>
+        <div class="row">
+            <div class="mr-1">
+                <button class="btn btn-info">Add</button>
+            </div>
+        </div>
+
         {{ form_end(form) }}
     </div>
+
 </div>

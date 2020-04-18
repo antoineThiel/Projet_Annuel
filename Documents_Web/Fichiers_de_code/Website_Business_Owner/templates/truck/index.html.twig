@@ -10,7 +10,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Truck index</li>
+                        <li class="breadcrumb-item active">Dish index</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -18,41 +18,35 @@
     </div>
     <!-- Main content -->
     <section class="content">
-        <h1>Truck index</h1>
+    <h1>Truck index</h1>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Registration</th>
-                    <th>Longitude</th>
-                    <th>Latitude</th>
-                    <th>Franchisee</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for truck in trucks %}
-                <tr>
-                    <td>{{ truck.id }}</td>
-                    <td>{{ truck.registration }}</td>
-                    <td>{{ truck.longitude }}</td>
-                    <td>{{ truck.latitude }}</td>
-                    <td>{{ truck.franchisee }}</td>
-                    <td>
-                        <a href="{{ path('truck_show', {'id': truck.id}) }}">show</a>
-                        <a href="{{ path('truck_edit', {'id': truck.id}) }}">edit</a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="5">no records found</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Registration</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for truck in trucks %}
+            <tr>
+                <td>{{ truck.id }}</td>
+                <td>{{ truck.registration }}</td>
+                <td>
+                    <a href="{{ path('truck_show', {'id': truck.id}) }}">show</a>
+                    <a href="{{ path('truck_edit', {'id': truck.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-        <a href="{{ path('truck_new') }}">Create new</a>
+    <a href="{{ path('truck_new') }}">Create new</a>
     </section>
 </div>
 {% endblock %}
