@@ -8,6 +8,7 @@ use App\Entity\ProductCategory;
 use App\Entity\ProductOrigin;
 use App\Form\DishType;
 use App\Repository\DishRepository;
+use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,25 +32,11 @@ class DishController extends AbstractController
     /**
      * @Route("/admin/dish/new", name="dish_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ProductRepository $productRepository): Response
     {
         $dish = new Dish();
         $dish->setName('lasagne');
         $dish->setPrice('10');
-
-        $cat = new ProductCategory();
-        $cat->setName('féculent');
-
-        $ori = new ProductOrigin();
-        $ori->setCountry('italy');
-
-        $product = new Product();
-        $product->setName('Pates');
-        $product->setPrice('3');
-        $product->setCategory(NULL);
-        $product->setOrigin(NULL);
-
-        $dish->addProduct($product);
 
         $form = $this->createForm(DishType::class, $dish);
         $form->handleRequest($request);

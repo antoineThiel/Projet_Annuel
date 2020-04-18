@@ -23,11 +23,6 @@ class Truck
      */
     private $registration;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Franchisee", inversedBy="truck")
-     * @ORM\JoinColumn(name="franchisee_id", referencedColumnName="id", nullable=true)
-     */
-    private $franchisee;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\TruckPosition", mappedBy="truck")
@@ -38,6 +33,11 @@ class Truck
      * @ORM\OneToMany(targetEntity="App\Entity\TruckComplaint", mappedBy="truck", orphanRemoval=true)
      */
     private $truckComplaints;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Franchisee", mappedBy="truck", cascade={"persist", "remove"})
+     */
+    private $franchise;
 
     public function __construct()
     {
@@ -62,17 +62,6 @@ class Truck
         return $this;
     }
 
-    public function getFranchisee(): ?Franchisee
-    {
-        return $this->franchisee;
-    }
-
-    public function setFranchisee(?Franchisee $franchisee): self
-    {
-        $this->franchisee = $franchisee;
-
-        return $this;
-    }
 
     public function __toString() : string
     {
@@ -133,6 +122,24 @@ class Truck
             if ($truckComplaint->getTruck() === $this) {
                 $truckComplaint->setTruck(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getFranchise(): ?Franchisee
+    {
+        return $this->franchise;
+    }
+
+    public function setFranchise(?Franchisee $franchise): self
+    {
+        $this->franchise = $franchise;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newTruck = null === $franchise ? null : $this;
+        if ($franchise->getTruck() !== $newTruck) {
+            $franchise->setTruck($newTruck);
         }
 
         return $this;

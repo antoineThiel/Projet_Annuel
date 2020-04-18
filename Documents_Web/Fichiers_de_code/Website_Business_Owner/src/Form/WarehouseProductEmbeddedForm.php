@@ -1,40 +1,38 @@
 <?php
 
+
 namespace App\Form;
 
-use App\Entity\Dish;
+
 use App\Entity\Product;
+use App\Entity\WarehouseProduct;
 use App\Repository\ProductRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DishType extends AbstractType
+class WarehouseProductEmbeddedForm extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('price')
             ->add('product', EntityType::class, [
                 'class' => Product::class,
-                'query_builder' => function (ProductRepository $er){
-                    return $er->createQueryBuilder('p');
-                },
                 'choice_label' => 'name',
-                'multiple' => true,
-                'expanded' => true,
+                'query_builder' => function(ProductRepository $pr){
+                    return $pr->createQueryBuilder('p')->orderBy('p.name', 'ASC');
+                }
             ])
+            ->add('quantity')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Dish::class,
+            'data_class' =>WarehouseProduct::class
         ]);
     }
 }

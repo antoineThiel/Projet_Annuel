@@ -29,19 +29,31 @@ class Warehouse
     private $address;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Product")
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\WarehouseProduct",
+     *     mappedBy="warehouse",
+     *     fetch="EXTRA_LAZY",
+     *     orphanRemoval=true,
+     *     cascade={"persist"}
+     *     )
      */
-    private $product;
+     private Collection $warehouseProduct;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Dish")
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\WarehouseDish",
+     *     mappedBy="warehouse",
+     *     fetch="EXTRA_LAZY",
+     *     orphanRemoval=true,
+     *     cascade={"persist"}
+     *     )
      */
-    private $Dish;
+    private Collection $warehouseDish;
 
     public function __construct()
     {
-        $this->product = new ArrayCollection();
-        $this->Dish = new ArrayCollection();
+        $this->warehouseProduct = new ArrayCollection();
+        $this->warehouseDish = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -74,52 +86,55 @@ class Warehouse
     }
 
     /**
-     * @return Collection|Product[]
+     * @return Collection|WarehouseProduct[]
      */
-    public function getProduct(): Collection
+    public function getWarehouseProduct(): Collection
     {
-        return $this->product;
+        return $this->warehouseProduct;
     }
 
-    public function addProduct(Product $product): self
+    public function addWarehouseProduct(WarehouseProduct $warehouseProduct): self
     {
-        if (!$this->product->contains($product)) {
-            $this->product[] = $product;
+        if (!$this->warehouseProduct->contains($warehouseProduct)) {
+            $this->warehouseProduct[] = $warehouseProduct;
         }
 
         return $this;
     }
 
-    public function removeProduct(Product $product): self
+    public function removeWarehouseProduct(WarehouseProduct $warehouseProduct): self
     {
-        if ($this->product->contains($product)) {
-            $this->product->removeElement($product);
+        if ($this->warehouseProduct->contains($warehouseProduct)) {
+            $this->warehouseProduct->removeElement($warehouseProduct);
+            $warehouseProduct->setWarehouse(NULL);
         }
 
         return $this;
     }
+
 
     /**
-     * @return Collection|Dish[]
+     * @return Collection|WarehouseDish[]
      */
-    public function getDish(): Collection
+    public function getWarehouseDish(): Collection
     {
-        return $this->Dish;
+        return $this->warehouseDish;
     }
 
-    public function addDish(Dish $dish): self
+    public function addWarehouseDish(WarehouseDish $warehouseDish): self
     {
-        if (!$this->Dish->contains($dish)) {
-            $this->Dish[] = $dish;
+        if (!$this->warehouseDish->contains($warehouseDish)) {
+            $this->warehouseDish[] = $warehouseDish;
         }
 
         return $this;
     }
 
-    public function removeDish(Dish $dish): self
+    public function removeWarehouseDish(WarehouseDish $warehouseDish): self
     {
-        if ($this->Dish->contains($dish)) {
-            $this->Dish->removeElement($dish);
+        if ($this->warehouseDish->contains($warehouseDish)) {
+            $this->warehouseDish->removeElement($warehouseDish);
+            $warehouseDish->setWarehouse(NULL);
         }
 
         return $this;

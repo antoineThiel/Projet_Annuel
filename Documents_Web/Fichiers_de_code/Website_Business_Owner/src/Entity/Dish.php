@@ -31,7 +31,7 @@ class Dish
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Product", cascade={"persist"})
      */
-    private ArrayCollection $product;
+    private Collection $product;
 
     public function __construct()
     {

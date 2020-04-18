@@ -22,6 +22,10 @@ Website Business Owner (Symfony, Twig, Doctrine)
 
   Update Project : 
     composer update
+    
+  Yarn : 
+    Download and install yarn and nodeJs then do : 
+      yarn install
 
 Doctrine : 
   In the ".env" file you have to configure the DATABASE_URL link with your setup.
@@ -41,6 +45,27 @@ Doctrine :
     php bin/console make:entity
     It will create the Entity, the Repository for the Entity
     
+  To create/edit Js Files :
+    Directory -> assets/js/
+    if you add a new js file :
+    webpack.config.js -> add a new .addEntry(name, pathtojsfile)
+    
+    When you edit a js file to see the difference you have to run : 
+      yarn encore dev
+      
+    To edit/create css file
+    Directory -> assets/css/
+    Edit : just run yarn encore dev when you're done
+    Create : 
+    add a new import in the assets/js/app.js file with the path to your file 
+  
+    To update the database schema run : 
+      php bin/console doctrine:migrations:migrate
+    in case it doesn't work : 
+      Delete all your migrations files in src/migration/
+      and run : 
+      php bin/console make:migration
+      php bin/console doctrine:migrations:migrate or the one proposed with the name of the version
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Qrencode C
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -13,72 +13,10 @@
         <div class="form-group">
             {{ form_row(form.price) }}
         </div>
-        <div class="form-group">
-            <ul class="product" data-prototype="{{ form_widget(form.product.vars.prototype)|e('html_attr') }}">
-            </ul>
+            {{ form_row(form.product) }}
+        <div class="card-footer">
+            <button class="btn btn-primary">Add</button>
         </div>
-        <button class="btn btn-primary">Add</button>
         {{ form_end(form) }}
     </div>
 </div>
-<script>
-    alert("what?");
-    // type="button" class="add_tag_link">Add a tag</button
-    let addButton = document.createElement('button');
-    addButton.classList.add("add_tag_link");
-    addButton.setAttribute('type' , 'button' );
-    addButton.innerText = "Add a tag";
-    document.body.appendChild(addButton);
-
-    console.log("test" + addButton );
-
-    let $collectionHolder;
-
-    // setup an "add a tag" link
-    let $addTagButton = $('<button type="button" class="add_tag_link">Add a tag</button>');
-
-    let $newLinkLi = $('<li></li>').append($addTagButton);
-
-    jQuery(document).ready(function() {
-        // Get the ul that holds the collection of tags
-        $collectionHolder = $('ul.tags');
-
-        // add the "add a tag" anchor and li to the tags ul
-        $collectionHolder.append($newLinkLi);
-
-        // count the current form inputs we have (e.g. 2), use that as the new
-        // index when inserting a new item (e.g. 2)
-        $collectionHolder.data('index', $collectionHolder.find('input').length);
-
-        $addTagButton.on('click', function(e) {
-            // add a new tag form (see next code block)
-            addTagForm($collectionHolder, $newLinkLi);
-        });
-    });
-
-    function addTagForm($collectionHolder, $newLinkLi) {
-        // Get the data-prototype explained earlier
-        let prototype = $collectionHolder.data('prototype');
-
-        // get the new index
-        let index = $collectionHolder.data('index');
-
-        let newForm = prototype;
-        // You need this only if you didn't set 'label' => false in your tags field in TaskType
-        // Replace '__name__label__' in the prototype's HTML to
-        // instead be a number based on how many items we have
-        // newForm = newForm.replace(/__name__label__/g, index);
-
-        // Replace '__name__' in the prototype's HTML to
-        // instead be a number based on how many items we have
-        newForm = newForm.replace(/__name__/g, index);
-
-        // increase the index with one for the next item
-        $collectionHolder.data('index', index + 1);
-
-        // Display the form in the page in an li, before the "Add a tag" link li
-        let $newFormLi = $('<li></li>').append(newForm);
-        $newLinkLi.before($newFormLi);
-    }
-
-</script>
