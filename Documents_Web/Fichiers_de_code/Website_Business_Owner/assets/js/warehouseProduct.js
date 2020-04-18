@@ -8,6 +8,7 @@ var $addNewItem = $('<a href="#" class="btn btn-info">Add new Product</a>');
 $(document).ready(function () {
     // get the collectionHolder, initilize the var by getting the list;
     $collectionHolder = $('#product_list');
+
     // append the add new item link to the collectionHolder
     $collectionHolder.append($addNewItem);
     // add an index property to the collectionHolder which helps track the count of forms we have in the list
@@ -24,7 +25,7 @@ $(document).ready(function () {
     // handle the click event for addNewItem
     $addNewItem.click(function (e) {
         // preventDefault() is your  homework if you don't know what it is
-        // also look up preventPropagation both are usefull
+        // also look up preventPropagation both are useful
         e.preventDefault();
         // create a new form and append it to the collectionHolder
         // and by form we mean a new panel which contains the form
@@ -40,7 +41,7 @@ function addNewForm() {
     var prototype = $collectionHolder.data('prototype');
     // get the index
     // this is the index we set when the document was ready, look above for more info
-    var index = $collectionHolder.data('index');
+    var index = $collectionHolder.find("select").length;
     // create the form
     var newForm = prototype;
     // replace the __name__ string in the html using a regular expression with the index value

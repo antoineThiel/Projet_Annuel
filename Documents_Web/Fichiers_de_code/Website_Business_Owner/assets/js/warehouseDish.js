@@ -40,7 +40,7 @@ function addNewForm() {
     var prototype = $collectionHolder.data('prototype');
     // get the index
     // this is the index we set when the document was ready, look above for more info
-    var index = $collectionHolder.data('index');
+    var index = $collectionHolder.find("select").length;
     // create the form
     var newForm = prototype;
     // replace the __name__ string in the html using a regular expression with the index value
