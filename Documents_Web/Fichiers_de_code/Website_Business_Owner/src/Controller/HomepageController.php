@@ -55,13 +55,17 @@ class HomepageController extends AbstractController
         $dishnbre = $dishRepository->findAll();
         $dishnbre = count($dishnbre);
 
+        $franchiseewithouttrucknbre = $franchiseeRepository->findByNoTruck();
+        $franchiseewithouttrucknbre = count($franchiseewithouttrucknbre);
+
         return $this->render('base.html.twig', [
             'productnbre' => $productNumber,
             'catnbre' => $catnbre,
             'originbre' => $originbre,
             'trucknbre' => $trucknbre,
             'franchiseenbre' => $franchiseenbre,
-            'dishnbre' => $dishnbre
+            'dishnbre' => $dishnbre,
+            'franchiseewithouttrucknbre' => $franchiseewithouttrucknbre
         ]);
     }
 }
