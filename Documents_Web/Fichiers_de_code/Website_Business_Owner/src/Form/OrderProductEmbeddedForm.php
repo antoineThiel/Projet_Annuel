@@ -4,7 +4,6 @@
 namespace App\Form;
 
 use App\Entity\OrderProduct;
-use App\Entity\Product;
 use App\Entity\WarehouseProduct;
 use App\Repository\WarehouseProductRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -21,11 +20,10 @@ class OrderProductEmbeddedForm extends AbstractType
         $builder
             ->add('product', EntityType::class, [
                 'class' => WarehouseProduct::class,
-                'choice_label' => 'id',
-                'query_builder' => function(WarehouseProductRepository $pr) use ($options) {
+                'query_builder' => function(WarehouseProductRepository $pr){
                     return $pr->createQueryBuilder('p')
                         ->where('p.warehouse = :warehouse')
-                        ->setParameter('warehouse', $options['data']->getId())
+                        ->setParameter('warehouse', $_SESSION['warehouse_id'])
                         ->orderBy('p.id', 'ASC');
                 }
             ])
@@ -38,7 +36,7 @@ class OrderProductEmbeddedForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' =>WarehouseProduct::class
+            'data_class' => OrderProduct::class
         ]);
     }
 }

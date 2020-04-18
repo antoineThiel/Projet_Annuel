@@ -56,9 +56,11 @@ class OrderByFranchisee
     private $invoice;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Warehouse", inversedBy="linkedOrder", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Warehouse", inversedBy="linkedOrder")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $warehouse;
+
 
 
     public function __construct()
@@ -174,10 +176,11 @@ class OrderByFranchisee
         return $this->warehouse;
     }
 
-    public function setWarehouse(Warehouse $warehouse): self
+    public function setWarehouse(?Warehouse $warehouse): self
     {
         $this->warehouse = $warehouse;
 
         return $this;
     }
+
 }

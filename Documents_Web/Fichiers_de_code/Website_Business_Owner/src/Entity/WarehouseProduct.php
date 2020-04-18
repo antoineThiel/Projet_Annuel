@@ -99,5 +99,10 @@ class WarehouseProduct
         $this->quantity = $quantity;
     }
 
+    public function __toString() : string
+    {
+        return $this->product->getName();
+    }
+
 
 }

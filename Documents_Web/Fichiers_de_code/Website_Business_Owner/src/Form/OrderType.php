@@ -3,9 +3,6 @@
 namespace App\Form;
 
 use App\Entity\OrderByFranchisee;
-use App\Entity\Warehouse;
-use Doctrine\ORM\Mapping\OrderBy;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,7 +23,6 @@ class OrderType extends AbstractType
                 'entry_type' => OrderProductEmbeddedForm::class,
                 'entry_options' => [
                     'label' => false,
-                    'data' => $options['data']
                 ],
                 'by_reference' => false,
                 'allow_add' => true,

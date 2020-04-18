@@ -51,14 +51,16 @@ class Warehouse
     private Collection $warehouseDish;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\OrderByFranchisee", mappedBy="warehouse", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\OrderByFranchisee", mappedBy="warehouse", orphanRemoval=true)
      */
     private $linkedOrder;
+
 
     public function __construct()
     {
         $this->warehouseProduct = new ArrayCollection();
         $this->warehouseDish = new ArrayCollection();
+        $this->linkedOrder = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -147,20 +149,35 @@ class Warehouse
         return $this;
     }
 
-    public function getLinkedOrder(): ?OrderByFranchisee
+    /**
+     * @return Collection|OrderByFranchisee[]
+     */
+    public function getLinkedOrder(): Collection
     {
         return $this->linkedOrder;
     }
 
-    public function setLinkedOrder(OrderByFranchisee $linkedOrder): self
+    public function addLinkedOrder(OrderByFranchisee $linkedOrder): self
     {
-        $this->linkedOrder = $linkedOrder;
-
-        // set the owning side of the relation if necessary
-        if ($linkedOrder->getWarehouse() !== $this) {
+        if (!$this->linkedOrder->contains($linkedOrder)) {
+            $this->linkedOrder[] = $linkedOrder;
             $linkedOrder->setWarehouse($this);
         }
 
         return $this;
     }
+
+    public function removeLinkedOrder(OrderByFranchisee $linkedOrder): self
+    {
+        if ($this->linkedOrder->contains($linkedOrder)) {
+            $this->linkedOrder->removeElement($linkedOrder);
+            // set the owning side to null (unless already changed)
+            if ($linkedOrder->getWarehouse() === $this) {
+                $linkedOrder->setWarehouse(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

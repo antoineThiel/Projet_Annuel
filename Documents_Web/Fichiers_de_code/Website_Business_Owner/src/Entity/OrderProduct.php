@@ -26,7 +26,7 @@ class OrderProduct
     private $order;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product")
+     * @ORM\ManyToOne(targetEntity="App\Entity\WarehouseProduct")
      * @ORM\JoinColumn(nullable=false)
      */
     private $product;

@@ -10,7 +10,9 @@ use App\Repository\WarehouseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
 class OrderController extends AbstractController
@@ -34,7 +36,13 @@ class OrderController extends AbstractController
         $form = $this->createForm(OrderFirstType::class, $order);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-           return $this->new($request, $order);
+            $order->setDate(New \DateTime());
+            $order->setAmmount(0);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($order);
+            $entityManager->flush();
+            $_SESSION['warehouse_id'] = $order->getWarehouse()->getId();
+           return $this->redirectToRoute('order_new', ['id' => $order->getId()]);
         }
         return $this->render('order/firstNew.html.twig', [
             'order' => $order,
@@ -43,12 +51,12 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/admin/order/new/begin", name="order_new", methods={"GET","POST"})
+     * @Route("/admin/order/new/{id}", name="order_new", methods={"GET","POST"})
      */
     public function new(Request $request, OrderByFranchisee $order): Response
     {
-        $order->setDate(New \DateTime());
-        $form = $this->createForm(OrderType::class, $order, ['data' => $order->getWarehouse()]);
+
+        $form = $this->createForm(OrderType::class, $order);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -58,7 +66,6 @@ class OrderController extends AbstractController
 
             return $this->redirectToRoute('order_index');
         }
-
         return $this->render('order/new.html.twig', [
             'order' => $order,
             'form' => $form->createView(),
