@@ -45,10 +45,14 @@
                                     There is {{ trucknbre }} tucks registered in our database
                                 </p>
                                 <p class="card-text">
+{#
                                     {{ trucknbreused }} are rented by franchisee
+#}
                                 </p>
                                 <p class="card-text">
+{#
                                     {{ truckunused }} are available
+#}
                                 </p>
                                 <a href="{{ path('truck_new') }}" class="card-link">Add more</a>
                             </div>
@@ -98,6 +102,18 @@
                                 <a href="#" class="btn btn-primary">Go somewhere</a>
                             </div>
                         </div>
+
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <h5 class="m-0">Franchisee without truck</h5>
+                            </div>
+                            <div class="card-body">
+                                <h6 class="card-title">Number : {{ franchiseewithouttrucknbre }}</h6>
+                                <p class="card-text"></p>
+                                <a href="#" class="btn btn-primary">Go add Truck</a>
+                            </div>
+                        </div>
+
                     </div>
                     <!-- /.col-md-6 -->
                 </div>

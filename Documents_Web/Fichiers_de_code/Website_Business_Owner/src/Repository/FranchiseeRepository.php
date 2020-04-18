@@ -19,6 +19,16 @@ class FranchiseeRepository extends ServiceEntityRepository
         parent::__construct($registry, Franchisee::class);
     }
 
+    public function findByNoTruck()
+    {
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.truck is null')
+            //->setParameter('val',ISNULL)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Franchisee[] Returns an array of Franchisee objects
     //  */
