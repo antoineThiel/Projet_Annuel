@@ -103,7 +103,7 @@ class WarehouseDish
 
     public function __toString() : string
     {
-        return $this->dish->getName();
+        return $this->dish->getName(). " ( Max : ". $this->quantity." )";
     }
 
 

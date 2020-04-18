@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\OrderByFranchisee;
+use App\Entity\WarehouseDish;
+use App\Entity\WarehouseProduct;
 use App\Form\OrderFirstType;
 use App\Form\OrderType;
 use App\Repository\OrderByFranchiseeRepository;
+use App\Repository\WarehouseProductRepository;
 use App\Repository\WarehouseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,15 +58,34 @@ class OrderController extends AbstractController
      */
     public function new(Request $request, OrderByFranchisee $order): Response
     {
-
         $form = $this->createForm(OrderType::class, $order);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            $warehouseProductRepository = $entityManager->getRepository(WarehouseProduct::class);
+            $products = $order->getOrderProduct();
+            foreach ($products as $product){
+                $qte = $product->getQuantity();
+                $warehouseProduct = $warehouseProductRepository->findBy(['product' => $product->getProduct()]);
+                $qte2 = $warehouseProduct['0']->getQuantity();
+                $warehouseProduct['0']->setQuantity($qte2-$qte);
+            }
+
+            $warehouseDishRepository = $entityManager->getRepository(WarehouseDish::class);
+            $dishs = $order->getOrderDish();
+            foreach ($dishs as $dish){
+                $qte = $dish->getQuantity();
+                $warehouseDish = $warehouseDishRepository->findBy(['dish' => $dish->getDish()]);
+                $qte2 = $warehouseDish['0']->getQuantity();
+                $warehouseDish['0']->setQuantity($qte2-$qte);
+            }
+
+
+
             $entityManager->persist($order);
             $entityManager->flush();
-
             return $this->redirectToRoute('order_index');
         }
         return $this->render('order/new.html.twig', [

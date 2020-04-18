@@ -101,7 +101,7 @@ class WarehouseProduct
 
     public function __toString() : string
     {
-        return $this->product->getName();
+        return $this->product->getName(). " ( Max : ". $this->quantity." )";
     }
 
 
