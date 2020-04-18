@@ -33,17 +33,7 @@ class WarehouseController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
 
-        $product = $entityManager->getRepository('App\Entity\Product')->findOneBy(['name' => 'coca']);
-
         $warehouse = new Warehouse();
-        $warehouse->setAddress("rue de paris");
-        $warehouse->setCity("Paris");
-
-        $warehouseProduct = new WarehouseProduct();
-        $warehouseDish = new WarehouseDish();
-
-        $warehouse->addWarehouseProduct($warehouseProduct);
-        $warehouse->addWarehouseDish($warehouseDish);
 
 
         $form = $this->createForm(WarehouseType::class, $warehouse);

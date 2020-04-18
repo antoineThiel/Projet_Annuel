@@ -20,7 +20,7 @@ class TruckRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Truck[] Returns an array of Truck objects
+    //  * @return TruckComplaint[] Returns an array of TruckComplaint objects
     //  */
     /*
     public function findByExampleField($value)
@@ -36,14 +36,15 @@ class TruckRepository extends ServiceEntityRepository
     }
     */
 
-
-    public function findByUsers()
+    /*
+    public function findOneBySomeField($value): ?TruckComplaint
     {
         return $this->createQueryBuilder('t')
-            ->Where('t.franchisee != :val')
-            ->setParameter('val', NULL)
+            ->andWhere('t.exampleField = :val')
+            ->setParameter('val', $value)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
         ;
     }
+    */
 }

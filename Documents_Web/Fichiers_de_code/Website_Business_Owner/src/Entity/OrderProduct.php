@@ -5,11 +5,12 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
- * @ORM\Entity(repositoryClass="App\Repository\WarehouseProductRepository")
- * @ORM\Table(name="warehouse_product")
+ * @ORM\Entity
+ * @ORM\Table(name="order_product")
  */
-class WarehouseProduct
+class OrderProduct
 {
     /**
      * @ORM\Id()
@@ -19,13 +20,13 @@ class WarehouseProduct
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Warehouse", inversedBy="warehouseProduct")
+     * @ORM\ManyToOne(targetEntity="App\Entity\OrderByFranchisee", inversedBy="orderProduct")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $warehouse;
+    private $order;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product")
+     * @ORM\ManyToOne(targetEntity="App\Entity\WarehouseProduct")
      * @ORM\JoinColumn(nullable=false)
      */
     private $product;
@@ -54,17 +55,17 @@ class WarehouseProduct
     /**
      * @return mixed
      */
-    public function getWarehouse()
+    public function getOrder()
     {
-        return $this->warehouse;
+        return $this->order;
     }
 
     /**
-     * @param mixed $warehouse
+     * @param mixed $order
      */
-    public function setWarehouse($warehouse): void
+    public function setOrder($order): void
     {
-        $this->warehouse = $warehouse;
+        $this->order = $order;
     }
 
     /**
@@ -99,10 +100,6 @@ class WarehouseProduct
         $this->quantity = $quantity;
     }
 
-    public function __toString() : string
-    {
-        return $this->product->getName();
-    }
 
 
 }

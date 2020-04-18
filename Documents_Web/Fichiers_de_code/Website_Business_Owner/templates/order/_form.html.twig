@@ -1,4 +1,77 @@
+{% import _self as formMacros %}
+{% macro printOrderProduct(row)%}
+    <div class="row mb-1">
+        <div class="col-sm-5">
+            {{ form_widget(row.product) }}
+        </div>
+        <div class="col-sm-3">
+            {{ form_widget(row.quantity) }}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro printOrderDish(row)%}
+    <div class="row mb-1">
+        <div class="col-sm-5">
+            {{ form_widget(row.dish) }}
+        </div>
+        <div class="col-sm-3">
+            {{ form_widget(row.quantity) }}
+        </div>
+    </div>
+{% endmacro %}
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="card card-primary card-outline">
+    <div class="card-header">
+        <h3>New Order</h3>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            {{ form_row(form.date) }}
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-2" id="product_list"
+                 data-prototype="{{ formMacros.printOrderProduct(form.orderProduct.vars.prototype)|e('html_attr') }}">
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <strong>Products</strong>
+                    </div>
+                    <div class="card-body">
+                        {% for row in form.orderProduct %}
+                            {{ formMacros.printOrderProduct(row) }}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+            </div>
+            <div class="col-sm-6" id="dish_list"
+                 data-prototype="{{ formMacros.printOrderDish(form.orderDish.vars.prototype)|e('html_attr') }}">
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <strong>Dish</strong>
+                    </div>
+                    <div class="card-body">
+                        {% for row in form.orderDish %}
+                            {{ formMacros.printOrderDish(row) }}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="mr-2">
+                <button class="btn btn-info">{{ button_label|default('Save') }}</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+{{ encore_entry_script_tags('warehouseProduct') }}
+{{ encore_entry_script_tags('warehouseDish') }}
