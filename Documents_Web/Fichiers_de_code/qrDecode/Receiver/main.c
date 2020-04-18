@@ -133,7 +133,6 @@ void insertDB(char **newUser){
 	char *database = "project";
 
 	connector = mysql_init(NULL);
-	printf("yeah buddy");
 	/* Connect to database */
 	if (!mysql_real_connect(connector, server,
 		user, password, database, 0, NULL, 0)) {
