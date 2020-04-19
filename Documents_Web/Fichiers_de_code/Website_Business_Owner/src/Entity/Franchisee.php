@@ -5,11 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FranchiseeRepository")
  */
-class Franchisee
+class Franchisee implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -72,6 +73,11 @@ class Franchisee
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="json_array")
+     */
+    private $roles = [];
 
     public function __construct()
     {
@@ -240,5 +246,44 @@ class Franchisee
         $this->password = $password;
 
         return $this;
+    }
+
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        $roles[] = 'ROLE_FRANCHISEE';
+        return $roles;
+    }
+
+    public function setRoles(): array
+    {
+
+        return $roles=[];
+
+
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUsername(): ?string
+    {
+        return $this->mail;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
     }
 }

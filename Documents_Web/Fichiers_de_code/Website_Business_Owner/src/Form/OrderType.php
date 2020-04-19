@@ -23,6 +23,7 @@ class OrderType extends AbstractType
                 'entry_type' => OrderProductEmbeddedForm::class,
                 'entry_options' => [
                     'label' => false,
+                    'warehouse' => $options['warehouse_id']
                 ],
                 'by_reference' => false,
                 'allow_add' => true,
@@ -31,7 +32,8 @@ class OrderType extends AbstractType
             ->add('orderDish', CollectionType::class, [
                 'entry_type' => OrderDishEmbeddedForm::class,
                 'entry_options' => [
-                    'label' => false
+                    'label' => false,
+                    'warehouse' => $options['warehouse_id']
                 ],
                 'by_reference' => false,
                 'allow_add' => true,
@@ -44,6 +46,7 @@ class OrderType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => OrderByFranchisee::class,
+            'warehouse_id' => false,
         ]);
     }
 }
