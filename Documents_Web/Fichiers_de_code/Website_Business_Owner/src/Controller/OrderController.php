@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
@@ -34,7 +35,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/admin/order/new", name="order_new_warehouse", methods={"GET", "POST"})
+     * @Route("/order/new", name="order_new_warehouse", methods={"GET", "POST"})
      */
     public function newWarehouse(Request $request)
     {
@@ -47,7 +48,7 @@ class OrderController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($order);
             $entityManager->flush();
-            $_SESSION['warehouse_id'] = $order->getWarehouse()->getId();
+
            return $this->redirectToRoute('order_new', ['id' => $order->getId()]);
         }
         return $this->render('order/firstNew.html.twig', [
@@ -57,11 +58,11 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/admin/order/new/{id}", name="order_new", methods={"GET","POST"})
+     * @Route("/order/new/{id}", name="order_new", methods={"GET","POST"})
      */
     public function new(Request $request, OrderByFranchisee $order): Response
     {
-        $form = $this->createForm(OrderType::class, $order);
+        $form = $this->createForm(OrderType::class, $order, ['warehouse_id' => $order->getWarehouse()->getId()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -107,7 +108,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("order/pdf/{id}", name="order_pdf")
+     * @Route("/order/pdf/{id}", name="order_pdf")
      */
     public function order_pdf(Request $request): Response
     {
@@ -119,6 +120,8 @@ class OrderController extends AbstractController
 
         $dishes = $order->getOrderDish();
         $products = $order->getOrderProduct();
+
+        $user = $this->getUser();
 
         $html =
             '<html>
@@ -186,7 +189,7 @@ class OrderController extends AbstractController
                         <tr>
                             <td width="45%" style="border: 0.1mm solid #888888; ">
                                 <span style="font-size: 7pt; color: #555555; font-family: sans;">SOLD TO:</span>
-                                <br /><br />User Truck Nbr<br />User Name, Last Name<br />
+                                <br /><br />Truck number : '.$user->getTruck().'<br />'.ucwords($user->getLastName()).' '.ucwords($user->getFirstName()).'<br />
                             </td>
                             <td width="10%">&nbsp;</td>
                             <td width="45%" style="border: 0.1mm solid #888888;">

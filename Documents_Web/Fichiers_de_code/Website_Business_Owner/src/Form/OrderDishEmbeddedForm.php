@@ -20,10 +20,10 @@ class OrderDishEmbeddedForm extends AbstractType
         $builder
             ->add('dish', EntityType::class, [
                 'class' => WarehouseDish::class,
-                'query_builder' => function(WarehouseDishRepository $pr){
+                'query_builder' => function(WarehouseDishRepository $pr) use ($options) {
                     return $pr->createQueryBuilder('p')
                         ->where('p.warehouse = :warehouse')
-                        ->setParameter('warehouse', $_SESSION['warehouse_id'])
+                        ->setParameter('warehouse', $options['warehouse'])
                         ->orderBy('p.id', 'ASC');
                 }
             ])
@@ -38,7 +38,8 @@ class OrderDishEmbeddedForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => OrderDish::class
+            'data_class' => OrderDish::class,
+            'warehouse' => false
         ]);
     }
 

@@ -22,8 +22,7 @@ class FranchiseeType extends AbstractType
             ->add('address')
             ->add('license')
             ->add('phone')
-            ->add('dish')
-            ->add('product')
+            ->add('password')
             ->add('truck', EntityType::class, [
                 'class' => Truck::class,
                 'choice_label' => 'registration'

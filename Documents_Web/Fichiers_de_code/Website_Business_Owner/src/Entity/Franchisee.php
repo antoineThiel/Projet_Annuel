@@ -251,10 +251,10 @@ class Franchisee implements UserInterface
         return $roles;
     }
 
-    public function setRoles( array $roles): string
+    public function setRoles(): array
     {
 
-        return $this->roles[] = current($roles);
+        return $roles=[];
 
 
     }
