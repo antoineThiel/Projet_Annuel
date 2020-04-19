@@ -55,9 +55,9 @@ void win_inscription(){
 		formFields[field] = GTK_WIDGET(gtk_builder_get_object(mainBuilder, fieldsIds[field]));
 	}						 
 	
-	gtk_entry_set_visibility(GTK_ENTRY(formFields[3]), false);
+	gtk_entry_set_visibility(GTK_ENTRY(formFields[8]), false);
 	button_pssw = GTK_WIDGET(gtk_builder_get_object(mainBuilder,"toggle_visibility"));
-	g_signal_connect(button_pssw, "clicked", G_CALLBACK(psswHide), formFields[3]);
+	g_signal_connect(button_pssw, "clicked", G_CALLBACK(psswHide), formFields[8]);
    	
 	gtk_widget_show(window);
 
@@ -120,10 +120,10 @@ void displayError(gchar *wrongInputs){
 
 	if(isPlural){
 		strcpy(futureSurrounding[0] , "Les champs :" );
-		strcpy(futureSurrounding[1] , "présentent des erreurs");
+		strcpy(futureSurrounding[1] , "sont erronés");
 	}else{
 		strcpy(futureSurrounding[0] , "Le champ :" );
-		strcpy(futureSurrounding[1] , "présente des erreurs");
+		strcpy(futureSurrounding[1] , "est erroné");
 	}
 	
 	prepareErrorText(wrongInputs , futureSurrounding);

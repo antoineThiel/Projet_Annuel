@@ -39,7 +39,7 @@ CURLcode sendFile(FILE* qrCode , CURL* curlHandler){
 
 	curl_easy_setopt(curlHandler, CURLOPT_READDATA, qrCode);
 
-	curl_easy_setopt(curlHandler, CURLOPT_VERBOSE, 1);
+	//curl_easy_setopt(curlHandler, CURLOPT_VERBOSE, 1);
 	
    	return curl_easy_perform(curlHandler);  
 }

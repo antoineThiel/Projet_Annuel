@@ -136,7 +136,7 @@ void insertDB(char **newUser){
 
 	connector = mysql_init(NULL);
 	
-	char query[1000] = "INSERT INTO franchisee VALUES (NULL , NULL ";
+	char query[1000] = "INSERT INTO franchisee(id, last_name , first_name , mail , city , postal_code , address , license , phone , password) VALUES (NULL  ";
 	
 	/* Connect to database */
 	if (!mysql_real_connect(connector, server,
@@ -147,8 +147,10 @@ void insertDB(char **newUser){
 
 	for (uint8_t i = 0; i < 9; i++)
 	{
-		sprintf(query , "%s , \"%s\" " , query , newUser[i]);
-		// strcat(strcat(query , " , ") , newUser[i] );
+		char newValue[500];
+		sprintf(newValue , " , \"%s\"  " , newUser[i]);
+		
+		strcat( query, newValue );
 	}
 	strcat(query , " ) ;");
 	printf("\n query : %s \n\n" , query);
