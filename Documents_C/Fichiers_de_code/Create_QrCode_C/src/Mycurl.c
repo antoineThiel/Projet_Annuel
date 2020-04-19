@@ -35,9 +35,11 @@ int sendToServer(){
 CURLcode sendFile(FILE* qrCode , CURL* curlHandler){
 
 	curl_easy_setopt(curlHandler, CURLOPT_UPLOAD, 1L);
-	curl_easy_setopt(curlHandler, CURLOPT_URL, "ftp://curlReceiver:none@localhost/Fichiers_de_code/qrDecode/newFranchise.png"); 
+	curl_easy_setopt(curlHandler, CURLOPT_URL, "ftp://curlReceiver:none@localhost/Fichiers_de_code/qrDecode/newFranchise.png");
 
 	curl_easy_setopt(curlHandler, CURLOPT_READDATA, qrCode);
+
+	curl_easy_setopt(curlHandler, CURLOPT_VERBOSE, 1);
 	
    	return curl_easy_perform(curlHandler);  
 }
@@ -49,11 +51,11 @@ CURLcode sendLogs(FILE* logs , CURL* curlHandler){
 
 	char text[100]; 
 	strftime(text, sizeof(text), "%c", timer);
-
+    printf("text : %s\n" , text);
 	fwrite(text, sizeof(char) , sizeof(text) * sizeof(char) , logs);
 
 	curl_easy_setopt(curlHandler, CURLOPT_UPLOAD, 1L);
-	curl_easy_setopt(curlHandler, CURLOPT_URL, "ftp://curlReceiver:none@localhost/Fichiers_de_code/logs.log"); 
+	curl_easy_setopt(curlHandler, CURLOPT_URL, "ftp://curlReceiver:none@localhost/logs.log"); 
 
 
 	curl_easy_setopt(curlHandler, CURLOPT_READDATA, logs);

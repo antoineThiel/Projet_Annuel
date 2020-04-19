@@ -7,24 +7,25 @@ const char fieldsNames[][20] = {
 	{"Last Name"},
 	{"First Name"},
 	{"E-mail"},
-	{"Password"},
-	{"Postal Code"},
 	{"Town"},
+	{"Postal Code"},
 	{"Street Address"},
 	{"License number"},
-	{"Phone number"}
+	{"Phone number"},
+	{"Password"}
 };
 
 const char fieldsIds[][20] = {
 	{"entry_last"},
 	{"entry_first"},
 	{"entry_mail"},
-	{"entry_passw"},
-	{"entry_pc"},
 	{"entry_town"},
+	{"entry_pc"},
 	{"entry_addr"},
 	{"entry_license"},
 	{"entry_phone"},
+	{"entry_passw"}
+
 };
 
 
@@ -71,7 +72,7 @@ void check_fields( GtkWidget *widget, GtkWidget **inputsArray){
 	}
 	memset(wrongInputs , ' ' , 500*sizeof(gchar));
 
-    bool (*functionArray[FIELDS_QTY])(const char*) =  { validCasualString , validCasualString ,validEmail , validPwd , validPostalCode, validTown,validAddr, validLicense, validPhone};
+    bool (*functionArray[FIELDS_QTY])(const char*) =  { validCasualString , validCasualString ,validEmail , validTown , validPostalCode, validAddr, validLicense, validPhone , validPwd };
     
     bool allChecked = true;
 

@@ -126,6 +126,8 @@ int splitString(char **newUser , char *result){
 void insertDB(char **newUser){
 	MYSQL* connector;
 
+	const char QUERY_MODEL[] = "%s  , %s ";
+
 	char *server = "localhost";
 	char *user = "admin";
 	//set the password for mysql server here
@@ -134,9 +136,8 @@ void insertDB(char **newUser){
 
 	connector = mysql_init(NULL);
 	
-	char query[300];
+	char query[1000] = "INSERT INTO franchisee VALUES (NULL , NULL ";
 	
-	printf("yeah buddy");
 	/* Connect to database */
 	if (!mysql_real_connect(connector, server,
 		user, password, database, 0, NULL, 0)) {
@@ -144,7 +145,17 @@ void insertDB(char **newUser){
 		exit(1);
 	}
 
-
+	for (uint8_t i = 0; i < 9; i++)
+	{
+		sprintf(query , "%s , \"%s\" " , query , newUser[i]);
+		// strcat(strcat(query , " , ") , newUser[i] );
+	}
+	strcat(query , " ) ;");
+	printf("\n query : %s \n\n" , query);
+	int test = 0;
+	if(test = mysql_real_query(connector ,  query , strlen(query))){
+		printf("%d" ,test );
+	}
 
 	mysql_close(connector);
 
