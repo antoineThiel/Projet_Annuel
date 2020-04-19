@@ -6,7 +6,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\WarehouseDishRepository")
  * @ORM\Table(name="warehouse_dish")
  */
 class WarehouseDish
@@ -99,6 +99,11 @@ class WarehouseDish
     public function setQuantity($quantity): void
     {
         $this->quantity = $quantity;
+    }
+
+    public function __toString() : string
+    {
+        return $this->dish->getName(). " ( Max : ". $this->quantity." )";
     }
 
 

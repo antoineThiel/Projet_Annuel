@@ -3,12 +3,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Warehouse;
 use App\Repository\DishRepository;
 use App\Repository\FranchiseeRepository;
 use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductOriginRepository;
 use App\Repository\ProductRepository;
 use App\Repository\TruckRepository;
+use App\Repository\WarehouseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +23,7 @@ class HomepageController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('base.html.twig');
+        return $this->render('base_front.html.twig');
     }
 
     /**
@@ -46,9 +48,6 @@ class HomepageController extends AbstractController
 
         $trucknbre = $truckRepository->findAll();
         $trucknbre = count($trucknbre);
-        $trucknbreused = $truckRepository->findByUsers();
-        $trucknbreused = count($trucknbreused);
-        $truckUnused = $trucknbre - $trucknbreused;
 
         $franchiseenbre = $franchiseeRepository->findAll();
         $franchiseenbre = count($franchiseenbre);
@@ -56,15 +55,17 @@ class HomepageController extends AbstractController
         $dishnbre = $dishRepository->findAll();
         $dishnbre = count($dishnbre);
 
+        $franchiseewithouttrucknbre = $franchiseeRepository->findByNoTruck();
+        $franchiseewithouttrucknbre = count($franchiseewithouttrucknbre);
+
         return $this->render('base.html.twig', [
             'productnbre' => $productNumber,
             'catnbre' => $catnbre,
             'originbre' => $originbre,
             'trucknbre' => $trucknbre,
-            'trucknbreused' => $trucknbreused,
-            'truckunused' => $truckUnused,
             'franchiseenbre' => $franchiseenbre,
-            'dishnbre' => $dishnbre
+            'dishnbre' => $dishnbre,
+            'franchiseewithouttrucknbre' => $franchiseewithouttrucknbre
         ]);
     }
 }

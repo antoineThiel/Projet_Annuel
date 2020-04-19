@@ -37,7 +37,6 @@ class DishController extends AbstractController
         $dish = new Dish();
         $dish->setName('lasagne');
         $dish->setPrice('10');
-
         $form = $this->createForm(DishType::class, $dish);
         $form->handleRequest($request);
 

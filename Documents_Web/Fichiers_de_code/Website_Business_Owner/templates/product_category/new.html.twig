@@ -9,8 +9,9 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Starter Page</li>
+                            <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ path('product_category_index') }}">Category Index</a></li>
+                            <li class="breadcrumb-item active">Category Edit</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -19,7 +20,8 @@
         <!-- Main content -->
         <section class="content">
             {% include('product_category/_form.html.twig') %}
-            <a href="{{ path('product_category_index') }}">back to list</a>
+
+            <a href="{{ path('product_category_index') }}"><button class="btn btn-info ml-3">Back to list</button></a>
         </section>
     </div>
 

@@ -1,0 +1,108 @@
+<div class="container h-100 pt-5 justify-content-center m-auto ">
+    <div class="card m-2 p-1 navbar-light h-100 z-depth-5" style="background-color: #80c2e0;">
+        <div class="d-flex justify-content-center m-2 pb-2">
+            <div class="brand_logo_container">
+                <h1 class="white-text">Name User</h1>
+            </div>
+        </div>
+        <div class="container row">
+            <div class="list-group w-25 col ">
+                <div class="d-flex col ">
+                    <img src="{{ asset('Images/user_img_base.png') }}" alt="User_image"
+                         class="img-responsive img-fluid img-thumbnail z-depth-3 "
+                         style="object-fit:cover; height: 200px; width: 200px; background-color:#FFF0A5;">
+                </div>
+            </div>
+            <div class="list-group w-50 container col-6 pt-3">
+                   <label class="text-white col">
+                       <i class="fas fa-hourglass-half"  style="color: #E5735E;"></i>
+                           Age :
+                    </label>
+                <label class="col text-white">
+                    <i class="fas fa-at" style="color: #E5735E;"></i> Email :
+                </label>
+                <label class="col text-white">
+                    <i class="fas fa-map-marker-alt" style="color: #E5735E;"></i> Adresse :
+                </label>
+                <label class="col text-white">
+                    <i class="fas fa-phone" style="color: #E5735E;"></i> Téléphone :
+                </label>
+            </div>
+            <div class="list-group w-25 container">
+      <h1> Notation à venir</h1>
+            </div>
+        </div>
+        <!--Carousel Wrapper-->
+        <div id="carousel-with-lb" class="carousel slide carousel-multi-item mt-5" data-ride="carousel">
+            <!--Slides and lightbox-->
+
+            <div class="carousel-inner mdb-lightbox" role="listbox">
+                <div id="mdb-lightbox-ui"></div>
+                <!-- A CHANGER PAR LA SUITE TOUTES LES 3 PHOTOS BDD CREER UN BLOC COMME SI DESSOUS -->
+                <!--First slide-->
+                <div class=" carousel-item active text-center">
+                    <figure class="col-md-3 d-md-inline-block">
+                        <a href="https://mk0businessofem29abh.kinstacdn.com/wp-content/uploads/2019/10/Totin-foodtruck-2.jpg"
+                           data-size="1600x1067">
+                            <img src="https://mk0businessofem29abh.kinstacdn.com/wp-content/uploads/2019/10/Totin-foodtruck-2.jpg"
+                                 class="img-fluid img-responsive z-depth-3"  style="object-fit:cover;height: 200px; width: 300px;" >
+                        </a>
+                    </figure>
+                    <figure class="col-md-3 d-md-inline-block">
+                        <a href="https://380342-1192392-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2019/01/food-truck-ou-food-container-2-696x356.jpg"
+                           data-size="1600x1067">
+                            <img src="https://380342-1192392-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2019/01/food-truck-ou-food-container-2-696x356.jpg"
+                                 class="img-fluid img-responsive z-depth-3"  style="object-fit:cover;height: 200px; width: 300px;" >
+                        </a>
+                    </figure>
+                    <figure class="col-md-3 d-md-inline-block">
+                        <a href="http://www.leparisien.fr/resizer/V0W_IY49niMfFi4GKL8lRyvyRms=/932x582/arc-anglerfish-eu-central-1-prod-leparisien.s3.amazonaws.com/public/375YA7BYU7QV46MVQZ2ZGWXMZI.jpg"
+                           data-size="1600x1067">
+                            <img src="http://www.leparisien.fr/resizer/V0W_IY49niMfFi4GKL8lRyvyRms=/932x582/arc-anglerfish-eu-central-1-prod-leparisien.s3.amazonaws.com/public/375YA7BYU7QV46MVQZ2ZGWXMZI.jpg"
+                                 class="img-fluid img-responsive z-depth-3"  style="object-fit:cover;height: 200px; width: 300px;" >
+                        </a>
+                    </figure>
+                </div>
+                <!--/.First slide-->
+
+                <!--Second slide-->
+                <div class=" carousel-item  text-center">
+                    <figure class="col-md-3 d-md-inline-block">
+                        <a href="https://static.latribune.fr/full_width/323638/eat-the-road.jpg"
+                           data-size="1600x1067">
+                            <img src="https://static.latribune.fr/full_width/323638/eat-the-road.jpg"
+                                 class="img-fluid img-responsive z-depth-3"  style="object-fit:cover;height: 200px; width: 300px;" >
+                        </a>
+                    </figure>
+                    <figure class="col-md-3 d-md-inline-block">
+                        <a href="https://petitpaume.com/image/79b8c087-6c24-4942-b8fe-71c2b9245ce7"
+                           data-size="1600x1067">
+                            <img src="https://petitpaume.com/image/79b8c087-6c24-4942-b8fe-71c2b9245ce7"
+                                 class="img-fluid img-responsive z-depth-3"  style="object-fit:cover;height: 200px; width: 300px;" >
+                        </a>
+                    </figure>
+                    <figure class="col-md-3 d-md-inline-block">
+                        <a href="https://static.actu.fr/uploads/2019/07/Mortcerf-Food-truck-854x575.jpg"
+                           data-size="1600x1067">
+                            <img src="https://static.actu.fr/uploads/2019/07/Mortcerf-Food-truck-854x575.jpg"
+                                 class="img-fluid img-responsive z-depth-3"  style="object-fit:cover;height: 200px; width: 300px;" >
+                        </a>
+                    </figure>
+                </div>
+                <!--/.Second slide-->
+
+                <a class="carousel-control-prev" href="#carousel-with-lb" role="button" data-slide="prev">
+                    <i class="fas fa-chevron-left" style="color: #E5735E;font-size:42px"></i>
+                   <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>-->
+                </a>
+                <a class="carousel-control-next" href="#carousel-with-lb" role="button" data-slide="next">
+                    <i class="fas fa-chevron-right" style="color: #E5735E;font-size:42px"></i>
+                </a>
+            </div>
+            <!--/.Slides-->
+
+        </div>
+        <!--/.Carousel Wrapper-->
+    </div>
+</div>

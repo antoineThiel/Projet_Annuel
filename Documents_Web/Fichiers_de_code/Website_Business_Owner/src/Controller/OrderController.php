@@ -2,13 +2,20 @@
 
 namespace App\Controller;
 
-use App\Entity\Order;
+use App\Entity\OrderByFranchisee;
+use App\Entity\WarehouseDish;
+use App\Entity\WarehouseProduct;
+use App\Form\OrderFirstType;
 use App\Form\OrderType;
-use App\Repository\OrderRepository;
+use App\Repository\OrderByFranchiseeRepository;
+use App\Repository\WarehouseProductRepository;
+use App\Repository\WarehouseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
 class OrderController extends AbstractController
@@ -16,7 +23,7 @@ class OrderController extends AbstractController
     /**
      * @Route("/admin/order", name="order_index", methods={"GET"})
      */
-    public function index(OrderRepository $orderRepository): Response
+    public function index(OrderByFranchiseeRepository $orderRepository): Response
     {
         return $this->render('order/index.html.twig', [
             'orders' => $orderRepository->findAll(),
@@ -24,22 +31,63 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/admin/order/new", name="order_new", methods={"GET","POST"})
+     * @Route("/admin/order/new", name="order_new_warehouse", methods={"GET", "POST"})
      */
-    public function new(Request $request): Response
+    public function newWarehouse(Request $request)
     {
-        $order = new Order();
+        $order = new OrderByFranchisee();
+        $form = $this->createForm(OrderFirstType::class, $order);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $order->setDate(New \DateTime());
+            $order->setAmmount(0);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($order);
+            $entityManager->flush();
+            $_SESSION['warehouse_id'] = $order->getWarehouse()->getId();
+           return $this->redirectToRoute('order_new', ['id' => $order->getId()]);
+        }
+        return $this->render('order/firstNew.html.twig', [
+            'order' => $order,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/order/new/{id}", name="order_new", methods={"GET","POST"})
+     */
+    public function new(Request $request, OrderByFranchisee $order): Response
+    {
         $form = $this->createForm(OrderType::class, $order);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            $warehouseProductRepository = $entityManager->getRepository(WarehouseProduct::class);
+            $products = $order->getOrderProduct();
+            foreach ($products as $product){
+                $qte = $product->getQuantity();
+                $warehouseProduct = $warehouseProductRepository->findBy(['product' => $product->getProduct()]);
+                $qte2 = $warehouseProduct['0']->getQuantity();
+                $warehouseProduct['0']->setQuantity($qte2-$qte);
+            }
+
+            $warehouseDishRepository = $entityManager->getRepository(WarehouseDish::class);
+            $dishs = $order->getOrderDish();
+            foreach ($dishs as $dish){
+                $qte = $dish->getQuantity();
+                $warehouseDish = $warehouseDishRepository->findBy(['dish' => $dish->getDish()]);
+                $qte2 = $warehouseDish['0']->getQuantity();
+                $warehouseDish['0']->setQuantity($qte2-$qte);
+            }
+
+
+
             $entityManager->persist($order);
             $entityManager->flush();
-
             return $this->redirectToRoute('order_index');
         }
-
         return $this->render('order/new.html.twig', [
             'order' => $order,
             'form' => $form->createView(),
@@ -49,7 +97,7 @@ class OrderController extends AbstractController
     /**
      * @Route("/order/{id}", name="order_show", methods={"GET"})
      */
-    public function show(Order $order): Response
+    public function show(OrderByFranchisee $order): Response
     {
         return $this->render('order/show.html.twig', [
             'order' => $order,
@@ -59,7 +107,7 @@ class OrderController extends AbstractController
     /**
      * @Route("/admin/order/{id}/edit", name="order_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Order $order): Response
+    public function edit(Request $request, OrderByFranchisee $order): Response
     {
         $form = $this->createForm(OrderType::class, $order);
         $form->handleRequest($request);
@@ -79,7 +127,7 @@ class OrderController extends AbstractController
     /**
      * @Route("/admin/order/{id}", name="order_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Order $order): Response
+    public function delete(Request $request, OrderByFranchisee $order): Response
     {
         if ($this->isCsrfTokenValid('delete'.$order->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();

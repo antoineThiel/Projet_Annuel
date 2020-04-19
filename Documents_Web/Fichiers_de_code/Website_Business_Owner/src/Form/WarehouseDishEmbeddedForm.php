@@ -7,11 +7,13 @@ namespace App\Form;
 use App\Entity\Dish;
 use App\Entity\WarehouseDish;
 use App\Repository\DishRepository;
-use App\Repository\ProductRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class WarehouseDishEmbeddedForm extends AbstractType
 {
@@ -26,7 +28,9 @@ class WarehouseDishEmbeddedForm extends AbstractType
                     return $pr->createQueryBuilder('d')->orderBy('d.name', 'ASC');
                 }
             ])
-            ->add('quantity')
+            ->add('quantity', IntegerType::class, [
+                'attr' => ['placeholder' => 'Quantity']
+            ])
         ;
     }
 

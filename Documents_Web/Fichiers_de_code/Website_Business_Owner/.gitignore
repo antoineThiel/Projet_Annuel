@@ -22,4 +22,5 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 /assets/adminlte
+/public/adminlte
 /node_modules/
