@@ -1,0 +1,1 @@
+int qrEncode(char *string);

@@ -68,6 +68,11 @@ class Franchisee
      */
     private $truck;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $password;
+
     public function __construct()
     {
         $this->dish = new ArrayCollection();
@@ -221,6 +226,18 @@ class Franchisee
     public function setTruck(?Truck $truck): self
     {
         $this->truck = $truck;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
 
         return $this;
     }
