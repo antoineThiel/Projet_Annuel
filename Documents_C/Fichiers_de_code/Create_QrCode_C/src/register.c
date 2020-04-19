@@ -51,6 +51,7 @@ void win_inscription(){
 							 500,
 							 500);
 
+
 	for(int field = 0 ; field < FIELDS_QTY ; field++){
 		formFields[field] = GTK_WIDGET(gtk_builder_get_object(mainBuilder, fieldsIds[field]));
 	}						 
@@ -65,13 +66,8 @@ void win_inscription(){
 
 void check_fields( GtkWidget *widget, GtkWidget **inputsArray){
 
-	gchar* wrongInputs = malloc(500*sizeof(gchar));
-	if(wrongInputs == NULL){
-		printf("Erreur mémoire , arrêt.");
-		exit(1);
-	}
-	memset(wrongInputs , ' ' , 500*sizeof(gchar));
-
+	gchar wrongInputs[500] = "";
+	
     bool (*functionArray[FIELDS_QTY])(const char*) =  { validCasualString , validCasualString ,validEmail , validTown , validPostalCode, validAddr, validLicense, validPhone , validPwd };
     
     bool allChecked = true;
@@ -79,21 +75,18 @@ void check_fields( GtkWidget *widget, GtkWidget **inputsArray){
   	for (u_int8_t i = 0; i < FIELDS_QTY; i++)
   	{
 		bool isCurrentInputCorrect = functionArray[i](gtk_entry_get_text(GTK_ENTRY(inputsArray[i])) ) ;
-
 		allChecked &= isCurrentInputCorrect; 
 		if(!isCurrentInputCorrect){
-			sprintf(wrongInputs, "%s \n%s" , wrongInputs , fieldsNames[i]);
+			strcat(strcat(wrongInputs , " \n") , fieldsNames[i]);	
 		}
   	}
   
     if(allChecked){
 		prepareTextForQrCode(inputsArray);
-		// g_print("all fields filled successfully");
     }else{
 		displayError(wrongInputs);
     }
 
-	free(wrongInputs);
 	(void)widget;
 }
 
