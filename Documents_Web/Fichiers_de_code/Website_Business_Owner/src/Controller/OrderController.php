@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Dish;
 use App\Entity\OrderByFranchisee;
+use App\Entity\OrderDish;
+use App\Entity\OrderProduct;
 use App\Entity\Product;
 use App\Entity\WarehouseDish;
 use App\Entity\WarehouseProduct;
@@ -62,45 +65,97 @@ class OrderController extends AbstractController
      */
     public function new(Request $request, OrderByFranchisee $order): Response
     {
-        $form = $this->createForm(OrderType::class, $order, ['warehouse_id' => $order->getWarehouse()->getId()]);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-
-            $warehouseProductRepository = $entityManager->getRepository(WarehouseProduct::class);
-            $products = $order->getOrderProduct();
-            foreach ($products as $product){
-                $qte = $product->getQuantity();
-                $warehouseProduct = $warehouseProductRepository->findBy(['product' => $product->getProduct()]);
-                $qte2 = $warehouseProduct['0']->getQuantity();
-                $warehouseProduct['0']->setQuantity($qte2-$qte);
-            }
-
-            $warehouseDishRepository = $entityManager->getRepository(WarehouseDish::class);
-            $dishs = $order->getOrderDish();
-            foreach ($dishs as $dish){
-                $qte = $dish->getQuantity();
-                $warehouseDish = $warehouseDishRepository->findBy(['dish' => $dish->getDish()]);
-                $qte2 = $warehouseDish['0']->getQuantity();
-                $warehouseDish['0']->setQuantity($qte2-$qte);
-            }
-
-            $entityManager->persist($order);
-            $entityManager->flush();
-            return $this->redirectToRoute('order_recap', ['id' => $order->getId()]);
-        }
-        return $this->render('order/new.html.twig', [
+//        $form = $this->createForm(OrderType::class, $order, ['warehouse_id' => $order->getWarehouse()->getId()]);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $entityManager = $this->getDoctrine()->getManager();
+//
+//            $warehouseProductRepository = $entityManager->getRepository(WarehouseProduct::class);
+//            $products = $order->getOrderProduct();
+//            foreach ($products as $product){
+//                $qte = $product->getQuantity();
+//                $warehouseProduct = $warehouseProductRepository->findBy(['product' => $product->getProduct()]);
+//                $qte2 = $warehouseProduct['0']->getQuantity();
+//                $warehouseProduct['0']->setQuantity($qte2-$qte);
+//            }
+//
+//            $warehouseDishRepository = $entityManager->getRepository(WarehouseDish::class);
+//            $dishs = $order->getOrderDish();
+//            foreach ($dishs as $dish){
+//                $qte = $dish->getQuantity();
+//                $warehouseDish = $warehouseDishRepository->findBy(['dish' => $dish->getDish()]);
+//                $qte2 = $warehouseDish['0']->getQuantity();
+//                $warehouseDish['0']->setQuantity($qte2-$qte);
+//            }
+//
+//            $entityManager->persist($order);
+//            $entityManager->flush();
+//            return $this->redirectToRoute('order_recap', ['id' => $order->getId()]);
+//        }
+//        return $this->render('order/new.html.twig', [
+//            'order' => $order,
+//            'form' => $form->createView(),
+//        ]);
+        $entityManager = $this->getDoctrine()->getManager();
+        $wpRep = $entityManager->getRepository(WarehouseProduct::class);
+        $wdRep = $entityManager->getRepository(WarehouseDish::class);
+        $list = [];
+        $list['products'] = $wpRep->findBy(['warehouse' => $order->getWarehouse()->getId()]);
+        $list['dishes'] = $wdRep->findBy(['warehouse' => $order->getWarehouse()->getId()]);
+        return $this->render('order/products.html.twig', [
             'order' => $order,
-            'form' => $form->createView(),
+            'list' => $list
         ]);
     }
 
+    /**
+     * @Route("/order/showquantity", name="order_quantity", methods={"GET", "POST"})
+     */
+    public function order_show(Request $request): Response
+    {
+        $quantity = $request->get('quantity');
+        $em = $this->getDoctrine()->getManager();
+        $orderRep = $em->getRepository(OrderByFranchisee::class);
+        $order = $orderRep->findOneBy(['id' => $quantity[0]]);
+
+        $productRep = $em->getRepository(Product::class);
+        $dishRep = $em->getRepository(Dish::class);
+        $product = $productRep->findOneBy(['name' => $quantity[1]]);
+        if ($product == null){
+            $product = $dishRep->findOneBy(['name' => $quantity[1]]);
+        }
+        if ($product instanceof Product) {
+            $wrProductRep = $em->getRepository(WarehouseProduct::class);
+            $wrProduct = $wrProductRep->findOneBy(['product' => $product]);
+
+            $orderProduct = new OrderProduct();
+            $orderProduct->setOrder($order);
+            $orderProduct->setPrice($quantity[2]);
+            $orderProduct->setQuantity($quantity[3]);
+            $orderProduct->setProduct($wrProduct);
+        }else{
+            $wrProductRep = $em->getRepository(WarehouseDish::class);
+            $wrProduct = $wrProductRep->findOneBy(['dish' => $product]);
+
+            $orderProduct = new OrderDish();
+            $orderProduct->setOrder($order);
+            $orderProduct->setPrice($quantity[2]);
+            $orderProduct->setQuantity($quantity[3]);
+            $orderProduct->setDish($wrProduct);
+        }
+
+        $em->persist($orderProduct);
+        $em->flush();
+        die();
+    }
     /**
      * @Route("/order/recap/{id}", name="order_recap", methods={"GET", "POST"})
      */
     public function order_recap(OrderByFranchisee $order): Response
     {
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
         $mpdf = new Mpdf();
         return $this->render('order/recap.html.twig', [
             'order' => $order
@@ -215,12 +270,13 @@ class OrderController extends AbstractController
                     foreach ($products as $product) {
 
                         $qte = $product->getQuantity();
+                        $price = $product->getPrice();
                         $product = $wrproductRep->findBy(['product' => $product->getProduct()]);
                         $html .= '<tr>
                         <td align="center">'.$qte.'</td>
                         <td>'.$product['0'].'</td>
-                        <td class="cost">&euro;2.56</td>
-                        <td class="cost">&euro;'.$qte*2.56.'</td>
+                        <td class="cost">'.$price.'</td>
+                        <td class="cost">&euro;'.$qte*$price.'</td>
                         </tr>';
                     }
                 $html.='
@@ -243,12 +299,13 @@ class OrderController extends AbstractController
                                 foreach ($dishes as $dish) {
 
                                     $qte = $dish->getQuantity();
+                                    $price = $dish->getPrice();
                                     $dish = $wrdishRep->findBy(['dish' => $dish->getDish()]);
                                     $html .= '<tr>
                                     <td align="center">'.$qte.'</td>
                                     <td>'.$dish['0'].'</td>
-                                    <td class="cost">&euro;2.56</td>
-                                    <td class="cost">&euro;'.$qte*2.56.'</td>
+                                    <td class="cost">'.$price.'</td>
+                                    <td class="cost">&euro;'.$qte*$price.'</td>
                                     </tr>';
                                 }
                     }
@@ -256,6 +313,8 @@ class OrderController extends AbstractController
                 $html.='
                 </tbody>
                 </table>
+                <h2>Prix Total : </h2>
+                <strong>'.$order->getTotalPrice().'€</strong>
                 </body>
             </html>
                 ';

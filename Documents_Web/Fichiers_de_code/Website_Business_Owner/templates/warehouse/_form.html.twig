@@ -4,8 +4,11 @@
         <div class="col-sm-5">
             {{ form_widget(row.product) }}
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             {{ form_widget(row.quantity) }}
+        </div>
+        <div class="col-sm-2">
+            {{ form_widget(row.price) }}
         </div>
     </div>
 {% endmacro %}
@@ -15,8 +18,11 @@
         <div class="col-sm-5">
             {{ form_widget(row.dish) }}
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             {{ form_widget(row.quantity) }}
+        </div>
+        <div class="col-sm-2">
+            {{ form_widget(row.price) }}
         </div>
     </div>
 {% endmacro %}

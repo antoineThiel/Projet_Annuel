@@ -9,6 +9,7 @@ use App\Repository\WarehouseProductRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -35,6 +36,7 @@ class OrderProductEmbeddedForm extends AbstractType
                     'min' => 1
                 ]
             ])
+            ->add('price', MoneyType::class)
         ;
     }
 

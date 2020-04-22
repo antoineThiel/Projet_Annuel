@@ -37,6 +37,11 @@ class OrderProduct
     private $quantity;
 
     /**
+     * @ORM\Column(type="float")
+     */
+    private $price;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -98,6 +103,22 @@ class OrderProduct
     public function setQuantity($quantity): void
     {
         $this->quantity = $quantity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param mixed $price
+     */
+    public function setPrice($price): void
+    {
+        $this->price = $price;
     }
 
 

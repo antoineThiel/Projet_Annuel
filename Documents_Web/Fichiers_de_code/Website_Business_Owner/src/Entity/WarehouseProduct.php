@@ -32,8 +32,14 @@ class WarehouseProduct
 
     /**
      * @ORM\Column(type="float")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $quantity;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $price;
 
     /**
      * @return mixed
@@ -99,9 +105,27 @@ class WarehouseProduct
         $this->quantity = $quantity;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param mixed $price
+     */
+    public function setPrice($price): void
+    {
+        $this->price = $price;
+    }
+
+
+
     public function __toString() : string
     {
-        return $this->product->getName(). " ( Max : ". $this->quantity." )";
+        return $this->product->getName();
     }
 
 
