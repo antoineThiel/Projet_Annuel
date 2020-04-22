@@ -24,10 +24,6 @@ class Truck
     private $registration;
 
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\TruckPosition", mappedBy="truck")
-     */
-    private $positions;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\TruckComplaint", mappedBy="truck", orphanRemoval=true)
@@ -39,10 +35,15 @@ class Truck
      */
     private $franchise;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TruckPosition", mappedBy="truck")
+     */
+    private $truckPositions;
+
     public function __construct()
     {
-        $this->positions = new ArrayCollection();
         $this->truckComplaints = new ArrayCollection();
+        $this->truckPositions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -68,33 +69,7 @@ class Truck
         return $this->registration;
     }
 
-    /**
-     * @return Collection|TruckPosition[]
-     */
-    public function getPositions(): Collection
-    {
-        return $this->positions;
-    }
 
-    public function addPosition(TruckPosition $position): self
-    {
-        if (!$this->positions->contains($position)) {
-            $this->positions[] = $position;
-            $position->addTruck($this);
-        }
-
-        return $this;
-    }
-
-    public function removePosition(TruckPosition $position): self
-    {
-        if ($this->positions->contains($position)) {
-            $this->positions->removeElement($position);
-            $position->removeTruck($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|TruckComplaint[]
@@ -140,6 +115,37 @@ class Truck
         $newTruck = null === $franchise ? null : $this;
         if ($franchise->getTruck() !== $newTruck) {
             $franchise->setTruck($newTruck);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TruckPosition[]
+     */
+    public function getTruckPositions(): Collection
+    {
+        return $this->truckPositions;
+    }
+
+    public function addTruckPosition(TruckPosition $truckPosition): self
+    {
+        if (!$this->truckPositions->contains($truckPosition)) {
+            $this->truckPositions[] = $truckPosition;
+            $truckPosition->setTruck($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTruckPosition(TruckPosition $truckPosition): self
+    {
+        if ($this->truckPositions->contains($truckPosition)) {
+            $this->truckPositions->removeElement($truckPosition);
+            // set the owning side to null (unless already changed)
+            if ($truckPosition->getTruck() === $this) {
+                $truckPosition->setTruck(null);
+            }
         }
 
         return $this;

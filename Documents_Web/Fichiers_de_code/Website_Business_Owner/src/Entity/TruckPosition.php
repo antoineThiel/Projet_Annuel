@@ -20,11 +20,6 @@ class TruckPosition
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Truck", inversedBy="positions")
-     */
-    private $truck;
-
-    /**
      * @ORM\Column(type="date")
      */
     private $date;
@@ -44,9 +39,16 @@ class TruckPosition
      */
     private $postal_code;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Truck", inversedBy="truckPositions")
+     */
+    private $truck;
+
+
+
     public function __construct()
     {
-        $this->truck = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -55,31 +57,7 @@ class TruckPosition
     }
 
 
-    /**
-     * @return Collection|Truck[]
-     */
-    public function getTruck(): Collection
-    {
-        return $this->truck;
-    }
 
-    public function addTruck(Truck $truck): self
-    {
-        if (!$this->truck->contains($truck)) {
-            $this->truck[] = $truck;
-        }
-
-        return $this;
-    }
-
-    public function removeTruck(Truck $truck): self
-    {
-        if ($this->truck->contains($truck)) {
-            $this->truck->removeElement($truck);
-        }
-
-        return $this;
-    }
 
     public function getDate(): ?\DateTimeInterface
     {
@@ -128,4 +106,22 @@ class TruckPosition
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->address;
+    }
+
+    public function getTruck(): ?Truck
+    {
+        return $this->truck;
+    }
+
+    public function setTruck(?Truck $truck): self
+    {
+        $this->truck = $truck;
+
+        return $this;
+    }
+
 }

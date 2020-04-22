@@ -4,29 +4,30 @@ namespace App\Controller;
 
 use App\Entity\Truck;
 use App\Form\TruckType;
+use App\Repository\TruckPositionRepository;
 use App\Repository\TruckRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/truck")
- */
+
 class TruckController extends AbstractController
 {
     /**
-     * @Route("/", name="truck_index", methods={"GET"})
+     * @Route("/admin/truck", name="truck_index", methods={"GET"})
      */
-    public function index(TruckRepository $truckRepository): Response
+    public function index(TruckRepository $truckRepository, TruckPositionRepository $positionRepository): Response
     {
+        $pos = $positionRepository->findAll();
         return $this->render('truck/pos.html.twig', [
             'trucks' => $truckRepository->findAll(),
+            'poses' =>$pos
         ]);
     }
 
     /**
-     * @Route("/new", name="truck_new", methods={"GET","POST"})
+     * @Route("/admin/truck/new", name="truck_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -49,7 +50,7 @@ class TruckController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="truck_show", methods={"GET"})
+     * @Route("/admin/truck/{id}", name="truck_show", methods={"GET"})
      */
     public function show(Truck $truck): Response
     {
@@ -59,18 +60,7 @@ class TruckController extends AbstractController
     }
 
     /**
-     * @Route("/positions", name="truck_positions", methods={"GET", "POST"})
-     */
-    public function showPositions()
-    {
-//        $em = $this->getDoctrine()->getManager();
-//        $truckRep = $em->getRepository(Truck::class);
-//        $trucks = $truckRep->findAll();
-        return $this->render('truck/pos.html.twig');
-    }
-
-    /**
-     * @Route("/{id}/edit", name="truck_edit", methods={"GET","POST"})
+     * @Route("/admin/truck/{id}/edit", name="truck_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Truck $truck): Response
     {
@@ -90,7 +80,7 @@ class TruckController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="truck_delete", methods={"DELETE"})
+     * @Route("/admin/truck/{id}", name="truck_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Truck $truck): Response
     {

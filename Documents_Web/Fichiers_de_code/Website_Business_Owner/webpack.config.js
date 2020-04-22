@@ -30,6 +30,7 @@ Encore
     .addEntry('warehouseProduct', './assets/js/warehouseProduct.js')
     .addEntry('warehouseDish', './assets/js/warehouseDish.js')
     .addEntry('orderDish', './assets/js/orderDish.js')
+    .addEntry('locateTruck', './assets/js/locateTruck.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

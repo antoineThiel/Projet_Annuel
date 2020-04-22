@@ -22,8 +22,8 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Longitude</th>
-                <th>Latitude</th>
+                <th>address</th>
+                <th>city</th>
                 <th>Date</th>
                 <th>actions</th>
             </tr>
@@ -32,8 +32,8 @@
         {% for truck_position in truck_positions %}
             <tr>
                 <td>{{ truck_position.id }}</td>
-                <td>{{ truck_position.longitude }}</td>
-                <td>{{ truck_position.latitude }}</td>
+                <td>{{ truck_position.address }}</td>
+                <td>{{ truck_position.city }}</td>
                 <td>{{ truck_position.date ? truck_position.date|date('Y-m-d') : '' }}</td>
                 <td>
                     <a href="{{ path('truck_position_show', {'id': truck_position.id}) }}">show</a>

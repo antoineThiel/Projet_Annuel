@@ -12,9 +12,9 @@ class TruckPositionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('longitude')
-            ->add('latitude')
-            ->add('date')
+            ->add('address')
+            ->add('city')
+            ->add('postal_code')
             ->add('truck')
         ;
     }
