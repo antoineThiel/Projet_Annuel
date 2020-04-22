@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    {% block title %}{% endblock %}
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Home</a></li>
+                        <li class="breadcrumb-item active">Dish index</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- Main content -->
+    <section class="content">
+        <style>
+            #map {
+                width: 50%;
+                height: 400px;
+                background-color: grey;
+            }
+        </style>
+        {% for truck in trucks %}
+            {{ dump(truck.positions) }}
+            <div>
+                <input type="hidden" id="lat{{ loop.index }}" value='5'>
+                <input type="hidden" id="lon{{ loop.index }}" value="6">
+            </div>
+        {% endfor %}
+        <div id="map"></div>
+
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            var baseLat = 48.8534;
+            var baseLong = 2.3488;
+            var Paris = {lat: 48.8534, lng: 2.3488};
+            // The map, centered at Paris
+            var map = new google.maps.Map(
+                document.getElementById('map'), {zoom: 11, center: Paris});
+            //TODO: Get All Elements et Place markers
+            var lat = document.getElementById('lat1').value;
+            var long = document.getElementById('lon1').value;
+            var marker = {lat:parseInt(lat)+baseLat, lng: parseInt(long)+baseLong};
+            var marker = new google.maps.Marker({position: marker, map: map});
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrlSV5EIbonFEhtydrXFwQFDoizK8Y0H4&callback=initMap">
+    </script>
+    </section>
+</div>
+{% endblock %}

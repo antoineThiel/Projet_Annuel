@@ -20,7 +20,7 @@ class TruckController extends AbstractController
      */
     public function index(TruckRepository $truckRepository): Response
     {
-        return $this->render('truck/index.html.twig', [
+        return $this->render('truck/pos.html.twig', [
             'trucks' => $truckRepository->findAll(),
         ]);
     }
@@ -56,6 +56,17 @@ class TruckController extends AbstractController
         return $this->render('truck/show.html.twig', [
             'truck' => $truck,
         ]);
+    }
+
+    /**
+     * @Route("/positions", name="truck_positions", methods={"GET", "POST"})
+     */
+    public function showPositions()
+    {
+//        $em = $this->getDoctrine()->getManager();
+//        $truckRep = $em->getRepository(Truck::class);
+//        $trucks = $truckRep->findAll();
+        return $this->render('truck/pos.html.twig');
     }
 
     /**

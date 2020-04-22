@@ -18,15 +18,6 @@ class TruckPosition
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $longitude;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $latitude;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Truck", inversedBy="positions")
@@ -38,6 +29,21 @@ class TruckPosition
      */
     private $date;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $postal_code;
+
     public function __construct()
     {
         $this->truck = new ArrayCollection();
@@ -48,29 +54,6 @@ class TruckPosition
         return $this->id;
     }
 
-    public function getLongitude(): ?float
-    {
-        return $this->longitude;
-    }
-
-    public function setLongitude(float $longitude): self
-    {
-        $this->longitude = $longitude;
-
-        return $this;
-    }
-
-    public function getLatitude(): ?float
-    {
-        return $this->latitude;
-    }
-
-    public function setLatitude(float $latitude): self
-    {
-        $this->latitude = $latitude;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Truck[]
@@ -106,6 +89,42 @@ class TruckPosition
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getPostalCode(): ?float
+    {
+        return $this->postal_code;
+    }
+
+    public function setPostalCode(float $postal_code): self
+    {
+        $this->postal_code = $postal_code;
 
         return $this;
     }
