@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_front.html.twig' %}
 {% block content %}
     {{ encore_entry_script_tags('orderDish') }}
     <div class="content-wrapper">
@@ -19,7 +19,7 @@
     </div>
     <!-- Main content -->
     <section class="content">
-        <h2>Commande n°</h2><label id="orderNumber">{{ order.id }}</label>
+        <h2>Commande n° <label id="orderNumber">{{ order.id }}</label></h2>
         <div class="row">
             <div class="col-sm-6">
                 <table class="table">
@@ -38,7 +38,7 @@
                         {% if products.quantity >= 1 %}
                             <tr class="product">
                                 <td class="productName"><label>{{ products.product }}</label></td>
-                                <td>{{ products.quantity }}</td>
+                                <td class="productQuantityInfo"><label>{{ products.quantity }}</label></td>
                                 <td class="productPrice"><label>{{ products.price }}</label> €</td>
                                 <td class="productQuantity">
                                     <label>
@@ -47,8 +47,8 @@
                                     <button class="btn btn-info" onclick="sendToController({{ inc }}, 'product')">Add to cart</button>
                                 </td>
                             </tr>
+                            {% set inc = inc + 1 %}
                         {% endif %}
-                        {% set inc = inc + 1 %}
                     {% endfor %}
                     </tbody>
                 </table>
@@ -70,7 +70,7 @@
                         {% if dish.quantity >= 1 %}
                             <tr class="dish">
                                 <td class="dishName"><label>{{ dish.dish }}</label></td>
-                                <td>{{ dish.quantity }}</td>
+                                <td class="dishQuantityInfo"><label>{{ dish.quantity }}</label></td>
                                 <td class="dishPrice"><label>{{ dish.price }}</label> €</td>
                                 <td class="dishQuantity">
                                     <label>
@@ -79,8 +79,8 @@
                                     <button class="btn btn-info" onclick="sendToController({{ inc }}, 'dish')">Add to cart</button>
                                 </td>
                             </tr>
+                            {% set inc = inc + 1 %}
                         {% endif %}
-                        {% set inc = inc + 1 %}
                     {% endfor %}
                     </tbody>
                 </table>

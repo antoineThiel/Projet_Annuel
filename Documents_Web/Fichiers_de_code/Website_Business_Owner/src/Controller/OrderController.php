@@ -65,38 +65,6 @@ class OrderController extends AbstractController
      */
     public function new(Request $request, OrderByFranchisee $order): Response
     {
-//        $form = $this->createForm(OrderType::class, $order, ['warehouse_id' => $order->getWarehouse()->getId()]);
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $entityManager = $this->getDoctrine()->getManager();
-//
-//            $warehouseProductRepository = $entityManager->getRepository(WarehouseProduct::class);
-//            $products = $order->getOrderProduct();
-//            foreach ($products as $product){
-//                $qte = $product->getQuantity();
-//                $warehouseProduct = $warehouseProductRepository->findBy(['product' => $product->getProduct()]);
-//                $qte2 = $warehouseProduct['0']->getQuantity();
-//                $warehouseProduct['0']->setQuantity($qte2-$qte);
-//            }
-//
-//            $warehouseDishRepository = $entityManager->getRepository(WarehouseDish::class);
-//            $dishs = $order->getOrderDish();
-//            foreach ($dishs as $dish){
-//                $qte = $dish->getQuantity();
-//                $warehouseDish = $warehouseDishRepository->findBy(['dish' => $dish->getDish()]);
-//                $qte2 = $warehouseDish['0']->getQuantity();
-//                $warehouseDish['0']->setQuantity($qte2-$qte);
-//            }
-//
-//            $entityManager->persist($order);
-//            $entityManager->flush();
-//            return $this->redirectToRoute('order_recap', ['id' => $order->getId()]);
-//        }
-//        return $this->render('order/new.html.twig', [
-//            'order' => $order,
-//            'form' => $form->createView(),
-//        ]);
         $entityManager = $this->getDoctrine()->getManager();
         $wpRep = $entityManager->getRepository(WarehouseProduct::class);
         $wdRep = $entityManager->getRepository(WarehouseDish::class);
@@ -126,27 +94,87 @@ class OrderController extends AbstractController
             $product = $dishRep->findOneBy(['name' => $quantity[1]]);
         }
         if ($product instanceof Product) {
+            $orRep = $em->getRepository(OrderProduct::class);
             $wrProductRep = $em->getRepository(WarehouseProduct::class);
             $wrProduct = $wrProductRep->findOneBy(['product' => $product]);
-
-            $orderProduct = new OrderProduct();
-            $orderProduct->setOrder($order);
-            $orderProduct->setPrice($quantity[2]);
-            $orderProduct->setQuantity($quantity[3]);
-            $orderProduct->setProduct($wrProduct);
+            $op = $orRep->findOneBy(['product' => $wrProduct, 'order'=>$order]);
+            if ($op == null) {
+                $orderProduct = new OrderProduct();
+                $orderProduct->setOrder($order);
+                $orderProduct->setPrice($quantity[2]);
+                $orderProduct->setQuantity($quantity[3]);
+                $orderProduct->setProduct($wrProduct);
+                $wrProduct->setQuantity($wrProduct->getQuantity() - $quantity[3]);
+            }else{
+                $orderProduct = $op;
+                $orderProduct->setQuantity($quantity[3]);
+                $wrProduct->setQuantity($wrProduct->getQuantity() - $quantity[3]);
+            }
         }else{
+            $orRep = $em->getRepository(OrderDish::class);
             $wrProductRep = $em->getRepository(WarehouseDish::class);
             $wrProduct = $wrProductRep->findOneBy(['dish' => $product]);
-
-            $orderProduct = new OrderDish();
-            $orderProduct->setOrder($order);
-            $orderProduct->setPrice($quantity[2]);
-            $orderProduct->setQuantity($quantity[3]);
-            $orderProduct->setDish($wrProduct);
+            $op = $orRep->findOneBy(['dish' => $wrProduct, 'order'=>$order]);
+            if ($op == null) {
+                $orderProduct = new OrderDish();
+                $orderProduct->setOrder($order);
+                $orderProduct->setPrice($quantity[2]);
+                $orderProduct->setQuantity($quantity[3]);
+                $orderProduct->setDish($wrProduct);
+                $wrProduct->setQuantity($wrProduct->getQuantity() - $quantity[3]);
+            }else{
+                $orderProduct = $op;
+                $orderProduct->setQuantity($quantity[3]);
+                $wrProduct->setQuantity($wrProduct->getQuantity() - $quantity[3]);
+            }
         }
 
         $em->persist($orderProduct);
         $em->flush();
+        die();
+    }
+
+
+
+    /**
+     * @Route("/order/removefrombasket", name="order_remove", methods={"GET", "POST"})
+     */
+    public function order_remove(Request $request): Response
+    {
+        $item = $request->get('items');
+        $em = $this->getDoctrine()->getManager();
+        $orderRep = $em->getRepository(OrderByFranchisee::class);
+        $order = $orderRep->findOneBy(['id' => $item[0]]);
+
+        $productRep = $em->getRepository(Product::class);
+        $dishRep = $em->getRepository(Dish::class);
+        $product = $productRep->findOneBy(['name' => $item[1]]);
+        if ($product == null){
+            $product = $dishRep->findOneBy(['name' => $item[1]]);
+        }
+        if ($product instanceof Product) {
+            $orRep = $em->getRepository(OrderProduct::class);
+            $wrProductRep = $em->getRepository(WarehouseProduct::class);
+            $wrProduct = $wrProductRep->findOneBy(['product' => $product]);
+            $op = $orRep->findOneBy(['product' => $wrProduct, 'order'=>$order]);
+            if ($op != null){
+                $wrProduct->setQuantity($wrProduct->getQuantity()+$op->getQuantity());
+                $em->persist($wrProduct);
+                $em->remove($op);
+                $em->flush();
+            }
+        }else{
+            $orRep = $em->getRepository(OrderDish::class);
+            $wrProductRep = $em->getRepository(WarehouseDish::class);
+            $wrProduct = $wrProductRep->findOneBy(['dish' => $product]);
+            $op = $orRep->findOneBy(['dish' => $wrProduct, 'order' => $order]);
+            if ($op != null){
+                $wrProduct->setQuantity($wrProduct->getQuantity()+$op->getQuantity());
+                $em->persist($wrProduct);
+                $em->remove($op);
+                $em->flush();
+            }
+        }
         die();
     }
     /**
