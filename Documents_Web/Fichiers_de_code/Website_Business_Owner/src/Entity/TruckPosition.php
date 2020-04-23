@@ -18,29 +18,38 @@ class TruckPosition
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $longitude;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $latitude;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Truck", inversedBy="positions")
-     */
-    private $truck;
 
     /**
      * @ORM\Column(type="date")
      */
     private $date;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $city;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Truck", inversedBy="truckPositions")
+     */
+    private $truck;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $state;
+
+
+
     public function __construct()
     {
-        $this->truck = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -48,55 +57,6 @@ class TruckPosition
         return $this->id;
     }
 
-    public function getLongitude(): ?float
-    {
-        return $this->longitude;
-    }
-
-    public function setLongitude(float $longitude): self
-    {
-        $this->longitude = $longitude;
-
-        return $this;
-    }
-
-    public function getLatitude(): ?float
-    {
-        return $this->latitude;
-    }
-
-    public function setLatitude(float $latitude): self
-    {
-        $this->latitude = $latitude;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Truck[]
-     */
-    public function getTruck(): Collection
-    {
-        return $this->truck;
-    }
-
-    public function addTruck(Truck $truck): self
-    {
-        if (!$this->truck->contains($truck)) {
-            $this->truck[] = $truck;
-        }
-
-        return $this;
-    }
-
-    public function removeTruck(Truck $truck): self
-    {
-        if ($this->truck->contains($truck)) {
-            $this->truck->removeElement($truck);
-        }
-
-        return $this;
-    }
 
     public function getDate(): ?\DateTimeInterface
     {
@@ -109,4 +69,59 @@ class TruckPosition
 
         return $this;
     }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+
+    public function __toString()
+    {
+        return $this->address;
+    }
+
+    public function getTruck(): ?Truck
+    {
+        return $this->truck;
+    }
+
+    public function setTruck(?Truck $truck): self
+    {
+        $this->truck = $truck;
+
+        return $this;
+    }
+
+    public function getState(): ?bool
+    {
+        return $this->state;
+    }
+
+    public function setState(bool $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
 }

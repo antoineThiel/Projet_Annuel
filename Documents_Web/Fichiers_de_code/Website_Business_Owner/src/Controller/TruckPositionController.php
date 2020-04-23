@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Date;
 
 class TruckPositionController extends AbstractController
 {
@@ -28,6 +29,7 @@ class TruckPositionController extends AbstractController
     public function new(Request $request): Response
     {
         $truckPosition = new TruckPosition();
+        $truckPosition->setDate(new \DateTime());
         $form = $this->createForm(TruckPositionType::class, $truckPosition);
         $form->handleRequest($request);
 

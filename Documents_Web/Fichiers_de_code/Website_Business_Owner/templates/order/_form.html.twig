@@ -4,8 +4,11 @@
         <div class="col-sm-5">
             {{ form_widget(row.product) }}
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             {{ form_widget(row.quantity) }}
+        </div>
+        <div class="col-sm-2">
+            {{ form_widget(row.price) }}
         </div>
     </div>
 {% endmacro %}
@@ -15,8 +18,11 @@
         <div class="col-sm-5">
             {{ form_widget(row.dish) }}
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             {{ form_widget(row.quantity) }}
+        </div>
+        <div class="col-sm-2">
+            {{ form_widget(row.price) }}
         </div>
     </div>
 {% endmacro %}
@@ -37,6 +43,9 @@
                     <div class="card-header">
                         <strong>Products</strong>
                     </div>
+                    <div class="d-none">
+                        {{ form_row(form.orderProduct) }}
+                    </div>
                     <div class="card-body">
                         {% for row in form.orderProduct %}
                             {{ formMacros.printOrderProduct(row) }}
@@ -51,6 +60,9 @@
                 <div class="card card-warning">
                     <div class="card-header">
                         <strong>Dish</strong>
+                    </div>
+                    <div class="d-none">
+                        {{ form_row(form.orderDish) }}
                     </div>
                     <div class="card-body">
                         {% for row in form.orderDish %}
@@ -68,10 +80,7 @@
                 {{ form_end(form) }}
             </div>
         </div>
-
-
     </div>
-
 </div>
 {{ encore_entry_script_tags('warehouseProduct') }}
-{{ encore_entry_script_tags('warehouseDish') }}
+{{ encore_entry_script_tags('orderDish') }}

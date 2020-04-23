@@ -1,0 +1,5 @@
+#include "common.h"
+#include "qrEncode.h"
+#include "register.h"
+#include "tools.h"
+#include "Mycurl.h"

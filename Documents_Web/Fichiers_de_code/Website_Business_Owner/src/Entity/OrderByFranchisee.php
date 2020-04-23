@@ -182,5 +182,18 @@ class OrderByFranchisee
 
         return $this;
     }
+    public function getTotalPrice(): float
+    {
+        $products = $this->getOrderProduct();
+        $dishes = $this->getOrderDish();
+        $price = 0;
+        foreach ($products as $product){
+            $price += ($product->getPrice() * $product->getQuantity());
+        }
+        foreach ($dishes as $dish){
+            $price += ($dish->getPrice() * $dish->getQuantity());
+        }
+        return $price;
+    }
 
 }

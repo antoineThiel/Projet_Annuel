@@ -92,3 +92,41 @@ Qrencode C
    
    Lancement : 
         make launch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+cURL
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Install : 
+    apt install:
+      libcurl4-openssl-dev
+
+
+    make sure you have an apache server RUNNING
+    make sure you have an stfp server RUNNING
+      ex: systemctl apache2 start
+
+    shouldn't need to launch separately from QrEncode
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+MySQL
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Install :
+    libmysqlclient-dev
+    
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Quirc
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    git clone git@github.com:dlbeer/quirc.git  
+
+    cd quirc
+
+    sudo apt-get install libjpeg-dev (in case you don't have it)
+    sudo apt install libsdl-gfx1.2-dev 
+    sudo apt-get install libsdl1.2-dev 
+
+    sudo make install
+    

@@ -29,6 +29,8 @@ Encore
     .addEntry('bootstrapJs', './assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js')
     .addEntry('warehouseProduct', './assets/js/warehouseProduct.js')
     .addEntry('warehouseDish', './assets/js/warehouseDish.js')
+    .addEntry('orderDish', './assets/js/orderDish.js')
+    .addEntry('locateTruck', './assets/js/locateTruck.js')
     .addEntry('connectCardFront', './assets/js/connectCardFront.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.

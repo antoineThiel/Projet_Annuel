@@ -36,6 +36,11 @@ class WarehouseDish
     private $quantity;
 
     /**
+     * @ORM\Column(type="float")
+     */
+    private $price;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -100,6 +105,24 @@ class WarehouseDish
     {
         $this->quantity = $quantity;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param mixed $price
+     */
+    public function setPrice($price): void
+    {
+        $this->price = $price;
+    }
+
+
 
     public function __toString() : string
     {

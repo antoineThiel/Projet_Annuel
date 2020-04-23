@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    {% block title %}{% endblock %}
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Home</a></li>
+                        <li class="breadcrumb-item active">Truck index</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- Main content -->
+    <section class="content">
+        <style>
+            #map {
+                width: 50%;
+                height: 400px;
+                background-color: grey;
+            }
+        </style>
+        <div class="trucks">
+            {% for pos in poses %}
+                <div class="truckPos">
+                    <input type="hidden" id="pos{{ loop.index }}" value='{{ pos.address }} {{ pos.city }} {{ pos.truck }}'>
+                </div>
+            {% endfor %}
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Registration</th>
+                    <th>Franchisee</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for truck in trucks %}
+                <tr>
+                    <td>{{ truck.id }}</td>
+                    <td>{{ truck.registration }}</td>
+                    <td>{{ truck.franchise }}</td>
+                    <td>
+                        <a href="{{ path('truck_show', {'id' : truck.id}) }}">Show</a>
+                        <a href="{{ path('truck_edit', {'id' : truck.id}) }}">Edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div id="map"></div>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrlSV5EIbonFEhtydrXFwQFDoizK8Y0H4&libraries=places&callback=initMap">
+    </script>
+    </section>
+</div>
+
+    {{ encore_entry_script_tags('locateTruck') }}
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'base_front.html.twig' %}
+{% block content %}
+    {{ encore_entry_script_tags('orderDish') }}
+    <div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    {% block title %}{% endblock %}
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Starter Page</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- Main content -->
+    <section class="content">
+        <h2>Commande n° <label id="orderNumber">{{ order.id }}</label></h2>
+        <div class="row">
+            <div class="col-sm-6">
+                <table class="table">
+                    <h2>Products</h2>
+                    <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Available quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% set inc = 1 %}
+                    {% for products in list['products'] %}
+                        {% if products.quantity >= 1 %}
+                            <tr class="product">
+                                <td class="productName"><label>{{ products.product }}</label></td>
+                                <td class="productQuantityInfo"><label>{{ products.quantity }}</label></td>
+                                <td class="productPrice"><label>{{ products.price }}</label> €</td>
+                                <td class="productQuantity">
+                                    <label>
+                                        <input type="number" min="1"  max="{{ products.quantity }}">
+                                    </label>
+                                    <button class="btn btn-info" onclick="sendToController({{ inc }}, 'product')">Add to cart</button>
+                                </td>
+                            </tr>
+                            {% set inc = inc + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-6">
+                <table class="table">
+                    <h2>Dish</h2>
+                    <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Available quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% set inc = 1 %}
+                    {% for dish in list['dishes'] %}
+                        {% if dish.quantity >= 1 %}
+                            <tr class="dish">
+                                <td class="dishName"><label>{{ dish.dish }}</label></td>
+                                <td class="dishQuantityInfo"><label>{{ dish.quantity }}</label></td>
+                                <td class="dishPrice"><label>{{ dish.price }}</label> €</td>
+                                <td class="dishQuantity">
+                                    <label>
+                                        <input type="number" min="1"  max="{{ dish.quantity }}">
+                                    </label>
+                                    <button class="btn btn-info" onclick="sendToController({{ inc }}, 'dish')">Add to cart</button>
+                                </td>
+                            </tr>
+                            {% set inc = inc + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <a href="{{ path('order_recap', {'id': order.id }) }}"><button class="btn btn-info">Valider</button></a>
+    </section>
+</div>
+{% endblock %}

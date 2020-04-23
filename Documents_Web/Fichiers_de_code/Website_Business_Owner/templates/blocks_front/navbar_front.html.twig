@@ -10,11 +10,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link white-text" href="#">Home
-                    <span class="sr-only">(current)</span>
-                </a>
-            </li>
+            {% if app.user != null %}
+                <li class="nav-item active">
+                    <a class="nav-link white-text" href="{{ path('order_new_warehouse') }}">Order
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            {% endif %}
+
             <li class="nav-item">
                 <a class="nav-link white-text" href="#">Page 1</a>
             </li>
@@ -47,7 +50,7 @@
             <li class="nav-item avatar dropdown">
                 <a class="nav-link dropdown-toggle white-text" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
-                   {{ app.user.username }}
+
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
                      aria-labelledby="navbarDropdownMenuLink-55" style="background-color: #80c2e0;">
