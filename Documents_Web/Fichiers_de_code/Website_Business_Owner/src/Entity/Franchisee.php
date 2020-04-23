@@ -75,7 +75,7 @@ class Franchisee implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="json_array")
+     * @ORM\Column(type="json_array", nullable=true)
      */
     private $roles = [];
 

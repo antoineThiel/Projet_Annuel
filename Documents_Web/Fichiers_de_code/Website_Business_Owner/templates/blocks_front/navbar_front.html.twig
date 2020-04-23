@@ -10,11 +10,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link white-text" href="#">Home
-                    <span class="sr-only">(current)</span>
-                </a>
-            </li>
+            {% if app.user != null %}
+                <li class="nav-item active">
+                    <a class="nav-link white-text" href="{{ path('order_new_warehouse') }}">Order
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            {% endif %}
+
             <li class="nav-item">
                 <a class="nav-link white-text" href="#">Page 1</a>
             </li>

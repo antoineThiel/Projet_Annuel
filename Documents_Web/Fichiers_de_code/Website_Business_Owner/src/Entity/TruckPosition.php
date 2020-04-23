@@ -34,15 +34,16 @@ class TruckPosition
      */
     private $city;
 
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $postal_code;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Truck", inversedBy="truckPositions")
      */
     private $truck;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $state;
 
 
 
@@ -55,8 +56,6 @@ class TruckPosition
     {
         return $this->id;
     }
-
-
 
 
     public function getDate(): ?\DateTimeInterface
@@ -95,17 +94,6 @@ class TruckPosition
         return $this;
     }
 
-    public function getPostalCode(): ?float
-    {
-        return $this->postal_code;
-    }
-
-    public function setPostalCode(float $postal_code): self
-    {
-        $this->postal_code = $postal_code;
-
-        return $this;
-    }
 
     public function __toString()
     {
@@ -120,6 +108,18 @@ class TruckPosition
     public function setTruck(?Truck $truck): self
     {
         $this->truck = $truck;
+
+        return $this;
+    }
+
+    public function getState(): ?bool
+    {
+        return $this->state;
+    }
+
+    public function setState(bool $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }
