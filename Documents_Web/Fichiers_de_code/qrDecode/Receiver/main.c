@@ -27,8 +27,9 @@ int main(void){
 		}
 	}
 
-	if(  (result = qrDecode() ) != NULL){
-		printf("\n voila \n%s", result);
+	if(  (result = qrDecode() ) == NULL){
+		printf("can't read qrCode");
+		exit(EXIT_FAILURE);
 	}
 
 	if( splitString(newUser , result)  != 0 ){
@@ -37,10 +38,6 @@ int main(void){
 		exit(1);
 	}
 	
-	// for(int i = 0; i < 9 ; i++){
-	// 	printf("\n%s",newUser[i]);
-	// }
-
 	free(result);
 
 	insertDB(newUser);
@@ -80,8 +77,7 @@ char* qrDecode(){
 		quirc_destroy(qr);
 		return NULL;
 	} else {
-		printf("  Decoding successful:\n");
-		// printf("    Payload: %s\n", data.payload);
+		printf("  Decoding successful\n");
 
 		foundText = malloc(sizeof(char) * data.payload_len);
 		if(foundText == NULL){
@@ -136,7 +132,7 @@ void insertDB(char **newUser){
 
 	connector = mysql_init(NULL);
 	
-	char query[1000] = "INSERT INTO franchisee VALUES (NULL , NULL ";
+	char query[1000] = "INSERT INTO franchisee(id, last_name , first_name , mail , city , postal_code , address , license , phone , password) VALUES (NULL  ";
 	
 	/* Connect to database */
 	if (!mysql_real_connect(connector, server,
@@ -147,14 +143,15 @@ void insertDB(char **newUser){
 
 	for (uint8_t i = 0; i < 9; i++)
 	{
-		sprintf(query , "%s , \"%s\" " , query , newUser[i]);
-		// strcat(strcat(query , " , ") , newUser[i] );
+		char newValue[500];
+		sprintf(newValue , " , \"%s\"  " , newUser[i]);
+		
+		strcat( query, newValue );
 	}
 	strcat(query , " ) ;");
-	printf("\n query : %s \n\n" , query);
 	int test = 0;
 	if(test = mysql_real_query(connector ,  query , strlen(query))){
-		printf("%d" ,test );
+		printf("error no  %d" ,test );
 	}
 
 	mysql_close(connector);

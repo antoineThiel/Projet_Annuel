@@ -39,7 +39,7 @@ CURLcode sendFile(FILE* qrCode , CURL* curlHandler){
 
 	curl_easy_setopt(curlHandler, CURLOPT_READDATA, qrCode);
 
-	curl_easy_setopt(curlHandler, CURLOPT_VERBOSE, 1);
+	//curl_easy_setopt(curlHandler, CURLOPT_VERBOSE, 1);
 	
    	return curl_easy_perform(curlHandler);  
 }
@@ -51,7 +51,6 @@ CURLcode sendLogs(FILE* logs , CURL* curlHandler){
 
 	char text[100]; 
 	strftime(text, sizeof(text), "%c", timer);
-    printf("text : %s\n" , text);
 	fwrite(text, sizeof(char) , sizeof(text) * sizeof(char) , logs);
 
 	curl_easy_setopt(curlHandler, CURLOPT_UPLOAD, 1L);

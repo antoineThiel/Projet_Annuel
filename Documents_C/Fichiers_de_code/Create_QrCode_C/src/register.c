@@ -51,13 +51,14 @@ void win_inscription(){
 							 500,
 							 500);
 
+
 	for(int field = 0 ; field < FIELDS_QTY ; field++){
 		formFields[field] = GTK_WIDGET(gtk_builder_get_object(mainBuilder, fieldsIds[field]));
 	}						 
 	
-	gtk_entry_set_visibility(GTK_ENTRY(formFields[3]), false);
+	gtk_entry_set_visibility(GTK_ENTRY(formFields[8]), false);
 	button_pssw = GTK_WIDGET(gtk_builder_get_object(mainBuilder,"toggle_visibility"));
-	g_signal_connect(button_pssw, "clicked", G_CALLBACK(psswHide), formFields[3]);
+	g_signal_connect(button_pssw, "clicked", G_CALLBACK(psswHide), formFields[8]);
    	
 	gtk_widget_show(window);
 
@@ -65,13 +66,8 @@ void win_inscription(){
 
 void check_fields( GtkWidget *widget, GtkWidget **inputsArray){
 
-	gchar* wrongInputs = malloc(500*sizeof(gchar));
-	if(wrongInputs == NULL){
-		printf("Erreur mémoire , arrêt.");
-		exit(1);
-	}
-	memset(wrongInputs , ' ' , 500*sizeof(gchar));
-
+	gchar wrongInputs[500] = "";
+	
     bool (*functionArray[FIELDS_QTY])(const char*) =  { validCasualString , validCasualString ,validEmail , validTown , validPostalCode, validAddr, validLicense, validPhone , validPwd };
     
     bool allChecked = true;
@@ -79,21 +75,18 @@ void check_fields( GtkWidget *widget, GtkWidget **inputsArray){
   	for (u_int8_t i = 0; i < FIELDS_QTY; i++)
   	{
 		bool isCurrentInputCorrect = functionArray[i](gtk_entry_get_text(GTK_ENTRY(inputsArray[i])) ) ;
-
 		allChecked &= isCurrentInputCorrect; 
 		if(!isCurrentInputCorrect){
-			sprintf(wrongInputs, "%s \n%s" , wrongInputs , fieldsNames[i]);
+			strcat(strcat(wrongInputs , " \n") , fieldsNames[i]);	
 		}
   	}
   
     if(allChecked){
 		prepareTextForQrCode(inputsArray);
-		// g_print("all fields filled successfully");
     }else{
 		displayError(wrongInputs);
     }
 
-	free(wrongInputs);
 	(void)widget;
 }
 
@@ -120,10 +113,10 @@ void displayError(gchar *wrongInputs){
 
 	if(isPlural){
 		strcpy(futureSurrounding[0] , "Les champs :" );
-		strcpy(futureSurrounding[1] , "présentent des erreurs");
+		strcpy(futureSurrounding[1] , "sont erronés");
 	}else{
 		strcpy(futureSurrounding[0] , "Le champ :" );
-		strcpy(futureSurrounding[1] , "présente des erreurs");
+		strcpy(futureSurrounding[1] , "est erroné");
 	}
 	
 	prepareErrorText(wrongInputs , futureSurrounding);

@@ -4,7 +4,7 @@ build:
 
 
 compil:
-	@gcc -o bin/test src/*.c -lqrencode -lpng -pthread -I/usr/include/gtk-3.0 \
+	@gcc -o bin/formulaire src/*.c -lqrencode -lpng -pthread -I/usr/include/gtk-3.0 \
 	-Wall -Wextra \
 	-lcurl \
 	-I/usr/include/at-spi2-atk/2.0 -I/usr/include/at-spi-2.0 -I/usr/include/dbus-1.0 \
@@ -21,5 +21,5 @@ compil:
 	
 
 launch:
-	./bin/test
+	./bin/formulaire
 
