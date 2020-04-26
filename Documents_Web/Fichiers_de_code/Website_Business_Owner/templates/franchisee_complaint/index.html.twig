@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    {% block title %}{% endblock %}
+                </div><!-- /.col -->
+                <!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- Main content -->
+    <section class="content">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for franchisee_complaint in franchisee_complaints %}
+            <tr>
+                <td>{{ franchisee_complaint.id }}</td>
+                <td>{{ franchisee_complaint.title }}</td>
+                <td>{{ franchisee_complaint.content }}</td>
+                <td>
+                    <a href="{{ path('franchisee_complaint_show', {'id': franchisee_complaint.id}) }}">show</a>
+                    <a href="{{ path('franchisee_complaint_edit', {'id': franchisee_complaint.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('franchisee_complaint_new') }}">Create new</a>
+    </section>
+</div>
+{% endblock %}

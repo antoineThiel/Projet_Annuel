@@ -79,11 +79,17 @@ class Franchisee implements UserInterface
      */
     private $roles = [];
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\FranchiseeComplaint", mappedBy="franchisee")
+     */
+    private $franchiseeComplaints;
+
     public function __construct()
     {
         $this->dish = new ArrayCollection();
         $this->product = new ArrayCollection();
         $this->invoices = new ArrayCollection();
+        $this->franchiseeComplaints = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -285,5 +291,36 @@ class Franchisee implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    /**
+     * @return Collection|FranchiseeComplaint[]
+     */
+    public function getFranchiseeComplaints(): Collection
+    {
+        return $this->franchiseeComplaints;
+    }
+
+    public function addFranchiseeComplaint(FranchiseeComplaint $franchiseeComplaint): self
+    {
+        if (!$this->franchiseeComplaints->contains($franchiseeComplaint)) {
+            $this->franchiseeComplaints[] = $franchiseeComplaint;
+            $franchiseeComplaint->setFranchisee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFranchiseeComplaint(FranchiseeComplaint $franchiseeComplaint): self
+    {
+        if ($this->franchiseeComplaints->contains($franchiseeComplaint)) {
+            $this->franchiseeComplaints->removeElement($franchiseeComplaint);
+            // set the owning side to null (unless already changed)
+            if ($franchiseeComplaint->getFranchisee() === $this) {
+                $franchiseeComplaint->setFranchisee(null);
+            }
+        }
+
+        return $this;
     }
 }
