@@ -7,6 +7,7 @@ use App\Form\TruckType;
 use App\Repository\TruckPositionRepository;
 use App\Repository\TruckRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -91,5 +92,18 @@ class TruckController extends AbstractController
         }
 
         return $this->redirectToRoute('truck_index');
+    }
+
+    /**
+     * @Route("/admin/truck/getId", name="truck_get_id", methods={"POST"})
+     */
+    public function getId(Request $request, TruckRepository $truckRepository)
+    {
+        $trucks = $request->get("quantity");
+        foreach ($trucks as $truck){
+            $ids[] = $truckRepository->findById($truck);
+        }
+        $ids = array_map(function($a){ return array_pop($a);}, $ids);
+        return new JsonResponse($ids);
     }
 }

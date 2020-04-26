@@ -47,4 +47,14 @@ class TruckPositionRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findById($value)
+    {
+        return $this->createQueryBuilder('t')->select('t.id')
+            ->andWhere('t.truck = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getSingleResult()
+            ;
+    }
 }

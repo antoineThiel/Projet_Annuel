@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Franchisee;
 use App\Form\FranchiseeType;
 use App\Repository\FranchiseeRepository;
+use App\Repository\TruckPositionRepository;
+use App\Repository\TruckRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,10 +53,13 @@ class FranchiseeController extends AbstractController
     /**
      * @Route("/franchisee/{id}", name="franchisee_show", methods={"GET"})
      */
-    public function show(Franchisee $franchisee): Response
+    public function show(Franchisee $franchisee,TruckRepository $truckRepository, TruckPositionRepository $positionRepository): Response
     {
+        $posId = $positionRepository->findById($franchisee->getTruck()->getId());
+
         return $this->render('franchisee/show.html.twig', [
             'franchisee' => $franchisee,
+            'posId' => $posId
         ]);
     }
 

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_front.html.twig' %}
 {% block content %}
 <div class="content-wrapper">
     <div class="content-header">
@@ -63,6 +63,7 @@
                     <div class="card-body">
                         <p><a href="#">Problem with your truck ?</a></p>
                         {# TODO: link the page to fill a truck complaint form #}
+                        <p><a href="{{ path('truck_position_edit' , {'id': posId['id']}) }}">Give us your new position</a></p>
                         <p><a href="{{ path('invoice_new') }}">Tell us about your month</a></p>
                         {# TODO: link the page to fill a number declaration #}
                         <p><a href="#">Tell us anything else</a></p>

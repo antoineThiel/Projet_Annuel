@@ -58,11 +58,15 @@ class TruckPositionController extends AbstractController
     }
 
     /**
-     * @Route("/admin/truck_position/{id}/edit", name="truck_position_edit", methods={"GET","POST"})
+     * @Route("truck_position/{id}/edit", name="truck_position_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, TruckPosition $truckPosition): Response
     {
+        $user = $this->getUser();
+        $userTruck = $user->getTruck();
+
         $form = $this->createForm(TruckPositionType::class, $truckPosition);
+        $truckPosition->setTruck($userTruck);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

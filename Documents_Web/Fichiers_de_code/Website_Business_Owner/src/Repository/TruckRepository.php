@@ -19,32 +19,15 @@ class TruckRepository extends ServiceEntityRepository
         parent::__construct($registry, Truck::class);
     }
 
-    // /**
-    //  * @return TruckComplaint[] Returns an array of TruckComplaint objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?TruckComplaint
+    public function findById($value)
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
+        return $this->createQueryBuilder('t')->select('t.id')
+            ->andWhere('t.registration = :val')
             ->setParameter('val', $value)
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getSingleResult()
         ;
     }
-    */
+
 }
