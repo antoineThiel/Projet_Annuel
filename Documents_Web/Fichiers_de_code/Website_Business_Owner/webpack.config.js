@@ -32,6 +32,7 @@ Encore
     .addEntry('orderDish', './assets/js/orderDish.js')
     .addEntry('locateTruck', './assets/js/locateTruck.js')
     .addEntry('connectCardFront', './assets/js/connectCardFront.js')
+    .addEntry('checkboxes', './assets/js/checkboxesComplaintForm.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

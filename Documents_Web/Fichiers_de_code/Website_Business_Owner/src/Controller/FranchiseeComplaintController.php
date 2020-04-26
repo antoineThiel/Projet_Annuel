@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\FranchiseeComplaint;
 use App\Form\FranchiseeComplaintType;
+use App\Form\FranchiseeComplaintType2;
 use App\Repository\FranchiseeComplaintRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,6 +32,9 @@ class FranchiseeComplaintController extends AbstractController
         $franchiseeComplaint = new FranchiseeComplaint();
         $user = $this->getUser();
         $franchiseeComplaint->setFranchisee($user);
+        $franchiseeComplaint->setIsNew(1);
+        $franchiseeComplaint->setIsOngoing(0);
+        $franchiseeComplaint->setIsClosed(0);
         $form = $this->createForm(FranchiseeComplaintType::class, $franchiseeComplaint);
         $form->handleRequest($request);
 
@@ -49,7 +53,7 @@ class FranchiseeComplaintController extends AbstractController
     }
 
     /**
-     * @Route("/franchisee/complaint/{id}", name="franchisee_complaint_show", methods={"GET"})
+     * @Route("/admin/franchisee/complaint/{id}", name="franchisee_complaint_show", methods={"GET"})
      */
     public function show(FranchiseeComplaint $franchiseeComplaint): Response
     {
@@ -63,7 +67,7 @@ class FranchiseeComplaintController extends AbstractController
      */
     public function edit(Request $request, FranchiseeComplaint $franchiseeComplaint): Response
     {
-        $form = $this->createForm(FranchiseeComplaintType::class, $franchiseeComplaint);
+        $form = $this->createForm(FranchiseeComplaintType2::class, $franchiseeComplaint);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

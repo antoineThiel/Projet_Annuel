@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\StatusTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class FranchiseeComplaint
 {
+
+    use StatusTrait;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -31,6 +34,11 @@ class FranchiseeComplaint
      * @ORM\JoinColumn(nullable=false)
      */
     private $franchisee;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $answer;
 
     public function getId(): ?int
     {
@@ -72,4 +80,22 @@ class FranchiseeComplaint
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAnswer()
+    {
+        return $this->answer;
+    }
+
+    /**
+     * @param mixed $answer
+     */
+    public function setAnswer($answer): void
+    {
+        $this->answer = $answer;
+    }
+
+
 }

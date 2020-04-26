@@ -33,6 +33,16 @@
                 <th>Content</th>
                 <td>{{ franchisee_complaint.content }}</td>
             </tr>
+            <tr>
+                <th>Status</th>
+                {% if (franchisee_complaint.isNew) %}
+                    <td>New Request</td>
+                {% elseif (franchisee_complaint.isOngoing) %}
+                    <td>Ongoing</td>
+                {% else %}
+                    <td>Closed</td>
+                {% endif %}
+            </tr>
         </tbody>
     </table>
 
