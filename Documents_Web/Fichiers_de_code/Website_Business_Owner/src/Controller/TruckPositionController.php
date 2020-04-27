@@ -24,18 +24,28 @@ class TruckPositionController extends AbstractController
     }
 
     /**
-     * @Route("/admin/truck_position/new", name="truck_position_new", methods={"GET","POST"})
+     * @Route("/truck_position/new", name="truck_position_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, TruckPositionRepository $positionRepository): Response
     {
+        $user = $this->getUser();
+        $userTruck = $user->getTruck();
+
+        $oldPos = $positionRepository->findById($userTruck->getId());
+
         $truckPosition = new TruckPosition();
         $truckPosition->setDate(new \DateTime());
+        $truckPosition->setTruck($userTruck);
+        $truckPosition->setState(0);
         $form = $this->createForm(TruckPositionType::class, $truckPosition);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $truckPosition->setState(1);
+            $oldPos->setState(0);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($truckPosition);
+            $entityManager->persist($oldPos);
             $entityManager->flush();
 
             return $this->redirectToRoute('truck_position_index');

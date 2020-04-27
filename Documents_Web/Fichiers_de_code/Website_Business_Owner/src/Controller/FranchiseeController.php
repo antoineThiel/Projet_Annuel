@@ -55,11 +55,13 @@ class FranchiseeController extends AbstractController
      */
     public function show(Franchisee $franchisee,TruckRepository $truckRepository, TruckPositionRepository $positionRepository): Response
     {
-        $posId = $positionRepository->findById($franchisee->getTruck()->getId());
+        $pos = $positionRepository->findById($franchisee->getTruck()->getId());
 
         return $this->render('franchisee/show.html.twig', [
             'franchisee' => $franchisee,
-            'posId' => $posId
+            'posId' => $pos->getId(),
+            'posAddress' => $pos->getAddress(),
+            'posCity' => $pos->getCity(),
         ]);
     }
 

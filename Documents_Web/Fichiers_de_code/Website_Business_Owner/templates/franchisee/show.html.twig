@@ -1,6 +1,6 @@
 {% extends 'base_front.html.twig' %}
 {% block content %}
-<div class="content-wrapper">
+<div class="ml-5 mr-5">
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -12,7 +12,7 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- Main content -->
-    <section class="content">
+    <section>
         <h1>{{ franchisee.lastName }} {{ franchisee.firstName }}</h1>
         <div class="row">
             <div class="col-sm-3">
@@ -21,19 +21,21 @@
                         <strong>You <3</strong>
                     </div>
                     <div class="card-body">
-                        <p>{{ franchisee.lastName}}</p>
-                        <p>{{ franchisee.firstName }}</p>
-                        <p>{{ franchisee.mail }}</p>
-                        <p>{{ franchisee.city }}</p>
-                        <p>{{ franchisee.postalCode }}</p>
-                        <p>{{ franchisee.address }}</p>
-                        <p>{{ franchisee.license }}</p>
-                        <p>{{ franchisee.phone }}</p>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p>{{ franchisee.mail }}</p>
+                                <p>{{ franchisee.phone }}</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p>{{ franchisee.license }}</p>
+                                <p>{{ franchisee.address }} {{ franchisee.city }} {{ franchisee.postalCode }}</p>
+                            </div>
+                        </div>
                         <p><a href="{{ path('franchisee_edit', { id: franchisee.id } ) }}">Change some stuff (Si ils ont le droit)</a></p>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
                         <strong>Your lasts orders</strong>
@@ -44,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
                         <strong>Need more stuff ?</strong>
@@ -55,7 +57,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
                         <strong>Want to tell us something ?</strong>
@@ -63,7 +65,7 @@
                     <div class="card-body">
                         <p><a href="#">Problem with your truck ?</a></p>
                         {# TODO: link the page to fill a truck complaint form #}
-                        <p><a href="{{ path('truck_position_edit' , {'id': posId['id']}) }}">Give us your new position</a></p>
+                        <p><a href="{{ path('truck_position_new') }}">Give us your new position</a></p>
                         <p><a href="{{ path('invoice_new') }}">Tell us about your month</a></p>
                         {# TODO: link the page to fill a number declaration #}
                         <p><a href="{{ path('franchisee_complaint_new') }}">Tell us anything else</a></p>
@@ -71,9 +73,46 @@
                     </div>
                 </div>
             </div>
+            {% if franchisee.franchiseeComplaints is not null %}
+                <div class="col-sm-2">
+                    <div class="card card-outline card-primary">
+                        <div class="card-header">
+                            <strong>What you asked us</strong>
+                        </div>
+                        <div class="card-body">
+                            {% for complaint in franchisee.franchiseeComplaints %}
+                                <p>
+                                    {{ complaint.title }}
+                                    {% if complaint.isNew %}
+                                        <button class="btn btn-success disabled">New</button>
+                                    {% endif %}
+                                    {% if complaint.isOngoing %}
+                                        <button class="btn btn-info disabled">On going</button>
+                                    {% endif %}
+                                    {% if complaint.isClosed %}
+                                        <button class="btn btn-danger disabled">Closed</button>
+                                    {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
         </div>
-
-
+        {% if franchisee.truck is not null %}
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="card card-outline card-primary">
+                        <div class="card-header">
+                            <strong>Your truck</strong>
+                        </div>
+                        <div class="card-body">
+                            <p>Truck number : {{ franchisee.truck.registration }}</p>
+                            <p>Actual Position : {{ posAddress }} {{ posCity }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
     </section>
 </div>
 {% endblock %}
