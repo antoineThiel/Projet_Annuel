@@ -18,7 +18,9 @@
     </div>
     <!-- Main content -->
     <section class="content">
+        <p>Une nouvelle facture de {{ total_price }} à été ajoutée à votre compte ! </p>
         <a href="{{ path('order_pdf', {'id': order.id}) }}" target="_blank"><p>Download PDF recap</p></a>
+        <a href="{{ path('franchisee_show', {'id': app.user.id}) }}">Go back to my page</a>
     </section>
     </div>
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Dish;
+use App\Entity\Invoice;
 use App\Entity\OrderByFranchisee;
 use App\Entity\OrderDish;
 use App\Entity\OrderProduct;
@@ -183,28 +184,22 @@ class OrderController extends AbstractController
     public function order_recap(OrderByFranchisee $order): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $em->flush();
-        $mpdf = new Mpdf();
-        return $this->render('order/recap.html.twig', [
-            'order' => $order
-        ]);
-    }
-
-    /**
-     * @Route("/order/pdf/{id}", name="order_pdf")
-     */
-    public function order_pdf(Request $request): Response
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $orderRep = $entityManager->getRepository(OrderByFranchisee::class);
-        $order = $orderRep->find($request->get('id'));
-        $wrproductRep = $entityManager->getRepository(WarehouseProduct::class);
-        $wrdishRep = $entityManager->getRepository(WarehouseDish::class);
+        $wrproductRep = $em->getRepository(WarehouseProduct::class);
+        $wrdishRep = $em->getRepository(WarehouseDish::class);
 
         $dishes = $order->getOrderDish();
         $products = $order->getOrderProduct();
 
         $user = $this->getUser();
+
+        $invoice = new Invoice();
+        $invoice->setFranchisee($user);
+        $invoice->setDate($order->getDate());
+        $invoice->setLinkedOrder($order);
+        $invoice->setAmmount($order->getTotalPrice());
+        $order->setAmmount($order->getTotalPrice());
+        $order->setInvoice($invoice);
+
 
         $html =
             '<html>
@@ -295,23 +290,23 @@ class OrderController extends AbstractController
                     <tbody>
                 <!-- ITEMS HERE -->
                     ';
-                    foreach ($products as $product) {
+        foreach ($products as $product) {
 
-                        $qte = $product->getQuantity();
-                        $price = $product->getPrice();
-                        $product = $wrproductRep->findBy(['product' => $product->getProduct()]);
-                        $html .= '<tr>
+            $qte = $product->getQuantity();
+            $price = $product->getPrice();
+            $product = $wrproductRep->findBy(['product' => $product->getProduct()]);
+            $html .= '<tr>
                         <td align="center">'.$qte.'</td>
                         <td>'.$product['0'].'</td>
                         <td class="cost">'.$price.'</td>
                         <td class="cost">&euro;'.$qte*$price.'</td>
                         </tr>';
-                    }
-                $html.='
+        }
+        $html.='
                 </tbody>
                 </table>';
-                    if (!empty($dishes)){
-                        $html .='<h2>Dishes</h2>
+        if (!empty($dishes)){
+            $html .='<h2>Dishes</h2>
                             <table class="items" width="100%" style="font-size: 9pt; border-collapse: collapse; " cellpadding="8">
                                 <thead>
                                     <tr>
@@ -324,21 +319,21 @@ class OrderController extends AbstractController
                                 <tbody>
                             <!-- ITEMS HERE -->
                                 ';
-                                foreach ($dishes as $dish) {
+            foreach ($dishes as $dish) {
 
-                                    $qte = $dish->getQuantity();
-                                    $price = $dish->getPrice();
-                                    $dish = $wrdishRep->findBy(['dish' => $dish->getDish()]);
-                                    $html .= '<tr>
+                $qte = $dish->getQuantity();
+                $price = $dish->getPrice();
+                $dish = $wrdishRep->findBy(['dish' => $dish->getDish()]);
+                $html .= '<tr>
                                     <td align="center">'.$qte.'</td>
                                     <td>'.$dish['0'].'</td>
                                     <td class="cost">'.$price.'</td>
                                     <td class="cost">&euro;'.$qte*$price.'</td>
                                     </tr>';
-                                }
-                    }
+            }
+        }
 
-                $html.='
+        $html.='
                 </tbody>
                 </table>
                 <h2>Prix Total : </h2>
@@ -346,6 +341,27 @@ class OrderController extends AbstractController
                 </body>
             </html>
                 ';
+
+        $invoice->setContent($html);
+        $em->persist($invoice);
+        $em->persist($order);
+        $em->flush();
+
+        return $this->render('order/recap.html.twig', [
+            'total_price' => $order->getTotalPrice(),
+            'order' => $order
+        ]);
+    }
+
+    /**
+     * @Route("/order/pdf/{id}", name="order_pdf")
+     */
+    public function order_pdf(Request $request): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $orderRep = $entityManager->getRepository(OrderByFranchisee::class);
+        $order = $orderRep->find($request->get('id'));
+        $html = $order->getInvoice()->getContent();
 
         $mpdf = new Mpdf([
             'margin_left' => 20,

@@ -40,10 +40,14 @@
                     <div class="card-header">
                         <strong>Your lasts orders</strong>
                     </div>
-                    <div class="card-body">
-                        <p>Your last 10 orders : </p>
-                       {# TODO: get last invoices of the franchisee #}
-                    </div>
+                    {% if invoices is not null %}
+                        <div class="card-body">
+                            <p>Your last invoices : </p>
+                            {% for invoice in invoices %}
+                                <p>{{ invoice.date|date("m/d/y") }} {{ invoice.ammount }}€ <a href="{{ path('invoice_show', {'id': invoice.id}) }}" target="_blank">Go see</a></p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
             <div class="col-sm-2">
@@ -53,7 +57,6 @@
                     </div>
                     <div class="card-body">
                         <p><a href="{{ path('order_new_warehouse') }}">Place an order</a></p>
-                        {# TODO: link the page to create an order #}
                     </div>
                 </div>
             </div>
