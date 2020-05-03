@@ -31,7 +31,7 @@
                                 <p>{{ franchisee.address }} {{ franchisee.city }} {{ franchisee.postalCode }}</p>
                             </div>
                         </div>
-                        <p><a href="{{ path('franchisee_edit', { id: franchisee.id } ) }}">Change some stuff (Si ils ont le droit)</a></p>
+                        <p><a href="{{ path('franchisee_edit_by_franchisee', { id: franchisee.id } ) }}">Change your informations</a></p>
                     </div>
                 </div>
             </div>
@@ -55,9 +55,11 @@
                     <div class="card-header">
                         <strong>Need more stuff ?</strong>
                     </div>
-                    <div class="card-body">
-                        <p><a href="{{ path('order_new_warehouse') }}">Place an order</a></p>
-                    </div>
+                    {% if franchisee.truck != null %}
+                        <div class="card-body">
+                            <p><a href="{{ path('order_new_warehouse') }}">Place an order</a></p>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
             <div class="col-sm-2">
@@ -66,10 +68,12 @@
                         <strong>Want to tell us something ?</strong>
                     </div>
                     <div class="card-body">
-                        <p><a href="#">Problem with your truck ?</a></p>
-                        {# TODO: link the page to fill a truck complaint form #}
-                        <p><a href="{{ path('truck_position_new') }}">Give us your new position</a></p>
-                        <p><a href="{{ path('invoice_new') }}">Tell us about your month</a></p>
+                        {% if franchisee.truck != null %}
+                            <p><a href="#">Problem with your truck ?</a></p>
+                            {# TODO: link the page to fill a truck complaint form #}
+                            <p><a href="{{ path('truck_position_new') }}">Give us your new position</a></p>
+                            <p><a href="{{ path('invoice_new') }}">Tell us about your month</a></p>
+                        {% endif %}
                         {# TODO: link the page to fill a number declaration #}
                         <p><a href="{{ path('franchisee_complaint_new') }}">Tell us anything else</a></p>
                         {# TODO: link the page to fill a form #}

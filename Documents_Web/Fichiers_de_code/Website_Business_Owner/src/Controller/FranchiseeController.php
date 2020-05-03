@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Franchisee;
 use App\Form\FranchiseeType;
+use App\Form\FranchiseeType2;
 use App\Repository\FranchiseeRepository;
 use App\Repository\InvoiceRepository;
 use App\Repository\OrderByFranchiseeRepository;
 use App\Repository\TruckPositionRepository;
 use App\Repository\TruckRepository;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,23 +59,55 @@ class FranchiseeController extends AbstractController
      */
     public function show(Franchisee $franchisee,TruckRepository $truckRepository, TruckPositionRepository $positionRepository, InvoiceRepository $invoiceRepository): Response
     {
-        $pos = $positionRepository->findById($franchisee->getTruck()->getId());
-        $invoices = $invoiceRepository->findBy(['franchisee' => $this->getUser()], null, 10);
+        if ($this->getUser()->getId() != $franchisee->getId()){
+            return $this->redirectToRoute('404');
+        }
+        if ($franchisee->getTruck() != null){
+            $pos = $positionRepository->findById($franchisee->getTruck()->getId());
+            $posId = $pos->getId();
+            $posAddress = $pos->getAddress();
+            $posCity = $pos->getCity();
+        }else{
+            $posId = null;
+            $posAddress = null;
+            $posCity = null;
+        }
+        $invoices = $invoiceRepository->findBy(['franchisee' => $this->getUser()], ['date' => 'DESC'], 10);
         return $this->render('franchisee/show.html.twig', [
             'franchisee' => $franchisee,
-            'posId' => $pos->getId(),
-            'posAddress' => $pos->getAddress(),
-            'posCity' => $pos->getCity(),
+            'posId' => $posId,
+            'posAddress' => $posAddress,
+            'posCity' => $posCity,
             'invoices' => $invoices
         ]);
     }
 
     /**
-     * @Route("/admin/franchisee/{id}/edit", name="franchisee_edit", methods={"GET","POST"})
+     * @Route("/franchisee/{id}/edit", name="franchisee_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Franchisee $franchisee): Response
     {
         $form = $this->createForm(FranchiseeType::class, $franchisee);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('franchisee_index');
+        }
+
+        return $this->render('franchisee/edit.html.twig', [
+            'franchisee' => $franchisee,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/franchisee/{id}/editFranchisee", name="franchisee_edit_by_franchisee", methods={"GET","POST"})
+     */
+    public function editByFranchisee(Request $request, Franchisee $franchisee): Response
+    {
+        $form = $this->createForm(FranchiseeType2::class, $franchisee);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -101,4 +135,5 @@ class FranchiseeController extends AbstractController
 
         return $this->redirectToRoute('franchisee_index');
     }
+
 }

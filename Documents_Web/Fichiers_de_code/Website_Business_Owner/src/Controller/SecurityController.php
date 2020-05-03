@@ -51,4 +51,19 @@ class SecurityController extends AbstractController
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
+
+    /**
+     * @Route("/checkHash", name="check_hash")
+     */
+    public function checkHash(){
+        if (strlen($this->getUser()->getPassword()) < 64){
+            $em = $this->getDoctrine()->getManager();
+            $franchisee = $this->getUser();
+            $franchisee->setPassword(hash('sha256', $this->getUser()->getPassword()));
+            $em->persist($franchisee);
+            $em->flush();
+            return $this->redirectToRoute('home');
+        }
+        return $this->redirectToRoute('home');
+    }
 }

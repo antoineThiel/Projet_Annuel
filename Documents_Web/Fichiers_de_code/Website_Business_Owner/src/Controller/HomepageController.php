@@ -68,4 +68,13 @@ class HomepageController extends AbstractController
             'franchiseewithouttrucknbre' => $franchiseewithouttrucknbre
         ]);
     }
+
+
+    /**
+     * @Route("/404", name="404")
+     */
+    public function notFound() : Response
+    {
+        return $this->render('common/404.html.twig');
+    }
 }

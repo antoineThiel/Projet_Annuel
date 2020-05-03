@@ -11,29 +11,12 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
         <ul class="navbar-nav mr-auto">
             {% if app.user != null %}
-                <li class="nav-item active">
-                    <a class="nav-link white-text" href="{{ path('order_new_warehouse') }}">Order
-                        <span class="sr-only">(current)</span>
+                <li class="nav-item">
+                    <a class="nav-link white-text" href="{{ path('franchisee_show', {'id': app.user.id}) }}">
+                        Mon Compte
                     </a>
                 </li>
             {% endif %}
-
-            <li class="nav-item">
-                <a class="nav-link white-text" href="#">Page 1</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link white-text" href="#">Page 2</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle white-text" id="navbarDropdownMenuLink-555" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">List Page X
-                </a>
-                <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-555" style="background-color: #80c2e0;">
-                    <a class="dropdown-item white-text" style="background-color: #80c2e0;" href="#">Action 1</a>
-                    <a class="dropdown-item white-text" style="background-color: #80c2e0;" href="#">Action 2</a>
-                    <a class="dropdown-item white-text" style="background-color: #80c2e0;" href="#">Action 3</a>
-                </div>
-            </li>
         </ul>
         <ul class="navbar-nav ml-auto nav-flex-icons">
             <li class="nav-item">
@@ -46,11 +29,13 @@
                     <i class="fas fa-sign-in-alt white-text"></i>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="{{ path('login') }}">
-                    <p class="white-text">Mon compte</p>
-                </a>
-            </li>
+            {% if app.user == null %}
+                <li class="nav-item">
+                    <a href="{{ path('login') }}">
+                        <p class="white-text">Login</p>
+                    </a>
+                </li>
+            {% endif %}
             <!--
             <li class="nav-item avatar dropdown">
                 <a class="nav-link dropdown-toggle white-text" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
