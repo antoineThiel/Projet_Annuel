@@ -1,0 +1,22 @@
+front:
+  franchisee:
+    you: Tu <3
+    change_informations: Cambie su información
+    last_invoices: Sus últimas facturas
+    more_stuff: Necesidad de suministro
+    tell_us: ¿Hay algo que quieras decirnos?
+    questions: Sus peticiones
+    truck: Su camión
+    truck_number: Número de camión
+    actual_position: Posición actual
+    check: Ver
+    order: Ordene
+    truck_pb: ¿Problemas con tu camión?
+    position: Danos tu nuevo puesto
+    month: Su cifra mensual
+    anything_else: Dinos lo que quieres
+    new: Nuevo
+    ongoing: En curso
+    closed: Cerrado
+  order:
+    warehouse: Almacén

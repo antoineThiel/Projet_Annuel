@@ -17,6 +17,9 @@
                     </a>
                 </li>
             {% endif %}
+            <a href="{{ path('home', {'_locale': 'en'}) }}" class="nav-link {{ (app.request.attributes.get('_locale') == 'en' ) ? 'd-none' }}">EN</a>
+            <a href="{{ path('home', {'_locale': 'fr'}) }}" class="nav-link {{ (app.request.attributes.get('_locale') == 'fr' ) ? 'd-none' }}">FR</a>
+            <a href="{{ path('home', {'_locale': 'es'}) }}" class="nav-link {{ (app.request.attributes.get('_locale') == 'es' ) ? 'd-none' }}">ES</a>
         </ul>
         <ul class="navbar-nav ml-auto nav-flex-icons">
             <li class="nav-item">

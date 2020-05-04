@@ -5,3 +5,10 @@
 #curl:
 #    path: /curl
 #    controller: App\Controller\CurlController::index
+site_controller:
+    resource: '../src/Controller/'
+    type: annotation
+    prefix:
+      fr: '/fr'
+      en: '/en'
+      es: '/es'

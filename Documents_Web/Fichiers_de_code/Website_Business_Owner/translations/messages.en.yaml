@@ -1,0 +1,20 @@
+front:
+  franchisee:
+    you: You <3
+    change_informations: Change your informations
+    last_invoices: Your last invoices
+    more_stuff: Need more stuff ?
+    tell_us: Want to tell us something ?
+    questions: What you asked us
+    truck: Your truck
+    truck_number: Truck number
+    actual_position: Actual position
+    check: Check
+    order: Place an order
+    truck_pb: Problem with your truck ?
+    position: Give us your new position
+    month: Tell us about your month
+    anything_else: Tell us anything else
+    new: New
+    ongoing: Ongoing
+    closed: Closed

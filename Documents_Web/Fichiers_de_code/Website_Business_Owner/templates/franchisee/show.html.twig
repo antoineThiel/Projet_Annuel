@@ -13,12 +13,12 @@
     </div>
     <!-- Main content -->
     <section>
-        <h1>{{ franchisee.lastName }} {{ franchisee.firstName }}</h1>
+        <h1>{{ franchisee.lastName|upper }} {{ franchisee.firstName|upper }}</h1>
         <div class="row">
             <div class="col-sm-3">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <strong>You <3</strong>
+                        <strong>{{ 'front.franchisee.you'| trans }}</strong>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -31,20 +31,19 @@
                                 <p>{{ franchisee.address }} {{ franchisee.city }} {{ franchisee.postalCode }}</p>
                             </div>
                         </div>
-                        <p><a href="{{ path('franchisee_edit_by_franchisee', { id: franchisee.id } ) }}">Change your informations</a></p>
+                        <p><a href="{{ path('franchisee_edit_by_franchisee', { id: franchisee.id } ) }}">{{ 'front.franchisee.change_informations'| trans }}</a></p>
                     </div>
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <strong>Your lasts orders</strong>
+                        <strong>{{ 'front.franchisee.last_invoices'| trans }}</strong>
                     </div>
                     {% if invoices is not null %}
                         <div class="card-body">
-                            <p>Your last invoices : </p>
                             {% for invoice in invoices %}
-                                <p>{{ invoice.date|date("m/d/y") }} {{ invoice.ammount }}€ <a href="{{ path('invoice_show', {'id': invoice.id}) }}" target="_blank">Go see</a></p>
+                                <p>{{ invoice.date|date("m/d/y") }} {{ invoice.ammount }}€  <a href="{{ path('invoice_show', {'id': invoice.id}) }}" target="_blank">{{ 'front.franchisee.check'| trans }}</a></p>
                             {% endfor %}
                         </div>
                     {% endif %}
@@ -53,11 +52,11 @@
             <div class="col-sm-2">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <strong>Need more stuff ?</strong>
+                        <strong>{{ 'front.franchisee.more_stuff'| trans }}</strong>
                     </div>
                     {% if franchisee.truck != null %}
                         <div class="card-body">
-                            <p><a href="{{ path('order_new_warehouse') }}">Place an order</a></p>
+                            <p><a href="{{ path('order_new_warehouse') }}">{{ 'front.franchisee.order'|trans }}</a></p>
                         </div>
                     {% endif %}
                 </div>
@@ -65,18 +64,17 @@
             <div class="col-sm-2">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <strong>Want to tell us something ?</strong>
+                        <strong>{{ 'front.franchisee.tell_us'|trans }}</strong>
                     </div>
                     <div class="card-body">
                         {% if franchisee.truck != null %}
-                            <p><a href="#">Problem with your truck ?</a></p>
+                            <p><a href="#">{{ 'front.franchisee.truck_pb' | trans }}</a></p>
                             {# TODO: link the page to fill a truck complaint form #}
-                            <p><a href="{{ path('truck_position_new') }}">Give us your new position</a></p>
-                            <p><a href="{{ path('invoice_new') }}">Tell us about your month</a></p>
+                            <p><a href="{{ path('truck_position_new') }}">{{ 'front.franchisee.position'|trans }}</a></p>
+                            <p><a href="{{ path('invoice_new') }}">{{ 'front.franchisee.month'| trans }}</a></p>
                         {% endif %}
                         {# TODO: link the page to fill a number declaration #}
-                        <p><a href="{{ path('franchisee_complaint_new') }}">Tell us anything else</a></p>
-                        {# TODO: link the page to fill a form #}
+                        <p><a href="{{ path('franchisee_complaint_new') }}">{{ 'front.franchisee.anything_else'| trans }}</a></p>
                     </div>
                 </div>
             </div>
@@ -84,20 +82,20 @@
                 <div class="col-sm-2">
                     <div class="card card-outline card-primary">
                         <div class="card-header">
-                            <strong>What you asked us</strong>
+                            <strong>{{ 'front.franchisee.questions'|trans }}</strong>
                         </div>
                         <div class="card-body">
                             {% for complaint in franchisee.franchiseeComplaints %}
                                 <p>
                                     {{ complaint.title }}
                                     {% if complaint.isNew %}
-                                        <button class="btn btn-success disabled">New</button>
+                                        <button class="btn btn-success disabled">{{ 'front.franchisee.new'|trans }}</button>
                                     {% endif %}
                                     {% if complaint.isOngoing %}
-                                        <button class="btn btn-info disabled">On going</button>
+                                        <button class="btn btn-info disabled">{{ 'front.franchisee.ongoing'|trans }}</button>
                                     {% endif %}
                                     {% if complaint.isClosed %}
-                                        <button class="btn btn-danger disabled">Closed</button>
+                                        <button class="btn btn-danger disabled">{{ 'front.franchisee.closed'|trans }}</button>
                                     {% endif %}
                             {% endfor %}
                         </div>
@@ -110,11 +108,11 @@
                 <div class="col-sm-3">
                     <div class="card card-outline card-primary">
                         <div class="card-header">
-                            <strong>Your truck</strong>
+                            <strong>{{ 'front.franchisee.truck'|trans }}</strong>
                         </div>
                         <div class="card-body">
-                            <p>Truck number : {{ franchisee.truck.registration }}</p>
-                            <p>Actual Position : {{ posAddress }} {{ posCity }}</p>
+                            <p>{{ 'front.franchisee.truck_number'|trans }} : {{ franchisee.truck.registration }}</p>
+                            <p>{{ 'front.franchisee.actual_position'|trans }} : {{ posAddress }} {{ posCity }}</p>
                         </div>
                     </div>
                 </div>

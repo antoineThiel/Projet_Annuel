@@ -21,8 +21,10 @@ class HomepageController extends AbstractController
     /**
      * @Route("/", name="home", methods={"GET"})
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $locale = $request->getLocale();
+        $request->setLocale($locale);
         return $this->render('base_front.html.twig');
     }
 
