@@ -150,4 +150,15 @@ class Truck
 
         return $this;
     }
+
+    public function getLastPosition(): ?TruckPosition
+    {
+        $positions = $this->getTruckPositions();
+        foreach ($positions as $position){
+            if ($position->getState() == 1){
+                return $position;
+            }
+        }
+        return null;
+    }
 }
