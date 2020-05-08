@@ -31,8 +31,8 @@
     "bootstrapJs": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~bootstrapJs~connectCardFront~locateTruck~orderDish~stripe~warehouseDish~warehouseProduct.js",
         "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
+        "/build/vendors~bootstrapJs~connectCardFront~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
         "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~warehouseDish~warehouseProduct.js",
         "/build/vendors~adminltejs~bootstrapJs~jquery.js",
         "/build/vendors~bootstrapJs~jquery.js",
@@ -43,8 +43,8 @@
     "warehouseProduct": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~bootstrapJs~connectCardFront~locateTruck~orderDish~stripe~warehouseDish~warehouseProduct.js",
         "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
+        "/build/vendors~bootstrapJs~connectCardFront~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
         "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~warehouseDish~warehouseProduct.js",
         "/build/warehouseProduct.js"
       ]
@@ -52,8 +52,8 @@
     "warehouseDish": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~bootstrapJs~connectCardFront~locateTruck~orderDish~stripe~warehouseDish~warehouseProduct.js",
         "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
+        "/build/vendors~bootstrapJs~connectCardFront~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
         "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~warehouseDish~warehouseProduct.js",
         "/build/warehouseDish.js"
       ]
@@ -61,16 +61,16 @@
     "orderDish": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~bootstrapJs~connectCardFront~locateTruck~orderDish~stripe~warehouseDish~warehouseProduct.js",
         "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
+        "/build/vendors~bootstrapJs~connectCardFront~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
         "/build/orderDish.js"
       ]
     },
     "locateTruck": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~bootstrapJs~connectCardFront~locateTruck~orderDish~stripe~warehouseDish~warehouseProduct.js",
         "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
+        "/build/vendors~bootstrapJs~connectCardFront~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
         "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~warehouseDish~warehouseProduct.js",
         "/build/locateTruck.js"
       ]
@@ -78,15 +78,8 @@
     "connectCardFront": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~bootstrapJs~connectCardFront~locateTruck~orderDish~stripe~warehouseDish~warehouseProduct.js",
+        "/build/vendors~bootstrapJs~connectCardFront~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
         "/build/connectCardFront.js"
-      ]
-    },
-    "stripe": {
-      "js": [
-        "/build/runtime.js",
-        "/build/vendors~bootstrapJs~connectCardFront~locateTruck~orderDish~stripe~warehouseDish~warehouseProduct.js",
-        "/build/stripe.js"
       ]
     }
   }

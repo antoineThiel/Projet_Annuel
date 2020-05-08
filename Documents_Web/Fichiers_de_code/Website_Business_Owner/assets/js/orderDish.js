@@ -203,20 +203,21 @@ $(document).ready(function () {
 // Custom styling can be passed to options when creating an Element.
 // (Note that this demo uses a wider set of styles than the guide below.)
     var style = {
-        base: {
-            color: '#32325d',
-            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-            fontSmoothing: 'antialiased',
-            fontSize: '16px',
-            '::placeholder': {
-                color: '#aab7c4'
+            base: {
+                color: "#32325D",
+                fontWeight: 500,
+                fontFamily: "Inter UI, Open Sans, Segoe UI, sans-serif",
+                fontSize: "16px",
+                fontSmoothing: "antialiased",
+
+                "::placeholder": {
+                    color: "#CFD7DF"
+                }
+            },
+            invalid: {
+                color: "#E25950"
             }
-        },
-        invalid: {
-            color: '#fa755a',
-            iconColor: '#fa755a'
-        }
-    };
+        };
 
 // Create an instance of the card Element.
     var card = elements.create('card', {style: style});

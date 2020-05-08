@@ -429,7 +429,6 @@ class OrderController extends AbstractController
         \Stripe\Stripe::setApiKey('sk_test_bhno3VfANJrXrWo5n71yKVVz00pFkgG0no');
         $user = $this->getUser();
 
-
         \Stripe\Charge::create([
             'receipt_email' => $user->getMail(),
             'amount' => 2000,
@@ -437,7 +436,6 @@ class OrderController extends AbstractController
             'source' => 'tok_visa',
             'description' => 'Test n°231564 !',
         ]);
-        var_dump($request->request->get('stripeToken'));
 
         return $this->redirectToRoute('order_new_warehouse');
     }
