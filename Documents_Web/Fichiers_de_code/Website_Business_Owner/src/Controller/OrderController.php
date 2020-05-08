@@ -11,11 +11,13 @@ use App\Entity\WarehouseDish;
 use App\Entity\WarehouseProduct;
 use App\Form\OrderFirstType;
 use App\Form\OrderType;
+use App\Repository\FranchiseeRepository;
 use App\Repository\OrderByFranchiseeRepository;
 use App\Repository\ProductRepository;
 use App\Repository\WarehouseProductRepository;
 use App\Repository\WarehouseRepository;
 use Mpdf\Mpdf;
+use Stripe\Exception\ApiErrorException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -419,20 +421,25 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/admin/fakepayement", name="payement")
-     * @throws \Stripe\Exception\ApiErrorException
+     * @Route("/order/fakepayement", name="payement")
+     * @throws ApiErrorException
      */
     public function payement(Request $request) : Response
     {
-        \Stripe\Stripe::setApiKey('sk_test_ko1kC7G8gXtQtNAMdLTHIiKs00S8qWdHYw');
+        \Stripe\Stripe::setApiKey('sk_test_bhno3VfANJrXrWo5n71yKVVz00pFkgG0no');
+        $user = $this->getUser();
 
-        \Stripe\PaymentIntent::create([
-            'amount' => 1000,
+
+        \Stripe\Charge::create([
+            'receipt_email' => $user->getMail(),
+            'amount' => 2000,
             'currency' => 'eur',
-            'payment_method_types' => ['card'],
-            'receipt_email' => 'antoine.thiel@hotmail.fr',
+            'source' => 'tok_visa',
+            'description' => 'Test n°231564 !',
         ]);
+        var_dump($request->request->get('stripeToken'));
 
-        return $this->redirectToRoute('order_index');
+        return $this->redirectToRoute('order_new_warehouse');
     }
+
 }

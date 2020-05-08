@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\TruckComplaint;
 use App\Form\TruckComplaintType;
 use App\Repository\TruckComplaintRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,11 +25,14 @@ class TruckComplaintController extends AbstractController
     }
 
     /**
-     * @Route("/admin/truck_complaint/new", name="truck_complaint_new", methods={"GET","POST"})
+     * @Route("/truck_complaint/new", name="truck_complaint_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
         $truckComplaint = new TruckComplaint();
+        $truckComplaint -> setdate(new DateTime);
+        $user = $this->getUser();
+        $truckComplaint->setTruck($user->getTruck());
         $form = $this->createForm(TruckComplaintType::class, $truckComplaint);
         $form->handleRequest($request);
 
