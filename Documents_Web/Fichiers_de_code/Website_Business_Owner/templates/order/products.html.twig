@@ -90,7 +90,7 @@
         <a href="{{ path('order_recap', {'id': order.id }) }}"><button class="btn btn-info">Valider</button></a>
     </section>
         <div class="base_paiement cell">
-            <form action="{{ path('payement') }}" method="post" id="payment-form">
+            <form action="{{ path('payement', {'id': order.id }) }}" method="post" id="payment-form">
                 <fieldset>
                     <div id="paiement" class="form-row">
                         <legend class="card-only" for="card-element">
@@ -100,7 +100,7 @@
                             <div id="card-element">
                                 <!-- A Stripe Element will be inserted here. -->
                             </div>
-                            <button>Payer</button>
+                            <button class="button_payer">Payer</button>
                         </div>
                     </div>
                 </fieldset>

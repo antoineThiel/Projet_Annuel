@@ -421,23 +421,29 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/order/fakepayement", name="payement")
+     * @Route("/order/new/{id}/fakepayement/", name="payement" , methods={"POST"})
      * @throws ApiErrorException
      */
     public function payement(Request $request) : Response
     {
-        \Stripe\Stripe::setApiKey('sk_test_bhno3VfANJrXrWo5n71yKVVz00pFkgG0no');
         $user = $this->getUser();
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $orderRep = $entityManager->getRepository(OrderByFranchisee::class);
+        $order = $orderRep->find($request->get('id'));
+
+        \Stripe\Stripe::setApiKey('sk_test_bhno3VfANJrXrWo5n71yKVVz00pFkgG0no');
+
 
         \Stripe\Charge::create([
             'receipt_email' => $user->getMail(),
-            'amount' => 2000,
+            'amount' => ($order->getTotalPrice())*100,
             'currency' => 'eur',
             'source' => 'tok_visa',
-            'description' => 'Test n°231564 !',
+            'description' => 'Commande n°'.$order->getId(),
         ]);
 
-        return $this->redirectToRoute('order_new_warehouse');
+        return $this->redirectToRoute('order_recap',[ 'id' => $order->getId()]);
     }
 
 }

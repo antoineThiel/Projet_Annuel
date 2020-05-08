@@ -26,7 +26,7 @@ class OrderDish
     private $order;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\WareHouseDish")
+     * @ORM\ManyToOne(targetEntity="App\Entity\WarehouseDish")
      * @ORM\JoinColumn(nullable=false)
      */
     private $dish;
