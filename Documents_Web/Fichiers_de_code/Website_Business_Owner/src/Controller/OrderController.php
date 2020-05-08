@@ -301,10 +301,10 @@ class OrderController extends AbstractController
 
                         $qte = $product->getQuantity();
                         $price = $product->getPrice();
-                        $product = $wrproductRep->findBy(['product' => $product->getProduct()]);
+                        $product = $wrproductRep->findOneBy(['product' => $product->getProduct()]);
                         $html .= '<tr>
                         <td align="center">'.$qte.'</td>
-                        <td>'.$product['0'].'</td>
+                        <td>'.$product->getProduct().'</td>
                         <td class="cost">'.$price.'</td>
                         <td class="cost">&euro;'.$qte*$price.'</td>
                         </tr>';
@@ -330,10 +330,10 @@ class OrderController extends AbstractController
 
                                     $qte = $dish->getQuantity();
                                     $price = $dish->getPrice();
-                                    $dish = $wrdishRep->findBy(['dish' => $dish->getDish()]);
+                                    $dish = $wrdishRep->findOneBy(['dish' => $dish->getDish()]);
                                     $html .= '<tr>
                                     <td align="center">'.$qte.'</td>
-                                    <td>'.$dish['0'].'</td>
+                                    <td>'.$dish.'</td>
                                     <td class="cost">'.$price.'</td>
                                     <td class="cost">&euro;'.$qte*$price.'</td>
                                     </tr>';
