@@ -19,7 +19,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomepageController extends AbstractController
 {
     /**
-     * @Route("/", name="home", methods={"GET"})
+     * @Route({
+     *     "fr": "/fr/",
+     *     "en": "/en/",
+     *     "es": "/es/"
+     * }, name="home", methods={"GET"})
      */
     public function index(Request $request): Response
     {

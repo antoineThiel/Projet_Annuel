@@ -2,6 +2,9 @@
     "almasaeed2010/adminlte": {
         "version": "v3.0.2"
     },
+    "behat/transliterator": {
+        "version": "v1.3.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -93,20 +96,11 @@
     "doctrine/reflection": {
         "version": "v1.1.0"
     },
-    "easycorp/easy-log-handler": {
-        "version": "1.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.0",
-            "ref": "70062abc2cd58794d2a90274502f81b55cd9951b"
-        },
-        "files": [
-            "./config/packages/dev/easy_log_handler.yaml"
-        ]
-    },
     "egulias/email-validator": {
         "version": "2.1.17"
+    },
+    "gedmo/doctrine-extensions": {
+        "version": "3.0-dev"
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
@@ -185,6 +179,18 @@
     },
     "setasign/fpdi": {
         "version": "v2.3.2"
+    },
+    "stof/doctrine-extensions-bundle": {
+        "version": "1.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.2",
+            "ref": "6c1ceb662f8997085f739cd089bfbef67f245983"
+        },
+        "files": [
+            "./config/packages/stof_doctrine_extensions.yaml"
+        ]
     },
     "stripe/stripe-php": {
         "version": "v7.28.1"

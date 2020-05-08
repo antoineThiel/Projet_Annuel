@@ -6,6 +6,7 @@ use App\Entity\Dish;
 use App\Entity\Product;
 use App\Entity\ProductCategory;
 use App\Entity\ProductOrigin;
+use App\Entity\Translations\DishTranslation;
 use App\Form\DishType;
 use App\Repository\DishRepository;
 use App\Repository\ProductRepository;
@@ -96,5 +97,43 @@ class DishController extends AbstractController
         }
 
         return $this->redirectToRoute('dish_index');
+    }
+
+    /**
+     * @Route("/admin/dish/trad", name="dish_trad")
+     */
+    public function trad(DishRepository $productRepository): Response
+    {
+        $products = $productRepository->findAll();
+        $productsFr = $productRepository->findByLocale();
+        $productsEn = $productRepository->findByLocale('en');
+        $productsEs = $productRepository->findByLocale('es');
+        foreach ($products as $product){
+            $trads[] = $product->getTranslations();
+        }
+        return
+            $this->render('dish/trad.html.twig', [
+                'trad' => $trads,
+                'products' => $products,
+                'en' => $productsEn,
+                'es' => $productsEs,
+                'fr' => $productsFr
+            ]);
+    }
+
+    /**
+     * @Route("/admin/dish/trad/add", name="dish_trad_add", methods={"POST"})
+     */
+    public function addTrad(Request $request, DishRepository $productRepository): Response
+    {
+        $en = $request->get('en');
+        $es = $request->get('es');
+        $product = $productRepository->findOneBy(['id' => $request->get('id')]);
+        $product->addTranslation(new DishTranslation('en', 'name', $en));
+        $product->addTranslation(new DishTranslation('es', 'name', $es));
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($product);
+        $em->flush();
+        die();
     }
 }
