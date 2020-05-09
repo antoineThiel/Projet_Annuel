@@ -29,4 +29,14 @@ class DishRepository extends ServiceEntityRepository
         $qb->setHint(TranslatableListener::HINT_TRANSLATABLE_LOCALE, $locale);
         return $qb->getResult();
     }
+
+    public function findByIdAndLocale(string $locale = 'fr', $id){
+
+        $qb = $this->createQueryBuilder('p')->select('p.name')->where('p.id ='.$id);
+        $qb = $qb->getQuery();
+        $qb->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
+            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+        $qb->setHint(TranslatableListener::HINT_TRANSLATABLE_LOCALE, $locale);
+        return $qb->getSingleResult();
+    }
 }

@@ -62,19 +62,45 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/order/new/{id}", name="order_new", methods={"GET","POST"})
+     * @Route({
+     *     "fr": "/fr/commander/new/{id}",
+     *     "en": "/en/order/new/{id}",
+     *     "es": "/es/ordene/new/{id}"
+     * }, name="order_new", methods={"GET","POST"})
      */
     public function new(Request $request, OrderByFranchisee $order): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
         $wpRep = $entityManager->getRepository(WarehouseProduct::class);
         $wdRep = $entityManager->getRepository(WarehouseDish::class);
+        $pRep = $entityManager->getRepository(Product::class);
+        $dRep = $entityManager->getRepository(Dish::class);
         $list = [];
+
         $list['products'] = $wpRep->findBy(['warehouse' => $order->getWarehouse()->getId()]);
         $list['dishes'] = $wdRep->findBy(['warehouse' => $order->getWarehouse()->getId()]);
+
+        foreach ($list['products'] as $product){
+            $products[] = $product->getProduct();
+        }
+
+        foreach ($list['dishes'] as $dish){
+            $dishes[] = $dish->getDish();
+        }
+
+        foreach ($products as $product){
+            $productsT[] = $pRep->findByIdAndLocale('es', $product->getId());
+        }
+
+        foreach ($dishes as $dish){
+            $dishT[] = $dRep->findByIdAndLocale('es', $dish->getId());
+        }
+
         return $this->render('order/products.html.twig', [
             'order' => $order,
-            'list' => $list
+            'list' => $list,
+            'productsT' => $productsT,
+            'dishT' => $dishT
         ]);
     }
 
