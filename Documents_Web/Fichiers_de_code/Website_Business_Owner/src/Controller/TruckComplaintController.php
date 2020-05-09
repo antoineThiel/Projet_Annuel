@@ -25,13 +25,13 @@ class TruckComplaintController extends AbstractController
     }
 
     /**
-     * @Route("truck_complaint/new", name="truck_complaint_new", methods={"GET","POST"})
+     * @Route("/truck_complaint/new", name="truck_complaint_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
         $user = $this->getUser();
         $truckComplaint = new TruckComplaint();
-        $truckComplaint->setDate(new Datetime);
+        $truckComplaint -> setdate(new DateTime);
         $truckComplaint->setTruck($user->getTruck());
         $form = $this->createForm(TruckComplaintType::class, $truckComplaint);
         $form->handleRequest($request);

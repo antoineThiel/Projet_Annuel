@@ -12,11 +12,13 @@ use App\Entity\WarehouseDish;
 use App\Entity\WarehouseProduct;
 use App\Form\OrderFirstType;
 use App\Form\OrderType;
+use App\Repository\FranchiseeRepository;
 use App\Repository\OrderByFranchiseeRepository;
 use App\Repository\ProductRepository;
 use App\Repository\WarehouseProductRepository;
 use App\Repository\WarehouseRepository;
 use Mpdf\Mpdf;
+use Stripe\Exception\ApiErrorException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -317,13 +319,12 @@ class OrderController extends AbstractController
                 <!-- ITEMS HERE -->
                     ';
         foreach ($products as $product) {
-
-            $qte = $product->getQuantity();
-            $price = $product->getPrice();
-            $product = $wrproductRep->findBy(['product' => $product->getProduct()]);
-            $html .= '<tr>
+                        $qte = $product->getQuantity();
+                        $price = $product->getPrice();
+                        $product = $wrproductRep->findOneBy(['product' => $product->getProduct()]);
+                        $html .= '<tr>
                         <td align="center">'.$qte.'</td>
-                        <td>'.$product['0'].'</td>
+                        <td>'.$product->getProduct().'</td>
                         <td class="cost">'.$price.'</td>
                         <td class="cost">&euro;'.$qte*$price.'</td>
                         </tr>';
@@ -347,12 +348,12 @@ class OrderController extends AbstractController
                                 ';
             foreach ($dishes as $dish) {
 
-                $qte = $dish->getQuantity();
-                $price = $dish->getPrice();
-                $dish = $wrdishRep->findBy(['dish' => $dish->getDish()]);
-                $html .= '<tr>
+                                    $qte = $dish->getQuantity();
+                                    $price = $dish->getPrice();
+                                    $dish = $wrdishRep->findOneBy(['dish' => $dish->getDish()]);
+                                    $html .= '<tr>
                                     <td align="center">'.$qte.'</td>
-                                    <td>'.$dish['0'].'</td>
+                                    <td>'.$dish.'</td>
                                     <td class="cost">'.$price.'</td>
                                     <td class="cost">&euro;'.$qte*$price.'</td>
                                     </tr>';
@@ -461,20 +462,29 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/admin/fakepayement", name="payement")
-     * @throws \Stripe\Exception\ApiErrorException
+     * @Route("/order/new/{id}/fakepayement/", name="payement" , methods={"POST"})
+     * @throws ApiErrorException
      */
     public function payement(Request $request) : Response
     {
-        \Stripe\Stripe::setApiKey('sk_test_ko1kC7G8gXtQtNAMdLTHIiKs00S8qWdHYw');
+        $user = $this->getUser();
 
-        \Stripe\PaymentIntent::create([
-            'amount' => 1000,
+        $entityManager = $this->getDoctrine()->getManager();
+        $orderRep = $entityManager->getRepository(OrderByFranchisee::class);
+        $order = $orderRep->find($request->get('id'));
+
+        \Stripe\Stripe::setApiKey('sk_test_bhno3VfANJrXrWo5n71yKVVz00pFkgG0no');
+
+
+        \Stripe\Charge::create([
+            'receipt_email' => $user->getMail(),
+            'amount' => ($order->getTotalPrice())*100,
             'currency' => 'eur',
-            'payment_method_types' => ['card'],
-            'receipt_email' => 'antoine.thiel@hotmail.fr',
+            'source' => 'tok_visa',
+            'description' => 'Commande n°'.$order->getId(),
         ]);
 
-        return $this->redirectToRoute('order_index');
+        return $this->redirectToRoute('order_recap',[ 'id' => $order->getId()]);
     }
+
 }
