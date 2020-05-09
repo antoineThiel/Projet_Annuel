@@ -19,10 +19,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomepageController extends AbstractController
 {
     /**
-     * @Route("/", name="home", methods={"GET"})
+     * @Route({
+     *     "fr": "/fr/",
+     *     "en": "/en/",
+     *     "es": "/es/"
+     * }, name="home", methods={"GET"})
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $locale = $request->getLocale();
+        $request->setLocale($locale);
         return $this->render('base_front.html.twig');
     }
 
@@ -67,5 +73,14 @@ class HomepageController extends AbstractController
             'dishnbre' => $dishnbre,
             'franchiseewithouttrucknbre' => $franchiseewithouttrucknbre
         ]);
+    }
+
+
+    /**
+     * @Route("/404", name="404")
+     */
+    public function notFound() : Response
+    {
+        return $this->render('common/404.html.twig');
     }
 }

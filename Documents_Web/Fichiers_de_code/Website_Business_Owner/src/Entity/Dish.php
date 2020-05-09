@@ -2,14 +2,18 @@
 
 namespace App\Entity;
 
+use App\Entity\Translations\DishTranslation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DishRepository")
+ * @Gedmo\TranslationEntity(class="App\Entity\Translations\DishTranslation")
  */
-class Dish
+class Dish implements Translatable
 {
     /**
      * @ORM\Id()
@@ -19,6 +23,7 @@ class Dish
     private $id;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -32,6 +37,15 @@ class Dish
      * @ORM\ManyToMany(targetEntity="App\Entity\Product", cascade={"persist"})
      */
     private Collection $product;
+
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\Translations\DishTranslation",
+     *     mappedBy="object",
+     *     cascade={"persist", "remove"}
+     *     )
+     */
+    private $translations;
 
     public function __construct()
     {
@@ -95,5 +109,17 @@ class Dish
     public function __toString()
     {
         return $this->name;
+    }
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation(DishTranslation $t)
+    {
+        if (!$this->translations->contains($t)) {
+            $this->translations[] = $t;
+            $t->setObject($this);
+        }
     }
 }

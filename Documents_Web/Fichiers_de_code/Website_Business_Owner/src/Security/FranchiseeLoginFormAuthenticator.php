@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Security;
 
 use App\Entity\Franchisee;
@@ -65,6 +64,7 @@ class FranchiseeLoginFormAuthenticator extends AbstractFormLoginAuthenticator im
 
         $user = $this->entityManager->getRepository(Franchisee::class)->findOneBy(['mail' => $credentials['username']]);
 
+
         if (!$user) {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('User could not be found.');
@@ -76,7 +76,11 @@ class FranchiseeLoginFormAuthenticator extends AbstractFormLoginAuthenticator im
     public function checkCredentials($credentials, UserInterface $user) : bool
     {
         //return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
-        return ($user->getPassword() == $credentials['password']);
+        if (strlen($user->getPassword()) < 64){
+            return ($user->getPassword() == $credentials['password']);
+        }else{
+            return ($user->getPassword() == hash('sha256', $credentials['password']));
+        }
     }
 
     /**
@@ -89,7 +93,7 @@ class FranchiseeLoginFormAuthenticator extends AbstractFormLoginAuthenticator im
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        return new RedirectResponse($this->urlGenerator->generate('home'));
+        return new RedirectResponse($this->urlGenerator->generate('check_hash'));
     }
 
     protected function getLoginUrl()

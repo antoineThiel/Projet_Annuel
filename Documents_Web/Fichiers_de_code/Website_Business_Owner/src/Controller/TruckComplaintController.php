@@ -29,9 +29,9 @@ class TruckComplaintController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $user = $this->getUser();
         $truckComplaint = new TruckComplaint();
         $truckComplaint -> setdate(new DateTime);
-        $user = $this->getUser();
         $truckComplaint->setTruck($user->getTruck());
         $form = $this->createForm(TruckComplaintType::class, $truckComplaint);
         $form->handleRequest($request);

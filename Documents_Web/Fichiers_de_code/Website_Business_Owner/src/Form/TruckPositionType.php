@@ -14,8 +14,6 @@ class TruckPositionType extends AbstractType
         $builder
             ->add('address')
             ->add('city')
-            ->add('postal_code')
-            ->add('truck')
         ;
     }
 

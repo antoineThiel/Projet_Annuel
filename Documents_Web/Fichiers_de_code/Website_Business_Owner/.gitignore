@@ -17,9 +17,10 @@
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
-/public/build/
+/public/build/images/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 /assets/adminlte
 /public/adminlte
+/public/build/

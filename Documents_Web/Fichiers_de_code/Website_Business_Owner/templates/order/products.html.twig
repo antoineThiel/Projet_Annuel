@@ -37,7 +37,7 @@
                     {% for products in list['products'] %}
                         {% if products.quantity >= 1 %}
                             <tr class="product">
-                                <td class="productName"><label>{{ products.product }}</label></td>
+                                <td class="productName"><label class="d-none">{{ products.product }}</label><p>{{ productsT[inc-1]['name'] }}</p></td>
                                 <td class="productQuantityInfo"><label>{{ products.quantity }}</label></td>
                                 <td class="productPrice"><label>{{ products.price }}</label> €</td>
                                 <td class="productQuantity">
@@ -69,7 +69,7 @@
                     {% for dish in list['dishes'] %}
                         {% if dish.quantity >= 1 %}
                             <tr class="dish">
-                                <td class="dishName"><label>{{ dish.dish }}</label></td>
+                                <td class="dishName"><label class="d-none">{{ dish.dish }}</label><p>{{ dishT[inc-1]['name'] }}</p></td>
                                 <td class="dishQuantityInfo"><label>{{ dish.quantity }}</label></td>
                                 <td class="dishPrice"><label>{{ dish.price }}</label> €</td>
                                 <td class="dishQuantity">

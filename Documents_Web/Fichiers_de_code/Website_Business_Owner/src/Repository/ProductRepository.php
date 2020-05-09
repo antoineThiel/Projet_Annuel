@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
+use Gedmo\Translatable\TranslatableListener;
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
@@ -22,5 +24,25 @@ class ProductRepository extends ServiceEntityRepository
     public function findAllTitle(){
         $query = $this->createQueryBuilder('p')->select('t.name');
         $query->getQuery()->getResult();
+    }
+
+    public function findByLocale(string $locale = 'fr'){
+        $qb = $this->createQueryBuilder('p')->select('p.name');
+        $qb = $qb->getQuery();
+        $qb->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
+        'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+        $qb->setHint(TranslatableListener::HINT_TRANSLATABLE_LOCALE, $locale);
+        return $qb->getResult();
+    }
+
+
+    public function findByIdAndLocale(string $locale = 'fr', $id){
+
+        $qb = $this->createQueryBuilder('p')->select('p.name')->where('p.id ='.$id);
+        $qb = $qb->getQuery();
+        $qb->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
+            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+        $qb->setHint(TranslatableListener::HINT_TRANSLATABLE_LOCALE, $locale);
+        return $qb->getSingleResult();
     }
 }

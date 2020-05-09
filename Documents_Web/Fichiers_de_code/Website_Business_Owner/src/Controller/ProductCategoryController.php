@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ProductCategory;
+use App\Entity\Translations\CategoryTranslation;
 use App\Form\ProductCategoryType;
 use App\Repository\ProductCategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -90,5 +91,43 @@ class ProductCategoryController extends AbstractController
         }
 
         return $this->redirectToRoute('product_category_index');
+    }
+
+    /**
+     * @Route("/admin/product/category/trad", name="product_category_trad")
+     */
+    public function trad(ProductCategoryRepository $productRepository): Response
+    {
+        $products = $productRepository->findAll();
+        $productsFr = $productRepository->findByLocale();
+        $productsEn = $productRepository->findByLocale('en');
+        $productsEs = $productRepository->findByLocale('es');
+        foreach ($products as $product){
+            $trads[] = $product->getTranslations();
+        }
+        return
+            $this->render('product_category/trad.html.twig', [
+                'trad' => $trads,
+                'products' => $products,
+                'en' => $productsEn,
+                'es' => $productsEs,
+                'fr' => $productsFr
+            ]);
+    }
+
+    /**
+     * @Route("/admin/product/category/trad/add", name="product_category_trad_add", methods={"POST"})
+     */
+    public function addTrad(Request $request, ProductCategoryRepository $productRepository): Response
+    {
+        $en = $request->get('en');
+        $es = $request->get('es');
+        $product = $productRepository->findOneBy(['id' => $request->get('id')]);
+        $product->addTranslation(new CategoryTranslation('en', 'name', $en));
+        $product->addTranslation(new CategoryTranslation('es', 'name', $es));
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($product);
+        $em->flush();
+        die();
     }
 }

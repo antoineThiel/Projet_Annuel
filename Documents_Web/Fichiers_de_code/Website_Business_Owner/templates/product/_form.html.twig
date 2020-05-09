@@ -13,6 +13,16 @@
         </div>
         <div class="form-group">
             {{ form_row(form.name) }}
+            {% if (app.request.attributes.get('_route') == 'product_edit') %}
+                <div id="divTrad">
+
+                </div>
+                <div class="row">
+                    <div class="ml-2 col-sm-1 btn-info" id="En" onclick="addTrad('en', 'name')">Add Trans En</div>
+                    <div class="ml-1 col-sm-1 btn-info" id="Es" onclick="addTrad('es', 'name')">Add Trans Es</div>
+                </div>
+
+            {% endif %}
         </div>
         <div class="form-group">
             {{ form_row(form.price) }}
@@ -24,12 +34,10 @@
             {{ form_row(form.origin) }}
         </div>
         <div class="row">
-            <div class="mr-1">
-                <button class="btn btn-info">Add</button>
-            </div>
+            {{ form_row(form.save) }}
         </div>
 
         {{ form_end(form) }}
     </div>
-
+{{ encore_entry_script_tags('trad') }}
 </div>

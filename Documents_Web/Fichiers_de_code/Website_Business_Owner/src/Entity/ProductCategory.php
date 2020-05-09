@@ -2,14 +2,18 @@
 
 namespace App\Entity;
 
+use App\Entity\Translations\CategoryTranslation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductCategoryRepository")
+ * @Gedmo\TranslationEntity(class="App\Entity\Translations\CategoryTranslation")
  */
-class ProductCategory
+class ProductCategory implements Translatable
 {
     /**
      * @ORM\Id()
@@ -19,6 +23,7 @@ class ProductCategory
     private $id;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -27,6 +32,15 @@ class ProductCategory
      * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category")
      */
     private $products;
+
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\Translations\CategoryTranslation",
+     *     mappedBy="object",
+     *     cascade={"persist", "remove"}
+     *     )
+     */
+    private $translations;
 
     public function __construct()
     {
@@ -86,5 +100,16 @@ class ProductCategory
         return $this->name;
     }
 
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
 
+    public function addTranslation(CategoryTranslation $t)
+    {
+        if (!$this->translations->contains($t)) {
+            $this->translations[] = $t;
+            $t->setObject($this);
+        }
+    }
 }

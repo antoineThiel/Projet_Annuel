@@ -1,0 +1,22 @@
+{% if app.request.get('_route') == 'franchisee_complaint_new' %}
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+
+{% elseif app.request.get('_route') == 'franchisee_complaint_edit' %}
+
+    {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.content) }}
+        {{ form_row(form.answer) }}
+        {{ form_row(form.isNew) }}
+        {{ form_row(form.isOngoing) }}
+        {{ form_row(form.isClosed) }}
+        <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+
+    {{ encore_entry_script_tags('checkboxes') }}
+
+{% endif %}

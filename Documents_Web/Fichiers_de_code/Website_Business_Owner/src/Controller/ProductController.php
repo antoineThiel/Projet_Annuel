@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\ProductCategory;
+use App\Entity\ProductOrigin;
+use App\Entity\Translations\ProductTranslation;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -66,7 +69,9 @@ class ProductController extends AbstractController
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $form->get('save')->isClicked()) {
+
+            dump($form);die();
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('product_index');
@@ -90,5 +95,43 @@ class ProductController extends AbstractController
         }
 
         return $this->redirectToRoute('product_index');
+    }
+
+    /**
+     * @Route("/admin/product/trad", name="product_trad")
+     */
+    public function trad(ProductRepository $productRepository): Response
+    {
+        $products = $productRepository->findAll();
+        $productsFr = $productRepository->findByLocale();
+        $productsEn = $productRepository->findByLocale('en');
+        $productsEs = $productRepository->findByLocale('es');
+        foreach ($products as $product){
+            $trads[] = $product->getTranslations();
+        }
+        return
+            $this->render('product/trad.html.twig', [
+            'trad' => $trads,
+                'products' => $products,
+                'en' => $productsEn,
+                'es' => $productsEs,
+                'fr' => $productsFr
+        ]);
+    }
+
+    /**
+     * @Route("/admin/product/trad/add", name="product_trad_add", methods={"POST"})
+     */
+    public function addTrad(Request $request, ProductRepository $productRepository): Response
+    {
+        $en = $request->get('en');
+        $es = $request->get('es');
+        $product = $productRepository->findOneBy(['id' => $request->get('id')]);
+        $product->addTranslation(new ProductTranslation('en', 'name', $en));
+        $product->addTranslation(new ProductTranslation('es', 'name', $es));
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($product);
+        $em->flush();
+        die();
     }
 }
