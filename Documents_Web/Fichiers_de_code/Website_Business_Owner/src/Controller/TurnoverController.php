@@ -59,14 +59,22 @@ Class TurnoverController extends AbstractController {
 
 
     /**
-     * @Route("/admin/turnover/send/{id]", name="turnover_send", methods={"GET"})
+     * @Route("/admin/turnover/send/{id}", name="turnover_send", methods={"GET"})
      */
     public function turnover_send(Request $request): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $orderRep = $entityManager->getRepository(Turnover::class);
-        $order = $orderRep->find($request->get('id'));
-        
+        $turnoverrep = $entityManager->getRepository(Turnover::class);
+        $turnover = $turnoverrep->find($request->get('id'));
+
+        //TODO: Envoie de mail comme quoi il a le montant a regler sur son profil
+
+        $turnover->setIsNew(0);
+        $turnover->setIsOngoing(1);
+        $turnover->setIsClosed(0);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('turnover_index');
     }
 
 }

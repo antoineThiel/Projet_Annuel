@@ -29,6 +29,7 @@
                     <th>Montant 4%</th>
                     <th>Franchisee</th>
                     <th>Satus</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -47,16 +48,19 @@
                     <td>{{ turnover.franchisee }}</td>
                     {% if turnover.isNew %}
                         <td>Nouvelle Demande</td>
+                        <td>
+                            <a href="{{ path('turnover_send',{id:turnover.id}) }}">Envoyer</a>
+                        </td>
                     {% endif %}
                     {% if turnover.isOngoing %}
                         <td>En cours de réponse</td>
+                        <td></td>
                     {% endif %}
                     {% if turnover.isClosed %}
                         <td>Fermé</td>
+                        <td></td>
                     {% endif %}
-                    <td>
-                        <a href="{{ path('turnover_send') }}">Envoyer</a>
-                    </td>
+
                     </tr>
                 {% else %}
                     <tr>
