@@ -31,6 +31,8 @@ front:
     rights: Todos los derechos estan reservados. Larga vida a los Sananes
   order:
     warehouse: Almacén
+  truck_complaint:
+    title: Formulario de queja
     products:
       order: Orden n°
       products: Productos

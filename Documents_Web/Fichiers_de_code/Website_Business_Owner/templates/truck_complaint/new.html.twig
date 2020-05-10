@@ -1,11 +1,11 @@
 {% extends 'base_front.html.twig' %}
 {% block content %}
-<div class="content-wrapper">
+<div class="p-5 mb-5 mt-5">
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    {% block title %}{% endblock %}
+                    {% block title %}<h3 class="text-uppercase font-weight-bold">{{"front.truck_complaint.title"|trans}}</h3>{% endblock %}
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -21,7 +21,7 @@
 
     {{ include('truck_complaint/_form.html.twig') }}
 
-    <a href="{{ path('truck_complaint_index') }}">back to list</a>
+    <a class="mb-5" href="{{ path('truck_complaint_index') }}">back to list</a>
     </section>
 </div>
 {% endblock %}

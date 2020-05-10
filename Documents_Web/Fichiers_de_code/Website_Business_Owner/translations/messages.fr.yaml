@@ -18,6 +18,8 @@ front:
       new: Nouveau
       ongoing: En cours
       closed: Fermé
+  truck_complaint:
+      title: Formulaire de plainte
   header:
       my_account: Mon Compte
       login : S'identifier
