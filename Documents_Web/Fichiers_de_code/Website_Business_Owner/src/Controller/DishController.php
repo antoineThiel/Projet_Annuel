@@ -108,12 +108,8 @@ class DishController extends AbstractController
         $productsFr = $productRepository->findByLocale();
         $productsEn = $productRepository->findByLocale('en');
         $productsEs = $productRepository->findByLocale('es');
-        foreach ($products as $product){
-            $trads[] = $product->getTranslations();
-        }
         return
             $this->render('dish/trad.html.twig', [
-                'trad' => $trads,
                 'products' => $products,
                 'en' => $productsEn,
                 'es' => $productsEs,

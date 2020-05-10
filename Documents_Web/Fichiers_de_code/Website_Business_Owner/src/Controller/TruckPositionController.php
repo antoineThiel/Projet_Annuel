@@ -24,7 +24,11 @@ class TruckPositionController extends AbstractController
     }
 
     /**
-     * @Route("/truck_position/new", name="truck_position_new", methods={"GET","POST"})
+     * @Route({
+     *     "fr": "/fr/position/nouvelle",
+     *     "en": "/en/truck_position/new",
+     *     "es": "/es/posición/nueva"
+     *     }, name="truck_position_new", methods={"GET","POST"})
      */
     public function new(Request $request, TruckPositionRepository $positionRepository): Response
     {

@@ -25,7 +25,11 @@ class FranchiseeComplaintController extends AbstractController
     }
 
     /**
-     * @Route("/franchisee/complaint/new", name="franchisee_complaint_new", methods={"GET","POST"})
+     * @Route({
+     *     "fr": "/franchise/reclamation/nouvelle",
+     *     "en": "/franchisee/complaint/new",
+     *     "es": "/franquiciado/queja/nueva"
+     *     }, name="franchisee_complaint_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {

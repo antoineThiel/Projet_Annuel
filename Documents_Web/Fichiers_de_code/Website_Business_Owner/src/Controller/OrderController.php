@@ -41,7 +41,11 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/order/new", name="order_new_warehouse", methods={"GET", "POST"})
+     * @Route({
+     *     "fr": "/fr/commander/nouvelle",
+     *     "en": "/en/order/new",
+     *     "es": "/es/ordene/nueva"
+     *     }, name="order_new_warehouse", methods={"GET", "POST"})
      */
     public function newWarehouse(Request $request)
     {
@@ -91,11 +95,11 @@ class OrderController extends AbstractController
         }
 
         foreach ($products as $product){
-            $productsT[] = $pRep->findByIdAndLocale('es', $product->getId());
+            $productsT[] = $pRep->findByIdAndLocale($request->getLocale(), $product->getId());
         }
 
         foreach ($dishes as $dish){
-            $dishT[] = $dRep->findByIdAndLocale('es', $dish->getId());
+            $dishT[] = $dRep->findByIdAndLocale($request->getLocale(), $dish->getId());
         }
 
         return $this->render('order/products.html.twig', [
@@ -206,8 +210,13 @@ class OrderController extends AbstractController
         }
         die();
     }
+
     /**
-     * @Route("/order/recap/{id}", name="order_recap", methods={"GET", "POST"})
+     * @Route({
+     *     "fr": "/fr/commander/recapitulatif/{id}",
+     *     "en": "/en/order/recap/{id}",
+     *     "es": "/es/ordene/recapitulativo/{id}"
+     *     },name="order_recap", methods={"GET", "POST"})
      */
     public function order_recap(OrderByFranchisee $order): Response
     {
