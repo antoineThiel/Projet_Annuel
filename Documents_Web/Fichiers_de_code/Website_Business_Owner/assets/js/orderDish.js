@@ -92,15 +92,31 @@ function addRemoveButton(count, type){
         $label = '#productQuantity' + count;
         $td = $($label).parent('td');
         var product = 'productDeleteButton' + count;
-        $removeButton = ("<button class='btn btn-danger' id="+product+" onclick='removeFromController("+count+", `product`)'>Remove</button>");
-
+        $productButton = '#productButton' + count;
+        $button = $($productButton);
+        $text = $button.text();
+        if($text === "Ajouter au panier"){
+            $removeButton = ("<button class='btn btn-danger' id="+product+" onclick='removeFromController("+count+", `product`)'>Supprimer</button>");
+        }else if($text === 'Add to cart') {
+            $removeButton = ("<button class='btn btn-danger' id="+product+" onclick='removeFromController("+count+", `product`)'>Remove</button>");
+        }else{
+            $removeButton = ("<button class='btn btn-danger' id="+product+" onclick='removeFromController("+count+", `product`)'>Eliminar</button>");
+        }
         $td.append($removeButton);
     }else{
         $label = '#dishQuantity' + count;
         $td = $($label).parent('td');
         var product = 'dishDeleteButton' + count;
-        $removeButton = ("<button class='btn btn-danger' id="+product+" onclick='removeFromController("+count+", `dish`)'>Remove</button>");
-
+        $productButton = '#dishButton' + count;
+        $button = $($productButton);
+        $text = $button.text();
+        if($text === "Ajouter au panier"){
+            $removeButton = ("<button class='btn btn-danger' id="+product+" onclick='removeFromController("+count+", `dish`)'>Supprimer</button>");
+        }else if($text === 'Add to cart') {
+            $removeButton = ("<button class='btn btn-danger' id="+product+" onclick='removeFromController("+count+", `dish`)'>Remove</button>");
+        }else{
+            $removeButton = ("<button class='btn btn-danger' id="+product+" onclick='removeFromController("+count+", `dish`)'>Eliminar</button>");
+        }
         $td.append($removeButton);
     }
 }
@@ -110,14 +126,32 @@ function addModifyButton(count, type){
         $label = '#productQuantity' + count;
         $td = $($label).parent('td');
         var product = 'productModifyButton' + count;
-        $removeButton = ("<button class='btn btn-info mr-1' id="+product+" onclick='sendToController("+count+", `product`)'>Modify</button>");
+        $productButton = '#productButton' + count;
+        $button = $($productButton);
+        $text = $button.text();
+        if($text === "Ajouter au panier"){
+            $removeButton = ("<button class='btn btn-info mr-1' id="+product+" onclick='sendToController("+count+", `product`)'>Modifier</button>");
+        }else if($text === 'Add to cart') {
+            $removeButton = ("<button class='btn btn-info mr-1' id="+product+" onclick='sendToController("+count+", `product`)'>Modify</button>");
+        }else{
+            $removeButton = ("<button class='btn btn-info mr-1' id="+product+" onclick='sendToController("+count+", `product`)'>Modificar</button>");
+        }
 
         $td.append($removeButton);
     }else{
         $label = '#dishQuantity' + count;
         $td = $($label).parent('td');
         var product = 'dishModifyButton' + count;
-        $removeButton = ("<button class='btn btn-info mr-1' id="+product+" onclick='sendToController("+count+", `dish`)'>Modify</button>");
+        $productButton = '#dishButton' + count;
+        $button = $($productButton);
+        $text = $button.text();
+        if($text === "Ajouter au panier"){
+            $removeButton = ("<button class='btn btn-info mr-1' id="+product+" onclick='sendToController("+count+", `dish`)'>Modifier</button>");
+        }else if($text === 'Add to cart') {
+            $removeButton = ("<button class='btn btn-info mr-1' id="+product+" onclick='sendToController("+count+", `dish`)'>Modify</button>");
+        }else{
+            $removeButton = ("<button class='btn btn-info mr-1' id="+product+" onclick='sendToController("+count+", `dish`)'>Modificar</button>");
+        }
         $td.append($removeButton);
     }
 }
@@ -136,15 +170,28 @@ function sendToController(count, type){
                 $button = $($productButton);
                 $button.css('background-color', 'green');
                 $button.attr('disabled', true);
-                if ($button.text() === 'Add to cart') {
+                $text = $button.text();
+                if ($text === 'Add to cart' || $text ==='Ajouter au panier') {
                     addModifyButton(count, type);
                     addRemoveButton(count, type);
-                    $button.text('Added');
+                    if($text === "Ajouter au panier"){
+                        $button.text('Ajouté');
+                    }else if($text === 'Add to cart') {
+                        $button.text('Added');
+                    }else{
+                        $button.text('Agregado');
+                    }
                     // BEGIN ADD PRICE TOTAL //
                     $price = $button.parents().prev(':first').children().text();
                     $number = $button.prev().children().val();
                     total = total + ($price * $number);
-                    $('.button_payer').text('Payer ' + total + ' €');
+                    if($text === "Ajouter au panier"){
+                        $('.button_payer').text('Payer ' + total + ' €');
+                    }else if($text === 'Add to cart') {
+                        $('.button_payer').text('Pay ' + total + ' €');
+                    }else{
+                        $('.button_payer').text('Paga ' + total + ' €');
+                    }
                     // END //
                 }else{
                     // BEGIN MODIFIED TOTAL PRICE //
@@ -152,9 +199,21 @@ function sendToController(count, type){
                     $numbernew = $button.prev().children().val();
                     total = total - ($price * $number);
                     total = total +($price * $numbernew);
-                    $('.button_payer').text('Payer ' + total + ' €');
+                    if($text === "Ajouté"){
+                        $('.button_payer').text('Payer ' + total + ' €');
+                    }else if($text === 'Added') {
+                        $('.button_payer').text('Pay ' + total + ' €');
+                    }else{
+                        $('.button_payer').text('Paga ' + total + ' €');
+                    }
                     // END //
-                    $button.text('Modified');
+                    if($text === "Ajouté"){
+                        $button.text('Modifié');
+                    }else if($text === 'Added') {
+                        $button.text('Modified');
+                    }else{
+                        $button.text('Modificado');
+                    }
                 }
             },
     })
@@ -199,11 +258,25 @@ function removeFromController(count, type){
           $number = $trueButton.prev().children().val();
           total = total - ($price * $number);
           console.log($price);
-          $('.button_payer').text('Payer ' + total + ' €');
-          // END //
-          $modifyButton.remove();
-          $deleteButton.remove();
-          $trueButton.text('Add to cart');
+          if($trueButton.text()==='Ajouté' || $trueButton.text() === "Modifié") {
+              $('.button_payer').text('Payer ' + total + ' €');
+              // END //
+              $modifyButton.remove();
+              $deleteButton.remove();
+              $trueButton.text('Ajouter au panier');
+          }else if($trueButton.text()==='Added' || $trueButton.text()=== 'Modifed'){
+              $('.button_payer').text('Pay ' + total + ' €');
+              // END //
+              $modifyButton.remove();
+              $deleteButton.remove();
+              $trueButton.text('Add to cart');
+          }else{
+              $('.button_payer').text('Paga ' + total + ' €');
+              // END //
+              $modifyButton.remove();
+              $deleteButton.remove();
+              $trueButton.text('Añadir a la cesta');
+          }
           $trueButton.css('background-color', '#17a2b8');
           $trueButton.attr('disabled', false);
         },

@@ -41,3 +41,8 @@ front:
       dish: Dish
       pay_cart: Pay with cart
       pay: Pay
+    recap:
+      begin_invoice: A new invoice from
+      end_invoice: € has been added to your account!
+      download: Download the invoice
+      back: Back to my account

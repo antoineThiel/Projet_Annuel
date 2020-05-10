@@ -41,3 +41,8 @@ front:
       dish: Platos
       pay_cart: Paga con carjeta
       pay: Paga
+    recap:
+      begin_invoice: Una nueva factura de
+      end_invoice: € ha sido agregado a su cuenta!
+      download: Descargar la factura
+      back: Volver a mi cuenta

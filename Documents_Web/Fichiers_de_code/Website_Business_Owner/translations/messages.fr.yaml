@@ -41,3 +41,8 @@ front:
           dish: Plats
           pay_cart: Payer avec la carte
           pay: Payer
+      recap:
+          begin_invoice: Une nouvelle facture de
+          end_invoice: € a été ajoutée à votre compte !
+          download: Télécharger la facture
+          back: Retour à mon compte
