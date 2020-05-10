@@ -6,22 +6,12 @@
         <div class="row text-center d-flex justify-content-center pt-2">
             <div class="col-md-2 mb-3">
                 <h6 class="text-uppercase font-weight-bold">
-                    <a href="#!">A propos</a>
+                    <a href="#!">{{'front.footer.about' | trans}}</a>
                 </h6>
             </div>
             <div class="col-md-2 mb-3">
                 <h6 class="text-uppercase font-weight-bold">
-                    <a href="#!">Nos Produits</a>
-                </h6>
-            </div>
-            <div class="col-md-2 mb-3">
-                <h6 class="text-uppercase font-weight-bold">
-                    <a href="#!">Aide</a>
-                </h6>
-            </div>
-            <div class="col-md-2 mb-3">
-                <h6 class="text-uppercase font-weight-bold">
-                    <a href="#!">Contact</a>
+                    <a href="#!">{{ 'front.footer.contact' | trans}}</a>
                 </h6>
             </div>
         </div>
@@ -33,12 +23,7 @@
         <div class="row d-flex text-center justify-content-center mb-md-0 mb-2">
             <div class="col-md-8 col-12 mt-2">
                 <p style="line-height: 1.7rem">
-                    Xampp 7.4.3 prefered
-                    add "127.0.0.1 drivncook.local" to c://windows/system32/driver/etc/hosts
-                    configure xampp/apache/conf/extras/httpd-vhosts.conf
-                    add
-
-
+                   {{ 'front.footer.description' | trans }}
                 </p>
             </div>
         </div>
@@ -70,7 +55,7 @@
 
     <!-- Copyright -->
     <div class="footer-copyright text-center py-1">
-        <strong>Copyright &copy; 2020-2510 <b>DRIV'N COOK</b>.</strong> All rights reserved. Long Live The Sananes
+        <strong>{{ 'front.footer.copyright' |trans }} <b>{{ 'front.footer.drivncook' |trans}}</b>.</strong> {{ 'front.footer.rights' | trans }}
     </div>
     <!-- Copyright -->
 

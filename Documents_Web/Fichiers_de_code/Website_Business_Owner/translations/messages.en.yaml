@@ -18,3 +18,26 @@ front:
     new: New
     ongoing: Ongoing
     closed: Closed
+  header:
+    my_account: My Account
+    login: Login
+    logout: Logout
+  footer:
+    about: About
+    contact: Contact
+    description: Driv'n Cook is a company created in 2020, it will welcome all food lovers who travel by truck. If you want to be part of this adventure, join us!
+    copyright: Copyright © 2020-2510
+    drivncook: Driv'n Cook
+    rights: All rights reserved. Long live the Sananes
+  order:
+    warehouse: Warehouse
+    products:
+      order: Order n°
+      products: Products
+      name: Name
+      available_quantity: Available Quantity
+      price: Price
+      add_card: Add to card
+      dish: Dish
+      pay_cart: Pay with cart
+      pay: Pay
