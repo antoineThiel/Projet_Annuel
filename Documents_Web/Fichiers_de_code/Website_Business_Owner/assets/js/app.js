@@ -9,6 +9,7 @@
 import '../css/app.css';
 import '../adminlte/dist/css/adminlte.min.css';
 import '../adminlte/plugins/fontawesome-free/css/all.min.css';
+import '../css/style.css';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 

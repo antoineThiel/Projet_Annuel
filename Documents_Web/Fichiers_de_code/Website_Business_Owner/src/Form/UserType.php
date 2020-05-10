@@ -16,12 +16,14 @@ class UserType extends AbstractType
             ->add('username')
             ->add('password')
             ->add('roles', ChoiceType::class, [
+                'data' => '',
                 'choices' => [
-                    'Admin' => 'ROLE_ADMIN',
                     'Super' => 'ROLE_SUPER_ADMIN',
+                    'RH' => 'ROLE_RH',
+                    'LOGISTIC' => 'ROLE_LOGISTIC',
                 ],
-                'expanded' => false,
-                'multiple' => true,
+                'expanded' => true,
+                'multiple' => false,
             ])
         ;
     }

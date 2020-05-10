@@ -98,10 +98,11 @@ class User implements UserInterface
         return $roles;
     }
 
-    public function setRoles( array $roles): string
+    public function setRoles( string $roles): string
     {
-
-        return $this->roles[] = current($roles);
+        unset($this->roles);
+        $this->roles[] = $roles;
+        return $this->roles[] = "ROLE_ADMIN";
 
 
     }

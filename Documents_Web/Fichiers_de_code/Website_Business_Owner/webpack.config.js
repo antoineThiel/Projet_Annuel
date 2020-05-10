@@ -34,6 +34,8 @@ Encore
     .addEntry('connectCardFront', './assets/js/connectCardFront.js')
     .addEntry('checkboxes', './assets/js/checkboxesComplaintForm.js')
     .addEntry('trad', './assets/js/tradEdit.js')
+    .addEntry('webGl', './assets/js/dev/variables.js')
+    .addEntry('weGLinit', './assets/js/init.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

@@ -58,9 +58,9 @@ class FranchiseeController extends AbstractController
 
     /**
      * @Route({
-     *     "fr": "/franchise/{id}",
-     *     "en": "/franchisee/{id}",
-     *     "es": "/franchisado/{id}"
+     *     "fr": "/fr/franchise/{id}",
+     *     "en": "/en/franchisee/{id}",
+     *     "es": "/es/franquiciado/{id}"
      *      }, name="franchisee_show", methods={"GET"})
      */
     public function show(Franchisee $franchisee,TruckRepository $truckRepository, TruckPositionRepository $positionRepository, InvoiceRepository $invoiceRepository): Response
@@ -89,7 +89,7 @@ class FranchiseeController extends AbstractController
     }
 
     /**
-     * @Route("/franchisee/{id}/edit", name="franchisee_edit", methods={"GET","POST"})
+     * @Route("/admin/franchisee/{id}/edit", name="franchisee_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Franchisee $franchisee): Response
     {

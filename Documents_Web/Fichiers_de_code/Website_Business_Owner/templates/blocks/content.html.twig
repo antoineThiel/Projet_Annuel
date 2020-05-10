@@ -5,7 +5,7 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         {% block title %}
-                            <h1 class="m-0 text-dark">Dashboard</h1>
+                            <h1 class="m-0 text-dark">Accueil</h1>
                         {% endblock %}
                     </div><!-- /.col -->
                     <div class="col-sm-6">
@@ -20,86 +20,70 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="card card-primary card-outline">
-                            <div class="card-body">
-                                <h5 class="card-title">Products numbers</h5>
-                                <p class="card-text">
-                                    There is {{ productnbre }} products registered in our database
-                                </p>
-                                <p class="card-text">
-                                    There is {{ catnbre }} categories registered in our database
-                                </p>
-                                <p class="card-text">
-                                    There is {{ originbre }} origins registered in our database
-                                </p>
-                                <a href="{{ path('product_new')}}" class="card-link">Add product</a>
-                                <a href="{{ path('product_category_new')}}" class="card-link">Add cateogries</a>
-                                <a href="{{ path('product_origin_new') }}" class="card-link">Add origins</a>
+                            <div class="card-header">
+                                <h5 class="m-0">Produits</h5>
                             </div>
-                        </div>
-
-                        <div class="card card-primary card-outline">
                             <div class="card-body">
-                                <h5 class="card-title">Trucks whereabouts</h5>
                                 <p class="card-text">
-                                    There is {{ trucknbre }} tucks registered in our database
+                                    Il y a  {{ productnbre }} produits présents dans notre base
                                 </p>
-                                <a href="{{ path('truck_new') }}" class="card-link">Add more</a>
+                                <p class="card-text">
+                                    Il y a {{ catnbre }} categories présents dans notre base
+                                </p>
+                                <p class="card-text">
+                                    Il y a {{ originbre }} origins présents dans notre base
+                                </p>
+                                <a href="{{ path('product_new')}}" class="card-link">Ajouter produits</a>
+                                <a href="{{ path('product_category_new')}}" class="card-link">Ajouter des catégories</a>
+                                <a href="{{ path('product_origin_new') }}" class="card-link">Ajouter des origines</a>
                             </div>
                         </div><!-- /.card -->
 
                         <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <h5 class="m-0">Franchisés</h5>
+                            </div>
                             <div class="card-body">
-                                <h5 class="card-title">Franchisee</h5>
                                 <p class="card-text">
-                                    There is {{ franchiseenbre }} franchisee who joins our great franchise !
+                                    Il y a {{ franchiseenbre }} franchisés qui ont rejoins notre grande franchise !
                                 </p>
-                                <a href="{{ path('franchisee_new') }}" class="card-link">Add more</a>
                             </div>
                         </div>
                         <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <h5 class="m-0">Plats préparés</h5>
+                            </div>
                             <div class="card-body">
-                                <h5 class="card-title">Dishes</h5>
                                 <p class="card-text">
-                                    There is {{ dishnbre }} dish registered in our database
+                                    Il y a {{ dishnbre }} plats présents dans notre base de données
                                 </p>
-                                <a href="{{ path('dish_new') }}" class="card-link">Add more</a>
+                                <a href="{{ path('dish_new') }}" class="card-link">Ajouter des plats</a>
                             </div>
                         </div>
                     </div>
                     <!-- /.col-md-6 -->
                     <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="m-0">Featured</h5>
-                            </div>
-                            <div class="card-body">
-                                <h6 class="card-title">Special title treatment</h6>
-
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-
+                        {% if (franchiseewithouttrucknbre != 0) %}
                         <div class="card card-primary card-outline">
                             <div class="card-header">
-                                <h5 class="m-0">Featured</h5>
+                                <h5 class="m-0">Franchisés sans camions</h5>
                             </div>
                             <div class="card-body">
-                                <h6 class="card-title">Special title treatment</h6>
-
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h5 class="m-0">Franchisee without truck</h5>
-                            </div>
-                            <div class="card-body">
-                                <h6 class="card-title">Number : {{ franchiseewithouttrucknbre }}</h6>
+                                <h6 class="card-title">{{ franchiseewithouttrucknbre }}</h6>
                                 <p class="card-text"></p>
-                                <a href="#" class="btn btn-primary">Go add Truck</a>
+                                <a href="{{ path('franchisee_index') }}" class="btn btn-primary">Ajouter les camions</a>
+                            </div>
+                        </div>
+                        {% endif %}
+
+
+                        <div class="card card-primary card-outline">
+                            <div class="card-body">
+                                <h5 class="card-title">Camions</h5>
+                                <p class="card-text">
+                                    Il y a {{ trucknbre }} camions présents dans notre base
+                                </p>
+                                <a href="{{ path('truck_new') }}" class="card-link">Add more</a>
                             </div>
                         </div>
 

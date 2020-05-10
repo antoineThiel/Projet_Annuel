@@ -9,8 +9,6 @@ $(document).ready(function () {
     $api = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
     $key = '&key=AIzaSyDrlSV5EIbonFEhtydrXFwQFDoizK8Y0H4&callback=initMap';
 
-    var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    var labelIndex = 0;
     var i = 1;
     var allId = [];
 

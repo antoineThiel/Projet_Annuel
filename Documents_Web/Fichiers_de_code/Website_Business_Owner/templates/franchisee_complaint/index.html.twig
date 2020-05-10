@@ -19,17 +19,34 @@
                 <th>Id</th>
                 <th>Title</th>
                 <th>Content</th>
+                <th>Answer</th>
+                <th>Status</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for franchisee_complaint in franchisee_complaints %}
-            <tr>
+            {% if franchisee_complaint.isNew %}
+                <tr style="background-color: limegreen;">
+            {% elseif franchisee_complaint.isOngoing %}
+                <tr style="background-color: cornflowerblue">
+            {% elseif franchisee_complaint.isClosed %}
+                <tr style="background-color: #E5735E;">
+            {% endif %}
                 <td>{{ franchisee_complaint.id }}</td>
                 <td>{{ franchisee_complaint.title }}</td>
                 <td>{{ franchisee_complaint.content }}</td>
+                <td>{{ franchisee_complaint.answer }}</td>
+                {% if franchisee_complaint.isNew %}
+                    <td>Nouvelle Demande</td>
+                {% endif %}
+                {% if franchisee_complaint.isOngoing %}
+                    <td>En cours de réponse</td>
+                {% endif %}
+                {% if franchisee_complaint.isClosed %}
+                    <td>Fermé</td>
+                {% endif %}
                 <td>
-                    <a href="{{ path('franchisee_complaint_show', {'id': franchisee_complaint.id}) }}">show</a>
                     <a href="{{ path('franchisee_complaint_edit', {'id': franchisee_complaint.id}) }}">edit</a>
                 </td>
             </tr>

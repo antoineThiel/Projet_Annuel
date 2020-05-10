@@ -43,7 +43,11 @@
                     {% if invoices is not null %}
                         <div class="card-body">
                             {% for invoice in invoices %}
-                                <p>{{ invoice.date|date("m/d/y") }} {{ invoice.ammount }}€  <a href="{{ path('invoice_show', {'id': invoice.id}) }}" target="_blank">{{ 'front.franchisee.check'| trans }}</a></p>
+                                {% if app.request.attributes.get('_locale') == 'en' %}
+                                    <p>{{ invoice.date|date("m/d/y") }} {{ invoice.ammount }}€  <a href="{{ path('invoice_show', {'id': invoice.id}) }}" target="_blank">{{ 'front.franchisee.check'| trans }}</a></p>
+                                {% else %}
+                                    <p>{{ invoice.date|date("d/m/y") }} {{ invoice.ammount }}€  <a href="{{ path('invoice_show', {'id': invoice.id}) }}" target="_blank">{{ 'front.franchisee.check'| trans }}</a></p>
+                                {% endif %}
                             {% endfor %}
                         </div>
                     {% endif %}
@@ -87,14 +91,16 @@
                         <div class="card-body">
                             {% for complaint in franchisee.franchiseeComplaints %}
                                 <p>
-                                    {{ complaint.title }}
                                     {% if complaint.isNew %}
+                                        {{ complaint.title }}
                                         <button class="btn btn-success disabled">{{ 'front.franchisee.new'|trans }}</button>
                                     {% endif %}
                                     {% if complaint.isOngoing %}
+                                        {{ complaint.title }}
                                         <button class="btn btn-info disabled">{{ 'front.franchisee.ongoing'|trans }}</button>
                                     {% endif %}
                                     {% if complaint.isClosed %}
+                                        <a href="{{ path('franchisee_complaint_show', {'id': complaint.id}) }}">{{ complaint.title }}</a>
                                         <button class="btn btn-danger disabled">{{ 'front.franchisee.closed'|trans }}</button>
                                     {% endif %}
                             {% endfor %}

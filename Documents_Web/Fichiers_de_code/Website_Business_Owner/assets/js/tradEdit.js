@@ -8,8 +8,6 @@ function addTrad(id, entity) {
 }
 
 function saveToTrad(en, es, id, entity) {
-   console.log(en);
-   console.log(es);
    $.ajax({
       url: '/admin/'+entity+'/trad/add',
       method: "POST",
