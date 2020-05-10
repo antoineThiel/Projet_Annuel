@@ -18,3 +18,5 @@ front:
     new: New
     ongoing: Ongoing
     closed: Closed
+  truck_complaint:
+    title: Complaint form

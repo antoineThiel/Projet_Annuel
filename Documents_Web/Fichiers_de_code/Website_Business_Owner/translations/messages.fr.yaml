@@ -18,3 +18,5 @@ front:
       new: Nouveau
       ongoing: En cours
       closed: Fermé
+  truck_complaint:
+      title: Formulaire de plainte

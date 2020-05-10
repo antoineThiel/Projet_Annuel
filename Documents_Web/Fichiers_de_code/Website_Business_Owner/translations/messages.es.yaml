@@ -20,3 +20,5 @@ front:
     closed: Cerrado
   order:
     warehouse: Almacén
+  truck_complaint:
+    title: Formulario de queja
