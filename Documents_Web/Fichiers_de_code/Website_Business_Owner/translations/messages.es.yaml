@@ -48,3 +48,5 @@ front:
       end_invoice: € ha sido agregado a su cuenta!
       download: Descargar la factura
       back: Volver a mi cuenta
+  complaint:
+    new : Nueve queja

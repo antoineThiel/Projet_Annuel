@@ -48,3 +48,5 @@ front:
       end_invoice: € has been added to your account!
       download: Download the invoice
       back: Back to my account
+  complaint:
+    new: New Complaint

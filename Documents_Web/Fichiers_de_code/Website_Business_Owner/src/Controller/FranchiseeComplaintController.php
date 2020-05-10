@@ -26,9 +26,9 @@ class FranchiseeComplaintController extends AbstractController
 
     /**
      * @Route({
-     *     "fr": "/franchise/reclamation/nouvelle",
-     *     "en": "/franchisee/complaint/new",
-     *     "es": "/franquiciado/queja/nueva"
+     *     "fr": "/fr/franchise/reclamation/nouvelle",
+     *     "en": "/en/franchisee/complaint/new",
+     *     "es": "/es/franquiciado/queja/nueva"
      *     }, name="franchisee_complaint_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -57,7 +57,11 @@ class FranchiseeComplaintController extends AbstractController
     }
 
     /**
-     * @Route("/admin/franchisee/complaint/{id}", name="franchisee_complaint_show", methods={"GET"})
+     * @Route({
+     *     "fr": "/fr/franchise/reclamation/{id}",
+     *     "en": "/en/franchisee/complaint/{id}",
+     *     "es": "/es/franquiciado/queja/{id}"
+     * },name="franchisee_complaint_show", methods={"GET"})
      */
     public function show(FranchiseeComplaint $franchiseeComplaint): Response
     {

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_front.html.twig' %}
 {% block content %}
 <div class="content-wrapper">
     <div class="content-header">
@@ -7,20 +7,13 @@
                 <div class="col-sm-6">
                     {% block title %}{% endblock %}
                 </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Starter Page</li>
-                    </ol>
-                </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
+        <h2>{{ 'front.complaint.new' |trans }}</h2>
     </div>
     <!-- Main content -->
     <section class="content">
     {{ include('franchisee_complaint/_form.html.twig') }}
-
-    <a href="{{ path('franchisee_complaint_index') }}">back to list</a>
     </section>
 </div>
 {% endblock %}
