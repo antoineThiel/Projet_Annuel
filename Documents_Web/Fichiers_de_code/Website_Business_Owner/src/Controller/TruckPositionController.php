@@ -52,7 +52,7 @@ class TruckPositionController extends AbstractController
             $entityManager->persist($oldPos);
             $entityManager->flush();
 
-            return $this->redirectToRoute('truck_position_index');
+            return $this->redirectToRoute('franchisee_show', ['id' => $user->getId()]);
         }
 
         return $this->render('truck_position/new.html.twig', [

@@ -38,7 +38,6 @@
                     <th>Id</th>
                     <th>Registration</th>
                     <th>Franchisee</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,10 +46,6 @@
                     <td>{{ truck.id }}</td>
                     <td>{{ truck.registration }}</td>
                     <td>{{ truck.franchise }}</td>
-                    <td>
-                        <a href="{{ path('truck_show', {'id' : truck.id}) }}">Show</a>
-                        <a href="{{ path('truck_edit', {'id' : truck.id}) }}">Edit</a>
-                    </td>
                 </tr>
             {% else %}
                 <tr>
