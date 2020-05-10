@@ -22,11 +22,6 @@
             <a href="{{ path('home', {'_locale': 'es'}) }}" class="nav-link {{ (app.request.attributes.get('_locale') == 'es' ) ? 'd-none' }}">ES</a>
         </ul>
         <ul class="navbar-nav ml-auto ">
-            <li class="nav-item">
-                <a class="nav-link">
-                    <i class="fas fa-envelope white-text"></i>
-                </a>
-            </li>
             {% if app.user == null %}
                 <li class="nav-item">
                     <a class="nav-link waves-effect waves-light white-text" href="{{ path('login') }}">
@@ -36,7 +31,7 @@
             {% endif %}
             {% if app.user != null %}
                 <li class="nav-item">
-                    <a class="nav-link white-text" href="">
+                    <a class="nav-link white-text" href="{{ path('app_logout') }}">
                      {{ 'front.header.logout' | trans}}
                     </a>
                 </li>

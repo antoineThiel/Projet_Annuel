@@ -5,6 +5,9 @@
 #curl:
 #    path: /curl
 #    controller: App\Controller\CurlController::index
+homepage:
+    path: /
+    controller: App\Controller\HomepageController::index
 site_controller:
     resource: '../src/Controller/'
     type: annotation
