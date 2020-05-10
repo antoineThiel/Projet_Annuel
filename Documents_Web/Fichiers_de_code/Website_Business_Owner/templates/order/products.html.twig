@@ -19,16 +19,16 @@
     </div>
     <!-- Main content -->
     <section class="content">
-        <h2>Commande n° <label id="orderNumber">{{ order.id }}</label></h2>
+        <h2>{{'front.order.products.order'|trans}} <label id="orderNumber">{{ order.id }}</label></h2>
         <div class="row">
             <div class="col-sm-6">
                 <table class="table">
-                    <h2>Products</h2>
+                    <h2>{{'front.order.products.products'|trans}}</h2>
                     <thead>
                     <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Available quantity</th>
-                        <th scope="col">Price</th>
+                        <th scope="col">{{'front.order.products.name'|trans}}</th>
+                        <th scope="col">{{'front.order.products.available_quantity'|trans}}</th>
+                        <th scope="col">{{'front.order.products.price'|trans}}</th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
@@ -44,7 +44,7 @@
                                     <label>
                                         <input type="number" min="1"  max="{{ products.quantity }}">
                                     </label>
-                                    <button class="btn btn-info" onclick="sendToController({{ inc }}, 'product')">Add to cart</button>
+                                    <button class="btn btn-info" onclick="sendToController({{ inc }}, 'product')">{{'front.order.products.add_card'|trans}}</button>
                                 </td>
                             </tr>
                             {% set inc = inc + 1 %}
@@ -55,12 +55,12 @@
             </div>
             <div class="col-sm-6">
                 <table class="table">
-                    <h2>Dish</h2>
+                    <h2>{{'front.order.products.dish'|trans}}</h2>
                     <thead>
                     <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Available quantity</th>
-                        <th scope="col">Price</th>
+                        <th scope="col">{{'front.order.products.name'|trans}}</th>
+                        <th scope="col">{{'front.order.products.available_quantity'|trans}}</th>
+                        <th scope="col">{{'front.order.products.price'|trans}}</th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
@@ -76,7 +76,7 @@
                                     <label>
                                         <input type="number" min="1"  max="{{ dish.quantity }}">
                                     </label>
-                                    <button class="btn btn-info" onclick="sendToController({{ inc }}, 'dish')">Add to cart</button>
+                                    <button class="btn btn-info" onclick="sendToController({{ inc }}, 'dish')">{{'front.order.products.add_card'|trans}}</button>
                                 </td>
                             </tr>
                             {% set inc = inc + 1 %}
@@ -87,20 +87,20 @@
             </div>
         </div>
 
-        <a href="{{ path('order_recap', {'id': order.id }) }}"><button class="btn btn-info">Valider</button></a>
+        <!--<a href="{{ path('order_recap', {'id': order.id }) }}"><button class="btn btn-info">Valider</button></a>-->
     </section>
         <div class="base_paiement cell">
             <form action="{{ path('payement', {'id': order.id }) }}" method="post" id="payment-form">
                 <fieldset>
                     <div id="paiement" class="form-row">
                         <legend class="card-only" for="card-element">
-                            Pay with cart
+                            {{'front.order.products.pay_cart'|trans}}
                         </legend>
                         <div class="container container_paiement">
                             <div id="card-element">
                                 <!-- A Stripe Element will be inserted here. -->
                             </div>
-                            <button class="button_payer">Payer</button>
+                            <button class="button_payer">{{'front.order.products.pay'|trans}}</button>
                         </div>
                     </div>
                 </fieldset>
