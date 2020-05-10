@@ -16,7 +16,7 @@ Class TurnoverController extends AbstractController {
     public function index(TurnoverRepository $turnoverRepository): Response
     {
         return $this->render('turnover/index.html.twig', [
-           'turnover' => $turnoverRepository->findAll(),
+           'turnovers' => $turnoverRepository->findAll(),
         ]);
     }
 

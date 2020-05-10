@@ -23,12 +23,12 @@ class Turnover
     /**
      * @ORM\Column(type="float")
      */
-    private $amount_turnover;
+    private $amount;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $date_turnover;
+    private $date;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Franchisee", inversedBy="invoices")
@@ -55,33 +55,33 @@ class Turnover
     /**
      * @return mixed
      */
-    public function getAmountTurnover()
+    public function getAmount()
     {
-        return $this->amount_turnover;
+        return $this->amount;
     }
 
     /**
-     * @param mixed $amount_turnover
+     * @param mixed $amount
      */
-    public function setAmountTurnover($amount_turnover)
+    public function setAmount($amount)
     {
-        $this->amount_turnover = $amount_turnover;
+        $this->amount = $amount;
     }
 
     /**
      * @return mixed
      */
-    public function getDateTurnover()
+    public function getDate()
     {
-        return $this->date_turnover;
+        return $this->date;
     }
 
     /**
-     * @param mixed $date_turnover
+     * @param mixed $date
      */
-    public function setDateTurnover($date_turnover)
+    public function setDate($date)
     {
-        $this->date_turnover = $date_turnover;
+        $this->date = $date;
     }
 
     /**

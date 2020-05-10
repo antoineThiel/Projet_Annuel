@@ -1,22 +1,70 @@
 {% extends 'base.html.twig' %}
 {% block content %}
-<div class="content-wrapper">
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    {% block title %}{% endblock %}
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Starter Page</li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        {% block title %}{% endblock %}
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Starter Page</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- Main content -->
+        <section class="content">
+            <h1>Chiffre d'affaire index</h1>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Date</th>
+                    <th>Montant</th>
+                    <th>Franchisee</th>
+                    <th>Satus</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for turnover in turnovers %}
+                    {% if turnover.isNew %}
+                        <tr style="background-color: limegreen;">
+                    {% elseif turnover.isOngoing %}
+                        <tr style="background-color: cornflowerblue">
+                    {% elseif turnover.isClosed %}
+                        <tr style="background-color: #E5735E;">
+                    {% endif %}
+                    <td>{{ turnover.id }}</td>
+                    <td>{{ turnover.date ? turnover.date|date('Y-m-d') : ''}}</td>
+                    <td>{{ turnover.amount }}</td>
+                    <td>{{ turnover.franchisee }}</td>
+                    {% if turnover.isNew %}
+                        <td>Nouvelle Demande</td>
+                    {% endif %}
+                    {% if turnover.isOngoing %}
+                        <td>En cours de réponse</td>
+                    {% endif %}
+                    {% if turnover.isClosed %}
+                        <td>Fermé</td>
+                    {% endif %}
+                    <td>
+                        <a href="">edit</a>
+                    </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <a href=""><button class="btn btn-info ml-3 mr-1">Create new</button></a>
+            <a href=""><button class="btn btn-info ml-2">Export All</button></a>
+        </section>
     </div>
-    <!-- Main content -->
-    Salut turnover
-</div>
 {% endblock %}
