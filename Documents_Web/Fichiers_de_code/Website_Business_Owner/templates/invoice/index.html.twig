@@ -23,7 +23,8 @@
             <tr>
                 <th>Id</th>
                 <th>Date</th>
-                <th>Ammount</th>
+                <th>Montant</th>
+                <th>Franchisé</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -33,6 +34,7 @@
                 <td>{{ invoice.id }}</td>
                 <td>{{ invoice.date ? invoice.date|date('Y-m-d') : '' }}</td>
                 <td>{{ invoice.ammount }}</td>
+                <td>{{ invoice.franchisee }}</td>
                 <td>
                     <a href="{{ path('invoice_show', {'id': invoice.id}) }}">show</a>
                     <a href="{{ path('invoice_edit', {'id': invoice.id}) }}">edit</a>

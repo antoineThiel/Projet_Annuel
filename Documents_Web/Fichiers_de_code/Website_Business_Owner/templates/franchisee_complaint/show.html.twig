@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_front.html.twig' %}
 {% block content %}
 <div class="content-wrapper">
     <div class="content-header">
@@ -32,6 +32,10 @@
             <tr>
                 <th>Content</th>
                 <td>{{ franchisee_complaint.content }}</td>
+            </tr>
+            <tr>
+                <th>Answer</th>
+                <td>{{ franchisee_complaint.answer }}</td>
             </tr>
             <tr>
                 <th>Status</th>
