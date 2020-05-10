@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Traits\StatusTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TurnoverRepository")
@@ -22,8 +23,14 @@ class Turnover
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Positive
      */
     private $amount;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $percentAmount;
 
     /**
      * @ORM\Column(type="datetime")
@@ -31,7 +38,7 @@ class Turnover
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Franchisee", inversedBy="invoices")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Franchisee", inversedBy="turnover")
      * @ORM\JoinColumn(nullable=false)
      */
     private $franchisee;
@@ -71,6 +78,22 @@ class Turnover
     /**
      * @return mixed
      */
+    public function getPercentAmount()
+    {
+        return $this->percentAmount;
+    }
+
+    /**
+     * @param mixed $percentAmount
+     */
+    public function setPercentAmount($percentAmount)
+    {
+        $this->percentAmount = $percentAmount;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getDate()
     {
         return $this->date;
@@ -99,8 +122,6 @@ class Turnover
     {
         $this->franchisee = $franchisee;
     }
-
-
 
 
 

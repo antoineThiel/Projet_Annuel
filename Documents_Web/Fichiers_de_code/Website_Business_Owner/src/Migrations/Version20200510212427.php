@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200510192943 extends AbstractMigration
+final class Version20200510212427 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -28,7 +28,7 @@ final class Version20200510192943 extends AbstractMigration
         $this->addSql('ALTER TABLE dish_translations CHANGE object_id object_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE product_translations CHANGE object_id object_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE truck_position CHANGE truck_id truck_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE turnover CHANGE amount_turnover amount DOUBLE PRECISION NOT NULL, CHANGE date_turnover date DATETIME NOT NULL');
+        $this->addSql('ALTER TABLE turnover ADD percent_amount DOUBLE PRECISION NOT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -42,6 +42,6 @@ final class Version20200510192943 extends AbstractMigration
         $this->addSql('ALTER TABLE franchisee CHANGE truck_id truck_id INT DEFAULT NULL, CHANGE roles roles JSON CHARACTER SET utf8mb4 DEFAULT \'NULL\' COLLATE `utf8mb4_bin` COMMENT \'(DC2Type:json_array)\'');
         $this->addSql('ALTER TABLE product_translations CHANGE object_id object_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE truck_position CHANGE truck_id truck_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE turnover CHANGE amount amount_turnover DOUBLE PRECISION NOT NULL, CHANGE date date_turnover DATETIME NOT NULL');
+        $this->addSql('ALTER TABLE turnover DROP percent_amount');
     }
 }

@@ -25,7 +25,8 @@
                 <tr>
                     <th>Id</th>
                     <th>Date</th>
-                    <th>Montant</th>
+                    <th>Montant
+                    <th>Montant 4%</th>
                     <th>Franchisee</th>
                     <th>Satus</th>
                 </tr>
@@ -40,8 +41,9 @@
                         <tr style="background-color: #E5735E;">
                     {% endif %}
                     <td>{{ turnover.id }}</td>
-                    <td>{{ turnover.date ? turnover.date|date('Y-m-d') : ''}}</td>
-                    <td>{{ turnover.amount }}</td>
+                    <td>{{ turnover.date ? turnover.date|date('d/m/Y') : ''}}</td>
+                    <td>{{ turnover.amount }} €</td>
+                    <td>{{ turnover.percentAmount }} €</td>
                     <td>{{ turnover.franchisee }}</td>
                     {% if turnover.isNew %}
                         <td>Nouvelle Demande</td>
@@ -53,7 +55,7 @@
                         <td>Fermé</td>
                     {% endif %}
                     <td>
-                        <a href="">edit</a>
+                        <a href="{{ path('turnover_send') }}">Envoyer</a>
                     </td>
                     </tr>
                 {% else %}
@@ -63,8 +65,7 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <a href=""><button class="btn btn-info ml-3 mr-1">Create new</button></a>
-            <a href=""><button class="btn btn-info ml-2">Export All</button></a>
+            <a href="{{ path('turnover_new') }}"><button class="btn btn-info ml-3 mr-1">Create new</button></a>
         </section>
     </div>
 {% endblock %}

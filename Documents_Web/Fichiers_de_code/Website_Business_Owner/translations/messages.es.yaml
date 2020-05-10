@@ -18,6 +18,8 @@ front:
     new: Nuevo
     ongoing: En curso
     closed: Cerrado
+    turnover: Cifra de negocios
+    declaration_turnover: Declaración de facturación
   header:
     my_account: Mi cuenta
     login: Iniciar sesión

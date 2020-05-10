@@ -18,6 +18,8 @@ front:
       new: Nouveau
       ongoing: En cours
       closed: Fermé
+      turnover: Chiffres d'affaire
+      declaration_turnover: Déclaration du chiffres d'affaire
   header:
       my_account: Mon Compte
       login : S'identifier

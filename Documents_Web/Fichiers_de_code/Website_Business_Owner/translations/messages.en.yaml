@@ -18,6 +18,8 @@ front:
     new: New
     ongoing: Ongoing
     closed: Closed
+    turnover: Turnover
+    declaration_turnover: Declaration of turnover
   header:
     my_account: My Account
     login: Login
