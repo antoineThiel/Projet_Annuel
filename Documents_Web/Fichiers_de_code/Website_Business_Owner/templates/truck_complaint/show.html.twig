@@ -1,8 +1,5 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}TruckComplaint{% endblock %}
-
-{% block body %}
+{% extends 'base_front.html.twig' %}
+{% block content %}
     <h1>TruckComplaint</h1>
 
     <table class="table">
@@ -23,12 +20,15 @@
                 <th>Content</th>
                 <td>{{ truck_complaint.content }}</td>
             </tr>
+            <tr>
+                <th>Answer</th>
+                <td>{{ truck_complaint.answer }}</td>
+            </tr>
+            <tr>
+                <th>Camion</th>
+                <td>{{ truck_complaint.truck }}</td>
+            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('truck_complaint_index') }}">back to list</a>
-
-    <a href="{{ path('truck_complaint_edit', {'id': truck_complaint.id}) }}">edit</a>
-
-    {{ include('truck_complaint/_delete_form.html.twig') }}
 {% endblock %}

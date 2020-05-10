@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\StatusTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TruckComplaint
 {
+
+    use StatusTrait;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -33,9 +36,14 @@ class TruckComplaint
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $content;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $answer;
 
     public function getId(): ?int
     {
@@ -89,4 +97,22 @@ class TruckComplaint
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAnswer()
+    {
+        return $this->answer;
+    }
+
+    /**
+     * @param mixed $answer
+     */
+    public function setAnswer($answer): void
+    {
+        $this->answer = $answer;
+    }
+
+
 }

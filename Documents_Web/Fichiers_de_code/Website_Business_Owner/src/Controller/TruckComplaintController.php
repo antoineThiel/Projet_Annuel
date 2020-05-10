@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\TruckComplaint;
 use App\Form\TruckComplaintType;
+use App\Form\TruckComplaintType2;
 use App\Repository\TruckComplaintRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,13 +26,20 @@ class TruckComplaintController extends AbstractController
     }
 
     /**
-     * @Route("/truck_complaint/new", name="truck_complaint_new", methods={"GET","POST"})
+     * @Route({
+     *     "fr": "/fr/plainte/nouvelle",
+     *     "en": "/en/truck_complaint/new",
+     *     "es": "/es/queja_camion/nueva"
+     *     }, name="truck_complaint_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
         $user = $this->getUser();
         $truckComplaint = new TruckComplaint();
-        $truckComplaint -> setdate(new DateTime);
+        $truckComplaint->setdate(new DateTime);
+        $truckComplaint->setIsNew(1);
+        $truckComplaint->setIsOngoing(0);
+        $truckComplaint->setIsClosed(0);
         $truckComplaint->setTruck($user->getTruck());
         $form = $this->createForm(TruckComplaintType::class, $truckComplaint);
         $form->handleRequest($request);
@@ -41,7 +49,7 @@ class TruckComplaintController extends AbstractController
             $entityManager->persist($truckComplaint);
             $entityManager->flush();
 
-            return $this->redirectToRoute('truck_complaint_index');
+            return $this->redirectToRoute('franchisee_show', ['id' => $user->getId()]);
         }
 
         return $this->render('truck_complaint/new.html.twig', [
@@ -51,7 +59,11 @@ class TruckComplaintController extends AbstractController
     }
 
     /**
-     * @Route("truck_complaint/{id}", name="truck_complaint_show", methods={"GET"})
+     * @Route({
+     *     "fr": "/fr/plaintes/{id}",
+     *     "en": "/en/truck_complaint/{id}",
+     *     "es": "/es/queja_camion/{id}"
+     * }, name="truck_complaint_show", methods={"GET"})
      */
     public function show(TruckComplaint $truckComplaint): Response
     {
@@ -65,7 +77,7 @@ class TruckComplaintController extends AbstractController
      */
     public function edit(Request $request, TruckComplaint $truckComplaint): Response
     {
-        $form = $this->createForm(TruckComplaintType::class, $truckComplaint);
+        $form = $this->createForm(TruckComplaintType2::class, $truckComplaint);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
