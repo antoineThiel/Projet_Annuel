@@ -20,7 +20,7 @@ class TruckController extends AbstractController
      */
     public function index(TruckRepository $truckRepository, TruckPositionRepository $positionRepository): Response
     {
-        $pos = $positionRepository->findAll();
+        $pos = $positionRepository->findBy(['state'=>true]);
         return $this->render('truck/pos.html.twig', [
             'trucks' => $truckRepository->findAll(),
             'poses' =>$pos
