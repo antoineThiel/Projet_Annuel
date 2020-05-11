@@ -19,7 +19,7 @@ front:
     ongoing: Ongoing
     closed: Closed
     turnover: Turnover
-    declaration_turnover: Declaration of turnover
+    declaration_turnover: Declaration of turnover the month of
     pay_turnover: Pay 4% of turnover
   header:
     my_account: My Account

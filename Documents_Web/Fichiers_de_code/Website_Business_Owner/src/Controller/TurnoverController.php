@@ -35,7 +35,7 @@ Class TurnoverController extends AbstractController {
     {
         $turnover = new Turnover();
         $user = $this->getUser();
-        $turnover -> setdate(new DateTime);
+        $turnover -> setdate(new DateTime('first day of + 1month'));
         $turnover->setFranchisee($user);
         $turnover->setIsNew(1);
         $turnover->setIsOngoing(0);
@@ -49,7 +49,7 @@ Class TurnoverController extends AbstractController {
             $entityManager->persist($turnover);
             $entityManager->flush();
 
-            return $this->redirectToRoute('turnover_index');
+            return $this->redirectToRoute('franchisee_show',['id'=> $user->getId()]);
         }
 
         return $this->render('turnover/new.html.twig', [

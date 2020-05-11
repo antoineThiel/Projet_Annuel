@@ -19,7 +19,7 @@ front:
       ongoing: En cours
       closed: Fermé
       turnover: Chiffres d'affaire
-      declaration_turnover: Déclaration du chiffres d'affaire
+      declaration_turnover: Déclaration du chiffres d'affaire du mois de
       pay_turnover: Verser 4% du chiffres d'affaire
   header:
       my_account: Mon Compte

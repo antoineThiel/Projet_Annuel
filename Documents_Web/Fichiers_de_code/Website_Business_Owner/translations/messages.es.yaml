@@ -19,7 +19,7 @@ front:
     ongoing: En curso
     closed: Cerrado
     turnover: Cifra de negocios
-    declaration_turnover: Declaración de facturación
+    declaration_turnover: Declaración de facturación el mes de
     pay_turnover: Pague el 4% de la facturación
   header:
     my_account: Mi cuenta

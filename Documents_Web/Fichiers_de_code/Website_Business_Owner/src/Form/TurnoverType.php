@@ -16,6 +16,8 @@ class TurnoverType extends AbstractType
         $builder
             ->add('date', DateType::class, [
                 'widget' => 'single_text',
+                'format'=>'dd/MM/yyyy',
+                'html5' => false,
                 'disabled' => true
             ])
             -> add('amount')

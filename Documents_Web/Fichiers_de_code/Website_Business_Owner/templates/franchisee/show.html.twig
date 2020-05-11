@@ -122,19 +122,38 @@
                         </div>
                     </div>
                 </div>
-        {% endif %}
-            <div class="col-sm-3">
-                <div class="card card-outline card-primary">
-                    <div class="card-header">
-                        <strong>{{ 'front.franchisee.turnover'|trans }}</strong>
-                    </div>
-                    <div class="card-body">
-                        <p><a href="{{ path('turnover_new') }}">{{ 'front.franchisee.declaration_turnover'| trans }}</a></p>
-                        <p><a href="{{ path('turnover_pay',{'id': turnover.id}) }}">{{ 'front.franchisee.pay_turnover'| trans }} ( {{ turnover.date|date("d/m/y") }} : {{ turnover.percentAmount }} € )</a></p>
+                {% endif %}
+                <div class="col-sm-3">
+                    <div class="card card-outline card-primary">
+                        <div class="card-header">
+                            <strong>{{ 'front.franchisee.turnover'|trans }}</strong>
+                        </div>
+                        <div class="card-body">
+                            {% if turnover is not null %}
+                                {% if turnover.date|date('d/m/y') == "now"|date_modify('first day of this month')|date('d/m/y') and "now"|date('d') == '25' %}
+                                    <p><a style="color: red;"
+                                          href="{{ path('turnover_new') }}">{{ 'front.franchisee.declaration_turnover'| trans }} {{ "now"|date_modify('-1 month')|date('M') }}</a>
+                                    </p>
+                                {% else %}
+                                    <p>
+                                        <a href="{{ path('turnover_new') }}">{{ 'front.franchisee.declaration_turnover'| trans }} {{ "now"|date_modify('-1 month')|date('M') }}</a>
+                                    </p>
+                                {% endif %}
+                                {% if turnover.isOngoing %}
+                                    <p>
+                                        <a href="{{ path('turnover_pay',{'id': turnover.id}) }}">{{ 'front.franchisee.pay_turnover'| trans }}
+                                            ( {{ turnover.date|date("d/m/y") }} : {{ turnover.percentAmount }} € )</a>
+                                    </p>
+                                {% endif %}
+                            {% else %}
+                                <p>
+                                    <a href="{{ path('turnover_new') }}">{{ 'front.franchisee.declaration_turnover'| trans }} {{ "now"|date_modify('+1 month')|date('M') }}</a>
+                                </p>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
 {% endblock %}
