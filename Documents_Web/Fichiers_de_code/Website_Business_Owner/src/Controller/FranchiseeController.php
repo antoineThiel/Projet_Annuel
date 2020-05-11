@@ -10,6 +10,7 @@ use App\Repository\InvoiceRepository;
 use App\Repository\OrderByFranchiseeRepository;
 use App\Repository\TruckPositionRepository;
 use App\Repository\TruckRepository;
+use App\Repository\TurnoverRepository;
 use Mpdf\Mpdf;
 use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -63,7 +64,7 @@ class FranchiseeController extends AbstractController
      *     "es": "/es/franquiciado/{id}"
      *      }, name="franchisee_show", methods={"GET"})
      */
-    public function show(Franchisee $franchisee,TruckRepository $truckRepository, TruckPositionRepository $positionRepository, InvoiceRepository $invoiceRepository): Response
+    public function show(Franchisee $franchisee,TruckRepository $truckRepository, TruckPositionRepository $positionRepository, InvoiceRepository $invoiceRepository, TurnoverRepository $turnoverRepository): Response
     {
         if ($this->getUser()->getId() != $franchisee->getId()){
             return $this->redirectToRoute('404');
@@ -79,12 +80,14 @@ class FranchiseeController extends AbstractController
             $posCity = null;
         }
         $invoices = $invoiceRepository->findBy(['franchisee' => $this->getUser()], ['date' => 'DESC'], 10);
+        $turnover = $turnoverRepository->findOneBy(['franchisee'=> $this->getUser()],['date'=>'DESC']);
         return $this->render('franchisee/show.html.twig', [
             'franchisee' => $franchisee,
             'posId' => $posId,
             'posAddress' => $posAddress,
             'posCity' => $posCity,
-            'invoices' => $invoices
+            'invoices' => $invoices,
+            'turnover'=> $turnover
         ]);
     }
 

@@ -130,6 +130,7 @@
                     </div>
                     <div class="card-body">
                         <p><a href="{{ path('turnover_new') }}">{{ 'front.franchisee.declaration_turnover'| trans }}</a></p>
+                        <p><a href="{{ path('turnover_pay',{'id': turnover.id}) }}">{{ 'front.franchisee.pay_turnover'| trans }} ( {{ turnover.date|date("d/m/y") }} : {{ turnover.percentAmount }} € )</a></p>
                     </div>
                 </div>
             </div>

@@ -20,6 +20,7 @@ front:
     closed: Closed
     turnover: Turnover
     declaration_turnover: Declaration of turnover
+    pay_turnover: Pay 4% of turnover
   header:
     my_account: My Account
     login: Login
@@ -48,3 +49,9 @@ front:
       end_invoice: € has been added to your account!
       download: Download the invoice
       back: Back to my account
+  turnover:
+    pay_current_month: Pay the month of
+    turnover_new: Declaration of turnover
+    statement_of_turnover_1: You said
+    statement_of_turnover_2: euros during the month of
+    statement_of_turnover_3: So you owe us the sum of

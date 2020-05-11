@@ -20,6 +20,7 @@ front:
       closed: Fermé
       turnover: Chiffres d'affaire
       declaration_turnover: Déclaration du chiffres d'affaire
+      pay_turnover: Verser 4% du chiffres d'affaire
   header:
       my_account: Mon Compte
       login : S'identifier
@@ -48,3 +49,9 @@ front:
           end_invoice: € a été ajoutée à votre compte !
           download: Télécharger la facture
           back: Retour à mon compte
+  turnover:
+      pay_current_month: Payer le mois de
+      turnover_new: Déclaration du chiffres d'affaire
+      statement_of_turnover_1: Vous avez déclaré
+      statement_of_turnover_2: euros lors du mois de
+      statement_of_turnover_3: Vous nous devez donc la somme de

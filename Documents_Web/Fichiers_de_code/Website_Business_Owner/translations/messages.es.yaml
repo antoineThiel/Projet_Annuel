@@ -20,6 +20,7 @@ front:
     closed: Cerrado
     turnover: Cifra de negocios
     declaration_turnover: Declaración de facturación
+    pay_turnover: Pague el 4% de la facturación
   header:
     my_account: Mi cuenta
     login: Iniciar sesión
@@ -48,3 +49,9 @@ front:
       end_invoice: € ha sido agregado a su cuenta!
       download: Descargar la factura
       back: Volver a mi cuenta
+  turnover:
+    pay_current_month: Pagar el mes de
+    turnover_new: Declaración de facturación
+    statement_of_turnover_1: Dijiste
+    statement_of_turnover_2: euros durante el mes de
+    statement_of_turnover_3: Entonces nos debes la suma de
