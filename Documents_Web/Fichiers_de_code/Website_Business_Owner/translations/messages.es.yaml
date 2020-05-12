@@ -21,6 +21,7 @@ front:
     turnover: Cifra de negocios
     declaration_turnover: Declaración de facturación el mes de
     pay_turnover: Pague el 4% de la facturación
+    already_turnover: Ya ha hecho la declaración para el mes de
   header:
     my_account: Mi cuenta
     login: Iniciar sesión

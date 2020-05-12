@@ -130,14 +130,20 @@
                         </div>
                         <div class="card-body">
                             {% if turnover is not null %}
-                                {% if turnover.date|date('d/m/y') == "now"|date_modify('first day of this month')|date('d/m/y') and "now"|date('d') == '25' %}
+                                {% if turnover.date|date('d/m/y') == "now"|date_modify('first day of -1 month')|date('d/m/y') and "now"|date('d') == '20' %}
                                     <p><a style="color: red;"
                                           href="{{ path('turnover_new') }}">{{ 'front.franchisee.declaration_turnover'| trans }} {{ "now"|date_modify('-1 month')|date('M') }}</a>
                                     </p>
                                 {% else %}
-                                    <p>
-                                        <a href="{{ path('turnover_new') }}">{{ 'front.franchisee.declaration_turnover'| trans }} {{ "now"|date_modify('-1 month')|date('M') }}</a>
-                                    </p>
+                                    {% if turnover.isNew and turnover.date|date('d/m/y') == "now"|date_modify('first day of this month')|date('d/m/y')%}
+                                        <p>
+                                            <a href="">{{ 'front.franchisee.already_turnover'| trans }} {{ "now"|date_modify('-1 month')|date('M') }}</a>
+                                        </p>
+                                    {% else %}
+                                        <p>
+                                            <a href="{{ path('turnover_new') }}">{{ 'front.franchisee.declaration_turnover'| trans }} {{ "now"|date_modify('-1 month')|date('M') }}</a>
+                                        </p>
+                                    {% endif %}
                                 {% endif %}
                                 {% if turnover.isOngoing %}
                                     <p>

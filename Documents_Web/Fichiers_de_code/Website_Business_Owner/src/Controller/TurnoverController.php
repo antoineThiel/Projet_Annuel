@@ -35,7 +35,7 @@ Class TurnoverController extends AbstractController {
     {
         $turnover = new Turnover();
         $user = $this->getUser();
-        $turnover -> setdate(new DateTime('first day of + 1month'));
+        $turnover -> setdate(new DateTime('first day of this month'));
         $turnover->setFranchisee($user);
         $turnover->setIsNew(1);
         $turnover->setIsOngoing(0);
