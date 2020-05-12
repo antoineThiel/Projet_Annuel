@@ -84,7 +84,7 @@ Class TurnoverController extends AbstractController {
 
     /**
      * @Route({
-     *     "fr": "/chiffre_affaire/{id}/payer}",
+     *     "fr": "/chiffre_affaire/{id}/payer",
      *     "en": "/turnover/{id}/pay",
      *     "es": "/cifra_de_negocios/{id}/paga"
      *     }, name="turnover_pay" , methods={"GET"})
