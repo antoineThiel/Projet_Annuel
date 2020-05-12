@@ -22,6 +22,7 @@ front:
     declaration_turnover: Declaration of turnover the month of
     pay_turnover: Pay 4% of turnover
     already_turnover: You have already made the declaration for the month of
+    turnover_closed: You have already made the payment for the month of
   header:
     my_account: My Account
     login: Login

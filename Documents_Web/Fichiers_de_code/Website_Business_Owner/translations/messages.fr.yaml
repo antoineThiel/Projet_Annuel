@@ -22,6 +22,7 @@ front:
       declaration_turnover: Déclaration du chiffres d'affaire du mois de
       pay_turnover: Verser 4% du chiffres d'affaire
       already_turnover: Vous avez déjà fait la déclaration pour le mois de
+      turnover_closed: Vous avez déjà réalisé le paiement du mois de
   header:
       my_account: Mon Compte
       login : S'identifier

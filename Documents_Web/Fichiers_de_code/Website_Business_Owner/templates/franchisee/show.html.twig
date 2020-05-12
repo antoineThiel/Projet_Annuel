@@ -135,9 +135,13 @@
                                           href="{{ path('turnover_new') }}">{{ 'front.franchisee.declaration_turnover'| trans }} {{ "now"|date_modify('-1 month')|date('M') }}</a>
                                     </p>
                                 {% else %}
-                                    {% if turnover.isNew and turnover.date|date('d/m/y') == "now"|date_modify('first day of this month')|date('d/m/y')%}
+                                    {% if turnover.isNew or turnover.isOngoing and turnover.date|date('d/m/y') == "now"|date_modify('first day of this month')|date('d/m/y')%}
                                         <p>
                                             <a href="">{{ 'front.franchisee.already_turnover'| trans }} {{ "now"|date_modify('-1 month')|date('M') }}</a>
+                                        </p>
+                                    {% elseif turnover.isClosed and turnover.date|date('d/m/y') == "now"|date_modify('first day of this month')|date('d/m/y') %}
+                                        <p>
+                                            <a href="">{{ 'front.franchisee.turnover_closed'| trans }} {{ "now"|date_modify('-1 month')|date('M') }}</a>
                                         </p>
                                     {% else %}
                                         <p>
@@ -145,7 +149,7 @@
                                         </p>
                                     {% endif %}
                                 {% endif %}
-                                {% if turnover.isOngoing %}
+                                {% if turnover.isOngoing and turnover.date|date('d/m/y') == "now"|date_modify('first day of this month')|date('d/m/y') %}
                                     <p>
                                         <a href="{{ path('turnover_pay',{'id': turnover.id}) }}">{{ 'front.franchisee.pay_turnover'| trans }}
                                             ( {{ turnover.date|date("d/m/y") }} : {{ turnover.percentAmount }} € )</a>
