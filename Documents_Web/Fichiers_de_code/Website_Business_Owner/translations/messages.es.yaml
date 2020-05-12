@@ -51,3 +51,12 @@ front:
       back: Volver a mi cuenta
   complaint:
     new : Nueve queja
+  webGL:
+    launcher: JUGAR
+    play: haga clic para jugar
+    exit: esc para dejar
+    controls:
+      move: mover
+      jump: saltar
+      look: mirar
+

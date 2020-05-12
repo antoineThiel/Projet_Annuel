@@ -3,11 +3,21 @@ import {ColladaLoader} from "./modules/ColladaLoader.js";
 
 colladaLoader = new ColladaLoader();
 
-const blocker = document.getElementById( 'blocker' );
-const instructions = document.getElementById( 'instructions' );
+instructions.style.display = "none";
 
-instructions.style.display = 'none';
-blocker.style.display = 'none';
+document.getElementById('launcher').addEventListener('click', function () {
+    const $webGL = document.getElementById('webGl');
+    $webGL.classList.remove("inactive");
+    $webGL.classList.add('active');
 
-init();
+    this.classList.remove('active');
+    this.classList.add('inactive');
+
+    document.getElementsByTagName('footer')[0].style.display = 'none';
+    init();
+})
+
+exitInfos = document.getElementById('exit_info');
+
+// init();
 

@@ -51,3 +51,11 @@ front:
       back: Back to my account
   complaint:
     new: New Complaint
+  webGL:
+    launcher: PLAY
+    play: Click to play
+    exit: esc to quit
+    controls:
+      move: move
+      jump: jump
+      look: look
