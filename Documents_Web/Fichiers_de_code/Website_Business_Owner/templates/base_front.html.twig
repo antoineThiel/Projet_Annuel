@@ -32,20 +32,30 @@
 
     <!-- Content Wrapper. Contains page content -->
     {% block content %}
-        <div id="webGl">
 
-    <div id="blocker">
-        <div id="instructions">
-            <span style="font-size:36px">Click to play</span>
-            <br /><br />
-            Move: WASD<br/>
-            Jump: SPACE<br/>
-            Look: MOUSE
-        </div>
-    </div>
+        <button id="launcher" class="active"> {{ 'front.webGL.launcher' | trans }} </button>
+
+        <div id="webGl" class="inactive">
+
+            <div id="blocker">
+                <div id="exit_info" class="inactive">
+                    <span>{{ 'front.webGL.exit' | trans }}</span>
+                </div>
+
+                <div id="instructions" class="inactive">
+                    <span style="font-size:36px">{{ 'front.webGL.play' | trans }}</span>
+                    <br /><br />
+                    {{ 'front.webGL.controls.move' | trans }}: WASD<br/>
+                    {{ 'front.webGL.controls.jump' | trans}}: SPACE<br/>
+                    {{ 'front.webGL.controls.look' | trans}}: MOUSE
+                </div>
+
+            </div>
+
+
 
         </div>
-{#        {{ encore_entry_script_tags('weGLinit') }}#}
+        {{ encore_entry_script_tags('weGLinit') }}
     {% endblock content %}
     <!-- /.content-wrapper -->
 

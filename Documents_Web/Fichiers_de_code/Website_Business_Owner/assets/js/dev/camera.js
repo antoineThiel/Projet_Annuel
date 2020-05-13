@@ -26,14 +26,22 @@ export function evolveCamera2() {
 	controls.addEventListener( 'lock', function () {
 
 		instructions.style.display = 'none';
-		blocker.style.display = 'none';
+
+		// blocker.style.display = 'none';
+
+		exitInfos.classList.remove('inactive');
+		exitInfos.classList.add('active');
+
 
 	} );
 
 	controls.addEventListener( 'unlock', function () {
 
-		blocker.style.display = 'block';
+		// blocker.style.display = 'block';
 		instructions.style.display = '';
+
+		exitInfos.classList.remove('active');
+		exitInfos.classList.add('inactive');
 
 	} );
 

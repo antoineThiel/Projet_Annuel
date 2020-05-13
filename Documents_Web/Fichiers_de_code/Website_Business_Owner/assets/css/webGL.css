@@ -1,0 +1,91 @@
+@font-face {
+    font-family: 'dancing_scriptregular';
+    src: url('../fonts/dancingScript/dancingscript-variablefont_wght-webfont.woff2') format('woff2'),
+    url('../fonts/dancingScript/dancingscript-variablefont_wght-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+#blocker {
+     position: fixed;
+     width: 100%;
+    height:600px;
+     /*height: 90%;*/
+    z-index: 100;
+ }
+
+#instructions {
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    box-orient: horizontal;
+
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    box-pack: center;
+
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    box-align: center;
+
+    color: #ffffff;
+    text-align: center;
+    font-family: Arial;
+    font-size: 14px;
+    line-height: 24px;
+
+    cursor: pointer;
+}
+
+.inactive{
+    display: none;
+}
+
+.active{
+    display: block;
+}
+
+#launcher{
+
+    font-family: 'dancing_scriptregular' , Arial , sans-serif;
+    font-weight: normal;
+    font-style: normal;
+
+    margin: 50px auto;
+    padding: 15px 25px;
+    font-size: 120px;
+    cursor: pointer;
+    outline: none;
+    color: #f6f9fc;
+
+    background-color: #80c2e0;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 18px 18px #BBB;
+    transition: 0.4s;
+}
+
+#launcher:hover {
+    background-color: #5092c0;
+    box-shadow: 6px 6px #333;
+    transform: translate(14px) ;
+    transition: 0.18s;
+}
+
+#exit_info{
+    position: relative;
+    font-size: 20px;
+    color: #ffffff;
+    text-align: center;
+    background-color: #000;
+    opacity: 0.3;
+    z-index: 100;
+}

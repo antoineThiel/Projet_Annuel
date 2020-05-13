@@ -1,7 +1,7 @@
 let renderer;
 let scene;
 
-let stats;
+// let stats;
 let clock;
 
 let camera;
@@ -53,6 +53,7 @@ const
 
 const blocker = document.getElementById( 'blocker' );
 const instructions = document.getElementById( 'instructions' );
+const exitInfos = document.getElementById( 'exit_info' );
 
 let rayCaster;
 

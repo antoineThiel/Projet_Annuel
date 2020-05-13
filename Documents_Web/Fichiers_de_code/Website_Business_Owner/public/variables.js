@@ -65,3 +65,5 @@ let velocity ;
 let direction;
 let vertex ;
 let color;
+
+let exitInfos;

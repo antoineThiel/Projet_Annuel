@@ -62,3 +62,12 @@ front:
     statement_of_turnover_3: Entonces nos debes la suma de
   complaint:
     new : Nueve queja
+  webGL:
+    launcher: JUGAR
+    play: haga clic para jugar
+    exit: esc para dejar
+    controls:
+      move: mover
+      jump: saltar
+      look: mirar
+

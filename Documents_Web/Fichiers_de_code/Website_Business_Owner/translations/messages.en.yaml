@@ -62,3 +62,11 @@ front:
     statement_of_turnover_3: So you owe us the sum of
   complaint:
     new: New Complaint
+  webGL:
+    launcher: PLAY
+    play: Click to play
+    exit: esc to quit
+    controls:
+      move: move
+      jump: jump
+      look: look

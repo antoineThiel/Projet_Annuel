@@ -5,8 +5,6 @@ export function createEnvironment() {
     createFloor();
     createWorld();
     insideLandscape();
-
-    path_to_models.forEach(loadElement);
 }
 
 function createFloor(){
@@ -55,7 +53,7 @@ function createWorld() {
     scene.add(worldSphere);
 }
 
-function loadElement(data) {
+export function loadElement(data) {
     colladaLoader.load("/Models/" + data[MODEL_INDEX_PATH] + 'model.dae', function (result) {
         let object = result.scene;
         let ratio =data[MODEL_INDEX_RATIO];

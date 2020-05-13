@@ -25,18 +25,18 @@ front:
       already_turnover: Vous avez déjà fait la déclaration pour le mois de
       turnover_closed: Vous avez déjà réalisé le paiement du mois de
   truck_complaint:
-      title: Formulaire de plainte
+    title: Formulaire de plainte
   header:
-      my_account: Mon Compte
-      login : S'identifier
-      logout: Se deconnecter
+    my_account: Mon Compte
+    login : S'identifier
+    logout: Se deconnecter
   footer:
-      about: A propos
-      contact: Contact
-      description: Driv'n Cook est une entreprise créée en 2020, elle accueillera tous les amateurs de nourriture se déplaçant en camion. Si tu veux faire partie de cette aventure, rejoins nous !
-      copyright: Copyright © 2020-2510
-      drivncook: Driv'n Cook
-      rights: Tous les droits sont réservés. Vive les Sananes
+    about: A propos
+    contact: Contact
+    description: Driv'n Cook est une entreprise créée en 2020, elle accueillera tous les amateurs de nourriture se déplaçant en camion. Si tu veux faire partie de cette aventure, rejoins nous !
+    copyright: Copyright © 2020-2510
+    drivncook: Driv'n Cook
+    rights: Tous les droits sont réservés. Vive les Sananes
   order:
       warehouse: Entrepôt
       products:
@@ -61,4 +61,12 @@ front:
       statement_of_turnover_2: euros lors du mois de
       statement_of_turnover_3: Vous nous devez donc la somme de
   complaint:
-      new : Nouvelle réclamation
+    new : Nouvelle réclamation
+  webGL:
+    launcher: JOUER
+    play: cliquer pour jouer
+    exit: echap pour quitter
+    controls:
+      move: se déplacer
+      jump: sauter
+      look: vision

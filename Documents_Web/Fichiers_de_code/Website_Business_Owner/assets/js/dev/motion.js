@@ -1,12 +1,14 @@
 import * as THREE from "../modules/three.module.js";
 import {createCamera,moveCamera} from "./camera.js";
 import Stats from "../modules/stats.module.js";
-import {createEnvironment} from "./environment.js";
+import {createEnvironment,loadElement} from "./environment.js";
 import {sun } from "./lights.js";
 import {getCloser} from "./animations.js";
 
 
 export function init() {
+
+	path_to_models.forEach(loadElement);
 
 	scene = new THREE.Scene();
 
@@ -28,8 +30,8 @@ export function init() {
 	scene.add( ambientLight );
 
 	sun();
-	stats = new Stats();
-	document.body.appendChild( stats.dom );
+	// stats = new Stats();
+	// instructions.appendChild( stats.dom );
 
 	//
 
@@ -51,7 +53,7 @@ function onWindowResize() {
 export function animate() {
 
 	requestAnimationFrame( animate );
-	stats.update();
+	// stats.update();
 	renderer.render(scene , camera);
 
 	moveCamera();
