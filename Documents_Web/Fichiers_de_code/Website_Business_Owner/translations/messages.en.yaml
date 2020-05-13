@@ -24,6 +24,14 @@ front:
     pay_turnover: Pay 4% of turnover
     already_turnover: You have already made the declaration for the month of
     turnover_closed: You have already made the payment for the month of
+    block_account:
+      temporarily_block: Su cuenta ha sido bloqueada temporalmente !
+      pay_amount: Por favor pague la cantidad de
+      pay_amount_month: € para el mes de
+      link: Encontrará el enlace a continuación
+      button_pay: Pague el 4% del mes de
+      button_declaration: Declara mi facturación
+      declaration: Por favor, informe su facturación para el mes de
   truck_complaint:
     title: Complaint form
   header:
