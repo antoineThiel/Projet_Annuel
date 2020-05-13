@@ -13,8 +13,6 @@ class TruckType extends AbstractType
     {
         $builder
             ->add('registration')
-            ->add('franchise')
-            ->add('truckPositions')
         ;
     }
 

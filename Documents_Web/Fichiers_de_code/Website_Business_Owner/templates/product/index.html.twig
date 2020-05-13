@@ -10,7 +10,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Product Index</li>
+                        <li class="breadcrumb-item active">Produits</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -18,16 +18,16 @@
     </div>
     <!-- Main content -->
     <section class="content">
-        <h1>Product index</h1>
+        <h1>Produits</h1>
 
         <table class="table">
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Category</th>
-                    <th>actions</th>
+                    <th>Nom</th>
+                    <th>Prix</th>
+                    <th>Categorie</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,10 +35,9 @@
                 <tr>
                     <td>{{ product.id }}</td>
                     <td>{{ product.name }}</td>
-                    <td>{{ product.price }}</td>
+                    <td>{{ product.price }} €</td>
                     <td>{{ product.category }}</td>
                     <td>
-                        <a href="{{ path('product_show', {'id': product.id}) }}">show</a>
                         <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
                     </td>
                 </tr>
@@ -50,8 +49,8 @@
             </tbody>
         </table>
 
-        <a href="{{ path('product_new') }}"><button class="btn btn-info ml-3 mr-1">Create new</button></a>
-        <a href="{{ path('product_trad') }}"><button class="btn btn-info ml3">All Trads</button></a>
+        <a href="{{ path('product_new') }}"><button class="btn btn-info ml-3 mr-1">Ajouter</button></a>
+        <a href="{{ path('product_trad') }}"><button class="btn btn-info ml3">Traductions</button></a>
     </section>
 </div>
 {% endblock %}
