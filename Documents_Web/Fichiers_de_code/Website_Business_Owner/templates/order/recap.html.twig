@@ -1,21 +1,6 @@
 {% extends 'base_front.html.twig' %}
 {% block content %}
-    <div class="content-wrapper">
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    {% block title %}{% endblock %}
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Starter Page</li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
+    <div class="ml-5 mr-5">
     <!-- Main content -->
     <section class="content">
         <p>{{'front.order.recap.begin_invoice'|trans}} {{ total_price }} {{'front.order.recap.end_invoice'|trans}} </p>

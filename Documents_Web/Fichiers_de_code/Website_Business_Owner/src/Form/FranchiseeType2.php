@@ -30,6 +30,7 @@ class FranchiseeType2 extends AbstractType
                 'attr' => ['min' => 100000000000, 'max' => 999999999999],
             ])
             ->add('phone')
+            ->add('password')
         ;
     }
 
