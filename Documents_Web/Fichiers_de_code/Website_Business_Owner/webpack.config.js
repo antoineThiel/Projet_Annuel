@@ -36,7 +36,7 @@ Encore
     .addEntry('trad', './assets/js/tradEdit.js')
     .addEntry('webGl', './assets/js/dev/variables.js')
     .addEntry('weGLinit', './assets/js/init.js')
-
+    .addEntry('turnover', './assets/js/turnover.js')
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 

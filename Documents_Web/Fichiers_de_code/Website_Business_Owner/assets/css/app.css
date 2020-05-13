@@ -35,9 +35,7 @@ body {
  .base_paiement fieldset legend + * {
     clear: both;
 }
-.base_paiement {
-    background-color: #f6f9fc;
-}
+
 
 .base_paiement * {
     font-family: Inter UI, Open Sans, Segoe UI, sans-serif;
@@ -48,6 +46,7 @@ body {
 .base_paiement #payment-form {
     max-width: 496px !important;
     padding: 0 15px;
+    margin:auto;
 }
 
 .base_paiement #payment-form > * + * {

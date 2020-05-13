@@ -19,6 +19,11 @@ front:
       new: Nouveau
       ongoing: En cours
       closed: Fermé
+      turnover: Chiffres d'affaire
+      declaration_turnover: Déclaration du chiffres d'affaire du mois de
+      pay_turnover: Verser 4% du chiffres d'affaire
+      already_turnover: Vous avez déjà fait la déclaration pour le mois de
+      turnover_closed: Vous avez déjà réalisé le paiement du mois de
   truck_complaint:
       title: Formulaire de plainte
   header:
@@ -49,5 +54,11 @@ front:
           end_invoice: € a été ajoutée à votre compte !
           download: Télécharger la facture
           back: Retour à mon compte
+  turnover:
+      pay_current_month: Payer le mois de
+      turnover_new: Déclaration du chiffres d'affaire
+      statement_of_turnover_1: Vous avez déclaré
+      statement_of_turnover_2: euros lors du mois de
+      statement_of_turnover_3: Vous nous devez donc la somme de
   complaint:
       new : Nouvelle réclamation
