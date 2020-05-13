@@ -46,8 +46,17 @@ Class TurnoverController extends AbstractController {
         if ($form->isSubmitted() && $form->isValid()) {
             $turnover->setPercentAmount(($turnover->getAmount())*0.4);
             $entityManager = $this->getDoctrine()->getManager();
+            $rankRep = $entityManager->getRepository('App\Entity\Rank');
+
+            $rank = $rankRep->findByAmount($turnover->getAmount());
+
+            $franchisee = $turnover->getFranchisee();
+            $franchisee->setRank($rank);
+            $entityManager->persist($franchisee);
+
             $entityManager->persist($turnover);
             $entityManager->flush();
+
 
             return $this->redirectToRoute('franchisee_show',['id'=> $user->getId()]);
         }
