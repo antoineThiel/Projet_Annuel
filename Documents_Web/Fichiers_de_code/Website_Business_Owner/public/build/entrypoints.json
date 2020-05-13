@@ -12,74 +12,107 @@
     "jquery": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
-        "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~warehouseDish~warehouseProduct.js",
-        "/build/vendors~adminltejs~bootstrapJs~jquery.js",
-        "/build/vendors~bootstrapJs~jquery.js",
+        "/build/vendors~adminltejs~bootstrapJs~checkboxes~jquery~locateTruck~orderDish~warehouseDish~warehouseProduc~2bbf597f.js",
+        "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~warehouseDish~warehouseProduct~weGLinit.js",
+        "/build/vendors~adminltejs~bootstrapJs~jquery~weGLinit.js",
+        "/build/vendors~bootstrapJs~jquery~weGLinit.js",
         "/build/jquery.js"
       ]
     },
     "adminltejs": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
-        "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~warehouseDish~warehouseProduct.js",
-        "/build/vendors~adminltejs~bootstrapJs~jquery.js",
+        "/build/vendors~adminltejs~bootstrapJs~checkboxes~jquery~locateTruck~orderDish~warehouseDish~warehouseProduc~2bbf597f.js",
+        "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~warehouseDish~warehouseProduct~weGLinit.js",
+        "/build/vendors~adminltejs~bootstrapJs~jquery~weGLinit.js",
         "/build/adminltejs.js"
       ]
     },
     "bootstrapJs": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
-        "/build/vendors~bootstrapJs~connectCardFront~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
-        "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~warehouseDish~warehouseProduct.js",
-        "/build/vendors~adminltejs~bootstrapJs~jquery.js",
-        "/build/vendors~bootstrapJs~jquery.js",
-        "/build/vendors~bootstrapJs.js",
+        "/build/vendors~adminltejs~bootstrapJs~checkboxes~jquery~locateTruck~orderDish~warehouseDish~warehouseProduc~2bbf597f.js",
+        "/build/vendors~bootstrapJs~checkboxes~connectCardFront~locateTruck~orderDish~trad~warehouseDish~warehouseProduct.js",
+        "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~warehouseDish~warehouseProduct~weGLinit.js",
+        "/build/vendors~adminltejs~bootstrapJs~jquery~weGLinit.js",
+        "/build/vendors~bootstrapJs~jquery~weGLinit.js",
+        "/build/vendors~bootstrapJs~weGLinit.js",
         "/build/bootstrapJs.js"
       ]
     },
     "warehouseProduct": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
-        "/build/vendors~bootstrapJs~connectCardFront~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
-        "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~warehouseDish~warehouseProduct.js",
+        "/build/vendors~adminltejs~bootstrapJs~checkboxes~jquery~locateTruck~orderDish~warehouseDish~warehouseProduc~2bbf597f.js",
+        "/build/vendors~bootstrapJs~checkboxes~connectCardFront~locateTruck~orderDish~trad~warehouseDish~warehouseProduct.js",
+        "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~warehouseDish~warehouseProduct~weGLinit.js",
         "/build/warehouseProduct.js"
       ]
     },
     "warehouseDish": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
-        "/build/vendors~bootstrapJs~connectCardFront~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
-        "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~warehouseDish~warehouseProduct.js",
+        "/build/vendors~adminltejs~bootstrapJs~checkboxes~jquery~locateTruck~orderDish~warehouseDish~warehouseProduc~2bbf597f.js",
+        "/build/vendors~bootstrapJs~checkboxes~connectCardFront~locateTruck~orderDish~trad~warehouseDish~warehouseProduct.js",
+        "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~warehouseDish~warehouseProduct~weGLinit.js",
         "/build/warehouseDish.js"
       ]
     },
     "orderDish": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
-        "/build/vendors~bootstrapJs~connectCardFront~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
+        "/build/vendors~adminltejs~bootstrapJs~checkboxes~jquery~locateTruck~orderDish~warehouseDish~warehouseProduc~2bbf597f.js",
+        "/build/vendors~bootstrapJs~checkboxes~connectCardFront~locateTruck~orderDish~trad~warehouseDish~warehouseProduct.js",
         "/build/orderDish.js"
       ]
     },
     "locateTruck": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
-        "/build/vendors~bootstrapJs~connectCardFront~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
-        "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~warehouseDish~warehouseProduct.js",
+        "/build/vendors~adminltejs~bootstrapJs~checkboxes~jquery~locateTruck~orderDish~warehouseDish~warehouseProduc~2bbf597f.js",
+        "/build/vendors~bootstrapJs~checkboxes~connectCardFront~locateTruck~orderDish~trad~warehouseDish~warehouseProduct.js",
+        "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~warehouseDish~warehouseProduct~weGLinit.js",
         "/build/locateTruck.js"
       ]
     },
     "connectCardFront": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~bootstrapJs~connectCardFront~locateTruck~orderDish~warehouseDish~warehouseProduct.js",
+        "/build/vendors~bootstrapJs~checkboxes~connectCardFront~locateTruck~orderDish~trad~warehouseDish~warehouseProduct.js",
         "/build/connectCardFront.js"
+      ]
+    },
+    "checkboxes": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~adminltejs~bootstrapJs~checkboxes~jquery~locateTruck~orderDish~warehouseDish~warehouseProduc~2bbf597f.js",
+        "/build/vendors~bootstrapJs~checkboxes~connectCardFront~locateTruck~orderDish~trad~warehouseDish~warehouseProduct.js",
+        "/build/checkboxes.js"
+      ]
+    },
+    "trad": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~bootstrapJs~checkboxes~connectCardFront~locateTruck~orderDish~trad~warehouseDish~warehouseProduct.js",
+        "/build/trad.js"
+      ]
+    },
+    "webGl": {
+      "js": [
+        "/build/runtime.js",
+        "/build/webGl.js"
+      ]
+    },
+    "weGLinit": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~adminltejs~bootstrapJs~checkboxes~jquery~locateTruck~orderDish~warehouseDish~warehouseProduc~2bbf597f.js",
+        "/build/vendors~adminltejs~bootstrapJs~jquery~locateTruck~warehouseDish~warehouseProduct~weGLinit.js",
+        "/build/vendors~adminltejs~bootstrapJs~jquery~weGLinit.js",
+        "/build/vendors~bootstrapJs~jquery~weGLinit.js",
+        "/build/vendors~bootstrapJs~weGLinit.js",
+        "/build/vendors~weGLinit.js",
+        "/build/weGLinit.js"
       ]
     }
   }

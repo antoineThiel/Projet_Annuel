@@ -124,10 +124,10 @@ void insertDB(char **newUser){
 
 	const char QUERY_MODEL[] = "%s  , %s ";
 
-	char *server = "localhost";
-	char *user = "admin";
+	char *server = "127.0.0.1";
+	char *user = "root";
 	//set the password for mysql server here
-	char *password = "root"; /* set me first */
+	char *password = ""; /* set me first */
 	char *database = "project";
 
 	connector = mysql_init(NULL);
