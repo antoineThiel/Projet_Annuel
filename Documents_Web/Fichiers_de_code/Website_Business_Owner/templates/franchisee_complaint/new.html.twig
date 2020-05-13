@@ -1,19 +1,12 @@
 {% extends 'base_front.html.twig' %}
 {% block content %}
-<div class="content-wrapper">
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    {% block title %}{% endblock %}
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+<div class="mr-5 ml-5">
+    <div class="content-header"><!-- /.container-fluid -->
         <h2>{{ 'front.complaint.new' |trans }}</h2>
     </div>
     <!-- Main content -->
     <section class="content">
-    {{ include('franchisee_complaint/_form.html.twig') }}
+        {{ include('franchisee_complaint/_form.html.twig') }}
     </section>
 </div>
 {% endblock %}

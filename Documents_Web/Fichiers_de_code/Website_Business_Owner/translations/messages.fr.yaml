@@ -1,24 +1,29 @@
 front:
   franchisee:
-    you: Vous <3
-    change_informations: Changez vos informations
-    last_invoices: Vos dernières factures
-    more_stuff: Besoin d'approvisionnement
-    tell_us: Vous voulez nous dire quelque chose ?
-    questions: Vos demandes
-    question_truck: A propos de votre camion
-    truck: Votre camion
-    truck_number: Numéro de camion
-    actual_position: Position actuelle
-    check: Voir
-    order: Commander
-    truck_pb: Problème avec votre camion ?
-    position: Donnez nous votre nouvelle position
-    month: Votre chiffre mensuel
-    anything_else: Dites nous ce que vous voulez
-    new: Nouveau
-    ongoing: En cours
-    closed: Fermé
+      you: Vous <3
+      change_informations: Changez vos informations
+      last_invoices: Vos dernières factures
+      more_stuff: Besoin d'approvisionnement
+      tell_us: Vous voulez nous dire quelque chose ?
+      questions: Vos demandes
+      question_truck: A propos de votre camion
+      truck: Votre camion
+      truck_number: Numéro de camion
+      actual_position: Position actuelle
+      check: Voir
+      order: Commander
+      truck_pb: Problème avec votre camion ?
+      position: Donnez nous votre nouvelle position
+      month: Votre chiffre mensuel
+      anything_else: Dites nous ce que vous voulez
+      new: Nouveau
+      ongoing: En cours
+      closed: Fermé
+      turnover: Chiffres d'affaire
+      declaration_turnover: Déclaration du chiffres d'affaire du mois de
+      pay_turnover: Verser 4% du chiffres d'affaire
+      already_turnover: Vous avez déjà fait la déclaration pour le mois de
+      turnover_closed: Vous avez déjà réalisé le paiement du mois de
   truck_complaint:
     title: Formulaire de plainte
   header:
@@ -33,22 +38,28 @@ front:
     drivncook: Driv'n Cook
     rights: Tous les droits sont réservés. Vive les Sananes
   order:
-    warehouse: Entrepôt
-    products:
-      order: Commande n°
-      products: Produits
-      name: Nom
-      available_quantity: Quantité disponible
-      price: Prix
-      add_card: Ajouter au panier
-      dish: Plats
-      pay_cart: Payer avec la carte
-      pay: Payer
-    recap:
-      begin_invoice: Une nouvelle facture de
-      end_invoice: € a été ajoutée à votre compte !
-      download: Télécharger la facture
-      back: Retour à mon compte
+      warehouse: Entrepôt
+      products:
+          order: Commande n°
+          products: Produits
+          name: Nom
+          available_quantity: Quantité disponible
+          price: Prix
+          add_card: Ajouter au panier
+          dish: Plats
+          pay_cart: Payer avec la carte
+          pay: Payer
+      recap:
+          begin_invoice: Une nouvelle facture de
+          end_invoice: € a été ajoutée à votre compte !
+          download: Télécharger la facture
+          back: Retour à mon compte
+  turnover:
+      pay_current_month: Payer le mois de
+      turnover_new: Déclaration du chiffres d'affaire
+      statement_of_turnover_1: Vous avez déclaré
+      statement_of_turnover_2: euros lors du mois de
+      statement_of_turnover_3: Vous nous devez donc la somme de
   complaint:
     new : Nouvelle réclamation
   webGL:
