@@ -6,6 +6,7 @@ front:
       more_stuff: Besoin d'approvisionnement
       tell_us: Vous voulez nous dire quelque chose ?
       questions: Vos demandes
+      question_truck: A propos de votre camion
       truck: Votre camion
       truck_number: Numéro de camion
       actual_position: Position actuelle
@@ -23,6 +24,8 @@ front:
       pay_turnover: Verser 4% du chiffres d'affaire
       already_turnover: Vous avez déjà fait la déclaration pour le mois de
       turnover_closed: Vous avez déjà réalisé le paiement du mois de
+  truck_complaint:
+      title: Formulaire de plainte
   header:
       my_account: Mon Compte
       login : S'identifier
@@ -57,3 +60,5 @@ front:
       statement_of_turnover_1: Vous avez déclaré
       statement_of_turnover_2: euros lors du mois de
       statement_of_turnover_3: Vous nous devez donc la somme de
+  complaint:
+      new : Nouvelle réclamation

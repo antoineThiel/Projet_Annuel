@@ -6,6 +6,7 @@ front:
     more_stuff: Necesidad de suministro
     tell_us: ¿Hay algo que quieras decirnos?
     questions: Sus peticiones
+    question_truck: Sobre tu camión
     truck: Su camión
     truck_number: Número de camión
     actual_position: Posición actual
@@ -36,6 +37,8 @@ front:
     rights: Todos los derechos estan reservados. Larga vida a los Sananes
   order:
     warehouse: Almacén
+  truck_complaint:
+    title: Formulario de queja
     products:
       order: Orden n°
       products: Productos
@@ -57,3 +60,5 @@ front:
     statement_of_turnover_1: Dijiste
     statement_of_turnover_2: euros durante el mes de
     statement_of_turnover_3: Entonces nos debes la suma de
+  complaint:
+    new : Nueve queja

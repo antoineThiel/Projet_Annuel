@@ -92,6 +92,12 @@
                         <p>Camions</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ path('truck_complaint_index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-truck"></i>
+                        <p>Camions Plaintes</p>
+                    </a>
+                </li>
                 {% if (app.user.roles[0] == 'ROLE_SUPER_ADMIN') %}
                 <li class="nav-item">
                     <a href="{{ path('user_index') }}" class="nav-link">

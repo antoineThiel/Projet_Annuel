@@ -6,6 +6,7 @@ front:
     more_stuff: Need more stuff ?
     tell_us: Want to tell us something ?
     questions: What you asked us
+    question_truck: About your truck
     truck: Your truck
     truck_number: Truck number
     actual_position: Actual position
@@ -23,6 +24,8 @@ front:
     pay_turnover: Pay 4% of turnover
     already_turnover: You have already made the declaration for the month of
     turnover_closed: You have already made the payment for the month of
+  truck_complaint:
+    title: Complaint form
   header:
     my_account: My Account
     login: Login
@@ -57,3 +60,5 @@ front:
     statement_of_turnover_1: You said
     statement_of_turnover_2: euros during the month of
     statement_of_turnover_3: So you owe us the sum of
+  complaint:
+    new: New Complaint

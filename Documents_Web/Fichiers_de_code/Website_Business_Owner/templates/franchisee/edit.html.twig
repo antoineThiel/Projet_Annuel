@@ -5,31 +5,39 @@
 {% endif %}
 {% extends base %}
 {% block content %}
-<div class="content-wrapper">
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    {% block title %}{% endblock %}
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Home</a></li>
-                        <li class="breadcrumb-item active">New dish</li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
+    {% if app.request.attributes.get('_route') == 'franchisee_edit_by_franchisee' %}
+        <div class="ml-5 mr-5">
+    {% else %}
+        <div class="content-wrapper">
+    {% endif %}
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        {% block title %}{% endblock %}
+                    </div><!-- /.col -->
+                    {% if app.request.attributes.get('_route') == 'franchisee_edit' %}
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Home</a></li>
+                            <li class="breadcrumb-item active">New dish</li>
+                        </ol>
+                    </div>
+                    {% endif %}
+                    <!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
     <!-- Main content -->
-    <section class="content">
-        {% if app.request.attributes.get('_route') == 'franchisee_edit_by_franchisee' %}
-            {{ include('franchisee/_form.html.twig', {'button_label': 'Update'}) }}
-        {% else %}
+    {% if app.request.attributes.get('_route') == 'franchisee_edit_by_franchisee' %}
+        <section>
+        {{ include('franchisee/_form.html.twig', {'button_label': 'Update'}) }}
+    {% else %}
+        <section class="content">
             {{ include('franchisee/_form1.html.twig', {'button_label': 'Update'}) }}
-        {% endif %}
-        <a href="{{ path('franchisee_index') }}">back to list</a>
-        {{ include('franchisee/_delete_form.html.twig') }}
-    </section>
+            <a href="{{ path('franchisee_index') }}">back to list</a>
+            {{ include('franchisee/_delete_form.html.twig') }}
+    {% endif %}
+        </section>
 </div>
 {% endblock %}

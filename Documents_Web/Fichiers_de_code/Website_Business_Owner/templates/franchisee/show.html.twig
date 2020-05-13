@@ -72,7 +72,7 @@
                     </div>
                     <div class="card-body">
                         {% if franchisee.truck != null %}
-                            <p><a href="#">{{ 'front.franchisee.truck_pb' | trans }}</a></p>
+                            <p><a href="{{ path('truck_complaint_new') }}">{{ 'front.franchisee.truck_pb' | trans }}</a></p>
                             {# TODO: link the page to fill a truck complaint form #}
                             <p><a href="{{ path('truck_position_new') }}">{{ 'front.franchisee.position'|trans }}</a></p>
                             <p><a href="{{ path('invoice_new') }}">{{ 'front.franchisee.month'| trans }}</a></p>
@@ -92,7 +92,8 @@
                             {% for complaint in franchisee.franchiseeComplaints %}
                                 <p>
                                     {% if complaint.isNew %}
-                                        {{ complaint.title }}
+                                        <p>{{ complaint.title }}</p>
+
                                         <button class="btn btn-success disabled">{{ 'front.franchisee.new'|trans }}</button>
                                     {% endif %}
                                     {% if complaint.isOngoing %}
@@ -103,11 +104,13 @@
                                         <a href="{{ path('franchisee_complaint_show', {'id': complaint.id}) }}">{{ complaint.title }}</a>
                                         <button class="btn btn-danger disabled">{{ 'front.franchisee.closed'|trans }}</button>
                                     {% endif %}
+                                </p>
                             {% endfor %}
                         </div>
                     </div>
                 </div>
             {% endif %}
+
         </div>
         {% if franchisee.truck is not null %}
             <div class="row">
@@ -163,6 +166,34 @@
                         </div>
                     </div>
                 </div>
+                {% if franchisee.truck.truckComplaints is not null %}
+                    <div class="col-sm-2">
+                        <div class="card card-outline card-primary">
+                            <div class="card-header">
+                                <strong>{{ 'front.franchisee.question_truck'|trans }}</strong>
+                            </div>
+                            <div class="card-body">
+                                {% for complaint in franchisee.truck.truckComplaints %}
+                                    <p>
+                                        {% if complaint.isNew %}
+                                            <a href="{{ path('truck_complaint_show', {'id': complaint.id}) }}">{{ complaint.title }}</a>
+                                            {{ complaint.date|date("m/d/y") }}
+                                            <button class="btn btn-success disabled">{{ 'front.franchisee.new'|trans }}</button>
+                                        {% endif %}
+                                        {% if complaint.isOngoing %}
+                                            <a href="{{ path('truck_complaint_show', {'id': complaint.id}) }}">{{ complaint.title }}</a>
+                                            <button class="btn btn-info disabled">{{ 'front.franchisee.ongoing'|trans }}</button>
+                                        {% endif %}
+                                        {% if complaint.isClosed %}
+                                            <a href="{{ path('truck_complaint_show', {'id': complaint.id}) }}">{{ complaint.title }}</a>
+                                            <button class="btn btn-danger disabled">{{ 'front.franchisee.closed'|trans }}</button>
+                                        {% endif %}
+                                    </p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </section>
     </div>

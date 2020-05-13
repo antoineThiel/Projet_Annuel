@@ -79,8 +79,8 @@ class FranchiseeController extends AbstractController
             $posAddress = null;
             $posCity = null;
         }
-        $invoices = $invoiceRepository->findBy(['franchisee' => $this->getUser()], ['date' => 'DESC'], 10);
         $turnover = $turnoverRepository->findOneBy(['franchisee'=> $this->getUser()],['date'=>'DESC']);
+        $invoices = $invoiceRepository->findBy(['franchisee' => $this->getUser()], ['date' => 'DESC'], 5);
         return $this->render('franchisee/show.html.twig', [
             'franchisee' => $franchisee,
             'posId' => $posId,

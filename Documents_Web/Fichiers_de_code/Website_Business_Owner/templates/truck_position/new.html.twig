@@ -1,6 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_front.html.twig' %}
 {% block content %}
-<div class="content-wrapper">
+<div class="ml-5 mr-5">
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -19,8 +19,6 @@
     <!-- Main content -->
     <section class="content">
     {{ include('truck_position/_form.html.twig') }}
-
-    <a href="{{ path('truck_position_index') }}">back to list</a>
     </section>
 </div>
 {% endblock %}

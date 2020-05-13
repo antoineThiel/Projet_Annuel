@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TruckComplaintType extends AbstractType
+class TruckComplaintType2 extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -21,10 +21,14 @@ class TruckComplaintType extends AbstractType
             ])
             ->add('title')
             ->add('content')
+            ->add('answer')
             ->add('truck', EntityType::class, [
                 'class' => Truck::class,
                 'disabled' => true
             ])
+            ->add('isNew')
+            ->add('isOngoing')
+            ->add('isClosed')
         ;
     }
 
