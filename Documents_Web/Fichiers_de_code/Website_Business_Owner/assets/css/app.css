@@ -102,3 +102,21 @@ body {
     background-color: #81c4eb;
 }
 
+.Bronze, .Bronze , .Bronce{
+    color : #977826
+}
+.Argent,.Silver , .Plata{
+    color : #868992
+}
+
+.Or,.Gold , .Oro{
+    color: #EFD807
+}
+
+.Diamant,.Diamond , .Diamante{
+    color: #B9F2FF
+}
+
+.Bronze a, .Bronze a, .Bronce a, .Argent a, .Silver a, .Plata a, .Or a, .Gold a, .Oro , .Diamant a, .Diamond a, .Diamante a{
+    color:inherit !important;
+}

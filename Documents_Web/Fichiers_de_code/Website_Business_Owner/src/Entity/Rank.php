@@ -2,15 +2,19 @@
 
 namespace App\Entity;
 
+use App\Entity\Translations\RankTranslation;
 use App\Repository\RankRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * @ORM\Entity(repositoryClass=RankRepository::class)
+ * @Gedmo\TranslationEntity(class="App\Entity\Translations\RankTranslation")
  */
-class Rank
+class Rank implements Translatable
 {
     /**
      * @ORM\Id()
@@ -20,6 +24,7 @@ class Rank
     private $id;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(type="string", length=255)
      */
     private $title;
@@ -38,6 +43,15 @@ class Rank
      * @ORM\Column(type="float")
      */
     private $reward;
+
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\Translations\RankTranslation",
+     *     mappedBy="object",
+     *     cascade={"persist", "remove"}
+     *     )
+     */
+    private $translations;
 
     public function __construct()
     {
@@ -115,4 +129,24 @@ class Rank
 
         return $this;
     }
+
+    public function __toString() : string
+    {
+        return $this->title;
+    }
+
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation(RankTranslation $t)
+    {
+        if (!$this->translations->contains($t)) {
+            $this->translations[] = $t;
+            $t->setObject($this);
+        }
+    }
+
+
 }

@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{#{% block title %}Rank index{% endblock %}#}
+
+{%  block content %}
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        {% block title %}{% endblock %}
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ path('rank_index') }}">Rank Index</a></li>
+                            <li class="breadcrumb-item active">Affichage des rangs</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- Main content -->
+        <section class="content">
+            <h1>Liste des contenus des rangs</h1>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    {% for rank in ranks %}
+                        <th class="{{ rank.title }}"><a href="{{ path('rank_edit', {'id': rank.id}) }}" title="modifier">{{ rank.title }}</a></th>
+                    {% endfor %}
+
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% for rank in ranks %}
+                            {% if rank.id == '1' %}
+                                <td>
+                                    {% for franchisee in rank.franchisee %}
+                                        <p>{{ franchisee.lastName }} {{ franchisee.firstName }}</p>
+                                    {% endfor %}
+                                </td>
+
+                            {% elseif rank.id == '2' %}
+                                <td>
+                                    {% for franchisee in rank.franchisee %}
+                                        <p>{{ franchisee.lastName }} {{ franchisee.firstName }}</p>
+                                    {% endfor %}
+                                </td>
+
+                            {%  elseif rank.id == '3' %}
+                                <td>
+                                    {% for franchisee in rank.franchisee %}
+                                        <p>{{ franchisee.lastName }} {{ franchisee.firstName }}</p>
+                                    {% endfor %}
+                                </td>
+                            {% else %}
+                                <td>
+                                    {% for franchisee in rank.franchisee %}
+                                        <p>{{ franchisee.lastName }} {{ franchisee.firstName }}</p>
+                                    {% endfor %}
+                                </td>
+                            {% endif %}
+                    {% endfor %}
+                </tr>
+
+                </tbody>
+            </table>
+
+            <a href="{{ path('rank_index') }}">back to list</a>
+        </section>
+    </div>
+{% endblock %}

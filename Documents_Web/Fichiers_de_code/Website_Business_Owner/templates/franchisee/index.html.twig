@@ -33,6 +33,7 @@
                     <th>License</th>
                     <th>Phone</th>
                     <th>Truck</th>
+                    <th>rang</th>
                     <th>actions</th>
                 </tr>
                 </thead>
@@ -53,6 +54,7 @@
                     <td>{{ franchisee.license }}</td>
                     <td>{{ franchisee.phone }}</td>
                     <td>{{ franchisee.truck }}</td>
+                    <td>{{ franchisee.rank }}</td>
                     <td>
                         <a href="{{ path('franchisee_edit', {'id': franchisee.id}) }}">edit</a>
                     </td>

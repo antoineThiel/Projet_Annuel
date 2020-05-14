@@ -25,27 +25,41 @@ class RankController extends AbstractController
         ]);
     }
 
+//    /**
+//     * @Route("/new", name="rank_new", methods={"GET","POST"})
+//     */
+//    public function new(Request $request): Response
+//    {
+//        $rank = new Rank();
+//        $form = $this->createForm(RankType::class, $rank);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $entityManager = $this->getDoctrine()->getManager();
+//            $entityManager->persist($rank);
+//            $entityManager->flush();
+//
+//            return $this->redirectToRoute('rank_index');
+//        }
+//
+//        return $this->render('rank/new.html.twig', [
+//            'rank' => $rank,
+//            'form' => $form->createView(),
+//        ]);
+//    }
+
     /**
-     * @Route("/new", name="rank_new", methods={"GET","POST"})
+     * @Route("/total" , name="rank_display_all" , methods={"GET"})
+     * @param Rank $rank
+     * @return Response
      */
-    public function new(Request $request): Response
+    public function displayAll(): Response
     {
-        $rank = new Rank();
-        $form = $this->createForm(RankType::class, $rank);
-        $form->handleRequest($request);
+        $manager = $this->getDoctrine()->getManager()->getRepository(Rank::class);
+        $ranks = $manager->findAll();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($rank);
-            $entityManager->flush();
 
-            return $this->redirectToRoute('rank_index');
-        }
-
-        return $this->render('rank/new.html.twig', [
-            'rank' => $rank,
-            'form' => $form->createView(),
-        ]);
+        return $this->render('rank/display_all.html.twig', ['ranks' => $ranks]);
     }
 
     /**
@@ -77,18 +91,20 @@ class RankController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+//
+//    /**
+//     * @Route("/{id}", name="rank_delete", methods={"DELETE"})
+//     */
+//    public function delete(Request $request, Rank $rank): Response
+//    {
+//        if ($this->isCsrfTokenValid('delete'.$rank->getId(), $request->request->get('_token'))) {
+//            $entityManager = $this->getDoctrine()->getManager();
+//            $entityManager->remove($rank);
+//            $entityManager->flush();
+//        }
+//
+//        return $this->redirectToRoute('rank_index');
+//    }
 
-    /**
-     * @Route("/{id}", name="rank_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Rank $rank): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$rank->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($rank);
-            $entityManager->flush();
-        }
 
-        return $this->redirectToRoute('rank_index');
-    }
 }

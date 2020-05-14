@@ -26,9 +26,11 @@ class RankRepository extends ServiceEntityRepository
             ->andWhere('r.minimum <= :val')
             ->setParameter('val', $value)
             ->orderBy('r.minimum', 'DESC')
+            ->setMaxResults('1')
             ->getQuery()
             ->getSingleResult();
     }
+
 
     /*
     public function findOneBySomeField($value): ?Rank
