@@ -19,6 +19,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- Stripe -->
     <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
+
+    <!-- chart.js -->
+    <script type="text/javascript" src="{{ asset('chart.js/dist/Chart.min.js') }}"></script>
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -45,6 +49,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     {% include 'blocks/footer.html.twig' %}
 </div>
 <!-- ./wrapper -->
+
+
+{{ encore_entry_script_tags('ranks') }}
 
 <!-- REQUIRED SCRIPTS -->
 

@@ -26,41 +26,47 @@
 
             <table class="table">
                 <thead>
-                <tr>
-                    {% for rank in ranks %}
-                        <th class="{{ rank.title }}"><a href="{{ path('rank_edit', {'id': rank.id}) }}" title="modifier">{{ rank.title }}</a></th>
-                    {% endfor %}
+                    <tr>
+                        {% for rank in ranks %}
+                            <th class="{{ rank.title }}"><a href="{{ path('rank_edit', {'id': rank.id}) }}" title="modifier">{{ rank.title }}</a></th>
+                        {% endfor %}
 
-                </tr>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr>
                         {% for rank in ranks %}
                             {% if rank.id == '1' %}
                                 <td>
-                                    {% for franchisee in rank.franchisee %}
-                                        <p>{{ franchisee.lastName }} {{ franchisee.firstName }}</p>
-                                    {% endfor %}
+                                    <div>
+                                        {% for franchisee in rank.franchisee %}
+                                            <p>{{ franchisee.lastName }} {{ franchisee.firstName }}</p>
+                                        {% endfor %}
+                                    </div>
                                 </td>
-
                             {% elseif rank.id == '2' %}
                                 <td>
-                                    {% for franchisee in rank.franchisee %}
-                                        <p>{{ franchisee.lastName }} {{ franchisee.firstName }}</p>
-                                    {% endfor %}
+                                    <div>
+                                        {% for franchisee in rank.franchisee %}
+                                            <p>{{ franchisee.lastName }} {{ franchisee.firstName }}</p>
+                                        {% endfor %}
+                                    </div>
                                 </td>
-
                             {%  elseif rank.id == '3' %}
                                 <td>
-                                    {% for franchisee in rank.franchisee %}
-                                        <p>{{ franchisee.lastName }} {{ franchisee.firstName }}</p>
-                                    {% endfor %}
+                                    <div>
+                                        {% for franchisee in rank.franchisee %}
+                                            <p>{{ franchisee.lastName }} {{ franchisee.firstName }}</p>
+                                        {% endfor %}
+                                    </div>
                                 </td>
-                            {% else %}
+                            {% elseif rank.id == '4' %}
                                 <td>
-                                    {% for franchisee in rank.franchisee %}
-                                        <p>{{ franchisee.lastName }} {{ franchisee.firstName }}</p>
-                                    {% endfor %}
+                                    <div>
+                                        {% for franchisee in rank.franchisee %}
+                                            <p>{{ franchisee.lastName }} {{ franchisee.firstName }}</p>
+                                        {% endfor %}
+                                    </div>
                                 </td>
                             {% endif %}
                     {% endfor %}

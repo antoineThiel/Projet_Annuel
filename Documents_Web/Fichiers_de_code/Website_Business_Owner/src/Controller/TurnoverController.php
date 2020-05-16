@@ -44,7 +44,7 @@ Class TurnoverController extends AbstractController {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $turnover->setPercentAmount(($turnover->getAmount())*0.4);
+            $turnover->setPercentAmount(($turnover->getAmount())*0.04);
             $entityManager = $this->getDoctrine()->getManager();
             $rankRep = $entityManager->getRepository('App\Entity\Rank');
 

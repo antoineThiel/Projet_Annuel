@@ -12,9 +12,11 @@ use App\Repository\ProductRepository;
 use App\Repository\TruckRepository;
 use App\Repository\WarehouseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Json;
 
 class HomepageController extends AbstractController
 {
@@ -82,5 +84,25 @@ class HomepageController extends AbstractController
     public function notFound() : Response
     {
         return $this->render('common/404.html.twig');
+    }
+
+    /**
+     * @Route("/ajax/ranks_homepage" , name = "ranksHomepage" , methods={"GET"})
+     */
+    public function ajaxGetRanksDetails() : Response
+    {
+        $return = [];
+
+        $em = $this->getDoctrine()->getManager();
+        $rankRepository = $em->getRepository('App\Entity\Rank');
+        $allRanks = $rankRepository->findAll();
+
+        $franchiseeRepository = $em->getRepository('App\Entity\Franchisee');
+        foreach ($allRanks as $rank){
+            $return['labels'][] = $rank->getTitle();
+            $return['quantities'][] = count($franchiseeRepository->findBy(['rank' => $rank->getId()]));
+        }
+
+        return new JsonResponse($return);
     }
 }

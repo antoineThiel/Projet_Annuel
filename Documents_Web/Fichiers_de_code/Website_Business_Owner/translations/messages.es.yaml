@@ -25,6 +25,11 @@ front:
     already_turnover: Ya ha hecho la declaración para el mes de
     turnover_closed: Ya ha realizado el pago para el mes de
     ranking: Su rango
+    higherRank: Su siguiente rango
+    monthUnit: €/mes
+    currentTurnover: Declaración del mes pasado
+    alreadyHighestRank: Usted es en el nivel más alto!
+    noTurnover: Aún no has hecho una declaración
   header:
     my_account: Mi cuenta
     login: Iniciar sesión

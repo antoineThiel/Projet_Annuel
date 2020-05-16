@@ -13,7 +13,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Product Index</li>
+                        <li class="breadcrumb-item active">Rank Index</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -27,9 +27,9 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Title</th>
-                <th>Minimum</th>
-                <th>Reward</th>
+                <th>Dénomination</th>
+                <th>CA Minimum</th>
+                <th>Récompenses</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -41,13 +41,12 @@
                 <td>{{ rank.minimum }}</td>
                 <td>{{ rank.reward }}</td>
                 <td>
-                    <a href="{{ path('rank_show', {'id': rank.id}) }}">show</a>
-                    <a href="{{ path('rank_edit', {'id': rank.id}) }}">edit</a>
+                    <a href="{{ path('rank_edit', {'id': rank.id}) }}">Editer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">Rien n'est enregistré</td>
             </tr>
         {% endfor %}
         </tbody>

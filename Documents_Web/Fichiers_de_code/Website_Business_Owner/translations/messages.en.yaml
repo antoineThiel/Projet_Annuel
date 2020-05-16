@@ -25,6 +25,11 @@ front:
     already_turnover: You have already made the declaration for the month of
     turnover_closed: You have already made the payment for the month of
     ranking: Your rank
+    higherRank: Your next rank
+    monthUnit: €/month
+    currentTurnover: Last month's declaration
+    alreadyHighestRank: You have already reached the highest rank !
+    noTurnover: No declaration registered yet
   truck_complaint:
     title: Complaint form
   header:

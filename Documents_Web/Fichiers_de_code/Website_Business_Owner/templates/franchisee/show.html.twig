@@ -201,8 +201,17 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-sm-6">
-                                    <p>Prochain Pallier</p>
+                                <div class="col-sm-12">
+                                    {% if turnover is not null %}
+                                        {% if higherRank is not null %}
+                                        <p>{{'front.franchisee.higherRank' | trans }} {{ higherRank }} {{ 'front.franchisee.monthUnit' | trans }} </p>
+                                        {% else %}
+                                        <p>{{ 'front.franchisee.alreadyHighestRank' | trans }}</p>
+                                        {% endif %}
+                                        <p>{{ 'front.franchisee.currentTurnover' | trans }} : {{ turnover.amount }} €</p>
+                                    {% else %}
+                                        <p>{{ 'front.franchisee.noTurnover' | trans }}</p>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
