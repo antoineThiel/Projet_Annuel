@@ -8,6 +8,7 @@ use App\Form\FranchiseeType2;
 use App\Repository\FranchiseeRepository;
 use App\Repository\InvoiceRepository;
 use App\Repository\OrderByFranchiseeRepository;
+use App\Repository\RankRepository;
 use App\Repository\TruckPositionRepository;
 use App\Repository\TruckRepository;
 use App\Repository\TurnoverRepository;
@@ -64,7 +65,7 @@ class FranchiseeController extends AbstractController
      *     "es": "/es/franquiciado/{id}"
      *      }, name="franchisee_show", methods={"GET"})
      */
-    public function show(Franchisee $franchisee,TruckRepository $truckRepository, TruckPositionRepository $positionRepository, InvoiceRepository $invoiceRepository, TurnoverRepository $turnoverRepository): Response
+    public function show(Franchisee $franchisee,TruckRepository $truckRepository, TruckPositionRepository $positionRepository, InvoiceRepository $invoiceRepository, TurnoverRepository $turnoverRepository , RankRepository $rankRepository): Response
     {
         if ($this->getUser()->getId() != $franchisee->getId()){
             return $this->redirectToRoute('404');
@@ -79,6 +80,13 @@ class FranchiseeController extends AbstractController
             $posAddress = null;
             $posCity = null;
         }
+
+        if( ($currentRank = $franchisee->getRank()->getId()) != 4){
+            $higherRank = $rankRepository->find($currentRank+1)->getMinimum();
+        }else{
+            $higherRank = null;
+        }
+
         $turnover = $turnoverRepository->findOneBy(['franchisee'=> $this->getUser()],['date'=>'DESC']);
         $invoices = $invoiceRepository->findBy(['franchisee' => $this->getUser()], ['date' => 'DESC'], 5);
         return $this->render('franchisee/show.html.twig', [
@@ -87,7 +95,8 @@ class FranchiseeController extends AbstractController
             'posAddress' => $posAddress,
             'posCity' => $posCity,
             'invoices' => $invoices,
-            'turnover'=> $turnover
+            'turnover'=> $turnover,
+            'higherRank' => $higherRank
         ]);
     }
 

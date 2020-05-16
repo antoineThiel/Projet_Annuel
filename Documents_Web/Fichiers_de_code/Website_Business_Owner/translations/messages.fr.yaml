@@ -24,6 +24,12 @@ front:
       pay_turnover: Verser 4% du chiffres d'affaire
       already_turnover: Vous avez déjà fait la déclaration pour le mois de
       turnover_closed: Vous avez déjà réalisé le paiement du mois de
+      ranking: Votre rang
+      higherRank: Votre Prochain Rang
+      monthUnit: €/mois
+      currentTurnover: Précédent CA
+      alreadyHighestRank: Vous êtes au plus haut pallier !
+      noTurnover: Vous n'avez pas encore fait de déclaration
   truck_complaint:
     title: Formulaire de plainte
   header:

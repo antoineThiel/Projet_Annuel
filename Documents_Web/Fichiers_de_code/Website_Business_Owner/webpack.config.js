@@ -37,6 +37,7 @@ Encore
     .addEntry('webGl', './assets/js/dev/variables.js')
     .addEntry('weGLinit', './assets/js/init.js')
     .addEntry('turnover', './assets/js/turnover.js')
+    .addEntry('ranks' , './assets/js/rank.js')
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 

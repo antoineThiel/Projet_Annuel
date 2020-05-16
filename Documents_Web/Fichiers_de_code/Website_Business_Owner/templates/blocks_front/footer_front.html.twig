@@ -1,7 +1,8 @@
 <!-- Footer -->
+{% set route = app.request.attributes.get('_route') %}
 <footer class="page-footer font-small navbar-light mb-0"
         style="background-color: #80c2e0; bottom:0; width:100%;
-        {% if app.request.attributes.get('_route') == 'home'%}position:fixed;{% endif %}">
+        {% if route == 'home' or route =='homepage' %}position:fixed;{% endif %}">
     <div class="container">
 
         <!-- Bloc top -->

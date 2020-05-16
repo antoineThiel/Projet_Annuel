@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{#{% block title %}Rank index{% endblock %}#}
+
+{%  block content %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    {% block title %}{% endblock %}
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Home</a></li>
+                        <li class="breadcrumb-item active">Rank Index</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- Main content -->
+    <section class="content">
+    <h1>Rank index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Dénomination</th>
+                <th>CA Minimum</th>
+                <th>Récompenses</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rank in ranks %}
+            <tr>
+                <td>{{ rank.id }}</td>
+                <td>{{ rank.title }}</td>
+                <td>{{ rank.minimum }}</td>
+                <td>{{ rank.reward }}</td>
+                <td>
+                    <a href="{{ path('rank_edit', {'id': rank.id}) }}">Editer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Rien n'est enregistré</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{#    <p><a href="{{ path('rank_new') }}">Create new</a></p>#}
+    <p><a href="{{ path('rank_display_all') }}">Visuel de toussa</a></p>
+    </section>
+</div>
+{% endblock %}
