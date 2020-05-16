@@ -84,6 +84,19 @@ class Franchisee implements UserInterface
      */
     private $franchiseeComplaints;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Turnover" , mappedBy="franchisee")
+     */
+    private $turnover;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Rank::class, inversedBy="franchisee")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $rank;
+
+
+
     public function __construct()
     {
         $this->dish = new ArrayCollection();
@@ -192,6 +205,7 @@ class Franchisee implements UserInterface
 
         return $this;
     }
+
 
 
     public function __toString(): string
@@ -323,4 +337,35 @@ class Franchisee implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTurnover()
+    {
+        return $this->turnover;
+    }
+
+    /**
+     * @param mixed $turnover
+     */
+    public function setTurnover($turnover): void
+    {
+        $this->turnover = $turnover;
+    }
+
+    public function getRank(): ?Rank
+    {
+        return $this->rank;
+    }
+
+    public function setRank(?Rank $rank): self
+    {
+        $this->rank = $rank;
+
+        return $this;
+    }
+
+
+
 }
