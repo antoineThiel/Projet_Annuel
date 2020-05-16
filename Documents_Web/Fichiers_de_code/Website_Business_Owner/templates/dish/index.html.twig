@@ -10,7 +10,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Dish index</li>
+                        <li class="breadcrumb-item active">Les plats</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -18,15 +18,15 @@
     </div>
     <!-- Main content -->
     <section class="content">
-        <h1>Dish index</h1>
+        <h1>Plats</h1>
 
         <table class="table">
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Name</th>
+                    <th>Nom</th>
                     <th>Price</th>
-                    <th>actions</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,9 +34,8 @@
                 <tr>
                     <td>{{ dish.id }}</td>
                     <td>{{ dish.name }}</td>
-                    <td>{{ dish.price }}</td>
+                    <td>{{ dish.price }} €</td>
                     <td>
-                        <a href="{{ path('dish_show', {'id': dish.id}) }}">show</a>
                         <a href="{{ path('dish_edit', {'id': dish.id}) }}">edit</a>
                     </td>
                 </tr>
@@ -48,8 +47,8 @@
             </tbody>
         </table>
 
-        <a href="{{ path('dish_new') }}"><button class="btn btn-info ml-3 mr-1">Create new</button></a>
-        <a href="{{ path('dish_trad') }}"><button class="btn btn-info ml3">All Trads</button></a>
+        <a href="{{ path('dish_new') }}"><button class="btn btn-info ml-3 mr-1">Ajouter</button></a>
+        <a href="{{ path('dish_trad') }}"><button class="btn btn-info ml3">Traductions</button></a>
     </section>
 </div>
 {% endblock %}

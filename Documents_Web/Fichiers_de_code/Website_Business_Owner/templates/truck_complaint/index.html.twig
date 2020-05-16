@@ -10,7 +10,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Starter Page</li>
+                        <li class="breadcrumb-item active">Plaintes camions</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -23,9 +23,9 @@
             <tr>
                 <th>Id</th>
                 <th>Date</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>actions</th>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -36,7 +36,6 @@
                 <td>{{ truck_complaint.title }}</td>
                 <td>{{ truck_complaint.content }}</td>
                 <td>
-                    <a href="{{ path('truck_complaint_show', {'id': truck_complaint.id}) }}">show</a>
                     <a href="{{ path('truck_complaint_edit', {'id': truck_complaint.id}) }}">edit</a>
                 </td>
             </tr>
@@ -48,7 +47,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('truck_complaint_new') }}"><button class="btn btn-info ml-3 mr-1">Create new</button></a>
+    <a href="{{ path('truck_complaint_new') }}"><button class="btn btn-info ml-3 mr-1">Ajouter</button></a>
     </section>
 </div>
 {% endblock %}

@@ -10,7 +10,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Starter Page</li>
+                        <li class="breadcrumb-item active">Users</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -36,7 +36,6 @@
                     <td>{{ user.password }}</td>
                     <td>{% if (user.roles) is not empty %} {{ user.roles[0] }} {% endif %}</td>
                     <td>
-                        <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
                         <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
                     </td>
                 </tr>
@@ -48,7 +47,7 @@
             </tbody>
         </table>
 
-        <a href="{{ path('user_new') }}"><button class="btn btn-info ml-3 mr-1">Create new</button></a>
+        <a href="{{ path('user_new') }}"><button class="btn btn-info ml-3 mr-1">Ajouter</button></a>
     </section>
 </div>
 {% endblock %}
