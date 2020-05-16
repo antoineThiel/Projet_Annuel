@@ -55,7 +55,7 @@ class TruckPositionRepository extends ServiceEntityRepository
             ->andWhere('t.state = true')
             ->setParameter('val', $value)
             ->getQuery()
-            ->getSingleResult()
+            ->getOneOrNullResult()
             ;
     }
 

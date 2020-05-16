@@ -20,20 +20,18 @@
                     <tbody>
                     {% set inc = 1 %}
                     {% for products in list['products'] %}
-                        {% if products.quantity >= 1 %}
-                            <tr class="product">
-                                <td class="productName"><label class="d-none">{{ products.product }}</label><p>{{ productsT[inc-1]['name'] }}</p></td>
-                                <td class="productQuantityInfo"><label>{{ products.quantity }}</label></td>
-                                <td class="productPrice"><label>{{ products.price }}</label> €</td>
-                                <td class="productQuantity">
-                                    <label>
-                                        <input type="number" min="1"  max="{{ products.quantity }}">
-                                    </label>
-                                    <button class="btn btn-info" onclick="sendToController({{ inc }}, 'product')">{{'front.order.products.add_card'|trans}}</button>
-                                </td>
-                            </tr>
-                            {% set inc = inc + 1 %}
-                        {% endif %}
+                        <tr class="product">
+                            <td class="productName"><label class="d-none">{{ products.product }}</label><p>{{ products.product }}</p></td>
+                            <td class="productQuantityInfo"><label>{{ products.quantity }}</label></td>
+                            <td class="productPrice"><label>{{ products.price }}</label> €</td>
+                            <td class="productQuantity">
+                                <label>
+                                    <input type="number" min="1"  max="{{ products.quantity }}">
+                                </label>
+                                <button class="btn btn-info" onclick="sendToController({{ inc }}, 'product')">{{'front.order.products.add_card'|trans}}</button>
+                            </td>
+                        </tr>
+                        {% set inc = inc + 1 %}
                     {% endfor %}
                     </tbody>
                 </table>
@@ -52,7 +50,6 @@
                     <tbody>
                     {% set inc = 1 %}
                     {% for dish in list['dishes'] %}
-                        {% if dish.quantity >= 1 %}
                             <tr class="dish">
                                 <td class="dishName"><label class="d-none">{{ dish.dish }}</label><p>{{ dishT[inc-1]['name'] }}</p></td>
                                 <td class="dishQuantityInfo"><label>{{ dish.quantity }}</label></td>
@@ -65,7 +62,6 @@
                                 </td>
                             </tr>
                             {% set inc = inc + 1 %}
-                        {% endif %}
                     {% endfor %}
                     </tbody>
                 </table>

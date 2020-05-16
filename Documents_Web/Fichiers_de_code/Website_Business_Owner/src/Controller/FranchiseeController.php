@@ -71,9 +71,15 @@ class FranchiseeController extends AbstractController
         }
         if ($franchisee->getTruck() != null){
             $pos = $positionRepository->findById($franchisee->getTruck()->getId());
-            $posId = $pos->getId();
-            $posAddress = $pos->getAddress();
-            $posCity = $pos->getCity();
+            if ($pos != null){
+                $posId = $pos->getId();
+                $posAddress = $pos->getAddress();
+                $posCity = $pos->getCity();
+            }else {
+                $posId = null;
+                $posAddress = null;
+                $posCity = null;
+            }
         }else{
             $posId = null;
             $posAddress = null;

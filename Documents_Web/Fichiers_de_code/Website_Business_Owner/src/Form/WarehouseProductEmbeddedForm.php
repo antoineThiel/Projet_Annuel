@@ -30,7 +30,6 @@ class WarehouseProductEmbeddedForm extends AbstractType
             ->add('quantity', IntegerType::class, [
                 'attr' => ['placeholder' => 'Quantity']
             ])
-            ->add('price', MoneyType::class)
         ;
     }
 

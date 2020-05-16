@@ -6,6 +6,7 @@ use App\Entity\Warehouse;
 use App\Entity\WarehouseDish;
 use App\Entity\WarehouseProduct;
 use App\Form\WarehouseType;
+use App\Repository\ProductRepository;
 use App\Repository\WarehouseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,6 +73,16 @@ class WarehouseController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $wrProducts = $warehouse->getWarehouseProduct();
+            $wrDishes = $warehouse->getWarehouseDish();
+            foreach ($wrProducts as $wrProduct)
+            {
+                $wrProduct->setPrice($wrProduct->getProduct()->getPrice());
+            }
+            foreach ($wrDishes as $wrDish)
+            {
+                $wrDish->setPrice($wrDish->getDish()->getPrice());
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('warehouse_index');

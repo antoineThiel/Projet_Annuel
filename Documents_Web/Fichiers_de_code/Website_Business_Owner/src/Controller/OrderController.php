@@ -82,9 +82,13 @@ class OrderController extends AbstractController
         $pRep = $entityManager->getRepository(Product::class);
         $dRep = $entityManager->getRepository(Dish::class);
         $list = [];
+        $dishes = [];
+        $products = [];
+        $productsT = [];
+        $dishT = [];
 
-        $list['products'] = $wpRep->findBy(['warehouse' => $order->getWarehouse()->getId()]);
-        $list['dishes'] = $wdRep->findBy(['warehouse' => $order->getWarehouse()->getId()]);
+        $list['products'] = $wpRep->findByWarehouseAndQuantityOver0($order->getWarehouse()->getId());
+        $list['dishes'] = $wdRep->findByWarehouseAndQuantityOver0($order->getWarehouse()->getId());
 
         foreach ($list['products'] as $product){
             $products[] = $product->getProduct();
@@ -94,12 +98,16 @@ class OrderController extends AbstractController
             $dishes[] = $dish->getDish();
         }
 
-        foreach ($products as $product){
-            $productsT[] = $pRep->findByIdAndLocale($request->getLocale(), $product->getId());
+        if ($products != null){
+            foreach ($products as $product){
+                $productsT[] = $pRep->findByIdAndLocale($request->getLocale(), $product->getId());
+            }
         }
 
-        foreach ($dishes as $dish){
-            $dishT[] = $dRep->findByIdAndLocale($request->getLocale(), $dish->getId());
+        if ($dishes != null){
+            foreach ($dishes as $dish){
+                $dishT[] = $dRep->findByIdAndLocale($request->getLocale(), $dish->getId());
+            }
         }
 
         return $this->render('order/products.html.twig', [
