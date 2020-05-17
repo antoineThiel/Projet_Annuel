@@ -27,6 +27,7 @@
                     <th>Nom</th>
                     <th>Prix</th>
                     <th>Categorie</th>
+                    <th>Quantité</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -37,6 +38,7 @@
                     <td>{{ product.name }}</td>
                     <td>{{ product.price }} €</td>
                     <td>{{ product.category }}</td>
+                    <td>{{ product.unitQuantity }} {{ product.unit }}</td>
                     <td>
                         <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
                     </td>

@@ -22,7 +22,6 @@ class WarehouseProductEmbeddedForm extends AbstractType
         $builder
             ->add('product', EntityType::class, [
                 'class' => Product::class,
-                'choice_label' => 'name',
                 'query_builder' => function(ProductRepository $pr){
                     return $pr->createQueryBuilder('p')->orderBy('p.name', 'ASC');
                 }

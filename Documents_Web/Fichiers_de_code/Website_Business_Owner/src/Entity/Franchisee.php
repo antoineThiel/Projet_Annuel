@@ -91,7 +91,6 @@ class Franchisee implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity=Rank::class, inversedBy="franchisee")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $rank;
 

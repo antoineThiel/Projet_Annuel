@@ -20,12 +20,15 @@ use App\Repository\WarehouseRepository;
 use Mpdf\Mpdf;
 use Stripe\Exception\ApiErrorException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 
 class OrderController extends AbstractController
@@ -92,7 +95,16 @@ class OrderController extends AbstractController
 
         foreach ($list['products'] as $product){
             $products[] = $product->getProduct();
+            $categories[] = $product->getProduct()->getCategory()->getName();
         }
+
+        $categories = array_unique($categories, SORT_REGULAR);
+
+        foreach ($categories as $category)
+        {
+            $trueCategories[] = $category;
+        }
+
 
         foreach ($list['dishes'] as $dish){
             $dishes[] = $dish->getDish();
@@ -114,7 +126,8 @@ class OrderController extends AbstractController
             'order' => $order,
             'list' => $list,
             'productsT' => $productsT,
-            'dishT' => $dishT
+            'dishT' => $dishT,
+            'categories' => $trueCategories
         ]);
     }
 
@@ -464,6 +477,9 @@ class OrderController extends AbstractController
         ]);
     }
 
+
+
+
     /**
      * @Route("/admin/order/{id}", name="order_delete", methods={"DELETE"})
      */
@@ -504,4 +520,34 @@ class OrderController extends AbstractController
         return $this->redirectToRoute('order_recap',[ 'id' => $order->getId()]);
     }
 
+    /**
+     * @Route("/order/get_products", name="get_products", methods={"POST"})
+     */
+    public function getProducts(Request $request, SerializerInterface $serializer) : JsonResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        $orderRep = $em->getRepository('App\Entity\OrderByFranchisee');
+        $wpRep = $em->getRepository('App\Entity\WarehouseProduct');
+        $orderId = $request->get('order');
+        $order = $orderRep->find($orderId);
+        $category = $request->get('category');
+        $products = $wpRep->findByWarehouseAndQuantityOver0($order->getWarehouse()->getId());
+        $i =0;
+        foreach ($products as $product) {
+            if ($product->getProduct()->getCategory()->getName() != $category){
+                unset($products[$i]);
+            }
+            $i++;
+        }
+
+        $i = 0;
+        foreach ($products as $product){
+            $returnResponse[$i]['name'] = $product->getProduct()->getName();
+            $returnResponse[$i]['quantity'] = $product->getQuantity();
+            $returnResponse[$i]['price'] = $product->getPrice();
+            $i++;
+        }
+
+        return new JsonResponse($returnResponse);
+    }
 }

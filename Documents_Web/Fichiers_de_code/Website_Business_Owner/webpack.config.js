@@ -38,6 +38,7 @@ Encore
     .addEntry('weGLinit', './assets/js/init.js')
     .addEntry('turnover', './assets/js/turnover.js')
     .addEntry('ranks' , './assets/js/rank.js')
+    .addEntry('category', './assets/js/productCategory.js')
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 

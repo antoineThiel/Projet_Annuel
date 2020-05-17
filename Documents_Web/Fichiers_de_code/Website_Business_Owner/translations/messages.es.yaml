@@ -41,10 +41,10 @@ front:
     copyright: Copyright © 2020-2510
     drivncook: Driv'n Cook
     rights: Todos los derechos estan reservados. Larga vida a los Sananes
-  order:
-    warehouse: Almacén
   truck_complaint:
     title: Formulario de queja
+  order:
+    warehouse: Almacén
     products:
       order: Orden n°
       products: Productos
