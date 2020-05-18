@@ -36,8 +36,8 @@
                 <td>{{ warehouse.city }}</td>
                 <td>{{ warehouse.address }}</td>
                 <td>
-                    <a href="{{ path('warehouse_show', {'id': warehouse.id}) }}">show</a>
-                    <a href="{{ path('warehouse_edit', {'id': warehouse.id}) }}">edit</a>
+                    <a href="{{ path('warehouse_show', {'id': warehouse.id}) }}">Voir</a> /
+                    <a href="{{ path('warehouse_edit', {'id': warehouse.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}

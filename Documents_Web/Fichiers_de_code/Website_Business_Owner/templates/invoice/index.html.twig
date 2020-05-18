@@ -21,11 +21,11 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Identifiant</th>
                 <th>Date</th>
                 <th>Montant</th>
                 <th>Franchisé</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -36,8 +36,8 @@
                 <td>{{ invoice.ammount }}</td>
                 <td>{{ invoice.franchisee }}</td>
                 <td>
-                    <a href="{{ path('invoice_show', {'id': invoice.id}) }}">show</a>
-                    <a href="{{ path('invoice_edit', {'id': invoice.id}) }}">edit</a>
+                    <a href="{{ path('invoice_show', {'id': invoice.id}) }}">Voir</a> /
+                    <a href="{{ path('invoice_edit', {'id': invoice.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}

@@ -23,11 +23,11 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Category</th>
-                    <th>actions</th>
+                    <th>Identifiant</th>
+                    <th>Nom du Produit</th>
+                    <th>Prix</th>
+                    <th>Catégorie</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,20 +38,20 @@
                     <td>{{ product.price }}</td>
                     <td>{{ product.category }}</td>
                     <td>
-                        <a href="{{ path('product_show', {'id': product.id}) }}">show</a>
-                        <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
+                        <a href="{{ path('product_show', {'id': product.id}) }}">Voir</a> /
+                        <a href="{{ path('product_edit', {'id': product.id}) }}">Modifier</a>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="5">no records found</td>
+                    <td colspan="5">Rien à afficher</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
 
-        <a href="{{ path('product_new') }}"><button class="btn btn-info ml-3 mr-1">Create new</button></a>
-        <a href="{{ path('product_trad') }}"><button class="btn btn-info ml3">All Trads</button></a>
+        <a href="{{ path('product_new') }}"><button class="btn btn-info ml-3 mr-1">Nouveau</button></a>
+        <a href="{{ path('product_trad') }}"><button class="btn btn-info ml3">Traductions</button></a>
     </section>
 </div>
 {% endblock %}

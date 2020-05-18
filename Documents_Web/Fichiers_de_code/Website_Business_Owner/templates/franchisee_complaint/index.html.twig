@@ -16,12 +16,12 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>Answer</th>
-                <th>Status</th>
-                <th>actions</th>
+                <th>Identifiant</th>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Réponse</th>
+                <th>Statut</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -47,7 +47,7 @@
                     <td>Fermé</td>
                 {% endif %}
                 <td>
-                    <a href="{{ path('franchisee_complaint_edit', {'id': franchisee_complaint.id}) }}">edit</a>
+                    <a href="{{ path('franchisee_complaint_edit', {'id': franchisee_complaint.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}

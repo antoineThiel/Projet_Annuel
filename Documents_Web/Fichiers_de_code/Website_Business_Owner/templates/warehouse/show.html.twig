@@ -1,30 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Warehouse{% endblock %}
+{% block title %}Entrepôt{% endblock %}
 
 {% block body %}
-    <h1>Warehouse</h1>
+    <h1>Entrepôt</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>Identifiant</th>
                 <td>{{ warehouse.id }}</td>
             </tr>
             <tr>
-                <th>City</th>
+                <th>Ville</th>
                 <td>{{ warehouse.city }}</td>
             </tr>
             <tr>
-                <th>Address</th>
+                <th>Addresse</th>
                 <td>{{ warehouse.address }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('warehouse_index') }}">back to list</a>
+    <a href="{{ path('warehouse_index') }}">Retour</a>
 
-    <a href="{{ path('warehouse_edit', {'id': warehouse.id}) }}">edit</a>
+    <a href="{{ path('warehouse_edit', {'id': warehouse.id}) }}">Modifier</a>
 
     {{ include('warehouse/_delete_form.html.twig') }}
 {% endblock %}

@@ -8,19 +8,19 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>Identifiant</th>
                 <td>{{ product_origin.id }}</td>
             </tr>
             <tr>
-                <th>Country</th>
+                <th>Pays</th>
                 <td>{{ product_origin.country }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('product_origin_index') }}">back to list</a>
+    <a href="{{ path('product_origin_index') }}">Retour</a>
 
-    <a href="{{ path('product_origin_edit', {'id': product_origin.id}) }}">edit</a>
+    <a href="{{ path('product_origin_edit', {'id': product_origin.id}) }}">Modifier</a>
 
     {{ include('product_origin/_delete_form.html.twig') }}
 {% endblock %}

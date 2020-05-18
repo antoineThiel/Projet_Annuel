@@ -21,11 +21,11 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Identifiant</th>
                 <th>Date</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>actions</th>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -36,8 +36,8 @@
                 <td>{{ truck_complaint.title }}</td>
                 <td>{{ truck_complaint.content }}</td>
                 <td>
-                    <a href="{{ path('truck_complaint_show', {'id': truck_complaint.id}) }}">show</a>
-                    <a href="{{ path('truck_complaint_edit', {'id': truck_complaint.id}) }}">edit</a>
+                    <a href="{{ path('truck_complaint_show', {'id': truck_complaint.id}) }}">Voir</a> /
+                    <a href="{{ path('truck_complaint_edit', {'id': truck_complaint.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
