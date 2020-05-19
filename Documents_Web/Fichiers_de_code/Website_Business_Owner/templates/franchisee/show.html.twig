@@ -240,8 +240,7 @@
                                 <p>Vous avez dépassé de {{ -1*balance.leftToSpendOutside }}€ les quotas du contrat ! Veillez à corriger cela</p>
                             {% endif %}
 
-                            <a href="#">Déposer une facture externe</a>
-
+                            <a href="{{ path('external_invoice_new') }}">Déposer une facture externe</a>
                         </div>
                     </div>
                 </div>

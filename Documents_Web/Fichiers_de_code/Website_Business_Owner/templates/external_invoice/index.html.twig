@@ -9,8 +9,8 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Accueil</a></li>
-                        <li class="breadcrumb-item active">Commandes</li>
+                        <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Accueil</a></li>
+                        <li class="breadcrumb-item active">Plats</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -18,30 +18,32 @@
     </div>
     <!-- Main content -->
     <section class="content">
+    <h1>ExternalInvoice index</h1>
+
     <table class="table">
         <thead>
             <tr>
-                <th>N°</th>
+                <th>Id</th>
+                <th>InvoiceFileName</th>
+                <th>Ammount</th>
                 <th>Date</th>
-                <th>Montant</th>
-                <th>Franchisé</th>
-                <th>Actions</th>
+                <th>actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for invoice in invoices %}
-            <tr>
-                <td>{{ invoice.id }}</td>
-                <td>{{ invoice.date ? invoice.date|date('Y-m-d') : '' }}</td>
-                <td>{{ invoice.ammount }}</td>
-                <td>{{ invoice.franchisee }}</td>
+        {% for external_invoice in external_invoices %}
+            <tr {{ (external_invoice.ammount is null) ? 'style="background-color: #E5735E;"' }}>
+                <td>{{ external_invoice.id }}</td>
+                <td>{{ external_invoice.invoiceFileName }}</td>
+                <td>{{ external_invoice.ammount }}</td>
+                <td>{{ external_invoice.date ? external_invoice.date|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('invoice_show', {'id': invoice.id}) }}">Voir</a>
+                    <a href="{{ path('external_invoice_edit', {'id': external_invoice.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
