@@ -1,5 +1,5 @@
 .vscode
 .idea
-/Documents_Web/Fichiers_de_code/Website_Business_Owner/public/build/
+/Documents_Web/Fichiers_de_code/Website_Business_Owner/public/build/*
 /Documents_Web/Fichiers_de_code/Website_Business_Owner/node_modules/
 /Documents_Web/Fichiers_de_code/Website_Business_Owner/package-lock.json
