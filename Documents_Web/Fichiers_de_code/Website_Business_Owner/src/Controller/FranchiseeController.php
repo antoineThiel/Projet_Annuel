@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Franchisee;
 use App\Form\FranchiseeType;
 use App\Form\FranchiseeType2;
+use App\Repository\ExternalInvoiceRepository;
 use App\Repository\FranchiseeRepository;
 use App\Repository\InvoiceRepository;
 use App\Repository\OrderByFranchiseeRepository;
@@ -65,7 +66,7 @@ class FranchiseeController extends AbstractController
      *     "es": "/es/franquiciado/{id}"
      *      }, name="franchisee_show", methods={"GET"})
      */
-    public function show(Franchisee $franchisee,TruckRepository $truckRepository, TruckPositionRepository $positionRepository, InvoiceRepository $invoiceRepository, TurnoverRepository $turnoverRepository , RankRepository $rankRepository): Response
+    public function show(Franchisee $franchisee,TruckRepository $truckRepository, TruckPositionRepository $positionRepository, InvoiceRepository $invoiceRepository, TurnoverRepository $turnoverRepository , RankRepository $rankRepository , ExternalInvoiceRepository $eIRep): Response
     {
         if ($this->getUser()->getId() != $franchisee->getId()){
             return $this->redirectToRoute('404');
@@ -94,12 +95,19 @@ class FranchiseeController extends AbstractController
         }
 
 
-        $lastMonth = (new \DateTime())->modify('-30 days');;
-        $sumSinceLastMonth = 0;
-        $invoiceSinceLastMonth = $invoiceRepository->findBySinceLastMonth($lastMonth , $franchisee->getId());
+        $balance['dateLastMonth'] = (new \DateTime())->modify('-30 days');;
+        $balance['totalFromInvoices'] = 0;
+        $balance['totalFromExternal'] = 0;
+        $invoiceSinceLastMonth = $invoiceRepository->findBySinceLastMonth($balance['dateLastMonth'] , $franchisee->getId());
         foreach ($invoiceSinceLastMonth as $invoice ){
-            $sumSinceLastMonth += $invoice->getAmmount();
+            $balance['totalFromInvoices'] += $invoice->getAmmount();
         }
+        $eInvoiceSinceLastMonth = $eIRep->findBySinceLastMonth($balance['dateLastMonth'] , $franchisee->getId());
+
+        foreach ($eInvoiceSinceLastMonth as $eInvoice ){
+            $balance['totalFromExternal'] += $eInvoice->getAmmount();
+        }
+        $balance['leftToSpendOutside'] =  (($balance['totalFromInvoices']/0.8 ) * 0.2) - $balance['totalFromExternal'];
 
         $turnover = $turnoverRepository->findOneBy(['franchisee'=> $this->getUser()],['date'=>'DESC']);
         $invoices = $invoiceRepository->findBy(['franchisee' => $this->getUser()], ['date' => 'DESC'], 5);
@@ -110,7 +118,8 @@ class FranchiseeController extends AbstractController
             'posCity' => $posCity,
             'invoices' => $invoices,
             'turnover'=> $turnover,
-            'higherRank' => $higherRank
+            'higherRank' => $higherRank,
+            'balance'   => $balance
         ]);
     }
 

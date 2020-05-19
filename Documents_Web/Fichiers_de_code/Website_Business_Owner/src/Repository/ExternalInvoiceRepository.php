@@ -19,6 +19,26 @@ class ExternalInvoiceRepository extends ServiceEntityRepository
         parent::__construct($registry, ExternalInvoice::class);
     }
 
+    /**
+     * @param \DateTime $dateTime
+     * @param int $franchiseeId
+     * @return array Returns an array of Invoice objects
+     */
+    public function findBySinceLastMonth(\DateTime $dateTime , int $franchiseeId): array
+    {
+//        $date = $dateTime->format('Y-m-d');
+
+        return $this->createQueryBuilder('i')
+            ->Where('i.date >= :date')
+            ->andWhere('i.franchisee = :uId')
+            ->setParameters([
+                'date'=> $dateTime,
+                'uId' => $franchiseeId
+            ])
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return ExternalInvoice[] Returns an array of ExternalInvoice objects
     //  */
