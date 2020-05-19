@@ -93,6 +93,14 @@ class FranchiseeController extends AbstractController
             $higherRank = null;
         }
 
+
+        $lastMonth = (new \DateTime())->modify('-30 days');;
+        $sumSinceLastMonth = 0;
+        $invoiceSinceLastMonth = $invoiceRepository->findBySinceLastMonth($lastMonth , $franchisee->getId());
+        foreach ($invoiceSinceLastMonth as $invoice ){
+            $sumSinceLastMonth += $invoice->getAmmount();
+        }
+
         $turnover = $turnoverRepository->findOneBy(['franchisee'=> $this->getUser()],['date'=>'DESC']);
         $invoices = $invoiceRepository->findBy(['franchisee' => $this->getUser()], ['date' => 'DESC'], 5);
         return $this->render('franchisee/show.html.twig', [
