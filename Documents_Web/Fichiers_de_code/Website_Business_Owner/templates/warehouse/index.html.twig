@@ -9,8 +9,8 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Warehouses index</li>
+                        <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Accueil</a></li>
+                        <li class="breadcrumb-item active">Entrepôts</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -18,15 +18,15 @@
     </div>
     <!-- Main content -->
     <section class="content">
-    <h1>Warehouse index</h1>
+    <h1>Liste des Entrepôts</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>City</th>
-                <th>Address</th>
-                <th>actions</th>
+                <th>N°</th>
+                <th>Ville</th>
+                <th>Addresse</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -36,19 +36,18 @@
                 <td>{{ warehouse.city }}</td>
                 <td>{{ warehouse.address }}</td>
                 <td>
-                    <a href="{{ path('warehouse_show', {'id': warehouse.id}) }}">Voir</a> /
                     <a href="{{ path('warehouse_edit', {'id': warehouse.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">Rien à afficher</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('warehouse_new') }}"><button class="btn btn-info ml-3 mr-1">Create new</button></a>
+    <a href="{{ path('warehouse_new') }}"><button class="btn btn-info ml-3 mr-1">Nouvel Entrepôt</button></a>
     </section>
 </div>
 {% endblock %}

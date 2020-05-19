@@ -9,8 +9,8 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Category Index</li>
+                        <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Accueil</a></li>
+                        <li class="breadcrumb-item active">Catégories</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -23,7 +23,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Identifiant</th>
+                    <th>N°</th>
                     <th>Catégorie</th>
                     <th>Actions</th>
                 </tr>
@@ -34,7 +34,6 @@
                     <td>{{ product_category.id }}</td>
                     <td>{{ product_category.name | capitalize }}</td>
                     <td>
-                        <a href="{{ path('product_category_show', {'id': product_category.id}) }}">Voir</a> /
                         <a href="{{ path('product_category_edit', {'id': product_category.id}) }}">Modifier</a>
                     </td>
                 </tr>

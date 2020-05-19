@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product{% endblock %}
+{% block title %}Produit{% endblock %}
 
 {% block body %}
-    <h1>Product</h1>
+    <h1>Produit</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Identifiant</th>
+                <th>N°</th>
                 <td>{{ product.id }}</td>
             </tr>
             <tr>
@@ -26,7 +26,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('product_index') }}">Revenir à l'index</a>
+    <a href="{{ path('product_index') }}">Retour</a>
 
     <a href="{{ path('product_edit', {'id': product.id}) }}">Modifier</a>
 

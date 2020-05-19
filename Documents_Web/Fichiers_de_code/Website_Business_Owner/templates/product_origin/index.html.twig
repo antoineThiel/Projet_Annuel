@@ -9,8 +9,8 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ path('admin_home')}}">Home</a></li>
-                        <li class="breadcrumb-item active">Origin Index</li>
+                        <li class="breadcrumb-item"><a href="{{ path('admin_home')}}">Accueil</a></li>
+                        <li class="breadcrumb-item active">Origines</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -18,14 +18,14 @@
     </div>
     <!-- Main content -->
     <section class="content">
-        <h1>ProductOrigin index</h1>
+        <h1>Liste des Origines</h1>
 
         <table class="table">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Country</th>
-                    <th>actions</th>
+                    <th>N°</th>
+                    <th>Pays</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,19 +34,18 @@
                     <td>{{ product_origin.id }}</td>
                     <td>{{ product_origin.country }}</td>
                     <td>
-                        <a href="{{ path('product_origin_show', {'id': product_origin.id}) }}">Voir</a> /
                         <a href="{{ path('product_origin_edit', {'id': product_origin.id}) }}">Modifier</a>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="3">no records found</td>
+                    <td colspan="3">Rien à afficher</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
 
-        <a href="{{ path('product_origin_new') }}"><button class="btn btn-info ml-3 mr-1">Create new</button></a>
+        <a href="{{ path('product_origin_new') }}"><button class="btn btn-info ml-3 mr-1">Nouveau</button></a>
     </section>
 </div>
 {% endblock %}

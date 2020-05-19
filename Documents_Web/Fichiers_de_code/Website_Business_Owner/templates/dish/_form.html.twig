@@ -1,9 +1,9 @@
 <div class="card card-primary card-outline">
     <div class="card-header">
         {% if(app.request.attributes.get('_route') == 'dish_new') %}
-            <h3>Create Dish</h3>
+            <h3>Créer un plat</h3>
         {% else %}
-            <h3>Modifier Dish</h3>
+            <h3>Modifier un plat</h3>
         {% endif %}
     </div>
     <div class="card-body">
@@ -21,7 +21,7 @@
             {{ form_row(form.product, {label_attr: {class: 'checkbox-customl'} }) }}
         </div>
         <div class="card-footer">
-            <button class="btn btn-primary">Add</button>
+            <button class="btn btn-primary">Enregistrer</button>
         </div>
         {{ form_end(form) }}
     </div>
