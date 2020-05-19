@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        {% block title %}{% endblock %}
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Starter Page</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- Main content -->
+        <section class="content">
+            <h1>Chiffre d'affaire Détail </h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Date</th>
+                    <th>Montant
+                    <th>Montant 4%</th>
+                    <th>Franchisee</th>
+                    <th>Satus</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for turnover in turnoverTotalMonth %}
+                    {% if turnover.isNew %}
+                        <tr style="background-color: limegreen;">
+                    {% elseif turnover.isOngoing %}
+                        <tr style="background-color: cornflowerblue">
+                    {% elseif turnover.isClosed %}
+                        <tr style="background-color: #E5735E;">
+                    {% endif %}
+                    <td>{{ turnover.id }}</td>
+                    <td>{{ turnover.date ? turnover.date|date('d/m/Y') : ''}}</td>
+                    <td>{{ turnover.amount }} €</td>
+                    <td>{{ turnover.percentAmount }} €</td>
+                    <td>{{ turnover.franchisee }}</td>
+                    {% if turnover.isNew %}
+                        <td>Nouvelle Demande</td>
+                        <td>
+                            <a href="{{ path('turnover_send',{id:turnover.id}) }}">Envoyer</a>
+                        </td>
+                    {% endif %}
+                    {% if turnover.isOngoing %}
+                        <td>En cours de réponse</td>
+                        <td></td>
+                    {% endif %}
+                    {% if turnover.isClosed %}
+                        <td>Fermé</td>
+                        <td></td>
+                    {% endif %}
+
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+{% endblock %}

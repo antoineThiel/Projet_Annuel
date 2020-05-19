@@ -34,7 +34,19 @@ Class TurnoverController extends AbstractController {
         ]);
     }
 
-    
+    /**
+     * @Route("admin/turnover/totaux/{id}", name="turnover_month", methods={"GET"})
+     */
+    public function totauxMonth(TurnoverRepository $turnoverRepository, Request $request): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $orderRep = $entityManager->getRepository(Turnover::class);
+        $date = $orderRep->find($request->get('id'));
+        $date = $date ->getDate();
+        return $this->render('turnover/totaux_month.html.twig',[
+            'turnoverTotalMonth'=>$turnoverRepository->findBy(['date'=>$date]),
+        ]);
+    }
 
 
     /**

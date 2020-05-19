@@ -34,7 +34,7 @@
                     <td>{{ turnover.date ? turnover.date|date('d/m/Y') : ''}}</td>
                     <td>{{ turnover.somme_amount }} €</td>
                     <td>{{ turnover.somme_percent }} €</td>
-                    <td>Détail</td>
+                    <td><a href="{{ path('turnover_month',{'id': turnover.id}) }}">Détail</a> </td>
                     </tr>
                 {% else %}
                     <tr>
