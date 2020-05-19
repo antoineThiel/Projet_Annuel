@@ -8,19 +8,19 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>N°</th>
                 <td>{{ truck.id }}</td>
             </tr>
             <tr>
-                <th>Registration</th>
+                <th>Immatriculation</th>
                 <td>{{ truck.registration }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('truck_index') }}">back to list</a>
+    <a href="{{ path('truck_index') }}">Retour</a>
 
-    <a href="{{ path('truck_edit', {'id': truck.id}) }}">edit</a>
+    <a href="{{ path('truck_edit', {'id': truck.id}) }}">Modifier</a>
 
     {{ include('truck/_delete_form.html.twig') }}
 {% endblock %}

@@ -18,33 +18,33 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>N°</th>
                 <td>{{ franchisee_complaint.id }}</td>
             </tr>
             <tr>
-                <th>Franchisee</th>
+                <th>Franchisé</th>
                 <td>{{ franchisee_complaint.franchisee }}</td>
             </tr>
             <tr>
-                <th>Title</th>
+                <th>Titre</th>
                 <td>{{ franchisee_complaint.title }}</td>
             </tr>
             <tr>
-                <th>Content</th>
+                <th>Contenu</th>
                 <td>{{ franchisee_complaint.content }}</td>
             </tr>
             <tr>
-                <th>Answer</th>
+                <th>Réponse</th>
                 <td>{{ franchisee_complaint.answer }}</td>
             </tr>
             <tr>
-                <th>Status</th>
+                <th>Statut</th>
                 {% if (franchisee_complaint.isNew) %}
-                    <td>New Request</td>
+                    <td>Demander à nouveau</td>
                 {% elseif (franchisee_complaint.isOngoing) %}
-                    <td>Ongoing</td>
+                    <td>En cours</td>
                 {% else %}
-                    <td>Closed</td>
+                    <td>Clos</td>
                 {% endif %}
             </tr>
         </tbody>

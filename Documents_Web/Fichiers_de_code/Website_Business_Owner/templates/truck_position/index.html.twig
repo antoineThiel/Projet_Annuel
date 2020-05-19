@@ -21,9 +21,9 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>address</th>
-                <th>city</th>
+                <th>N°</th>
+                <th>Addresse</th>
+                <th>Ville</th>
                 <th>Date</th>
                 <th>Actions</th>
             </tr>
@@ -36,8 +36,8 @@
                 <td>{{ truck_position.city }}</td>
                 <td>{{ truck_position.date ? truck_position.date|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('truck_position_show', {'id': truck_position.id}) }}">show</a>
-                    <a href="{{ path('truck_position_edit', {'id': truck_position.id}) }}">edit</a>
+                    <a href="{{ path('truck_position_show', {'id': truck_position.id}) }}">Voir</a> /
+                    <a href="{{ path('truck_position_edit', {'id': truck_position.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}

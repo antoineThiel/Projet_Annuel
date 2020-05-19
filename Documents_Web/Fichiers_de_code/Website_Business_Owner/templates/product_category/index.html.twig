@@ -9,7 +9,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Accueil</a></li>
                         <li class="breadcrumb-item active">Catégories</li>
                     </ol>
                 </div><!-- /.col -->
@@ -18,13 +18,13 @@
     </div>
     <!-- Main content -->
     <section class="content">
-        <h1>Catégories</h1>
+        <h1>Liste des Catégories</h1>
 
         <table class="table">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Nom</th>
+                    <th>N°</th>
+                    <th>Catégorie</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -32,21 +32,21 @@
             {% for product_category in product_categories %}
                 <tr>
                     <td>{{ product_category.id }}</td>
-                    <td>{{ product_category.name }}</td>
+                    <td>{{ product_category.name | capitalize }}</td>
                     <td>
-                        <a href="{{ path('product_category_edit', {'id': product_category.id}) }}">edit</a>
+                        <a href="{{ path('product_category_edit', {'id': product_category.id}) }}">Modifier</a>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="3">no records found</td>
+                    <td colspan="3">Rien à afficher</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
 
-        <a href="{{ path('product_category_new') }}"><button class="btn btn-info ml-3 mr-1">Ajouter</button></a>
-        <a href="{{ path('product_category_trad') }}"><button class="btn btn-info ml3">Traductions</button></a>
+        <a href="{{ path('product_category_new') }}"><button class="btn btn-info ml-3 mr-1">Nouveau</button></a>
+        <a href="{{ path('product_category_trad') }}"><button class="btn btn-info ml3">Traduction</button></a>
     </section>
 </div>
 {% endblock %}
