@@ -75,6 +75,25 @@ class WarehouseController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $wrProducts = $warehouse->getWarehouseProduct();
             $wrDishes = $warehouse->getWarehouseDish();
+
+            foreach ($wrProducts as $product)
+            {
+                $products[]=$product->getProduct()->getName();
+            }
+
+            for ($i = 0; $i <= (count($products)-2); $i++)
+            {
+                for ($j = $i+1; $j <= (count($products)-1); $j++)
+                {
+                    if ($products[$i] == $products[$j])
+                    {
+                        $quantity = $wrProducts[$j]->getQuantity();
+                        $wrProducts[$i]->setQuantity($wrProducts[$i]->getQuantity() + $quantity);
+                        unset($wrProducts[$j]);
+                    }
+                }
+            }
+
             foreach ($wrProducts as $wrProduct)
             {
                 $wrProduct->setPrice($wrProduct->getProduct()->getPrice());
