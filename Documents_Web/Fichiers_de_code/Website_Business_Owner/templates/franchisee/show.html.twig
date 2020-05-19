@@ -92,7 +92,7 @@
                             {% for complaint in franchisee.franchiseeComplaints %}
                                 <p>
                                     {% if complaint.isNew %}
-                                        <p>{{ complaint.title }}</p>
+                                        {{ complaint.title }}
 
                                         <button class="btn btn-success disabled">{{ 'front.franchisee.new'|trans }}</button>
                                     {% endif %}
@@ -126,7 +126,7 @@
                     </div>
                 </div>
                 {% endif %}
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <div class="card card-outline card-primary">
                         <div class="card-header">
                             <strong>{{ 'front.franchisee.turnover'|trans }}</strong>
@@ -214,6 +214,17 @@
                                     {% endif %}
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <strong>Balance Approvisionnement</strong>
+                        </div>
+                        <div class="card-body">
+                            <p>Il vous reste <strong>'tatata'</strong> a dépenser dans d'autres sources d'approvisionnement</p>
+                            <a href="#">Déposer une facture externe</a>
                         </div>
                     </div>
                 </div>

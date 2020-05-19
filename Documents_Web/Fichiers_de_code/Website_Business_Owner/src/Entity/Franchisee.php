@@ -94,6 +94,11 @@ class Franchisee implements UserInterface
      */
     private $rank;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ExternalInvoice::class, mappedBy="franchisee")
+     */
+    private $externalInvoices;
+
 
 
     public function __construct()
@@ -102,6 +107,7 @@ class Franchisee implements UserInterface
         $this->product = new ArrayCollection();
         $this->invoices = new ArrayCollection();
         $this->franchiseeComplaints = new ArrayCollection();
+        $this->externalInvoices = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -361,6 +367,37 @@ class Franchisee implements UserInterface
     public function setRank(?Rank $rank): self
     {
         $this->rank = $rank;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ExternalInvoice[]
+     */
+    public function getExternalInvoices(): Collection
+    {
+        return $this->externalInvoices;
+    }
+
+    public function addExternalInvoice(ExternalInvoice $externalInvoice): self
+    {
+        if (!$this->externalInvoices->contains($externalInvoice)) {
+            $this->externalInvoices[] = $externalInvoice;
+            $externalInvoice->setFranchisee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExternalInvoice(ExternalInvoice $externalInvoice): self
+    {
+        if ($this->externalInvoices->contains($externalInvoice)) {
+            $this->externalInvoices->removeElement($externalInvoice);
+            // set the owning side to null (unless already changed)
+            if ($externalInvoice->getFranchisee() === $this) {
+                $externalInvoice->setFranchisee(null);
+            }
+        }
 
         return $this;
     }
