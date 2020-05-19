@@ -1,9 +1,9 @@
 <div class="card card-primary card-outline">
     <div class="card-header">
         {% if(app.request.attributes.get('_route') == 'product_new') %}
-            <h3>Create product</h3>
+            <h3>Créer un nouveau produit</h3>
         {% else %}
-            <h3>Edit Product</h3>
+            <h3>Modifier produit</h3>
         {% endif %}
     </div>
     <div class="card-body">
@@ -13,6 +13,16 @@
         </div>
         <div class="form-group">
             {{ form_row(form.name) }}
+            {% if (app.request.attributes.get('_route') == 'product_edit') %}
+                <div id="divTrad">
+
+                </div>
+                <div class="row">
+                    <div class="ml-2 col-sm-1 btn-info" id="En" onclick="addTrad('en', 'name')">Traduction En</div>
+                    <div class="ml-1 col-sm-1 btn-info" id="Es" onclick="addTrad('es', 'name')">Traduction Es</div>
+                </div>
+
+            {% endif %}
         </div>
         <div class="form-group">
             {{ form_row(form.price) }}

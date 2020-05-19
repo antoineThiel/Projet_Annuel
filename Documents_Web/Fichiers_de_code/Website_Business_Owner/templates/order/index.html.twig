@@ -21,9 +21,9 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>N°</th>
                 <th>Date</th>
-                <th>Ammount</th>
+                <th>Montant</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -34,8 +34,8 @@
                 <td>{{ order.date ? order.date|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ order.ammount }}</td>
                 <td>
-                    <a href="{{ path('order_show', {'id': order.id}) }}">show</a>
-                    <a href="{{ path('order_edit', {'id': order.id}) }}">edit</a>
+                    <a href="{{ path('order_show', {'id': order.id}) }}">Voir</a> /
+                    <a href="{{ path('order_edit', {'id': order.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}

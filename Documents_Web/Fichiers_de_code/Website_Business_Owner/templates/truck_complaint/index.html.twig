@@ -21,7 +21,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>N°</th>
                 <th>Date</th>
                 <th>Titre</th>
                 <th>Contenu</th>
@@ -36,7 +36,8 @@
                 <td>{{ truck_complaint.title }}</td>
                 <td>{{ truck_complaint.content }}</td>
                 <td>
-                    <a href="{{ path('truck_complaint_edit', {'id': truck_complaint.id}) }}">edit</a>
+                    <a href="{{ path('truck_complaint_show', {'id': truck_complaint.id}) }}">Voir</a> /
+                    <a href="{{ path('truck_complaint_edit', {'id': truck_complaint.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -47,7 +48,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('truck_complaint_new') }}"><button class="btn btn-info ml-3 mr-1">Ajouter</button></a>
+    <a href="{{ path('truck_complaint_new') }}"><button class="btn btn-info ml-3 mr-1">Nouveau</button></a>
     </section>
 </div>
 {% endblock %}

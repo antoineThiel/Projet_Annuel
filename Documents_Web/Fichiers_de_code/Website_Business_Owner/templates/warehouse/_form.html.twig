@@ -32,9 +32,9 @@
     <div class="card card-primary card-outline">
         <div class="card-header">
             {% if(app.request.attributes.get('_route') == 'warehouse_new') %}
-                <h3>Create Warehouse</h3>
+                <h3>Créer un nouvel Entrepôt</h3>
             {% else %}
-                <h3>Edit Warehouse</h3>
+                <h3>Modifier Entrepôt</h3>
             {% endif %}
         </div>
         <div class="card-body">
@@ -49,7 +49,7 @@
                      data-prototype="{{ formMacros.printWareHouseProduct(form.warehouseProduct.vars.prototype)|e('html_attr') }}">
                     <div class="card card-warning">
                         <div class="card-header">
-                            <strong>Products</strong>
+                            <strong>Produits</strong>
                         </div>
                         <div class="card-body">
                     {% for row in form.warehouseProduct %}
@@ -64,7 +64,7 @@
                      data-prototype="{{ formMacros.printWareHouseDish(form.warehouseDish.vars.prototype)|e('html_attr') }}">
                     <div class="card card-warning">
                         <div class="card-header">
-                            <strong>Dish</strong>
+                            <strong>Plats</strong>
                         </div>
                         <div class="card-body">
                     {% for row in form.warehouseDish %}
