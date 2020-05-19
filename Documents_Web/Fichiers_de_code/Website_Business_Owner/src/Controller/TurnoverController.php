@@ -18,10 +18,23 @@ Class TurnoverController extends AbstractController {
      */
     public function index(TurnoverRepository $turnoverRepository): Response
     {
+
         return $this->render('turnover/index.html.twig', [
            'turnovers' => $turnoverRepository->findAll(),
         ]);
     }
+
+    /**
+     * @Route("/admin/turnover/totaux", name="turnover_totaux", methods={"GET"})
+     */
+    public function totaux(TurnoverRepository $turnoverRepository): Response
+    {
+        return  $this->render("turnover/totaux.html.twig",[
+            'turnoverTotal'=>$turnoverRepository->findByMonth(),
+        ]);
+    }
+
+    
 
 
     /**
@@ -35,7 +48,9 @@ Class TurnoverController extends AbstractController {
     {
         $turnover = new Turnover();
         $user = $this->getUser();
-        $turnover -> setdate(new DateTime('first day of this month'));
+        $date = (new DateTime('first day of this month'));
+        $date->setTime(0,0,0);
+        $turnover -> setdate($date);
         $turnover->setFranchisee($user);
         $turnover->setIsNew(1);
         $turnover->setIsOngoing(0);

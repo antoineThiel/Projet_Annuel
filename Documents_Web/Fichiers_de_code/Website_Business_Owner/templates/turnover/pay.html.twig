@@ -20,10 +20,10 @@
         <!-- Main content -->
         <section class="content">
             <h2>{{ 'front.turnover.pay_current_month'|trans }} <label
-                        id="orderNumber">{{ turnover.date|date('M') }}</label></h2>
+                        id="orderNumber">{{ turnover.date|date_modify("-1 month")|date('M') }}</label></h2>
             <div class="row m-5 pb-5">
                 <div class="m-auto">
-                    <h3>{{'front.turnover.statement_of_turnover_1'|trans}} {{ turnover.amount }} {{'front.turnover.statement_of_turnover_2'|trans}} {{ turnover.date|date("M") }} </h3>
+                    <h3>{{'front.turnover.statement_of_turnover_1'|trans}} {{ turnover.amount }} {{'front.turnover.statement_of_turnover_2'|trans}} {{ turnover.date|date_modify("-1 month")|date("M") }} </h3>
                     <h3>{{'front.turnover.statement_of_turnover_3'|trans}} {{ turnover.percentAmount }} euros </h3>
                 </div>
             </div>
