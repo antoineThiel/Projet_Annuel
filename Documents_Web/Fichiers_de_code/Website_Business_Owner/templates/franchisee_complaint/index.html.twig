@@ -13,7 +13,9 @@
     </div>
     <!-- Main content -->
     <section class="content">
-    <table class="table">
+        <h1>Liste des Demandes</h1>
+
+        <table class="table">
         <thead>
             <tr>
                 <th>N°</th>
@@ -52,13 +54,13 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">Rien à afficher</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('franchisee_complaint_new') }}">Ajouter</a>
+    <a href="{{ path('franchisee_complaint_new') }}">Créer</a>
     </section>
 </div>
 {% endblock %}

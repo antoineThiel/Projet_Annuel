@@ -9,8 +9,8 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Accueil</a></li>
-                        <li class="breadcrumb-item active">Starter Page</li>
+                        <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Accueil</a></li>
+                        <li class="breadcrumb-item active"><a href="{{ path'user_index' }}">Administrateurs</a></li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -19,7 +19,7 @@
     <!-- Main content -->
     <section class="content">
         {{ include('user/_form.html.twig') }}
-        <a href="{{ path('user_index') }}">back to list</a>
+        <a href="{{ path('user_index') }}">Retour</a>
     </section>
 </div>
 {% endblock %}

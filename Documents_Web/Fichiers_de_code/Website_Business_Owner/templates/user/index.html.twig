@@ -9,8 +9,8 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Accueil</a></li>
-                        <li class="breadcrumb-item active">Users</li>
+                        <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Accueil</a></li>
+                        <li class="breadcrumb-item active">Administrateurs</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -21,10 +21,10 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Role</th>
+                    <th>N°</th>
+                    <th>Nom</th>
+                    <th>Mot de passe</th>
+                    <th>Rôles</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -41,13 +41,13 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="4">no records found</td>
+                    <td colspan="4">Rien à afficher</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
 
-        <a href="{{ path('user_new') }}"><button class="btn btn-info ml-3 mr-1">Nouveau</button></a>
+        <a href="{{ path('user_new') }}"><button class="btn btn-info ml-3 mr-1">Créer</button></a>
     </section>
 </div>
 {% endblock %}

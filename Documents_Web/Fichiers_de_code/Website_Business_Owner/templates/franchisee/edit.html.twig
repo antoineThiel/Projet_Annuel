@@ -19,8 +19,9 @@
                     {% if app.request.attributes.get('_route') == 'franchisee_edit' %}
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Home</a></li>
-                            <li class="breadcrumb-item active">New dish</li>
+                            <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Accueil</a></li>
+                            <li class="breadcrumb-item"><a href="{{ path('franchisee_index') }}">Franchisés</a></li>
+                            <li class="breadcrumb-item active">Modifier</li>
                         </ol>
                     </div>
                     {% endif %}
@@ -35,7 +36,7 @@
     {% else %}
         <section class="content">
             {{ include('franchisee/_form1.html.twig', {'button_label': 'Update'}) }}
-            <a href="{{ path('franchisee_index') }}"><button class="btn btn-info">Back to list</button></a>
+            <a href="{{ path('franchisee_index') }}"><button class="btn btn-info">Retour</button></a>
     {% endif %}
         </section>
 </div>

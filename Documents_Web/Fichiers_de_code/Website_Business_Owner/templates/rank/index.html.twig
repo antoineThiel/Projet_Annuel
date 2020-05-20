@@ -21,7 +21,7 @@
     </div>
     <!-- Main content -->
     <section class="content">
-    <h1>Rank index</h1>
+    <h1>Liste des rangs</h1>
 
     <table class="table">
         <thead>
@@ -30,7 +30,7 @@
                 <th>Dénomination</th>
                 <th>CA Minimum</th>
                 <th>Récompenses</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -41,7 +41,7 @@
                 <td>{{ rank.minimum }}</td>
                 <td>{{ rank.reward }}</td>
                 <td>
-                    <a href="{{ path('rank_edit', {'id': rank.id}) }}">Editer</a>
+                    <a href="{{ path('rank_edit', {'id': rank.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -53,7 +53,7 @@
     </table>
 
 {#    <p><a href="{{ path('rank_new') }}">Create new</a></p>#}
-    <p><a href="{{ path('rank_display_all') }}">Visuel de toussa</a></p>
+    <p><a href="{{ path('rank_display_all') }}">Détail</a></p>
     </section>
 </div>
 {% endblock %}

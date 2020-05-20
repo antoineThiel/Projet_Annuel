@@ -1,22 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ExternalInvoice{% endblock %}
+{% block title %}Facture extérieure{% endblock %}
 
 {% block body %}
-    <h1>ExternalInvoice</h1>
+    <h1>Facture extérieure</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>N°</th>
                 <td>{{ external_invoice.id }}</td>
             </tr>
             <tr>
-                <th>InvoiceFileName</th>
+                <th>Nom du fichier</th>
                 <td>{{ external_invoice.invoiceFileName }}</td>
             </tr>
             <tr>
-                <th>Ammount</th>
+                <th>Montant</th>
                 <td>{{ external_invoice.ammount }}</td>
             </tr>
             <tr>
@@ -26,9 +26,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('external_invoice_index') }}">back to list</a>
+    <a href="{{ path('external_invoice_index') }}">Retour</a>
 
-    <a href="{{ path('external_invoice_edit', {'id': external_invoice.id}) }}">edit</a>
+    <a href="{{ path('external_invoice_edit', {'id': external_invoice.id}) }}">Modifier</a>
 
     {{ include('external_invoice/_delete_form.html.twig') }}
 {% endblock %}
