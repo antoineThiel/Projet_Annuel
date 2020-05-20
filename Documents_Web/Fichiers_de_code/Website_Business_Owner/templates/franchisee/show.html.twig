@@ -217,7 +217,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
                             <strong>Balance Approvisionnement</strong>
@@ -230,12 +230,13 @@
                                 <p>Remédiez-y <a href="{{ path('order_new_warehouse') }}">ici</a> !</p>
                             {% endif %}
                             {%  if balance.leftToSpendOutside > 0  %}
-                                {% set percentage = balance.totalFromExternal/(balance.totalFromExternal+balance.leftToSpendOutside) %}
+
+                                {% set percentage = balance.totalFromExternal/(balance.totalFromExternal+balance.leftToSpendOutside)*100%}
 
                                 <p>Vous avez renseigné <strong>{{ balance.totalFromExternal }}€</strong> de dépenses en dehors de nos entrepôts<br>
-                                    Soit {{ percentage }}% du maximum autorisé
+                                    Soit <strong>{{ percentage | format_number({fraction_digit: 2}) }}%</strong> du maximum de <strong>{{ balance.leftToSpendOutside + balance.totalFromExternal }}€</strong> autorisé
                                 </p>
-                                <p>Il vous reste <strong>{{ balance.leftToSpendOutside }}€</strong>au maximum a dépenser dans d'autres sources d'approvisionnement</p>
+                                <p>Il vous reste <strong>{{ balance.leftToSpendOutside }}€</strong> au maximum a dépenser dans d'autres sources d'approvisionnement</p>
                             {% elseif balance.leftToSpendOutside < 0 %}
                                 <p>Vous avez dépassé de {{ -1*balance.leftToSpendOutside }}€ les quotas du contrat ! Veillez à corriger cela</p>
                             {% endif %}
