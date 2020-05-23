@@ -99,6 +99,16 @@ class Franchisee implements UserInterface
      */
     private $externalInvoices;
 
+    /**
+     * @ORM\OneToMany(targetEntity=StockProduct::class, mappedBy="franchisee", orphanRemoval=true)
+     */
+    private $stockProducts;
+
+    /**
+     * @ORM\OneToMany(targetEntity=StockDish::class, mappedBy="franchisee", orphanRemoval=true)
+     */
+    private $stockDishes;
+
 
 
     public function __construct()
@@ -108,6 +118,8 @@ class Franchisee implements UserInterface
         $this->invoices = new ArrayCollection();
         $this->franchiseeComplaints = new ArrayCollection();
         $this->externalInvoices = new ArrayCollection();
+        $this->stockProducts = new ArrayCollection();
+        $this->stockDishes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -396,6 +408,68 @@ class Franchisee implements UserInterface
             // set the owning side to null (unless already changed)
             if ($externalInvoice->getFranchisee() === $this) {
                 $externalInvoice->setFranchisee(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|StockProduct[]
+     */
+    public function getStockProducts(): Collection
+    {
+        return $this->stockProducts;
+    }
+
+    public function addStockProduct(StockProduct $stockProduct): self
+    {
+        if (!$this->stockProducts->contains($stockProduct)) {
+            $this->stockProducts[] = $stockProduct;
+            $stockProduct->setFranchisee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStockProduct(StockProduct $stockProduct): self
+    {
+        if ($this->stockProducts->contains($stockProduct)) {
+            $this->stockProducts->removeElement($stockProduct);
+            // set the owning side to null (unless already changed)
+            if ($stockProduct->getFranchisee() === $this) {
+                $stockProduct->setFranchisee(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|StockDish[]
+     */
+    public function getStockDishes(): Collection
+    {
+        return $this->stockDishes;
+    }
+
+    public function addStockDish(StockDish $stockDish): self
+    {
+        if (!$this->stockDishes->contains($stockDish)) {
+            $this->stockDishes[] = $stockDish;
+            $stockDish->setFranchisee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStockDish(StockDish $stockDish): self
+    {
+        if ($this->stockDishes->contains($stockDish)) {
+            $this->stockDishes->removeElement($stockDish);
+            // set the owning side to null (unless already changed)
+            if ($stockDish->getFranchisee() === $this) {
+                $stockDish->setFranchisee(null);
             }
         }
 

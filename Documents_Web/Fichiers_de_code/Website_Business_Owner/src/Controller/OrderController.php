@@ -401,6 +401,9 @@ class OrderController extends AbstractController
 
         $invoice->setContent($html);
         $em->persist($invoice);
+
+        //TODO: update stockProduct
+
         $em->persist($order);
         $em->flush();
 
