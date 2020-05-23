@@ -39,6 +39,7 @@ Encore
     .addEntry('turnover', './assets/js/turnover.js')
     .addEntry('ranks' , './assets/js/rank.js')
     .addEntry('category', './assets/js/productCategory.js')
+    .addEntry('deleteObj', './assets/js/deleteObject.js')
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 

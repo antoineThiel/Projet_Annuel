@@ -15,13 +15,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
+    <!--jQuery-Ui css file-->
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/jquery-ui/jquery-ui.min.css') }}">
+
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- Stripe -->
     <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
-
-    <!-- chart.js -->
-    <script type="text/javascript" src="{{ asset('chart.js/dist/Chart.min.js') }}"></script>
 
 </head>
 <body class="hold-transition sidebar-mini">
@@ -51,16 +51,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- ./wrapper -->
 
 
-{{ encore_entry_script_tags('ranks') }}
-
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
+<!-- jQuery-Ui -->
+<script src="{{ asset('adminlte/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
+<!-- chart.js -->
+<script src="{{ asset('adminlte/plugins/chart.js/Chart.min.js') }}"></script>
 
 </body>
+{% block javascripts %}{% endblock %}
 </html>

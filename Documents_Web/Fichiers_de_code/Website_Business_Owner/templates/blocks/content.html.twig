@@ -28,10 +28,10 @@
                                     Il y a  {{ productnbre }} produits présents dans notre base
                                 </p>
                                 <p class="card-text">
-                                    Il y a {{ catnbre }} categories présents dans notre base
+                                    Il y a {{ catnbre }} catégories présentes dans notre base
                                 </p>
                                 <p class="card-text">
-                                    Il y a {{ originbre }} origins présents dans notre base
+                                    Il y a {{ originbre }} origines enregistrées dans notre base
                                 </p>
                                 <a href="{{ path('product_new')}}" class="card-link">Ajouter produits</a>
                                 <a href="{{ path('product_category_new')}}" class="card-link">Ajouter des catégories</a>
@@ -110,3 +110,4 @@
         </div>
         <!-- /.content -->
     </div>
+{{ encore_entry_script_tags('ranks') }}
