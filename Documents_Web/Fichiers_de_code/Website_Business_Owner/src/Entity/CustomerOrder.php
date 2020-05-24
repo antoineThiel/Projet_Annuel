@@ -35,7 +35,7 @@ class CustomerOrder
     private $invoice;
 
     /**
-     * @ORM\OneToOne(targetEntity=customer::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Customer::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $customer;
@@ -97,12 +97,12 @@ class CustomerOrder
         return $this;
     }
 
-    public function getCustomer(): ?customer
+    public function getCustomer(): ?Customer
     {
         return $this->customer;
     }
 
-    public function setCustomer(customer $customer): self
+    public function setCustomer(Customer $customer): self
     {
         $this->customer = $customer;
 

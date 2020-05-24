@@ -17,28 +17,23 @@ class StockDish
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
-
-    /**
-     * @ORM\Column(type="string", length=10, nullable=true)
-     */
-    private $unit;
+    private string $name;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $quantity;
+    private float $quantity;
 
     /**
      * @ORM\ManyToOne(targetEntity=franchisee::class, inversedBy="stockDishes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $franchisee;
+    private franchisee $franchisee;
 
     /**
      * @ORM\OneToMany(targetEntity=FranchiseeArticle::class, mappedBy="stockDish")
@@ -73,17 +68,6 @@ class StockDish
         return $this;
     }
 
-    public function getUnit(): ?string
-    {
-        return $this->unit;
-    }
-
-    public function setUnit(?string $unit): self
-    {
-        $this->unit = $unit;
-
-        return $this;
-    }
 
     public function getQuantity(): ?float
     {
@@ -104,8 +88,9 @@ class StockDish
 
     public function setFranchisee(?franchisee $franchisee): self
     {
-        $this->franchisee = $franchisee;
-
+        if($franchisee != null) {
+            $this->franchisee = $franchisee;
+        }
         return $this;
     }
 

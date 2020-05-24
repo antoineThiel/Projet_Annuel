@@ -34,10 +34,6 @@ class StockProduct
      */
     private $qty;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $relation;
 
     /**
      * @ORM\ManyToOne(targetEntity=franchisee::class, inversedBy="stockProducts")
@@ -94,11 +90,6 @@ class StockProduct
         $this->qty = $qty;
 
         return $this;
-    }
-
-    public function getRelation(): ?string
-    {
-        return $this->relation;
     }
 
     public function setRelation(string $relation): self

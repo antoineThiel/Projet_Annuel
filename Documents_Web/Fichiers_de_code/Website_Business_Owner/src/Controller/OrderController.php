@@ -8,6 +8,8 @@ use App\Entity\OrderByFranchisee;
 use App\Entity\OrderDish;
 use App\Entity\OrderProduct;
 use App\Entity\Product;
+use App\Entity\StockDish;
+use App\Entity\StockProduct;
 use App\Entity\WarehouseDish;
 use App\Entity\WarehouseProduct;
 use App\Form\OrderFirstType;
@@ -399,11 +401,53 @@ class OrderController extends AbstractController
             </html>
                 ';
 
+
+        $stockProductRep = $em->getRepository('App\Entity\StockProduct');
+        $stockDishRep = $em->getRepository('App\Entity\StockDish');
+        foreach ($products as $product){
+
+            $OriginalProduct = $product->getProduct()->getProduct();
+            $alreadyExists = $stockProductRep->findOneBy(['name' => $OriginalProduct->getName()]);
+            if($alreadyExists){
+
+                $alreadyExists->setQty($alreadyExists->getQty() + $product->getQuantity()) ;
+                $em->persist($alreadyExists);
+                $em->flush();
+            }else{
+                $stock = new StockProduct();
+                $stock->setFranchisee($user)
+                ->setName($OriginalProduct->getName())
+                ->setQty($product->getQty())
+                ->setUnit($OriginalProduct->getUnit());
+
+                $em->persist($stock);
+                $em->flush();
+            }
+        }
+
+        foreach ($dishes as $dish){
+
+            $OriginalDish = $dish->getDish()->getDish();
+            $alreadyExists = $stockDishRep->findOneBy(['name' => $OriginalDish->getName()]);
+            if($alreadyExists){
+
+                $alreadyExists->setQuantity($alreadyExists->getQuantity() + $dish->getQuantity()) ;
+                $em->persist($alreadyExists);
+                $em->flush();
+            }else{
+                $stock = new StockDish();
+                $stock->setFranchisee($user)
+                ->setName($OriginalDish->getName())
+                ->setQuantity($dish->getQuantity());
+
+                $em->persist($stock);
+                $em->flush();
+            }
+        }
+//        foreach ($dishes as $dishes){}
+
         $invoice->setContent($html);
         $em->persist($invoice);
-
-        //TODO: update stockProduct
-
         $em->persist($order);
         $em->flush();
 
