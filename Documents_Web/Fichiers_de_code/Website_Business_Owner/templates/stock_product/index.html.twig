@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StockProduct index{% endblock %}
+
+{% block body %}
+    <h1>StockProduct index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Unit</th>
+                <th>Qty</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for stock_product in stock_products %}
+            <tr>
+                <td>{{ stock_product.id }}</td>
+                <td>{{ stock_product.name }}</td>
+                <td>{{ stock_product.unit }}</td>
+                <td>{{ stock_product.qty }}</td>
+                <td>
+                    <a href="{{ path('stock_product_show', {'id': stock_product.id}) }}">show</a>
+                    <a href="{{ path('stock_product_edit', {'id': stock_product.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('stock_product_new') }}">Create new</a>
+{% endblock %}

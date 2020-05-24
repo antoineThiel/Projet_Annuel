@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Franchisee;
+use App\Entity\StockDish;
 use App\Form\FranchiseeType;
 use App\Form\FranchiseeType2;
 use App\Repository\ExternalInvoiceRepository;
@@ -10,6 +11,8 @@ use App\Repository\FranchiseeRepository;
 use App\Repository\InvoiceRepository;
 use App\Repository\OrderByFranchiseeRepository;
 use App\Repository\RankRepository;
+use App\Repository\StockDishRepository;
+use App\Repository\StockProductRepository;
 use App\Repository\TruckPositionRepository;
 use App\Repository\TruckRepository;
 use App\Repository\TurnoverRepository;
@@ -160,6 +163,24 @@ class FranchiseeController extends AbstractController
         return $this->render('franchisee/edit.html.twig', [
             'franchisee' => $franchisee,
             'form' => $form->createView(),
+        ]);
+    }
+
+
+    /**
+     * @Route({
+     *     "fr": "/fr/franchise/{id}/inventaire",
+     *     "en": "/en/franchisee/{id}/stocks",
+     *     "es": "/es/franquiciado/{id}/cepo"
+     *      }, name="franchisee_stock", methods={"GET"})
+     */
+    public function show_stocks(Request $request, Franchisee $franchisee , StockDishRepository $stockDishRepository , StockProductRepository $stockProductRepository ){
+        $stockProducts = $stockProductRepository->findBy(['franchisee' => $franchisee->getId()]);
+        $stockDishes = $stockDishRepository->findBy(['franchisee' => $franchisee->getId()]);
+
+        return $this->render('franchisee/stocks.html.twig', [
+            'products' => $stockProducts,
+            'dishes' => $stockDishes,
         ]);
     }
 

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StockDish{% endblock %}
+
+{% block body %}
+    <h1>StockDish</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ stock_dish.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ stock_dish.name }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ stock_dish.quantity }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('stock_dish_index') }}">back to list</a>
+
+    <a href="{{ path('stock_dish_edit', {'id': stock_dish.id}) }}">edit</a>
+
+    {{ include('stock_dish/_delete_form.html.twig') }}
+{% endblock %}

@@ -417,7 +417,7 @@ class OrderController extends AbstractController
                 $stock = new StockProduct();
                 $stock->setFranchisee($user)
                 ->setName($OriginalProduct->getName())
-                ->setQty($product->getQty())
+                ->setQty($product->getQuantity())
                 ->setUnit($OriginalProduct->getUnit());
 
                 $em->persist($stock);
