@@ -7,8 +7,12 @@ use App\Entity\StockDish;
 use App\Form\FranchiseeType;
 use App\Form\FranchiseeType2;
 use App\Repository\ExternalInvoiceRepository;
+use App\Repository\FranchiseeArticleRepository;
+use App\Repository\FranchiseeMenuRepository;
 use App\Repository\FranchiseeRepository;
 use App\Repository\InvoiceRepository;
+use App\Repository\MenuToArticleRepository;
+use App\Repository\MenuToDishRepository;
 use App\Repository\OrderByFranchiseeRepository;
 use App\Repository\RankRepository;
 use App\Repository\StockDishRepository;
@@ -181,6 +185,42 @@ class FranchiseeController extends AbstractController
         return $this->render('franchisee/stocks.html.twig', [
             'products' => $stockProducts,
             'dishes' => $stockDishes,
+            'franchisee' => $franchisee
+        ]);
+    }
+
+    /**
+     * @Route({
+     *     "fr": "/fr/franchise/{id}/menus",
+     *     "en": "/en/franchisee/{id}/menus",
+     *     "es": "/es/franquiciado/{id}/carte"
+     *      }, name="franchisee_menu", methods={"GET"})
+     * @param Request $request
+     * @param FranchiseeMenuRepository $franchiseeMenuRepository
+     * @param FranchiseeArticleRepository $franchiseeArticleRepository
+     * @return Response
+     */
+    public function show_menus(Request $request , FranchiseeMenuRepository $franchiseeMenuRepository , FranchiseeArticleRepository $franchiseeArticleRepository , MenuToArticleRepository $menuToArticleRepository , MenuToDishRepository $menuToDishRepository ){
+        $franchisee = $this->getUser();
+        $menus = $franchiseeMenuRepository->findBy(['franchisee' => $franchisee->getId()]);
+        $articles = $franchiseeArticleRepository->findBy(['franchisee' => $franchisee->getId()]);
+
+        $menuContent =[];
+        foreach ($menus as $menu) {
+            $id = $menu->getId();
+            $menuContent[$id]['Articles'] = $menuToArticleRepository->findBy([
+                'franchiseeMenu' => $id
+            ]);
+            $menuContent[$id]['Dishes'] = $menuToDishRepository->findBy([
+                'franchiseeMenu' => $id
+            ]);
+        }
+
+        return $this->render('franchisee/menues.html.twig', [
+            'franchisee_articles' => $articles,
+            'franchisee_menues' => $menus,
+            'franchisee' => $franchisee,
+            'menuContents' => $menuContent
         ]);
     }
 

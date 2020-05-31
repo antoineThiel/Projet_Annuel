@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MenuToDish{% endblock %}
+
+{% block body %}
+    <h1>MenuToDish</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ menu_to_dish.id }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ menu_to_dish.quantity }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('menu_to_dish_index') }}">back to list</a>
+
+    <a href="{{ path('menu_to_dish_edit', {'id': menu_to_dish.id}) }}">edit</a>
+
+    {{ include('menu_to_dish/_delete_form.html.twig') }}
+{% endblock %}

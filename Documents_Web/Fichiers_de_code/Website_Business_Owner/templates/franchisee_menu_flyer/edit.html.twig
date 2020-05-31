@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit FranchiseeMenu{% endblock %}
+
+{% block body %}
+    <h1>Edit FranchiseeMenu</h1>
+
+    {{ include('franchisee_menu/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('franchisee_menu_index') }}">back to list</a>
+
+    {{ include('franchisee_menu/_delete_form.html.twig') }}
+{% endblock %}

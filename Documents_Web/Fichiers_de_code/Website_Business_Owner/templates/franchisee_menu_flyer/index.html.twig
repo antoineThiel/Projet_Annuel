@@ -1,0 +1,37 @@
+{% extends 'base_front.html.twig' %}
+
+{% block title %}FranchiseeMenu index{% endblock %}
+
+{% block content %}
+    <h1>FranchiseeMenu index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for franchisee_menu in franchisee_menus %}
+            <tr>
+                <td>{{ franchisee_menu.id }}</td>
+                <td>{{ franchisee_menu.name }}</td>
+                <td>{{ franchisee_menu.price }}</td>
+                <td>
+                    <a href="{{ path('franchisee_menu_show', {'id': franchisee_menu.id}) }}">show</a>
+                    <a href="{{ path('franchisee_menu_edit', {'id': franchisee_menu.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('franchisee_menu_new') }}">Create new</a>
+{% endblock %}
