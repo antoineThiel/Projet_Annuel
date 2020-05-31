@@ -40,29 +40,38 @@ class FranchiseeArticle
     private $quantity;
 
     /**
-     * @ORM\ManyToOne(targetEntity=stockProduct::class, inversedBy="franchiseeArticles")
+     * @ORM\ManyToOne(targetEntity=StockProduct::class, inversedBy="franchiseeArticles")
      */
     private $stockProduct;
 
     /**
-     * @ORM\ManyToOne(targetEntity=stockDish::class, inversedBy="franchiseeArticles")
+     * @ORM\ManyToOne(targetEntity=StockDish::class, inversedBy="franchiseeArticles")
      */
     private $stockDish;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=FranchiseeMenu::class, mappedBy="articleComponents")
-     */
-    private $franchiseeMenus;
 
     /**
      * @ORM\ManyToMany(targetEntity=CustomerOrder::class, mappedBy="Articles")
      */
     private $customerOrders;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Franchisee::class, inversedBy="franchiseeArticles")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $franchisee;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $stock;
+
+
+
     public function __construct()
     {
-        $this->franchiseeMenus = new ArrayCollection();
         $this->customerOrders = new ArrayCollection();
+        $this->menuToArticles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -142,33 +151,8 @@ class FranchiseeArticle
         return $this;
     }
 
-    /**
-     * @return Collection|FranchiseeMenu[]
-     */
-    public function getFranchiseeMenus(): Collection
-    {
-        return $this->franchiseeMenus;
-    }
 
-    public function addFranchiseeMenu(FranchiseeMenu $franchiseeMenu): self
-    {
-        if (!$this->franchiseeMenus->contains($franchiseeMenu)) {
-            $this->franchiseeMenus[] = $franchiseeMenu;
-            $franchiseeMenu->addArticleComponent($this);
-        }
 
-        return $this;
-    }
-
-    public function removeFranchiseeMenu(FranchiseeMenu $franchiseeMenu): self
-    {
-        if ($this->franchiseeMenus->contains($franchiseeMenu)) {
-            $this->franchiseeMenus->removeElement($franchiseeMenu);
-            $franchiseeMenu->removeArticleComponent($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|CustomerOrder[]
@@ -197,4 +181,29 @@ class FranchiseeArticle
 
         return $this;
     }
+
+    public function getFranchisee(): ?franchisee
+    {
+        return $this->franchisee;
+    }
+
+    public function setFranchisee(?franchisee $franchisee): self
+    {
+        $this->franchisee = $franchisee;
+
+        return $this;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(int $stock): self
+    {
+        $this->stock = $stock;
+
+        return $this;
+    }
+
 }

@@ -32,11 +32,11 @@ class StockProduct
     /**
      * @ORM\Column(type="float")
      */
-    private $qty;
+    private $quantity;
 
 
     /**
-     * @ORM\ManyToOne(targetEntity=franchisee::class, inversedBy="stockProducts")
+     * @ORM\ManyToOne(targetEntity=Franchisee::class, inversedBy="stockProducts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $franchisee;
@@ -80,24 +80,18 @@ class StockProduct
         return $this;
     }
 
-    public function getQty(): ?float
+    public function getQuantity(): ?float
     {
-        return $this->qty;
+        return $this->quantity;
     }
 
-    public function setQty(float $qty): self
+    public function setQuantity(float $quantity): self
     {
-        $this->qty = $qty;
+        $this->quantity = $quantity;
 
         return $this;
     }
 
-    public function setRelation(string $relation): self
-    {
-        $this->relation = $relation;
-
-        return $this;
-    }
 
     public function getFranchisee(): ?franchisee
     {

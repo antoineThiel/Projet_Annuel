@@ -1,0 +1,74 @@
+{% extends 'base_front.html.twig' %}
+{% block content %}
+
+    <section>
+
+        <h4 class="mx-sm-auto" style="width: 200px">Carte des Menus</h4>
+
+
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-4">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title"><strong>Articles individuels</strong></h3>
+                    </div>
+                    <div class="card-body">
+                        {% if franchisee_articles|length > 0 %}
+                        <h6 class="card-subtitle"><strong>Total de {{ franchisee_articles|length }} Articles individuels</strong></h6>
+                        {% endif %}
+                        {% for article in franchisee_articles %}
+                            <p><em>{{ article.stock }}</em> {{ article.name }} | {{ article.quantity }} {{ article.unit }} /unité   {{ article.price}}€ <a href="{{ path('franchisee_article_edit', { id: franchisee.id , article : article.id}) }}">Modifier</a></p>
+                        {% endfor %}
+                        <a href="{{ path('franchisee_article_new') }}" class="btn btn-primary app-color-match">Nouveau</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2"></div>
+
+            <div class="col-sm-4">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title"><strong>Menus</strong></h3>
+                    </div>
+                    <div class="card-body">
+                        {% if franchisee_menues|length > 0 %}
+                        <h6 class="card-subtitle"><strong>Total de {{ franchisee_menues|length }} Menus différents</strong></h6>
+                        {% endif %}
+                        {%  for menu in franchisee_menues %}
+
+                            <p>
+                                <a class="btn btn-primary app-color-match" data-toggle="collapse" href="#collapse{{ menu.id }}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <span class="menu_title">{{ menu.name }}</span> | {{ menu.price }}€
+                                </a>
+                            </p>
+                            <div class="collapse" id="collapse{{ menu.id }}">
+                                <div class="card card-body">
+                                    {%  if menuContents[menu.id]['Articles'] != [] %}
+                                        <p class="card-subtitle">Articles</p>
+                                        {% for article in menuContents[menu.id]['Articles'] %}
+                                            <p class="card-text">{{ article.franchiseeArticle.name }}  x{{ article.quantity }}</p>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p class="card-text">Pas d'articles</p>
+                                    {% endif %}
+                                    <div class="dropdown-divider"></div>
+                                    {% if menuContents[menu.id]['Dishes'] != [] %}
+                                        <p class="card-subtitle">Plats</p>
+                                        {% for dish in menuContents[menu.id]['Dishes'] %}
+                                            <p class="card-text" href="#">{{ dish.franchiseeDish.name }} x{{ dish.quantity }}</p>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p class="card-text">Pas de Plats</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {%  endfor %}
+                        <a href="#" class="btn btn-primary app-color-match">Nouveau</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+    </section>
+{% endblock %}

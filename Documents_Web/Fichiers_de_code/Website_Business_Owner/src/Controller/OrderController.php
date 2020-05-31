@@ -444,7 +444,6 @@ class OrderController extends AbstractController
                 $em->flush();
             }
         }
-//        foreach ($dishes as $dishes){}
 
         $invoice->setContent($html);
         $em->persist($invoice);

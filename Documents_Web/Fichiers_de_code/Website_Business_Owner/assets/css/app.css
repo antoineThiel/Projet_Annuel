@@ -1,7 +1,26 @@
+@font-face {
+    font-family: 'dancing_scriptregular';
+    src: url('../fonts/dancingScript/dancingscript-variablefont_wght-webfont.woff2') format('woff2'),
+    url('../fonts/dancingScript/dancingscript-variablefont_wght-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 body {
     background-color: lightgray;
 }
 
+.app-color-match{
+    background-color: #80c2e0 !important;
+    border-color: #80c2e0 !important;
+}
+
+.menu_title{
+    font-family: 'dancing_scriptregular' , Arial , sans-serif;
+    font-size: 0.8em;
+    padding-right: 4px;
+}
 
 .base_paiement fieldset {
     border-style: none;

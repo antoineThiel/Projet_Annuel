@@ -7,5 +7,5 @@
 
     {{ include('stock_dish/_form.html.twig') }}
 
-    <a href="{{ path('stock_dish_index') }}">back to list</a>
+    <a href="{{ path('stock_dish_index' , {'id' : franchisee.id}) }}">back to list</a>
 {% endblock %}
