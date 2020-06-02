@@ -19,26 +19,8 @@ class FranchiseeMenuType extends AbstractType
         $builder
             ->add('name')
             ->add('price')
-            ->add('articleComponents' , ChoiceType::class , [
-                'data' => '',
-                'choices' => [
-                    'Super' => 'ROLE_SUPER_ADMIN',
-                    'RH' => 'ROLE_RH',
-                    'LOGISTIC' => 'ROLE_LOGISTIC',
-                ],
-                'multiple' => true,
-                'expanded' => true,
-            ])
-            ->add('stockDish' , ChoiceType::class , [
-                'data' => '',
-                'choices' => [
-                    'Super' => 'ROLE_SUPER_ADMIN',
-                    'RH' => 'ROLE_RH',
-                    'LOGISTIC' => 'ROLE_LOGISTIC',
-                ],
-                'multiple' => true,
-                'expanded' => true,
-            ]);
+            ->add('menuToDishes')
+            ->add('menuToArticles' , );
     }
 
     public function configureOptions(OptionsResolver $resolver)

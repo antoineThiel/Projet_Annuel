@@ -18,19 +18,7 @@ class StockProductType extends AbstractType
 
         $builder
             ->add('name')
-            ->add('unit', ChoiceType::class, [
-                'choices' => [
-                    "ml"    => "ml",
-                    "cl"    => "cl",
-                    "dl"    => "dl",
-                    "L"     => "L" ,
-                    "mg"    => "mg",
-                    "g"     => "g" ,
-                    "kg"    => "kg",
-                    "t"     => "t"
-                ]
-            ])
-            ->add('qty',TextType::class,[
+            ->add('quantity',TextType::class,[
                 'label' => "Quantité"
             ])
         ;
