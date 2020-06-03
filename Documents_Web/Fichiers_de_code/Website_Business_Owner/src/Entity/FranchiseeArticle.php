@@ -71,7 +71,6 @@ class FranchiseeArticle
     public function __construct()
     {
         $this->customerOrders = new ArrayCollection();
-        $this->menuToArticles = new ArrayCollection();
     }
 
     public function getId(): ?int

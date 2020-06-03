@@ -410,14 +410,14 @@ class OrderController extends AbstractController
             $alreadyExists = $stockProductRep->findOneBy(['name' => $OriginalProduct->getName()]);
             if($alreadyExists){
 
-                $alreadyExists->setQty($alreadyExists->getQty() + $product->getQuantity()) ;
+                $alreadyExists->setQuantity($alreadyExists->getQuantity() + $product->getQuantity()) ;
                 $em->persist($alreadyExists);
                 $em->flush();
             }else{
                 $stock = new StockProduct();
                 $stock->setFranchisee($user)
                 ->setName($OriginalProduct->getName())
-                ->setQty($product->getQuantity())
+                ->setQuantity(($product->getQuantity()))
                 ->setUnit($OriginalProduct->getUnit());
 
                 $em->persist($stock);

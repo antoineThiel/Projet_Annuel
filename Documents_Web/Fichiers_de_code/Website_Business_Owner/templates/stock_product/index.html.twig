@@ -21,7 +21,7 @@
                 <td>{{ stock_product.id }}</td>
                 <td>{{ stock_product.name }}</td>
                 <td>{{ stock_product.unit }}</td>
-                <td>{{ stock_product.qty }}</td>
+                <td>{{ stock_product.quantity }}</td>
                 <td>
                     <a href="{{ path('stock_product_show', {'id' : franchisee.id , 'id_product': stock_product.id}) }}">show</a>
                     <a href="{{ path('stock_product_edit', {'id' : franchisee.id , 'id_product' : stock_product.id}) }}">edit</a>

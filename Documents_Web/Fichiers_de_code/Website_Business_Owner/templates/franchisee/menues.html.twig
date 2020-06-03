@@ -8,7 +8,7 @@
 
         <div class="row">
             <div class="col-sm-1"></div>
-            <div class="col-sm-4">
+            <div class="col-sm-5">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
                         <h3 class="card-title"><strong>Articles individuels</strong></h3>
@@ -18,15 +18,20 @@
                         <h6 class="card-subtitle"><strong>Total de {{ franchisee_articles|length }} Articles individuels</strong></h6>
                         {% endif %}
                         {% for article in franchisee_articles %}
-                            <p><em>{{ article.stock }}</em> {{ article.name }} | {{ article.quantity }} {{ article.unit }} /unité   {{ article.price}}€ <a href="{{ path('franchisee_article_edit', { id: franchisee.id , article : article.id}) }}">Modifier</a></p>
+                            <p>
+                                <em>{{ article.stock }}</em> {{ article.name }} | {{ article.quantity }} {{ article.unit }} /unité   {{ article.price |number_format(2) }}€ <a href="{{ path('franchisee_article_edit', { article : article.id}) }}">Modifier</a>
+                                <button type="button" class="btn app-color-match stockAdd" nb="{{ article.id }}" ><span class="ui-icon ui-icon-plusthick"></span></button>
+                                <button type="button" class="btn app-color-match stockReduce" nb="{{ article.id }}" ><span class="ui-icon ui-icon-minusthick"></span></button>
+                            </p>
                         {% endfor %}
-                        <a href="{{ path('franchisee_article_new') }}" class="btn btn-primary app-color-match">Nouveau</a>
+                        <br><br>
+                        <a href="{{ path('franchisee_article_create' , {'id' : franchisee.id}) }}" class="btn btn-primary app-color-match">Nouveau</a>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-2"></div>
+            <div class="col-sm-1"></div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
                         <h3 class="card-title"><strong>Menus</strong></h3>
@@ -39,7 +44,7 @@
 
                             <p>
                                 <a class="btn btn-primary app-color-match" data-toggle="collapse" href="#collapse{{ menu.id }}" role="button" aria-expanded="false" aria-controls="collapseExample">
-                            <span class="menu_title">{{ menu.name }}</span> | {{ menu.price }}€
+                            <span class="menu_title">{{ menu.name }}</span> | {{ menu.price |number_format(2)}}€
                                 </a>
                             </p>
                             <div class="collapse" id="collapse{{ menu.id }}">
@@ -64,11 +69,67 @@
                                 </div>
                             </div>
                         {%  endfor %}
-                        <a href="#" class="btn btn-primary app-color-match">Nouveau</a>
+                        <a href="{{ path('franchisee_menu_new') }}" class="btn btn-primary app-color-match">Nouveau</a>
                     </div>
                 </div>
             </div>
             <div class="col-sm-1"></div>
         </div>
     </section>
+    <div id="myDialog"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        const routeStocks = "{{ path('franchisee_article_edit_stock') }}";
+        const $myDialog = $('#myDialog');
+    </script>
+    <script>
+        let $buttonsAdd = $('.stockAdd');
+        let $buttonsReduce = $('.stockReduce');
+
+        $buttonsAdd.on('click' , function(){
+            let $button = $(this);
+            $.ajax({
+                url: routeStocks,
+                method: 'POST',
+                data:{
+                    article_id: $(this).attr('nb'),
+                    detail: 1
+                },
+                success : function (json){
+                    console.log(json);
+
+                    if( json.result === false){
+                        let old = parseInt($button.siblings('em').html());
+                        $button.siblings('em').html(old+1);
+                    }else{
+                        $myDialog.html(json.html);
+                        $('.modal').modal('show');                    }
+                }
+            })
+        })
+
+        $buttonsReduce.on('click' , function(){
+            let $button = $(this);
+            $.ajax({
+                url: routeStocks,
+                method: 'POST',
+                data: {
+                    article_id: $(this).attr('nb'),
+                    detail: -1,
+                },
+                success: function (json) {
+                    console.log(json);
+                    if ( json.result === false) {
+                        let old = parseInt($button.siblings('em').html());
+                        $button.siblings('em').html(old - 1);
+                    } else {
+                        $myDialog.html(json.html);
+                        $('.modal').modal('show');
+                    }
+                }
+            });
+        })
+    </script>
 {% endblock %}

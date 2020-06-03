@@ -11,7 +11,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/franchisee/menu")
+ * @Route({
+ *     "fr": "/fr/franchise/menu",
+ *     "en": "/en/franchisee/menu",
+ *     "es": "/es/franquiciado/menu"
+ *      })
  */
 class FranchiseeMenuController extends AbstractController
 {
