@@ -46,10 +46,10 @@ class FranchiseeMenu
      */
     private $stock;
 
-    /**
-     * @ORM\OneToMany(targetEntity=MenuToDish::class, mappedBy="franchiseeMenu")
-     */
-    private Collection $menuToDishes;
+//    /**
+//     * @ORM\OneToMany(targetEntity=MenuToDish::class, mappedBy="franchiseeMenu")
+//     */
+//    private Collection $menuToDishes;
 
     /**
      * @ORM\OneToMany(targetEntity=MenuToArticle::class, mappedBy="franchiseeMenu")
@@ -60,7 +60,7 @@ class FranchiseeMenu
     public function __construct()
     {
         $this->customerOrders = new ArrayCollection();
-        $this->menuToDishes = new ArrayCollection();
+//        $this->menuToDishes = new ArrayCollection();
         $this->menuToArticles = new ArrayCollection();
     }
 
@@ -92,8 +92,6 @@ class FranchiseeMenu
 
         return $this;
     }
-
-
 
     /**
      * @return Collection|CustomerOrder[]
