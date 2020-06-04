@@ -38,8 +38,11 @@
                     </div>
                     <div class="card-body">
                         {% if franchisee_menues|length > 0 %}
-                        <h6 class="card-subtitle"><strong>Total de {{ franchisee_menues|length }} Menus différents</strong></h6>
+                            <h6 class="card-subtitle"><strong>Total de {{ franchisee_menues|length }} Menus différents</strong></h6>
+                        {% else %}
+                            <h6 class="card-subtitle"><strong> Pas encore de Menus</strong></h6>
                         {% endif %}
+
                         {%  for menu in franchisee_menues %}
 
                             <p>
@@ -56,15 +59,6 @@
                                         {% endfor %}
                                     {% else %}
                                         <p class="card-text">Pas d'articles</p>
-                                    {% endif %}
-                                    <div class="dropdown-divider"></div>
-                                    {% if menuContents[menu.id]['Dishes'] != [] %}
-                                        <p class="card-subtitle">Plats</p>
-                                        {% for dish in menuContents[menu.id]['Dishes'] %}
-                                            <p class="card-text" href="#">{{ dish.franchiseeDish.name }} x{{ dish.quantity }}</p>
-                                        {% endfor %}
-                                    {% else %}
-                                        <p class="card-text">Pas de Plats</p>
                                     {% endif %}
                                 </div>
                             </div>

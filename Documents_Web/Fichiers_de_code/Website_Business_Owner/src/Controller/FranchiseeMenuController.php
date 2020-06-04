@@ -21,6 +21,8 @@ class FranchiseeMenuController extends AbstractController
 {
     /**
      * @Route("/", name="franchisee_menu_index", methods={"GET"})
+     * @param FranchiseeMenuRepository $franchiseeMenuRepository
+     * @return Response
      */
     public function index(FranchiseeMenuRepository $franchiseeMenuRepository): Response
     {
@@ -31,19 +33,27 @@ class FranchiseeMenuController extends AbstractController
 
     /**
      * @Route("/new", name="franchisee_menu_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
         $franchiseeMenu = new FranchiseeMenu();
+        $franchiseeMenu
+            ->setFranchisee($this->getUser())
+            ->setStock(0);
+
+
         $form = $this->createForm(FranchiseeMenuType::class, $franchiseeMenu);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+
             $entityManager->persist($franchiseeMenu);
             $entityManager->flush();
 
-            return $this->redirectToRoute('franchisee_menu_index');
+            return $this->redirectToRoute('franchisee_menu', ['id' => $this->getUser()->getId()]);
         }
 
         return $this->render('franchisee_menu/new.html.twig', [
@@ -54,6 +64,8 @@ class FranchiseeMenuController extends AbstractController
 
     /**
      * @Route("/{id}", name="franchisee_menu_show", methods={"GET"})
+     * @param FranchiseeMenu $franchiseeMenu
+     * @return Response
      */
     public function show(FranchiseeMenu $franchiseeMenu): Response
     {
@@ -64,6 +76,9 @@ class FranchiseeMenuController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="franchisee_menu_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param FranchiseeMenu $franchiseeMenu
+     * @return Response
      */
     public function edit(Request $request, FranchiseeMenu $franchiseeMenu): Response
     {
@@ -84,6 +99,9 @@ class FranchiseeMenuController extends AbstractController
 
     /**
      * @Route("/{id}", name="franchisee_menu_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param FranchiseeMenu $franchiseeMenu
+     * @return Response
      */
     public function delete(Request $request, FranchiseeMenu $franchiseeMenu): Response
     {

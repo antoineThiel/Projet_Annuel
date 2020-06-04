@@ -1,4 +1,60 @@
+{% import _self as formMacros %}
+
+{% macro printArticleForm(row)%}
+    <div class="row mb-1">
+        <div class="col-sm-5">
+            {{ form_widget(row.franchiseeArticle) }}
+        </div>
+        <div class="col-sm-2">
+            {{ form_widget(row.quantity) }}
+        </div>
+    </div>
+{% endmacro %}
+
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="card card-primary card-outline">
+    <div class="card-header">
+        {% if(app.request.attributes.get('_route') == 'warehouse_new') %}
+            <h3>Créer un nouveau Menu</h3>
+        {% else %}
+            <h3>Modifier Menu</h3>
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.price) }}
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-2" id="article_list"
+                 data-prototype="{{ formMacros.printArticleForm(form.menuToArticles.vars.prototype)|e('html_attr') }}">
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <strong>Articles</strong>
+                    </div>
+                    <div class="card-body">
+                        {% for row in form.menuToArticles %}
+                            {{ formMacros.printArticleForm(row) }}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="mr-2">
+                <button class="btn btn-info">{{ button_label|default('Save') }}</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+        {{ dump(form) }}
+
+
+    </div>
+
+</div>
+{{ encore_entry_script_tags('menuArticle') }}

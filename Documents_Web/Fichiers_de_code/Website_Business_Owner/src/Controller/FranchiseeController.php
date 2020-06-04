@@ -211,9 +211,6 @@ class FranchiseeController extends AbstractController
             $menuContent[$id]['Articles'] = $menuToArticleRepository->findBy([
                 'franchiseeMenu' => $id
             ]);
-            $menuContent[$id]['Dishes'] = $menuToDishRepository->findBy([
-                'franchiseeMenu' => $id
-            ]);
         }
 
         return $this->render('franchisee/menues.html.twig', [
