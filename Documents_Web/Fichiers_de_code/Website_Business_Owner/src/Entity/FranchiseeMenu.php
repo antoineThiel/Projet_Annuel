@@ -47,12 +47,12 @@ class FranchiseeMenu
     private $stock;
 
     /**
-     * @ORM\OneToMany(targetEntity=MenuToDish::class, mappedBy="franchiseeMenu")
-     */
-    private Collection $menuToDishes;
-
-    /**
-     * @ORM\OneToMany(targetEntity=MenuToArticle::class, mappedBy="franchiseeMenu")
+     * @ORM\OneToMany(
+     *  targetEntity=MenuToArticle::class, mappedBy="franchiseeMenu",
+     *  fetch="EXTRA_LAZY",
+     *  orphanRemoval=true,
+     *  cascade={"persist"}
+     * )
      */
     private Collection $menuToArticles;
 
@@ -60,7 +60,6 @@ class FranchiseeMenu
     public function __construct()
     {
         $this->customerOrders = new ArrayCollection();
-        $this->menuToDishes = new ArrayCollection();
         $this->menuToArticles = new ArrayCollection();
     }
 
@@ -92,8 +91,6 @@ class FranchiseeMenu
 
         return $this;
     }
-
-
 
     /**
      * @return Collection|CustomerOrder[]
@@ -143,37 +140,6 @@ class FranchiseeMenu
     public function setStock(int $stock): self
     {
         $this->stock = $stock;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|MenuToDish[]
-     */
-    public function getMenuToDishes(): Collection
-    {
-        return $this->menuToDishes;
-    }
-
-    public function addMenuToDish(MenuToDish $menuToDish): self
-    {
-        if (!$this->menuToDishes->contains($menuToDish)) {
-            $this->menuToDishes[] = $menuToDish;
-            $menuToDish->setFranchiseeMenu($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMenuToDish(MenuToDish $menuToDish): self
-    {
-        if ($this->menuToDishes->contains($menuToDish)) {
-            $this->menuToDishes->removeElement($menuToDish);
-            // set the owning side to null (unless already changed)
-            if ($menuToDish->getFranchiseeMenu() === $this) {
-                $menuToDish->setFranchiseeMenu(null);
-            }
-        }
 
         return $this;
     }

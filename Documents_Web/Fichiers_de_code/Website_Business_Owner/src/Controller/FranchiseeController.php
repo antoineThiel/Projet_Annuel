@@ -200,7 +200,7 @@ class FranchiseeController extends AbstractController
      * @param FranchiseeArticleRepository $franchiseeArticleRepository
      * @return Response
      */
-    public function show_menus(Request $request , FranchiseeMenuRepository $franchiseeMenuRepository , FranchiseeArticleRepository $franchiseeArticleRepository , MenuToArticleRepository $menuToArticleRepository , MenuToDishRepository $menuToDishRepository ){
+    public function show_menus(Request $request , FranchiseeMenuRepository $franchiseeMenuRepository , FranchiseeArticleRepository $franchiseeArticleRepository , MenuToArticleRepository $menuToArticleRepository){
         $franchisee = $this->getUser();
         $menus = $franchiseeMenuRepository->findBy(['franchisee' => $franchisee->getId()]);
         $articles = $franchiseeArticleRepository->findBy(['franchisee' => $franchisee->getId()]);
@@ -209,9 +209,6 @@ class FranchiseeController extends AbstractController
         foreach ($menus as $menu) {
             $id = $menu->getId();
             $menuContent[$id]['Articles'] = $menuToArticleRepository->findBy([
-                'franchiseeMenu' => $id
-            ]);
-            $menuContent[$id]['Dishes'] = $menuToDishRepository->findBy([
                 'franchiseeMenu' => $id
             ]);
         }
