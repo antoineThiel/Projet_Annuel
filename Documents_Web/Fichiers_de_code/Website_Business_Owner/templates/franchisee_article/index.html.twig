@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FranchiseeArticle index{% endblock %}
+
+{% block body %}
+    <h1>FranchiseeArticle index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Unit</th>
+                <th>Quantity</th>
+                <th>Stock</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for franchisee_article in franchisee_articles %}
+            <tr>
+                <td>{{ franchisee_article.id }}</td>
+                <td>{{ franchisee_article.name }}</td>
+                <td>{{ franchisee_article.price }}</td>
+                <td>{{ franchisee_article.unit }}</td>
+                <td>{{ franchisee_article.quantity }}</td>
+                <td>{{ franchisee_article.stock }}</td>
+                <td>
+                    <a href="{{ path('franchisee_article_show', {'id': franchisee_article.id}) }}">show</a>
+                    <a href="{{ path('franchisee_article_edit', {'id': franchisee_article.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('franchisee_article_new') }}">Create new</a>
+{% endblock %}

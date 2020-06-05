@@ -31,7 +31,7 @@
             </div>
             <div class="col-sm-1"></div>
 
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
                         <h3 class="card-title"><strong>Menus</strong></h3>
@@ -49,6 +49,8 @@
                                 <a class="btn btn-primary app-color-match" data-toggle="collapse" href="#collapse{{ menu.id }}" role="button" aria-expanded="false" aria-controls="collapseExample">
                             <span class="menu_title">{{ menu.name }}</span> | {{ menu.price |number_format(2)}}€
                                 </a>
+                                <button type="button" class="btn app-color-match menuModify" nb="{{ menu.id }}" qty="1"  ><span class="ui-icon ui-icon-plusthick"></span></button>
+                                <button type="button" class="btn app-color-match menuModify" nb="{{ menu.id }}" qty="-1" ><span class="ui-icon ui-icon-minusthick"></span></button>
                             </p>
                             <div class="collapse" id="collapse{{ menu.id }}">
                                 <div class="card card-body">
@@ -74,10 +76,40 @@
 {% endblock %}
 
 {% block javascripts %}
+
     <script>
         const routeStocks = "{{ path('franchisee_article_edit_stock') }}";
         const $myDialog = $('#myDialog');
+        const routeMenus = "{{ path('franchisee_modifyMenuQty') }}";
     </script>
+
+    <script>
+        $btn_menus = $(".menuModify");
+
+        $btn_menus.on('click' , function(){
+           $.ajax({
+               url:routeMenus,
+               method:'POST',
+               data:{
+                   menu_id: $(this).attr('nb'),
+                   action: $(this).attr('qty'),
+               },
+               success: function (json){
+                   console.log(json.html);
+                   console.log(json.success === true);
+                   if(json.hasOwnProperty('success') && json.success === true){
+                       location.reload();
+                   }
+                   else{
+                       $myDialog.html(json.html);
+                       $('.modal').modal('show');
+                   }
+               }
+           })
+        });
+    </script>
+
+
     <script>
         let $buttonsAdd = $('.stockAdd');
         let $buttonsReduce = $('.stockReduce');
