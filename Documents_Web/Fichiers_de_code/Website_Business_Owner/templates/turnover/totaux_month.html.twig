@@ -9,8 +9,8 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Accueil</a></li>
-                            <li class="breadcrumb-item active">Chiffre d'affaires</li>
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Starter Page</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -18,22 +18,21 @@
         </div>
         <!-- Main content -->
         <section class="content">
-            <h1>Historique des Chiffre d'affaires</h1>
-
+            <h1>Chiffre d'affaire Détail </h1>
             <table class="table">
                 <thead>
                 <tr>
-                    <th>N°</th>
+                    <th>Id</th>
                     <th>Date</th>
-                    <th>Montant</th>
+                    <th>Montant
                     <th>Montant 4%</th>
-                    <th>Franchisé lié</th>
-                    <th>Statut</th>
-                    <th>Actions</th>
+                    <th>Franchisee</th>
+                    <th>Satus</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for turnover in turnovers %}
+                {% for turnover in turnoverTotalMonth %}
                     {% if turnover.isNew %}
                         <tr style="background-color: limegreen;">
                     {% elseif turnover.isOngoing %}
@@ -64,13 +63,12 @@
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="4">Rien à afficher</td>
+                        <td colspan="4">no records found</td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
-            <a href="{{ path('turnover_new') }}"><button class="btn btn-info ml-3 mr-1">Nouveaux</button></a>
-            <a href="{{ path('turnover_totaux') }}"><button class="btn btn-info ml-3 mr-1">Totaux</button> </a>
+            <a href="{{ path('turnover_totaux') }}"><button class="btn btn-info ml-3 mr-1">Retour</button></a>
         </section>
     </div>
 {% endblock %}
