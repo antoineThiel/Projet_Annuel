@@ -1,7 +1,27 @@
+@font-face {
+    font-family: 'dancing_scriptregular';
+    src: url('../fonts/dancingScript/dancingscript-variablefont_wght-webfont.woff2') format('woff2'),
+    url('../fonts/dancingScript/dancingscript-variablefont_wght-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 body {
     background-color: lightgray;
 }
 
+.app-color-match{
+    background-color: #80c2e0 !important;
+    border-color: #80c2e0 !important;
+    color : #fff;
+}
+
+.menu_title{
+    font-family: 'dancing_scriptregular' , Arial , sans-serif;
+    font-size: 0.8em;
+    padding-right: 4px;
+}
 
 .base_paiement fieldset {
     border-style: none;
@@ -102,3 +122,47 @@ body {
     background-color: #81c4eb;
 }
 
+.Bronze, .Bronze , .Bronce{
+    color : #D2691E
+}
+.Argent,.Silver , .Plata{
+    color : #868992
+}
+
+.Or,.Gold , .Oro{
+    color: #EFD807
+}
+
+.Diamant,.Diamond , .Diamante{
+    color: #B9F2FF
+}
+
+.Bronze a, .Bronze a, .Bronce a, .Argent a, .Silver a, .Plata a, .Or a, .Gold a, .Oro , .Diamant a, .Diamond a, .Diamante a{
+    color:inherit !important;
+}
+
+.loader {
+    border: 36px solid #f3f3f3; /* Light grey */
+    border-top: 36px solid #007bff; /* Blue */
+    border-radius: 50%;
+    width: 300px;
+    height: 300px;
+    animation: spin 2s linear infinite;
+    margin: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

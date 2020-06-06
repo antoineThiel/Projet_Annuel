@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    {% block title %}{% endblock %}
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Accueil</a></li>
+                        <li class="breadcrumb-item"><a href="{{ path('external_invoice_index') }}">Factures Extérieures</a></li>
+                        <li class="breadcrumb-item active">Modifier</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- Main content -->
+    <section class="content">
+
+    <h1>Modifier Factures Exterieures</h1>
+        <a href="{{ asset('uploads/externalInvoices/' ~ external_invoice.invoiceFileName) }}" target="_blank"><button class="btn btn-info">Voir la facture liée</button></a>
+
+        {{ include('external_invoice/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('external_invoice_index') }}">Retour</a>
+
+
+    </section>
+</div>
+{% endblock %}
+{% block javascripts %}{{ encore_entry_script_tags('deleteObj') }}{% endblock %}

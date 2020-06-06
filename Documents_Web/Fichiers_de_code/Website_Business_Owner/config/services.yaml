@@ -6,6 +6,7 @@
 parameters:
     locale: 'fr'
     locales: [fr, en, es]
+    externalInvoice_directory: '%kernel.project_dir%/public/uploads/externalInvoices'
 
 services:
     # default configuration for services in *this* file

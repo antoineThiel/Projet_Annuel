@@ -9,8 +9,8 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Starter Page</li>
+                            <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Accueil</a></li>
+                            <li class="breadcrumb-item active">Franchisés</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -18,22 +18,23 @@
         </div>
         <!-- Main content -->
         <section class="content">
-            <h1>Franchisee index</h1>
+            <h1>Liste des Franchisés</h1>
 
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>LastName</th>
-                    <th>FirstName</th>
+                    <th>N°</th>
+                    <th>Nom de famille</th>
+                    <th>Prénom</th>
                     <th>Mail</th>
-                    <th>City</th>
-                    <th>PostalCode</th>
-                    <th>Address</th>
-                    <th>License</th>
-                    <th>Phone</th>
-                    <th>Truck</th>
-                    <th>actions</th>
+                    <th>Ville</th>
+                    <th>Code Postal</th>
+                    <th>Adresse</th>
+                    <th>N°Permis</th>
+                    <th>Portable</th>
+                    <th>Camion</th>
+                    <th>Rang</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -53,19 +54,19 @@
                     <td>{{ franchisee.license }}</td>
                     <td>{{ franchisee.phone }}</td>
                     <td>{{ franchisee.truck }}</td>
+                    <td>{{ franchisee.rank }}</td>
                     <td>
-                        <a href="{{ path('franchisee_edit', {'id': franchisee.id}) }}">edit</a>
+                        <a href="{{ path('franchisee_edit', {'id': franchisee.id}) }}">Modifier</a>
                     </td>
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="10">no records found</td>
+                        <td colspan="10">Rien à afficher</td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
-        <a href="{{ path('franchisee_new') }}"><button class="btn btn-info ml-3 mr-1">Create new</button></a>
-            <a href="{{ path('franchisee_export') }}"><button class="btn btn-info ml-2">Export All</button></a>
+            <a href="{{ path('franchisee_export') }}"><button class="btn btn-info ml-2">Export PDF</button></a>
     </section>
 </div>
 {% endblock %}

@@ -8,6 +8,8 @@ use App\Entity\OrderByFranchisee;
 use App\Entity\OrderDish;
 use App\Entity\OrderProduct;
 use App\Entity\Product;
+use App\Entity\StockDish;
+use App\Entity\StockProduct;
 use App\Entity\WarehouseDish;
 use App\Entity\WarehouseProduct;
 use App\Form\OrderFirstType;
@@ -20,12 +22,15 @@ use App\Repository\WarehouseRepository;
 use Mpdf\Mpdf;
 use Stripe\Exception\ApiErrorException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 
 class OrderController extends AbstractController
@@ -82,31 +87,49 @@ class OrderController extends AbstractController
         $pRep = $entityManager->getRepository(Product::class);
         $dRep = $entityManager->getRepository(Dish::class);
         $list = [];
+        $dishes = [];
+        $products = [];
+        $productsT = [];
+        $dishT = [];
 
-        $list['products'] = $wpRep->findBy(['warehouse' => $order->getWarehouse()->getId()]);
-        $list['dishes'] = $wdRep->findBy(['warehouse' => $order->getWarehouse()->getId()]);
+        $list['products'] = $wpRep->findByWarehouseAndQuantityOver0($order->getWarehouse()->getId());
+        $list['dishes'] = $wdRep->findByWarehouseAndQuantityOver0($order->getWarehouse()->getId());
 
         foreach ($list['products'] as $product){
             $products[] = $product->getProduct();
+            $categories[] = $product->getProduct()->getCategory()->getName();
         }
+
+        $categories = array_unique($categories, SORT_REGULAR);
+
+        foreach ($categories as $category)
+        {
+            $trueCategories[] = $category;
+        }
+
 
         foreach ($list['dishes'] as $dish){
             $dishes[] = $dish->getDish();
         }
 
-        foreach ($products as $product){
-            $productsT[] = $pRep->findByIdAndLocale($request->getLocale(), $product->getId());
+        if ($products != null){
+            foreach ($products as $product){
+                $productsT[] = $pRep->findByIdAndLocale($request->getLocale(), $product->getId());
+            }
         }
 
-        foreach ($dishes as $dish){
-            $dishT[] = $dRep->findByIdAndLocale($request->getLocale(), $dish->getId());
+        if ($dishes != null){
+            foreach ($dishes as $dish){
+                $dishT[] = $dRep->findByIdAndLocale($request->getLocale(), $dish->getId());
+            }
         }
 
         return $this->render('order/products.html.twig', [
             'order' => $order,
             'list' => $list,
             'productsT' => $productsT,
-            'dishT' => $dishT
+            'dishT' => $dishT,
+            'categories' => $trueCategories
         ]);
     }
 
@@ -378,6 +401,50 @@ class OrderController extends AbstractController
             </html>
                 ';
 
+
+        $stockProductRep = $em->getRepository('App\Entity\StockProduct');
+        $stockDishRep = $em->getRepository('App\Entity\StockDish');
+        foreach ($products as $product){
+
+            $OriginalProduct = $product->getProduct()->getProduct();
+            $alreadyExists = $stockProductRep->findOneBy(['name' => $OriginalProduct->getName()]);
+            if($alreadyExists){
+
+                $alreadyExists->setQuantity($alreadyExists->getQuantity() + $product->getQuantity()) ;
+                $em->persist($alreadyExists);
+                $em->flush();
+            }else{
+                $stock = new StockProduct();
+                $stock->setFranchisee($user)
+                ->setName($OriginalProduct->getName())
+                ->setQuantity(($product->getQuantity()))
+                ->setUnit($OriginalProduct->getUnit());
+
+                $em->persist($stock);
+                $em->flush();
+            }
+        }
+
+        foreach ($dishes as $dish){
+
+            $OriginalDish = $dish->getDish()->getDish();
+            $alreadyExists = $stockDishRep->findOneBy(['name' => $OriginalDish->getName()]);
+            if($alreadyExists){
+
+                $alreadyExists->setQuantity($alreadyExists->getQuantity() + $dish->getQuantity()) ;
+                $em->persist($alreadyExists);
+                $em->flush();
+            }else{
+                $stock = new StockDish();
+                $stock->setFranchisee($user)
+                ->setName($OriginalDish->getName())
+                ->setQuantity($dish->getQuantity());
+
+                $em->persist($stock);
+                $em->flush();
+            }
+        }
+
         $invoice->setContent($html);
         $em->persist($invoice);
         $em->persist($order);
@@ -456,6 +523,9 @@ class OrderController extends AbstractController
         ]);
     }
 
+
+
+
     /**
      * @Route("/admin/order/{id}", name="order_delete", methods={"DELETE"})
      */
@@ -496,4 +566,34 @@ class OrderController extends AbstractController
         return $this->redirectToRoute('order_recap',[ 'id' => $order->getId()]);
     }
 
+    /**
+     * @Route("/order/get_products", name="get_products", methods={"POST"})
+     */
+    public function getProducts(Request $request, SerializerInterface $serializer) : JsonResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        $orderRep = $em->getRepository('App\Entity\OrderByFranchisee');
+        $wpRep = $em->getRepository('App\Entity\WarehouseProduct');
+        $orderId = $request->get('order');
+        $order = $orderRep->find($orderId);
+        $category = $request->get('category');
+        $products = $wpRep->findByWarehouseAndQuantityOver0($order->getWarehouse()->getId());
+        $i =0;
+        foreach ($products as $product) {
+            if ($product->getProduct()->getCategory()->getName() != $category){
+                unset($products[$i]);
+            }
+            $i++;
+        }
+
+        $i = 0;
+        foreach ($products as $product){
+            $returnResponse[$i]['name'] = $product->getProduct()->getName();
+            $returnResponse[$i]['quantity'] = $product->getQuantity();
+            $returnResponse[$i]['price'] = $product->getPrice();
+            $i++;
+        }
+
+        return new JsonResponse($returnResponse);
+    }
 }

@@ -1,11 +1,11 @@
 {% extends 'base_front.html.twig' %}
 {% block content %}
-    <h1>TruckComplaint</h1>
+    <h1>Plainte Camion</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>N°</th>
                 <td>{{ truck_complaint.id }}</td>
             </tr>
             <tr>
@@ -13,15 +13,15 @@
                 <td>{{ truck_complaint.date ? truck_complaint.date|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
-                <th>Title</th>
+                <th>Titre</th>
                 <td>{{ truck_complaint.title }}</td>
             </tr>
             <tr>
-                <th>Content</th>
+                <th>Contenu</th>
                 <td>{{ truck_complaint.content }}</td>
             </tr>
             <tr>
-                <th>Answer</th>
+                <th>Réponse</th>
                 <td>{{ truck_complaint.answer }}</td>
             </tr>
             <tr>

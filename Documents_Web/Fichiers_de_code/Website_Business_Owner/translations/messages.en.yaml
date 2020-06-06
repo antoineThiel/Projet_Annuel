@@ -25,13 +25,19 @@ front:
     already_turnover: You have already made the declaration for the month of
     turnover_closed: You have already made the payment for the month of
     block_account:
-      temporarily_block: Su cuenta ha sido bloqueada temporalmente !
-      pay_amount: Por favor pague la cantidad de
-      pay_amount_month: € para el mes de
-      link: Encontrará el enlace a continuación
-      button_pay: Pague el 4% del mes de
-      button_declaration: Declara mi facturación
-      declaration: Por favor, informe su facturación para el mes de
+      temporarily_block: Your account has been temporarily blocked !
+      pay_amount: Please pay the amount of
+      pay_amount_month: € for the month of
+      link: You will find the link below
+      button_pay: Pay the 4% of the month of
+      button_declaration: Declare my turnover
+      declaration: Please report your turnover for the month of
+    ranking: Your rank
+    higherRank: Your next rank
+    monthUnit: €/month
+    currentTurnover: Last month's declaration
+    alreadyHighestRank: You have already reached the highest rank !
+    noTurnover: No declaration registered yet
   truck_complaint:
     title: Complaint form
   header:

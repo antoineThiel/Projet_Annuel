@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FranchiseeArticle{% endblock %}
+
+{% block body %}
+    <h1>FranchiseeArticle</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ franchisee_article.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ franchisee_article.name }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ franchisee_article.price }}</td>
+            </tr>
+            <tr>
+                <th>Unit</th>
+                <td>{{ franchisee_article.unit }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ franchisee_article.quantity }}</td>
+            </tr>
+            <tr>
+                <th>Stock</th>
+                <td>{{ franchisee_article.stock }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('franchisee_article_index') }}">back to list</a>
+
+    <a href="{{ path('franchisee_article_edit', {'id': franchisee_article.id}) }}">edit</a>
+
+    {{ include('franchisee_article/_delete_form.html.twig') }}
+{% endblock %}

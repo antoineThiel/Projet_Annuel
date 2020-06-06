@@ -70,8 +70,6 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() && $form->get('save')->isClicked()) {
-
-            dump($form);die();
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('product_index');

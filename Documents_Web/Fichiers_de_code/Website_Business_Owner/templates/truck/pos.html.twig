@@ -9,8 +9,9 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Truck index</li>
+                        <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Accueil</a></li>
+                        <li class="breadcrumb-item"><a href="{{ path('truck_index') }}">Camions</a></li>
+                        <li class="breadcrumb-item active">Positions</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -36,8 +37,8 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Registration</th>
-                    <th>Franchisee</th>
+                    <th>N°Camion</th>
+                    <th>Franchisé</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,7 +50,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="4">no records found</td>
+                    <td colspan="4">Rien à afficher</td>
                 </tr>
             {% endfor %}
             </tbody>
@@ -58,6 +59,8 @@
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrlSV5EIbonFEhtydrXFwQFDoizK8Y0H4&libraries=places&callback=initMap">
     </script>
+
+        <a href="{{ path('truck_new') }}"><button class="btn btn-info">Créer</button></a>
     </section>
 </div>
 

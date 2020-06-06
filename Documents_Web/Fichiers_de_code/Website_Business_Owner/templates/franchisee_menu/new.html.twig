@@ -1,0 +1,10 @@
+{% extends 'base_front.html.twig' %}
+
+{% block title %}New FranchiseeMenu{% endblock %}
+
+{% block content %}
+
+    {{ include('franchisee_menu/_form.html.twig') }}
+
+    <a href="{{ path('franchisee_menu_index') }}">back to list</a>
+{% endblock %}

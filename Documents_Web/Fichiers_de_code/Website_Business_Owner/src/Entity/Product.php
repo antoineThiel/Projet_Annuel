@@ -16,6 +16,14 @@ use Gedmo\Translatable\Translatable;
 class Product implements Translatable
 {
 
+    const UNIT = [
+        'grammes' => 'g',
+        'kilogrammes' => 'kg',
+        'centilitres' => 'cl',
+        'litres' => 'L',
+        'unité' => 'u'
+    ];
+
 
     /**
      * @ORM\Id()
@@ -60,6 +68,16 @@ class Product implements Translatable
      *     )
      */
     private $translations;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $unit;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $unitQuantity;
 
     public function __construct()
     {
@@ -147,7 +165,7 @@ class Product implements Translatable
 
     public function __toString(): string
     {
-        return $this->name;
+        return $this->name.' '.$this->unitQuantity.' '.$this->unit;
     }
 
     public function getTranslations()
@@ -161,5 +179,29 @@ class Product implements Translatable
             $this->translations[] = $t;
             $t->setObject($this);
         }
+    }
+
+    public function getUnit(): ?string
+    {
+        return $this->unit;
+    }
+
+    public function setUnit(?string $unit): self
+    {
+        $this->unit = $unit;
+
+        return $this;
+    }
+
+    public function getUnitQuantity(): ?float
+    {
+        return $this->unitQuantity;
+    }
+
+    public function setUnitQuantity(?float $unitQuantity): self
+    {
+        $this->unitQuantity = $unitQuantity;
+
+        return $this;
     }
 }

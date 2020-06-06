@@ -25,13 +25,19 @@ front:
     already_turnover: Ya ha hecho la declaración para el mes de
     turnover_closed: Ya ha realizado el pago para el mes de
     block_account:
-      temporarily_block: Your account has been temporarily blocked !
-      pay_amount: Please pay the amount of
-      pay_amount_month: € for the month of
-      link: You will find the link below
-      button_pay: Pay the 4% of the month of
-      button_declaration: Declare my turnover
-      declaration: Please report your turnover for the month of
+      temporarily_block: Su cuenta ha sido bloqueada temporalmente !
+      pay_amount: Por favor pague la cantidad de
+      pay_amount_month: € para el mes de
+      link: Encontrará el enlace a continuación
+      button_pay: Pague el 4% del mes de
+      button_declaration: Declara mi facturación
+      declaration: Por favor, informe su facturación para el mes de
+    ranking: Su rango
+    higherRank: Su siguiente rango
+    monthUnit: €/mes
+    currentTurnover: Declaración del mes pasado
+    alreadyHighestRank: Usted es en el nivel más alto!
+    noTurnover: Aún no has hecho una declaración
   header:
     my_account: Mi cuenta
     login: Iniciar sesión
@@ -43,10 +49,10 @@ front:
     copyright: Copyright © 2020-2510
     drivncook: Driv'n Cook
     rights: Todos los derechos estan reservados. Larga vida a los Sananes
-  order:
-    warehouse: Almacén
   truck_complaint:
     title: Formulario de queja
+  order:
+    warehouse: Almacén
     products:
       order: Orden n°
       products: Productos

@@ -1,0 +1,18 @@
+{% extends 'base_front.html.twig' %}
+
+{% block title %}Edit StockProduct{% endblock %}
+
+{% block content %}
+    <h1>Modifier Stocks</h1>
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            {{ include('stock_product/_form.html.twig', {'button_label': 'Update'}) }}
+
+            <a href="{{ path('franchisee_stock' , { id : franchisee.id}) }}">back to list</a>
+
+            {{ include('stock_product/_delete_form.html.twig') }}
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+{% endblock %}

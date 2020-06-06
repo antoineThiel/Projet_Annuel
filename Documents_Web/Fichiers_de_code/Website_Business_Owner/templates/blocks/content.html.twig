@@ -28,10 +28,10 @@
                                     Il y a  {{ productnbre }} produits présents dans notre base
                                 </p>
                                 <p class="card-text">
-                                    Il y a {{ catnbre }} categories présents dans notre base
+                                    Il y a {{ catnbre }} catégories présentes dans notre base
                                 </p>
                                 <p class="card-text">
-                                    Il y a {{ originbre }} origins présents dans notre base
+                                    Il y a {{ originbre }} origines enregistrées dans notre base
                                 </p>
                                 <a href="{{ path('product_new')}}" class="card-link">Ajouter produits</a>
                                 <a href="{{ path('product_category_new')}}" class="card-link">Ajouter des catégories</a>
@@ -45,7 +45,7 @@
                             </div>
                             <div class="card-body">
                                 <p class="card-text">
-                                    Il y a {{ franchiseenbre }} franchisés qui ont rejoins notre grande franchise !
+                                    Il y a {{ franchiseenbre }} franchisés qui ont rejoint notre grande franchise !
                                 </p>
                             </div>
                         </div>
@@ -83,15 +83,31 @@
                                 <p class="card-text">
                                     Il y a {{ trucknbre }} camions présents dans notre base
                                 </p>
-                                <a href="{{ path('truck_new') }}" class="card-link">Add more</a>
+                                <a href="{{ path('truck_new') }}" class="card-link">Enregistrer de nouveaux Camions</a>
                             </div>
                         </div>
+                        <div class="card card-primary card-outline">
+                            <div class="card-body">
+                                <h5 class="card-title">Répartition des franchisés</h5>
+                            </div>
+                            <div class="loader"></div>
+                            <canvas id="rank_display"></canvas>
+                        </div>
+                        <div class="card card-primary card-outline">
+                            <div class="card-body">
+                                <h5 class="card-title"><a target="_blank" href="https://docs.google.com/spreadsheets/d/1tusuTfP1TLGPWqcikBUT5SrW5yQqpTL5QCuLuhzQcbM/edit?usp=sharing">Historique Paiement</a></h5>
+                            </div>
+                            <p class="card-text">
 
+                            </p>
+                        </div>
                     </div>
                     <!-- /.col-md-6 -->
+
                 </div>
                 <!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content -->
     </div>
+{{ encore_entry_script_tags('ranks') }}

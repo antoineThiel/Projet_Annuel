@@ -1,0 +1,42 @@
+{% extends 'base_front.html.twig' %}
+{% block content %}
+
+    <section>
+
+        <h4 class="mx-sm-auto" style="width: 200px">Détail des Stocks</h4>
+
+
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-4">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title"><strong>Produits</strong></h3>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-subtitle"><strong>Total de {{ products|length }} Produits différents</strong></h6>
+                        {% for product in products %}
+                        <p>{{ product.name }} {{ product.quantity }} {{ product.unit }} <a href="{{ path('stock_product_edit', { id: franchisee.id , stockProduct : product.id}) }}">Modifier</a></p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2"></div>
+
+            <div class="col-sm-4">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title"><strong>Plats</strong></h3>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-subtitle"><strong>Total de {{ dishes|length }} Plats différents</strong></h6>
+                        {% for dish in dishes %}
+                            <p>{{ dish.name }} {{ dish.quantity }} <a href="{{ path('stock_dish_edit', { id: franchisee.id , stockDish : dish.id}) }}">Modifier</a></p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+    </section>
+{% endblock %}

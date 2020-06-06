@@ -3,11 +3,20 @@
 namespace App\Controller;
 
 use App\Entity\Franchisee;
+use App\Entity\StockDish;
 use App\Form\FranchiseeType;
 use App\Form\FranchiseeType2;
+use App\Repository\ExternalInvoiceRepository;
+use App\Repository\FranchiseeArticleRepository;
+use App\Repository\FranchiseeMenuRepository;
 use App\Repository\FranchiseeRepository;
 use App\Repository\InvoiceRepository;
+use App\Repository\MenuToArticleRepository;
+use App\Repository\MenuToDishRepository;
 use App\Repository\OrderByFranchiseeRepository;
+use App\Repository\RankRepository;
+use App\Repository\StockDishRepository;
+use App\Repository\StockProductRepository;
 use App\Repository\TruckPositionRepository;
 use App\Repository\TruckRepository;
 use App\Repository\TurnoverRepository;
@@ -64,21 +73,49 @@ class FranchiseeController extends AbstractController
      *     "es": "/es/franquiciado/{id}"
      *      }, name="franchisee_show", methods={"GET"})
      */
-    public function show(Franchisee $franchisee,TruckRepository $truckRepository, TruckPositionRepository $positionRepository, InvoiceRepository $invoiceRepository, TurnoverRepository $turnoverRepository): Response
+    public function show(Franchisee $franchisee,TruckRepository $truckRepository, TruckPositionRepository $positionRepository, InvoiceRepository $invoiceRepository, TurnoverRepository $turnoverRepository , RankRepository $rankRepository , ExternalInvoiceRepository $eIRep): Response
     {
         if ($this->getUser()->getId() != $franchisee->getId()){
             return $this->redirectToRoute('404');
         }
         if ($franchisee->getTruck() != null){
             $pos = $positionRepository->findById($franchisee->getTruck()->getId());
-            $posId = $pos->getId();
-            $posAddress = $pos->getAddress();
-            $posCity = $pos->getCity();
+            if ($pos != null){
+                $posId = $pos->getId();
+                $posAddress = $pos->getAddress();
+                $posCity = $pos->getCity();
+            }else {
+                $posId = null;
+                $posAddress = null;
+                $posCity = null;
+            }
         }else{
             $posId = null;
             $posAddress = null;
             $posCity = null;
         }
+
+        if( ($currentRank = $franchisee->getRank()->getId()) != 4){
+            $higherRank = $rankRepository->find($currentRank+1)->getMinimum();
+        }else{
+            $higherRank = null;
+        }
+
+
+        $balance['dateLastMonth'] = (new \DateTime())->modify('-30 days');;
+        $balance['totalFromInvoices'] = 0;
+        $balance['totalFromExternal'] = 0;
+        $invoiceSinceLastMonth = $invoiceRepository->findBySinceLastMonth($balance['dateLastMonth'] , $franchisee->getId());
+        foreach ($invoiceSinceLastMonth as $invoice ){
+            $balance['totalFromInvoices'] += $invoice->getAmmount();
+        }
+        $eInvoiceSinceLastMonth = $eIRep->findBySinceLastMonth($balance['dateLastMonth'] , $franchisee->getId());
+
+        foreach ($eInvoiceSinceLastMonth as $eInvoice ){
+            $balance['totalFromExternal'] += $eInvoice->getAmmount();
+        }
+        $balance['leftToSpendOutside'] =  (($balance['totalFromInvoices']/0.8 ) * 0.2) - $balance['totalFromExternal'];
+
         $turnover = $turnoverRepository->findOneBy(['franchisee'=> $this->getUser()],['date'=>'DESC']);
         $invoices = $invoiceRepository->findBy(['franchisee' => $this->getUser()], ['date' => 'DESC'], 5);
         return $this->render('franchisee/show.html.twig', [
@@ -87,7 +124,9 @@ class FranchiseeController extends AbstractController
             'posAddress' => $posAddress,
             'posCity' => $posCity,
             'invoices' => $invoices,
-            'turnover'=> $turnover
+            'turnover'=> $turnover,
+            'higherRank' => $higherRank,
+            'balance'   => $balance
         ]);
     }
 
@@ -128,6 +167,57 @@ class FranchiseeController extends AbstractController
         return $this->render('franchisee/edit.html.twig', [
             'franchisee' => $franchisee,
             'form' => $form->createView(),
+        ]);
+    }
+
+
+    /**
+     * @Route({
+     *     "fr": "/fr/franchise/{id}/inventaire",
+     *     "en": "/en/franchisee/{id}/stocks",
+     *     "es": "/es/franquiciado/{id}/cepo"
+     *      }, name="franchisee_stock", methods={"GET"})
+     */
+    public function show_stocks(Request $request, Franchisee $franchisee , StockDishRepository $stockDishRepository , StockProductRepository $stockProductRepository ){
+        $stockProducts = $stockProductRepository->findBy(['franchisee' => $franchisee->getId()]);
+        $stockDishes = $stockDishRepository->findBy(['franchisee' => $franchisee->getId()]);
+
+        return $this->render('franchisee/stocks.html.twig', [
+            'products' => $stockProducts,
+            'dishes' => $stockDishes,
+            'franchisee' => $franchisee
+        ]);
+    }
+
+    /**
+     * @Route({
+     *     "fr": "/fr/franchise/{id}/menus",
+     *     "en": "/en/franchisee/{id}/menus",
+     *     "es": "/es/franquiciado/{id}/carte"
+     *      }, name="franchisee_menu", methods={"GET"})
+     * @param Request $request
+     * @param FranchiseeMenuRepository $franchiseeMenuRepository
+     * @param FranchiseeArticleRepository $franchiseeArticleRepository
+     * @return Response
+     */
+    public function show_menus(Request $request , FranchiseeMenuRepository $franchiseeMenuRepository , FranchiseeArticleRepository $franchiseeArticleRepository , MenuToArticleRepository $menuToArticleRepository){
+        $franchisee = $this->getUser();
+        $menus = $franchiseeMenuRepository->findBy(['franchisee' => $franchisee->getId()]);
+        $articles = $franchiseeArticleRepository->findBy(['franchisee' => $franchisee->getId()]);
+
+        $menuContent =[];
+        foreach ($menus as $menu) {
+            $id = $menu->getId();
+            $menuContent[$id]['Articles'] = $menuToArticleRepository->findBy([
+                'franchiseeMenu' => $id
+            ]);
+        }
+
+        return $this->render('franchisee/menues.html.twig', [
+            'franchisee_articles' => $articles,
+            'franchisee_menues' => $menus,
+            'franchisee' => $franchisee,
+            'menuContents' => $menuContent
         ]);
     }
 

@@ -32,6 +32,12 @@ front:
         button_pay: Payer les 4% du mois de
         button_declaration: Déclarer mon chiffres d'affaire
         declaration: Veuillez déclarer votre chiffre d'affaire du mois de
+      ranking: Votre rang
+      higherRank: Votre Prochain Rang
+      monthUnit: €/mois
+      currentTurnover: Précédent CA
+      alreadyHighestRank: Vous êtes au plus haut pallier !
+      noTurnover: Vous n'avez pas encore fait de déclaration
   truck_complaint:
     title: Formulaire de plainte
   header:
