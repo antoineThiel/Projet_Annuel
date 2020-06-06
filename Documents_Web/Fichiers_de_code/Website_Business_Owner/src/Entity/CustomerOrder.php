@@ -46,7 +46,7 @@ class CustomerOrder
     private $menues;
 
     /**
-     * @ORM\ManyToMany(targetEntity=franchiseeArticle::class, inversedBy="customerOrders")
+     * @ORM\ManyToMany(targetEntity=FranchiseeArticle::class, inversedBy="customerOrders")
      */
     private $Articles;
 

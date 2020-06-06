@@ -40,12 +40,12 @@ class FranchiseeArticle
     private $quantity;
 
     /**
-     * @ORM\ManyToOne(targetEntity=stockProduct::class, inversedBy="franchiseeArticles")
+     * @ORM\ManyToOne(targetEntity=StockProduct::class, inversedBy="franchiseeArticles")
      */
     private $stockProduct;
 
     /**
-     * @ORM\ManyToOne(targetEntity=stockDish::class, inversedBy="franchiseeArticles")
+     * @ORM\ManyToOne(targetEntity=StockDish::class, inversedBy="franchiseeArticles")
      */
     private $stockDish;
 

@@ -30,7 +30,7 @@ class StockDish
     private float $quantity;
 
     /**
-     * @ORM\ManyToOne(targetEntity=franchisee::class, inversedBy="stockDishes")
+     * @ORM\ManyToOne(targetEntity=Franchisee::class, inversedBy="stockDishes")
      * @ORM\JoinColumn(nullable=false)
      */
     private franchisee $franchisee;
