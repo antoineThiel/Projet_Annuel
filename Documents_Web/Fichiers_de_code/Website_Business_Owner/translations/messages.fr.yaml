@@ -30,6 +30,13 @@ front:
       currentTurnover: Précédent CA
       alreadyHighestRank: Vous êtes au plus haut pallier !
       noTurnover: Vous n'avez pas encore fait de déclaration
+      stocks:
+        my_inventory: Mon inventaire
+        my_menues: Ma carte
+        menues_title: Carte des Menus
+        articles: Articles
+        menues: Menus
+        per_unit: /unité
   truck_complaint:
     title: Formulaire de plainte
   header:
