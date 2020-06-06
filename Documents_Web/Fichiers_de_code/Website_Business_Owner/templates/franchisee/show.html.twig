@@ -12,6 +12,11 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- Main content -->
+    {% if turnover.date|date('d/m/y') != 'now'|date_modify('first day of this month')|date('d/m/y') and 'now'|date('d') >= '20'  %}
+        {{ include('franchisee/block_account_declaration.html.twig')  }}
+    {% elseif turnover.date|date('d/m/y') == 'now'|date_modify('first day of this month')|date('d/m/y') and 'now'|date('d/m/y') >= turnover.date|date_modify('last day of this month')|date('d/m/y') and turnover.isOngoing%}
+        {{ include('franchisee/block_account_pay.html.twig') }}
+    {% else %}
     <section>
         <h1>{{ franchisee.lastName|upper }} {{ franchisee.firstName|upper }}</h1>
         <div class="row">
@@ -247,5 +252,6 @@
                 </div>
             </div>
         </section>
+    {% endif %}
     </div>
 {% endblock %}

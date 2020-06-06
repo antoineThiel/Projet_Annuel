@@ -1,0 +1,10 @@
+<section class="m-5">
+    <div class="row m-5 p-5 ">
+        <div class="m-auto text-center p-5 border border-danger rounded bg-secondary">
+            <h3>{{'front.franchisee.block_account.temporarily_block'|front}}</h3>
+            <h3> {{'front.franchisee.block_account.pay_amount'|front}} {{ turnover.percentAmount }} {{'front.franchisee.block_account.paye_amount_month'|front}} {{ "now"|date_modify('-1 month')|date('M') }}.</h3>
+            <h3> {{'front.franchisee.block_account.link'|front}} : </h3>
+            <a href="{{ path('turnover_pay',{'id': turnover.id}) }}"><button class="btn btn-info"> {{'front.franchisee.block_account.button_pay'|front}} {{ "now"|date_modify('-1 month')|date('M') }} </button></a>
+        </div>
+    </div>
+</section>
