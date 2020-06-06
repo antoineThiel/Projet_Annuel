@@ -24,6 +24,14 @@ front:
       pay_turnover: Verser 4% du chiffres d'affaire
       already_turnover: Vous avez déjà fait la déclaration pour le mois de
       turnover_closed: Vous avez déjà réalisé le paiement du mois de
+      block_account:
+        temporarily_block: Votre compte a été temporairement bloqué !
+        pay_amount : Veuillez payer le montant de
+        pay_amount_month : € pour le mois de
+        link: Vous trouverez le lien ci dessous
+        button_pay: Payer les 4% du mois de
+        button_declaration: Déclarer mon chiffres d'affaire
+        declaration: Veuillez déclarer votre chiffre d'affaire du mois de
       ranking: Votre rang
       higherRank: Votre Prochain Rang
       monthUnit: €/mois
