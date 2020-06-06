@@ -9,8 +9,9 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Home</a></li>
-                            <li class="breadcrumb-item active">Traductions catégories</li>
+                            <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Accueil</a></li>
+                            <li class="breadcrumb-item"><a href="{{ path('product_category_index') }}">Catégories</a></li>
+                            <li class="breadcrumb-item active">Traductions</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -24,7 +25,7 @@
                 <div>
                     <label>EN</label><input type="text" id="{{ i }}EN" value="{{ en[i]|join(',') }}">
                     <label>ES</label><input type="text" id="{{ i }}ES" value="{{ es[i]|join(',') }}">
-                    <button formnovalidate onclick="addTrad({{ i }}, 'product/category')">Save</button>
+                    <button formnovalidate onclick="addTrad({{ i }}, 'product/category')">Enregistrer</button>
                 </div>
                 {% set i = i+1 %}
             {% endfor %}

@@ -9,8 +9,9 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Starter Page</li>
+                        <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Accueil</a></li>
+                        <li class="breadcrumb-item"><a href="{{ path('order_index') }}">Commandes</a></li>
+                        <li class="breadcrumb-item active">Modifer</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -21,9 +22,10 @@
 
     {{ include('order/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('order_index') }}">back to list</a>
+    <a href="{{ path('order_index') }}">Retour</a>
 
     {{ include('order/_delete_form.html.twig') }}
     </section>
 </div>
 {% endblock %}
+{% block javascripts %}{{ encore_entry_script_tags('deleteObj') }}{% endblock %}

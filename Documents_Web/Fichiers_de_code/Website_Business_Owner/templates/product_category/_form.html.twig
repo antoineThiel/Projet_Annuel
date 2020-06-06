@@ -1,9 +1,9 @@
 <div class="card card-primary card-outline">
     <div class="card-header">
         {% if(app.request.attributes.get('_route') == 'product_category_new') %}
-            <h3>Create Category</h3>
+            <h3>Créer une catégorie</h3>
         {% else %}
-            <h3>Edit Category</h3>
+            <h3>Modifier une catégorie</h3>
         {% endif %}
     </div>
     <div class="card-body">
@@ -14,7 +14,7 @@
         <div class="form-group">
             {{ form_row(form.name) }}
         </div>
-        <button class="btn btn-primary">Add</button>
+        <button class="btn btn-primary">Enregistrer</button>
         {{ form_end(form) }}
     </div>
 </div>

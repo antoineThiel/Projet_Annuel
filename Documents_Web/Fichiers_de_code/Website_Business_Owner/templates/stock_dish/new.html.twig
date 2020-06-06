@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New StockDish{% endblock %}
+
+{% block body %}
+    <h1>Create new StockDish</h1>
+
+    {{ include('stock_dish/_form.html.twig') }}
+
+    <a href="{{ path('stock_dish_index' , {'id' : franchisee.id}) }}">back to list</a>
+{% endblock %}

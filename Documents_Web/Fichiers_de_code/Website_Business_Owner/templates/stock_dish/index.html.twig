@@ -1,0 +1,37 @@
+{% extends 'base_front.html.twig' %}
+
+{% block title %}StockDish index{% endblock %}
+
+{% block content %}
+    <h1>StockDish index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for stock_dish in stock_dishes %}
+            <tr>
+                <td>{{ stock_dish.id }}</td>
+                <td>{{ stock_dish.name }}</td>
+                <td>{{ stock_dish.quantity }}</td>
+                <td>
+                    <a href="{{ path('stock_dish_show', {'id': stock_dish.id}) }}">show</a>
+                    <a href="{{ path('stock_dish_edit', {'id': stock_dish.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('stock_dish_new') }}">Create new</a>
+{% endblock %}

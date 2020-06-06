@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Franchisee;
 use App\Entity\Invoice;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @method Invoice|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,4 +49,25 @@ class InvoiceRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    /**
+     * @param \DateTime $dateTime
+     * @param int $franchiseeId
+     * @return array Returns an array of Invoice objects
+     */
+    public function findBySinceLastMonth(\DateTime $dateTime , int $franchiseeId): array
+    {
+//        $date = $dateTime->format('Y-m-d');
+
+        return $this->createQueryBuilder('i')
+            ->Where('i.date >= :date')
+            ->andWhere('i.franchisee = :uId')
+            ->setParameters([
+                'date'=> $dateTime,
+                'uId' => $franchiseeId
+            ])
+            ->getQuery()
+            ->getResult();
+    }
 }

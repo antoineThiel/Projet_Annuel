@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Franchisee;
 use App\Entity\Truck;
+use Doctrine\ORM\Query\Expr\Join;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -11,6 +12,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FranchiseeType extends AbstractType
 {
+    private $entityManager;
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -25,9 +28,16 @@ class FranchiseeType extends AbstractType
             ->add('password')
             ->add('truck', EntityType::class, [
                 'class' => Truck::class,
-                'choice_label' => 'registration'
-            ])
-        ;
+                'query_builder' => function ($entityType) {
+                        return $entityType
+                            ->createQueryBuilder('t')
+                            ->leftJoin('App\Entity\Franchisee' , 'f' , Join::WITH , 'f.truck = t.id' )
+                            ->where('f.truck IS NULL');
+
+                },
+                'choice_label' => 'registration',
+
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

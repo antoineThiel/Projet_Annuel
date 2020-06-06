@@ -9,7 +9,7 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Accueil</a></li>
                             <li class="breadcrumb-item active">Franchisés</li>
                         </ol>
                     </div><!-- /.col -->
@@ -18,12 +18,12 @@
         </div>
         <!-- Main content -->
         <section class="content">
-            <h1>Franchisés</h1>
+            <h1>Liste des Franchisés</h1>
 
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Id</th>
+                    <th>N°</th>
                     <th>Nom de famille</th>
                     <th>Prénom</th>
                     <th>Mail</th>
@@ -32,7 +32,7 @@
                     <th>Adresse</th>
                     <th>N°Permis</th>
                     <th>Portable</th>
-                    <th>Camions</th>
+                    <th>Camion</th>
                     <th>Rang</th>
                     <th>Actions</th>
                 </tr>
@@ -56,12 +56,12 @@
                     <td>{{ franchisee.truck }}</td>
                     <td>{{ franchisee.rank }}</td>
                     <td>
-                        <a href="{{ path('franchisee_edit', {'id': franchisee.id}) }}">edit</a>
+                        <a href="{{ path('franchisee_edit', {'id': franchisee.id}) }}">Modifier</a>
                     </td>
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="10">no records found</td>
+                        <td colspan="10">Rien à afficher</td>
                     </tr>
                 {% endfor %}
                 </tbody>

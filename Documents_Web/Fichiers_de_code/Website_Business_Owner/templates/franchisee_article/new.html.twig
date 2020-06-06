@@ -1,0 +1,158 @@
+{% extends 'base_front.html.twig' %}
+
+{% block title %}New FranchiseeArticle{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-4">
+            <h1>Create new FranchiseeArticle</h1>
+
+            <form method="POST" action="{{ path('franchisee_article_new') }}">
+
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Article" required>
+                    {#                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>#}
+                </div>
+
+                <div class="form-group">
+                    <label for="stockItem" id="item">Item</label>
+                    <div class="row">
+                        <div class="col" id="product">
+                            <label for="stockItem">products</label>
+                            {% for product in stocks['Product'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input product" type="radio" name="product" id="{{ product.id }}" value="{{ product.id }}" unit="{{ product.unit }}">
+                                    <label class="form-check-label" for="stockItem">
+                                        {{ product.name }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col" id="dish">
+                            <label for="stockItem2">dishes</label>
+                            {% for dish in stocks['Dish'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input dish" type="radio" name="dish" id="{{ dish.id }}" value="{{ dish.id }}">
+                                    <label class="form-check-label" for="stockItem2">
+                                        {{ dish.name }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row" id="productDetail">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="quantity">Unit quantity</label>
+                            <input type="number" class="form-control" id="quantity" placeholder="200" min="1">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="unit">Unit value</label>
+                            <select class="form-control" id="unit">
+                                <optgroup label="Volume">
+                                    <option>ml</option>
+                                    <option>cl</option>
+                                    <option>L</option>
+                                </optgroup>
+                                <optgroup label="Poids">
+                                    <option>g</option>
+                                    <option>Kg</option>
+                                </optgroup>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="price">Unit Price</label>
+                    <input type="number" class="form-control" id="price" placeholder="€" required>
+                </div>
+
+                <button type="button" class="btn btn-primary" id="form-submit" route="{{ path('franchisee_article_new') }}">Submit</button>
+            </form>
+
+            <a href="{{ path('franchisee_menu' , { 'id' : franchisee.id }) }}">Retour</a>
+            <div id="dialog"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        const route_err = "{{ path('franchisee_article_create_error')  }}";
+    </script>
+
+    <script>
+    let $products = $('.product');
+    let $dishes = $('.dish')
+
+    $products.on('click', function(){
+        $('#productDetail').show();
+        $dishes.prop('checked' , false);
+
+    });
+
+    $dishes.on('click',function(){
+        $('#productDetail').hide();
+        $products.prop('checked' , false);
+        $('#quantity').val("");
+        $('#unit').find('option:selected').val("");
+
+    });
+
+    $('#form-submit').on('click' , function () {
+        let stockDish = -1;
+        let stockProduct = -1;
+        if (0 < $('#product').find('input:checked').length) {
+            stockProduct = $('#product').find('input:checked').attr('id');
+        } else if (0 < $('#dish').find('input:checked').length){
+            stockDish = $('#dish').find('input:checked').attr('id');
+        }
+
+        if (checkFields(stockProduct , stockDish) === true){
+            $.ajax({
+                url: $('#form-submit').attr('route'),
+                method: "POST",
+                data: {
+                    name: $('#name').val(),
+                    price: $('#price').val(),
+                    unit: $('#unit').find('option:selected').val(),
+                    quantity: $('#quantity').val(),
+                    stockProduct: stockProduct,
+                    stockDish: stockDish,
+                },
+                success: function(response){
+                    document.write(response);
+                }
+            });
+        }else{
+            $.ajax({
+                url: route_err,
+                success: function (response){
+                    $('#dialog').html(response);
+                    $('.modal').modal('show');
+                }
+            })
+        }
+    });
+
+    function checkFields(stockProduct, stockDish){
+        if($('#name').val() === "" || $('#price').val() === "" || (stockProduct === -1 && stockDish === -1)){
+            return false;
+        }
+        if(stockProduct !== -1 && ($('#unit').find('option:selected').val() === "" || $('#quantity').val()) === "" ){
+            return false;
+        }
+        return true;
+    }
+</script>
+{% endblock %}

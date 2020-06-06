@@ -9,8 +9,8 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Starter Page</li>
+                        <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Accueil</a></li>
+                        <li class="breadcrumb-item active">Commandes</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -18,12 +18,14 @@
     </div>
     <!-- Main content -->
     <section class="content">
-    <table class="table">
+        <h1>Historique des Commandes</h1>
+
+        <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>N°</th>
                 <th>Date</th>
-                <th>Ammount</th>
+                <th>Montant</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -34,19 +36,19 @@
                 <td>{{ order.date ? order.date|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ order.ammount }}</td>
                 <td>
-                    <a href="{{ path('order_show', {'id': order.id}) }}">show</a>
-                    <a href="{{ path('order_edit', {'id': order.id}) }}">edit</a>
+                    <a href="{{ path('order_show', {'id': order.id}) }}">Voir</a> /
+                    <a href="{{ path('order_edit', {'id': order.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">Rien à afficher</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('order_new_warehouse') }}"><button class="btn btn-info ml-3 mr-1">Ajouter</button></a>
+    <a href="{{ path('order_new_warehouse') }}"><button class="btn btn-info ml-3 mr-1">Créer</button></a>
     </section>
 </div>
 {% endblock %}

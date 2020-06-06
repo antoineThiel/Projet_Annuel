@@ -9,6 +9,12 @@
             <div class="col-sm-6">
                 <table class="table">
                     <h2>{{'front.order.products.products'|trans}}</h2>
+                    <select name="categories" id="category-select">
+                        <option value="">Choisissez une catégorie</option>
+                        {% for category in categories %}
+                            <option value="{{ category }}">{{ category }}</option>
+                        {% endfor %}
+                    </select>
                     <thead>
                     <tr>
                         <th scope="col">{{'front.order.products.name'|trans}}</th>
@@ -17,24 +23,22 @@
                         <th scope="col"></th>
                     </tr>
                     </thead>
-                    <tbody>
-                    {% set inc = 1 %}
-                    {% for products in list['products'] %}
-                        {% if products.quantity >= 1 %}
-                            <tr class="product">
-                                <td class="productName"><label class="d-none">{{ products.product }}</label><p>{{ productsT[inc-1]['name'] }}</p></td>
-                                <td class="productQuantityInfo"><label>{{ products.quantity }}</label></td>
-                                <td class="productPrice"><label>{{ products.price }}</label> €</td>
-                                <td class="productQuantity">
-                                    <label>
-                                        <input type="number" min="1"  max="{{ products.quantity }}">
-                                    </label>
-                                    <button class="btn btn-info" onclick="sendToController({{ inc }}, 'product')">{{'front.order.products.add_card'|trans}}</button>
-                                </td>
-                            </tr>
-                            {% set inc = inc + 1 %}
-                        {% endif %}
-                    {% endfor %}
+                    <tbody id="productTable">
+{#                    {% set inc = 1 %}#}
+{#                        {% for products in list['products'] %}#}
+{#                                <tr class="product">#}
+{#                                    <td class="productName"><label class="d-none">{{ products.product }}</label><p>{{ products.product }}</p></td>#}
+{#                                    <td class="productQuantityInfo"><label>{{ products.quantity }}</label></td>#}
+{#                                    <td class="productPrice"><label>{{ products.price }}</label> €</td>#}
+{#                                    <td class="productQuantity">#}
+{#                                        <label>#}
+{#                                            <input type="number" min="1"  max="{{ products.quantity }}">#}
+{#                                        </label>#}
+{#                                        <button class="btn btn-info" onclick="sendToController({{ inc }}, 'product')">{{'front.order.products.add_card'|trans}}</button>#}
+{#                                    </td>#}
+{#                                </tr>#}
+{#                                {% set inc = inc + 1 %}#}
+{#                    {% endfor %}#}
                     </tbody>
                 </table>
             </div>
@@ -52,7 +56,6 @@
                     <tbody>
                     {% set inc = 1 %}
                     {% for dish in list['dishes'] %}
-                        {% if dish.quantity >= 1 %}
                             <tr class="dish">
                                 <td class="dishName"><label class="d-none">{{ dish.dish }}</label><p>{{ dishT[inc-1]['name'] }}</p></td>
                                 <td class="dishQuantityInfo"><label>{{ dish.quantity }}</label></td>
@@ -65,7 +68,6 @@
                                 </td>
                             </tr>
                             {% set inc = inc + 1 %}
-                        {% endif %}
                     {% endfor %}
                     </tbody>
                 </table>
@@ -94,4 +96,6 @@
             </form>
         </div>
 </div>
+
+    {{ encore_entry_script_tags('category') }}
 {% endblock %}

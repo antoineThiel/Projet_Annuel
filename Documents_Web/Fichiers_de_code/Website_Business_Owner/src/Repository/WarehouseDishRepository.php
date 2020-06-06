@@ -20,4 +20,15 @@ class WarehouseDishRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, WarehouseDish::class);
     }
+
+    public function findByWarehouseAndQuantityOver0($warehouse)
+    {
+        $qb = $this->createQueryBuilder('w');
+        return $qb
+            ->select('w')
+            ->where('w.warehouse = :warehouse')->setParameter('warehouse', $warehouse)
+            ->andWhere($qb->expr()->gte('w.quantity', ':value'))->setParameter('value', 1)
+            ->getQuery()->getResult();
+
+    }
 }

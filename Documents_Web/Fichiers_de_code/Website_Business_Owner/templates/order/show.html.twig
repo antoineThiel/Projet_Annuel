@@ -8,7 +8,7 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>N°</th>
                 <td>{{ order.id }}</td>
             </tr>
             <tr>
@@ -16,15 +16,15 @@
                 <td>{{ order.date ? order.date|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Ammount</th>
-                <td>{{ order.ammount }}</td>
+                <th>Montant</th>
+                <td>{{ order.ammount }}€</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('order_index') }}">back to list</a>
+    <a href="{{ path('order_index') }}">Retour</a>
 
-    <a href="{{ path('order_edit', {'id': order.id}) }}">edit</a>
+    <a href="{{ path('order_edit', {'id': order.id}) }}">Modifier</a>
 
     {{ include('order/_delete_form.html.twig') }}
 {% endblock %}
