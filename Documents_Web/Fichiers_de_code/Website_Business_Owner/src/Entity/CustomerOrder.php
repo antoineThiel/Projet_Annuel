@@ -35,7 +35,7 @@ class CustomerOrder
     private $invoice;
 
     /**
-     * @ORM\OneToOne(targetEntity=Customer::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Customer::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $customer;
