@@ -17,7 +17,7 @@ class FranchiseeMenu
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -29,26 +29,38 @@ class FranchiseeMenu
      */
     private $price;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=FranchiseeArticle::class, inversedBy="franchiseeMenus")
-     */
-    private $articleComponents;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=StockDish::class, inversedBy="franchiseeMenus")
-     */
-    private $stockDish;
 
     /**
      * @ORM\ManyToMany(targetEntity=CustomerOrder::class, mappedBy="menues")
      */
-    private $customerOrders;
+    private Collection $customerOrders;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Franchisee::class, inversedBy="franchiseeMenus")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private  $franchisee;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $stock;
+
+    /**
+     * @ORM\OneToMany(
+     *  targetEntity=MenuToArticle::class, mappedBy="franchiseeMenu",
+     *  fetch="EXTRA_LAZY",
+     *  orphanRemoval=true,
+     *  cascade={"persist"}
+     * )
+     */
+    private Collection $menuToArticles;
+
 
     public function __construct()
     {
-        $this->articleComponents = new ArrayCollection();
-        $this->stockDish = new ArrayCollection();
         $this->customerOrders = new ArrayCollection();
+        $this->menuToArticles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -81,58 +93,6 @@ class FranchiseeMenu
     }
 
     /**
-     * @return Collection|FranchiseeArticle[]
-     */
-    public function getArticleComponents(): Collection
-    {
-        return $this->articleComponents;
-    }
-
-    public function addArticleComponent(FranchiseeArticle $articleComponent): self
-    {
-        if (!$this->articleComponents->contains($articleComponent)) {
-            $this->articleComponents[] = $articleComponent;
-        }
-
-        return $this;
-    }
-
-    public function removeArticleComponent(FranchiseeArticle $articleComponent): self
-    {
-        if ($this->articleComponents->contains($articleComponent)) {
-            $this->articleComponents->removeElement($articleComponent);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|StockDish[]
-     */
-    public function getStockDish(): Collection
-    {
-        return $this->stockDish;
-    }
-
-    public function addStockDish(StockDish $stockDish): self
-    {
-        if (!$this->stockDish->contains($stockDish)) {
-            $this->stockDish[] = $stockDish;
-        }
-
-        return $this;
-    }
-
-    public function removeStockDish(StockDish $stockDish): self
-    {
-        if ($this->stockDish->contains($stockDish)) {
-            $this->stockDish->removeElement($stockDish);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|CustomerOrder[]
      */
     public function getCustomerOrders(): Collection
@@ -155,6 +115,61 @@ class FranchiseeMenu
         if ($this->customerOrders->contains($customerOrder)) {
             $this->customerOrders->removeElement($customerOrder);
             $customerOrder->removeMenue($this);
+        }
+
+        return $this;
+    }
+
+    public function getFranchisee(): ?franchisee
+    {
+        return $this->franchisee;
+    }
+
+    public function setFranchisee(?franchisee $franchisee): self
+    {
+        $this->franchisee = $franchisee;
+
+        return $this;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(int $stock): self
+    {
+        $this->stock = $stock;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MenuToArticle[]
+     */
+    public function getMenuToArticles(): Collection
+    {
+        return $this->menuToArticles;
+    }
+
+    public function addMenuToArticle(MenuToArticle $menuToArticle): self
+    {
+        if (!$this->menuToArticles->contains($menuToArticle)) {
+            $this->menuToArticles[] = $menuToArticle;
+            $menuToArticle->setFranchiseeMenu($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMenuToArticle(MenuToArticle $menuToArticle): self
+    {
+        if ($this->menuToArticles->contains($menuToArticle)) {
+            $this->menuToArticles->removeElement($menuToArticle);
+            // set the owning side to null (unless already changed)
+            if ($menuToArticle->getFranchiseeMenu() === $this) {
+                $menuToArticle->setFranchiseeMenu(null);
+            }
         }
 
         return $this;

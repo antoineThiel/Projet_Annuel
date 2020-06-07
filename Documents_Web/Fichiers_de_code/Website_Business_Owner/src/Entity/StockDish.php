@@ -40,15 +40,12 @@ class StockDish
      */
     private $franchiseeArticles;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=FranchiseeMenu::class, mappedBy="stockDish")
-     */
-    private $franchiseeMenus;
+
 
     public function __construct()
     {
         $this->franchiseeArticles = new ArrayCollection();
-        $this->franchiseeMenus = new ArrayCollection();
+        $this->menuToDishes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -125,31 +122,11 @@ class StockDish
         return $this;
     }
 
-    /**
-     * @return Collection|FranchiseeMenu[]
-     */
-    public function getFranchiseeMenus(): Collection
+
+
+    public function __toString(): string
     {
-        return $this->franchiseeMenus;
+        return $this->name;
     }
 
-    public function addFranchiseeMenu(FranchiseeMenu $franchiseeMenu): self
-    {
-        if (!$this->franchiseeMenus->contains($franchiseeMenu)) {
-            $this->franchiseeMenus[] = $franchiseeMenu;
-            $franchiseeMenu->addStockDish($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFranchiseeMenu(FranchiseeMenu $franchiseeMenu): self
-    {
-        if ($this->franchiseeMenus->contains($franchiseeMenu)) {
-            $this->franchiseeMenus->removeElement($franchiseeMenu);
-            $franchiseeMenu->removeStockDish($this);
-        }
-
-        return $this;
-    }
 }

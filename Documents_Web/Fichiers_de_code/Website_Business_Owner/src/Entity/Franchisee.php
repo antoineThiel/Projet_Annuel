@@ -109,6 +109,18 @@ class Franchisee implements UserInterface
      */
     private $stockDishes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=FranchiseeMenu::class, mappedBy="franchisee")
+     */
+    private $franchiseeMenus;
+
+    /**
+     * @ORM\OneToMany(targetEntity=FranchiseeArticle::class, mappedBy="franchisee")
+     */
+    private $franchiseeArticles;
+
+
+
 
 
     public function __construct()
@@ -120,6 +132,8 @@ class Franchisee implements UserInterface
         $this->externalInvoices = new ArrayCollection();
         $this->stockProducts = new ArrayCollection();
         $this->stockDishes = new ArrayCollection();
+        $this->franchiseeMenus = new ArrayCollection();
+        $this->franchiseeArticles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -476,6 +490,66 @@ class Franchisee implements UserInterface
         return $this;
     }
 
+    /**
+     * @return Collection|FranchiseeMenu[]
+     */
+    public function getFranchiseeMenus(): Collection
+    {
+        return $this->franchiseeMenus;
+    }
 
+    public function addFranchiseeMenu(FranchiseeMenu $franchiseeMenu): self
+    {
+        if (!$this->franchiseeMenus->contains($franchiseeMenu)) {
+            $this->franchiseeMenus[] = $franchiseeMenu;
+            $franchiseeMenu->setFranchisee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFranchiseeMenu(FranchiseeMenu $franchiseeMenu): self
+    {
+        if ($this->franchiseeMenus->contains($franchiseeMenu)) {
+            $this->franchiseeMenus->removeElement($franchiseeMenu);
+            // set the owning side to null (unless already changed)
+            if ($franchiseeMenu->getFranchisee() === $this) {
+                $franchiseeMenu->setFranchisee(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FranchiseeArticle[]
+     */
+    public function getFranchiseeArticles(): Collection
+    {
+        return $this->franchiseeArticles;
+    }
+
+    public function addFranchiseeArticle(FranchiseeArticle $franchiseeArticle): self
+    {
+        if (!$this->franchiseeArticles->contains($franchiseeArticle)) {
+            $this->franchiseeArticles[] = $franchiseeArticle;
+            $franchiseeArticle->setFranchisee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFranchiseeArticle(FranchiseeArticle $franchiseeArticle): self
+    {
+        if ($this->franchiseeArticles->contains($franchiseeArticle)) {
+            $this->franchiseeArticles->removeElement($franchiseeArticle);
+            // set the owning side to null (unless already changed)
+            if ($franchiseeArticle->getFranchisee() === $this) {
+                $franchiseeArticle->setFranchisee(null);
+            }
+        }
+
+        return $this;
+    }
 
 }

@@ -1,0 +1,10 @@
+<section class="m-5">
+    <div class="row">
+        <div class="m-auto text-center p-5 border border-danger rounded bg-secondary">
+        <h3>{{'front.franchisee.block_account.temporarily_block'|front}}</h3>
+        <h3> {{'front.franchisee.block_account.declaration'|front}} {{ "now"|date_modify('-1 month')|date('M') }}.</h3>
+        <h3> {{'front.franchisee.block_account.link'|front}} :</h3>
+        <a href="{{ path('turnover_new') }}"><button class="btn btn-info">{{'front.franchisee.block_account.button_declaration'|front}}</button></a>
+        </div>
+    </div>
+</section>

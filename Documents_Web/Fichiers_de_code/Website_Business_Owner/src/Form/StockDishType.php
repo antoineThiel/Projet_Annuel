@@ -14,8 +14,6 @@ class StockDishType extends AbstractType
         $builder
             ->add('name')
             ->add('quantity')
-            ->add('franchisee')
-            ->add('franchiseeMenus')
         ;
     }
 

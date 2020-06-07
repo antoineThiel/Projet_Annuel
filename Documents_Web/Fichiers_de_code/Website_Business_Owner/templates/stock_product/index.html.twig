@@ -1,8 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_front.html.twig' %}
 
 {% block title %}StockProduct index{% endblock %}
 
-{% block body %}
+{% block content %}
     <h1>StockProduct index</h1>
 
     <table class="table">
@@ -21,10 +21,10 @@
                 <td>{{ stock_product.id }}</td>
                 <td>{{ stock_product.name }}</td>
                 <td>{{ stock_product.unit }}</td>
-                <td>{{ stock_product.qty }}</td>
+                <td>{{ stock_product.quantity }}</td>
                 <td>
-                    <a href="{{ path('stock_product_show', {'id': stock_product.id}) }}">show</a>
-                    <a href="{{ path('stock_product_edit', {'id': stock_product.id}) }}">edit</a>
+                    <a href="{{ path('stock_product_show', {'id' : franchisee.id , 'id_product': stock_product.id}) }}">show</a>
+                    <a href="{{ path('stock_product_edit', {'id' : franchisee.id , 'id_product' : stock_product.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -35,5 +35,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('stock_product_new') }}">Create new</a>
+    <a href="{{ path('stock_product_new' , {'id' : franchisee.id}) }}">Create new</a>
 {% endblock %}

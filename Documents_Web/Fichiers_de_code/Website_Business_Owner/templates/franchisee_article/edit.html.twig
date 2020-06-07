@@ -1,0 +1,18 @@
+{% extends 'base_front.html.twig' %}
+
+{% block title %}Edit FranchiseeArticle{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4">
+        <h1>Modifier {{ franchisee_article.name }}</h1>
+
+        {{ include('franchisee_article/_form.html.twig', {'button_label': 'Update'}) }}
+
+        <a href="{{ path('franchisee_menu' , {'id' : franchisee_article.id}) }}">Retour</a>
+
+        {{ include('franchisee_article/_delete_form.html.twig') }}
+    </div>
+</div>
+{% endblock %}

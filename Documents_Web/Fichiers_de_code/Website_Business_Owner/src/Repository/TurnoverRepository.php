@@ -19,6 +19,15 @@ class TurnoverRepository extends ServiceEntityRepository
         parent::__construct($registry, Turnover::class);
     }
 
+    public function findByMonth(){
+        return $this->createQueryBuilder('t')
+            ->select('SUM(t.percentAmount) as somme_percent , SUM(t.amount) as somme_amount,t.date,t.id')
+            ->groupBy('t.date')
+            ->getQuery()
+            ->getResult();
+    }
+
+
     // /**
     //  * @return Turnover[] Returns an array of Turnover objects
     //  */
