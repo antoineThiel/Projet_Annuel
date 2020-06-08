@@ -24,10 +24,11 @@ class WarehouseProductEmbeddedForm extends AbstractType
                 'class' => Product::class,
                 'query_builder' => function(ProductRepository $pr){
                     return $pr->createQueryBuilder('p')->orderBy('p.name', 'ASC');
-                }
+                },
+                'label' => 'Produit',
             ])
             ->add('quantity', IntegerType::class, [
-                'attr' => ['placeholder' => 'Quantity']
+                'attr' => ['placeholder' => 'Quantité']
             ])
         ;
     }

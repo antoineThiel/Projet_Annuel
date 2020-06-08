@@ -41,10 +41,30 @@ front:
       stocks:
         my_inventory: Mon inventaire
         my_menues: Ma carte
-        menues_title: Carte des Menus
+        menus_title: Carte des Menus
         articles: Articles
         menues: Menus
         per_unit: /unité
+        articles_only: Articles individuels
+        menus_list: Menus différents
+      8020:
+        title: Balance Approvisionement
+        total_purchases: Votre total d'achat chez nous depuis le
+        is_of: est de
+        noorders_since: Vous n'avez pas fait d'achats depuis le
+        ru_okay: Tout va bien?
+        remedy: Remédiez-y
+        here: ici
+        total_external: Vous avez renseigné
+        outside: de dépenses en dehors de nos entrepôts
+        equals: Soit
+        comparedto_maximum: du maximum de
+        autorised: autorisé
+        left_autorised: Il vous reste
+        comparedto_maximumexternal: au maximum a dépenser dans d'autres sources d'approvisionnement
+        spent_tomuch: Vous avez dépassé de
+        spent_tomuchafter: les quotas du contrat ! Veillez à corriger cela
+        new_externalinvoice: Déposer une facture externe
   truck_complaint:
     title: Formulaire de plainte
   header:
@@ -91,3 +111,13 @@ front:
       move: se déplacer
       jump: sauter
       look: vision
+  stocks:
+      detail: Détail des Stocks
+      modify: Modifier
+      total_before: Total de
+      products:
+          title: Produits
+          total_after: produits différents
+      plates:
+          title: Plats
+          total_after: plats différents

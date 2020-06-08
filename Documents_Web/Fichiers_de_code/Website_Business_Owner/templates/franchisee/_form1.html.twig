@@ -1,6 +1,6 @@
 {{ form_start(form) }}
 {{ form_row(form.truck) }}
-<div class="d-none">
+<div class="d-none">{# c'est la classe qui cache tout mais c'est mieux si y'a rien :DDDDDD#}
     {{ form_row(form.firstName) }}
     {{ form_row(form.lastName) }}
     {{ form_row(form.mail) }}
@@ -9,7 +9,7 @@
     {{ form_row(form.address) }}
     {{ form_row(form.license) }}
     {{ form_row(form.phone) }}
-    {{ form_row(form.password) }}
+{#    {{ form_row(form.password) }}#}
 </div>
-<button class="btn">{{ button_label|default('Save') }}</button>
+<button class="btn btn-info mb-3">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}

@@ -225,28 +225,28 @@
                 <div class="col-sm-3">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <strong>Balance Approvisionnement</strong>
+                            <strong>{{ 'front.franchisee.8020.title' | trans}}</strong>
                         </div>
                         <div class="card-body">
                             {% if balance.totalFromInvoices > 0 %}
-                                <p>Votre total d'achat chez nous depuis le {{ balance.dateLastMonth |date('d/m/Y') }} est de <strong>{{ balance.totalFromInvoices }}€</strong></p>
+                                <p>{{ 'front.franchisee.8020.total_purchases' |trans}} {{ balance.dateLastMonth |date('d/m/Y') }} {{ 'front.franchisee.8020.is_of' | trans}} <strong>{{ balance.totalFromInvoices }}€</strong></p>
                             {% else %}
-                                <p>Vous n'avez pas fait d'achats depuis le {{ balance.dateLastMonth |date('d/m/Y') }}... Tout va bien? </p>
-                                <p>Remédiez-y <a href="{{ path('order_new_warehouse') }}">ici</a> !</p>
+                                <p>{{ 'front.franchisee.8020.noorders_since' | trans}} {{ balance.dateLastMonth |date('d/m/Y') }}... {{ 'front.franchisee.8020.ru_okay' | trans}} </p>
+                                <p>{{ 'front.franchisee.8020.remedy' | trans}} <a href="{{ path('order_new_warehouse') }}">{{ 'front.franchisee.8020.here' | trans}}</a> !</p>
                             {% endif %}
                             {%  if balance.leftToSpendOutside > 0  %}
 
                                 {% set percentage = balance.totalFromExternal/(balance.totalFromExternal+balance.leftToSpendOutside)*100%}
 
-                                <p>Vous avez renseigné <strong>{{ balance.totalFromExternal }}€</strong> de dépenses en dehors de nos entrepôts<br>
-                                    Soit <strong>{{ percentage | format_number({fraction_digit: 2}) }}%</strong> du maximum de <strong>{{ balance.leftToSpendOutside + balance.totalFromExternal }}€</strong> autorisé
+                                <p>{{ 'front.franchisee.8020.total_external' | trans}} <strong>{{ balance.totalFromExternal }}€</strong> {{ 'front.franchisee.8020.outside' | trans}}<br>
+                                    {{ 'front.franchisee.8020.equals' | trans}} <strong>{{ percentage | format_number({fraction_digit: 2}) }}%</strong> {{ 'front.franchisee.8020.comparedto_maximum' | trans}} <strong>{{ balance.leftToSpendOutside + balance.totalFromExternal }}€</strong> {{ 'front.franchisee.8020.autorised' | trans}}
                                 </p>
-                                <p>Il vous reste <strong>{{ balance.leftToSpendOutside }}€</strong> au maximum a dépenser dans d'autres sources d'approvisionnement</p>
+                                <p>{{ 'front.franchisee.8020.left_autorised' | trans}} <strong>{{ balance.leftToSpendOutside }}€</strong> {{ 'front.franchisee.8020.comparedto_maximumexternal' | trans}}</p>
                             {% elseif balance.leftToSpendOutside < 0 %}
-                                <p>Vous avez dépassé de {{ -1*balance.leftToSpendOutside }}€ les quotas du contrat ! Veillez à corriger cela</p>
+                                <p>{{ 'front.franchisee.8020.spent_tomuch' | trans}} {{ -1*balance.leftToSpendOutside }}€ {{ 'front.franchisee.8020.spent_tomuchafter' | trans}}</p>
                             {% endif %}
 
-                            <a href="{{ path('external_invoice_new') }}">Déposer une facture externe</a>
+                            <a href="{{ path('external_invoice_new') }}">{{ 'front.franchisee.8020.new_externalinvoice' | trans}}</a>
                         </div>
                     </div>
                 </div>

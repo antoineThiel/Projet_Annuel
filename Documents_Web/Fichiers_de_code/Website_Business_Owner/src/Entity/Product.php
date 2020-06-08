@@ -19,9 +19,9 @@ class Product implements Translatable
     const UNIT = [
         'grammes' => 'g',
         'kilogrammes' => 'kg',
+        'mililitres' => 'ml',
         'centilitres' => 'cl',
-        'litres' => 'L',
-        'unité' => 'u'
+        'litres' => 'L'
     ];
 
 

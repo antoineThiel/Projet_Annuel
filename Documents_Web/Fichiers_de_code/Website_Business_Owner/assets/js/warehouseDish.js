@@ -3,7 +3,7 @@ var $ = require('jquery');
 // this variable is the list in the dom, it's initiliazed when the document is ready
 var $collectionHolder;
 // the link which we click on to add new items
-var $addNewItem = $('<a href="#" class="btn btn-info">Add new Dish</a>');
+var $addNewItem = $('<a href="#" class="btn btn-info">Nouveau Plat</a>');
 // when the page is loaded and ready
 $(document).ready(function () {
     // get the collectionHolder, initilize the var by getting the list;
@@ -64,7 +64,7 @@ function addRemoveButton ($panel) {
     // create remove button
     var $removeButton = $('' +
         '<div class="col-sm-1"></div>' +
-        '<a href="#" class="btn btn-danger col-sm-2">Remove</a>' +
+        '<a href="#" class="btn btn-danger col-sm-2">Supprimer</a>' +
         '<div class="col-sm-1"></div>');
     // handle the click event of the remove button
     $removeButton.click(function (e) {

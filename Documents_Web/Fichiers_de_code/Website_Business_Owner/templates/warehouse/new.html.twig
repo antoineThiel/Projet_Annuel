@@ -1,4 +1,4 @@
-k{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 {% block content %}
 <div class="content-wrapper">
     <div class="content-header">
@@ -20,6 +20,10 @@ k{% extends 'base.html.twig' %}
     <!-- Main content -->
     <section class="content">
     {{ include('warehouse/_form.html.twig') }}
+        <div class="row">
+            <a href="{{ path('warehouse_index') }}"><button class="btn btn-info ml-3 mr-1">Retour</button></a>
+        </div>
     </section>
 </div>
 {% endblock %}
+{% block javascripts %} <script>$("legend").hide()</script>{% endblock %}
