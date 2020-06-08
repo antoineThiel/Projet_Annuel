@@ -75,6 +75,7 @@ class TestController extends AbstractController
         if ($franchi != null)
         {
             foreach ($franchi as $franchis) {
+                $response[$i]['id'] = $franchis->getId();
                 $response[$i]['lastname'] = $franchis->getLastName();
                 $response[$i]['firstname'] = $franchis->getFirstName();
                 if($franchis->getTruck() != null) {
@@ -115,16 +116,16 @@ class TestController extends AbstractController
                 $response['firstname'] = $franchi->getFirstName();
                 $menus = $franchi->getFranchiseeMenus();
                 foreach ($menus as $menu) {
-                    $response['menu '.$i]['name'] = $menu->getName();
-                    $response['menu '.$i]['price'] = $menu->getPrice();
+                    $response['menu'][$i]['name'] = $menu->getName();
+                    $response['menu'][$i]['price'] = $menu->getPrice();
                     $i++;
                 }
                 $articles = $franchi->getFranchiseeArticles();
                 foreach ($articles as $article){
-                    $response['article '. $j]['name'] = $article->getName();
-                    $response['article '. $j]['price'] = $article->getPrice();
-                    $response['article '. $j]['unit'] = $article->getUnit();
-                    $response['article '. $j]['quantity'] = $article->getQuantity();
+                    $response['article'][$j]['name'] = $article->getName();
+                    $response['article'][$j]['price'] = $article->getPrice();
+                    $response['article'][$j]['unit'] = $article->getUnit();
+                    $response['article'][$j]['quantity'] = $article->getQuantity();
 
                     $j++;
                 }
