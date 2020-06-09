@@ -7,8 +7,10 @@ use App\Entity\Franchisee;
 use App\Entity\FranchiseeMenu;
 use App\Repository\CustomerOrderRepository;
 use App\Repository\CustomerRepository;
+use App\Repository\FranchiseeArticleRepository;
 use App\Repository\FranchiseeMenuRepository;
 use App\Repository\FranchiseeRepository;
+use App\Repository\MenuToArticleRepository;
 use App\Repository\TruckPositionRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -108,24 +110,23 @@ class TestController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $franchisee = $entityManager->getRepository('App\Entity\Franchisee');
         $franchi = $franchisee->find($request->get('id'));
+        $menus = $franchi->getFranchiseeMenus();
         $i = 0;
         $j = 0;
-        if ($franchi != null) {
+        if ($franchi != null && $menus != null) {
                 $response['lastname'] = $franchi->getLastName();
                 $response['firstname'] = $franchi->getFirstName();
-                $menus = $franchi->getFranchiseeMenus();
                 foreach ($menus as $menu) {
-                    $response['menu '.$i]['name'] = $menu->getName();
-                    $response['menu '.$i]['price'] = $menu->getPrice();
+                    $response['menu'][$i]['name'] = $menu->getName();
+                    $response['menu'][$i]['price'] = $menu->getPrice();
                     $i++;
                 }
                 $articles = $franchi->getFranchiseeArticles();
                 foreach ($articles as $article){
-                    $response['article '. $j]['name'] = $article->getName();
-                    $response['article '. $j]['price'] = $article->getPrice();
-                    $response['article '. $j]['unit'] = $article->getUnit();
-                    $response['article '. $j]['quantity'] = $article->getQuantity();
-
+                    $response['article'][$j]['name'] = $article->getName();
+                    $response['article'][$j]['price'] = $article->getPrice();
+                    $response['article'][$j]['unit'] = $article->getUnit();
+                    $response['article'][$j]['quantity'] = $article->getQuantity();
                     $j++;
                 }
         }else{
@@ -135,6 +136,35 @@ class TestController extends AbstractController
         $serializedResponse = $serializer->serialize($response, 'json');
         return new JsonResponse($serializedResponse, 200, [], true);
     }
+
+    /**
+     * @Route("/getmenu/{id}", name="getmenu", methods={"GET"})
+     */
+    public function getMenu(MenuToArticleRepository $menuToArticleRepository , FranchiseeMenuRepository $franchiseeMenuRepository, FranchiseeArticleRepository $franchiseeArticleRepository, SerializerInterface $serializer,Request $request ){
+        $em = $this->getDoctrine()->getManager();
+        $customerOrderRepository = $em->getRepository('App\Entity\MenuToArticle');
+        $menus = $customerOrderRepository->findBy(['franchiseeMenu' => $request->get('id')]);
+        $i = 0;
+        if($menus != null){
+                $menuinfo = $menus[$i]->getFranchiseeMenu();
+                $response['nom'] = $menuinfo->getName();
+                $response['price'] = $menuinfo->getPrice();
+                foreach ($menus as $menu) {
+                    $articleinfo = $menu->getFranchiseeArticle();
+                    $response['article'][$i]['nom'] = $articleinfo->getName();
+                    $response['article'][$i]['price'] = $articleinfo->getPrice();
+                    $response['article'][$i]['unit'] = $articleinfo->getUnit();
+                    $response['article'][$i]['quantity'] = $articleinfo->getQuantity();
+                    $i++;
+                }
+        }else{
+            $response = [];
+        }
+
+        $serializedResponse = $serializer->serialize($response, 'json');
+        return new JsonResponse($serializedResponse, 200, [], true);
+    }
+
     /**
      * @Route("/getcustomerinfo/{id}", name="customerinfo", methods={"GET"})
      */
@@ -158,7 +188,6 @@ class TestController extends AbstractController
 
         $serializedResponse = $serializer->serialize($response, 'json');
         return new JsonResponse($serializedResponse, 200, [], true);
-
     }
 
     /**
@@ -170,16 +199,18 @@ class TestController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $customerOrderRepository = $em->getRepository('App\Entity\CustomerOrder');
         $orders = $customerOrderRepository->findBy(['customer' => $request->get('id')]);
-
+        $i =0;
         if ($orders != null)
         {
-            foreach ($orders as $order)
-            $response[$order->getId()]['date'] = $order->getDate();
-            $response[$order->getId()]['ammount'] = $order->getAmmount();
-            $response[$order->getId()]['invoice'] = $order->getInvoice();
-            $menus = $order->getMenues();
-            foreach($menus as $menu) {
-                $response[$order->getId()]['menu'] = $menu->getName();
+            foreach ($orders as $order) {
+                $response['order'][$i]['date'] = $order->getDate();
+                $response['order'][$i]['ammount'] = $order->getAmmount();
+                $response['order'][$i]['invoice'] = $order->getInvoice();
+                $menus = $order->getMenues();
+                foreach ($menus as $menu) {
+                    $response['order'][$i]['menu'] = $menu->getName();
+                    //TODO A finir 
+                }
             }
         }else{
             $response = [];
