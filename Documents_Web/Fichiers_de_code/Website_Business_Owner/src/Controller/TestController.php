@@ -77,6 +77,7 @@ class TestController extends AbstractController
         if ($franchi != null)
         {
             foreach ($franchi as $franchis) {
+                $response[$i]['id'] = $franchis->getId();
                 $response[$i]['lastname'] = $franchis->getLastName();
                 $response[$i]['firstname'] = $franchis->getFirstName();
                 if($franchis->getTruck() != null) {
@@ -116,6 +117,7 @@ class TestController extends AbstractController
         if ($franchi != null && $menus != null) {
                 $response['lastname'] = $franchi->getLastName();
                 $response['firstname'] = $franchi->getFirstName();
+                $menus = $franchi->getFranchiseeMenus();
                 foreach ($menus as $menu) {
                     $response['menu'][$i]['name'] = $menu->getName();
                     $response['menu'][$i]['price'] = $menu->getPrice();
@@ -127,6 +129,7 @@ class TestController extends AbstractController
                     $response['article'][$j]['price'] = $article->getPrice();
                     $response['article'][$j]['unit'] = $article->getUnit();
                     $response['article'][$j]['quantity'] = $article->getQuantity();
+
                     $j++;
                 }
         }else{
@@ -188,6 +191,7 @@ class TestController extends AbstractController
 
         $serializedResponse = $serializer->serialize($response, 'json');
         return new JsonResponse($serializedResponse, 200, [], true);
+
     }
 
     /**
@@ -209,7 +213,7 @@ class TestController extends AbstractController
                 $menus = $order->getMenues();
                 foreach ($menus as $menu) {
                     $response['order'][$i]['menu'] = $menu->getName();
-                    //TODO A finir 
+                    //TODO A finir
                 }
             }
         }else{
