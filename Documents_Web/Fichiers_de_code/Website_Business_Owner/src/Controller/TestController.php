@@ -169,6 +169,28 @@ class TestController extends AbstractController
     }
 
     /**
+     * @Route("/getarticle/{id}", name="getarticle", methods={"GET"})
+     */
+    public function getArticle(FranchiseeArticleRepository $franchiseeArticleRepository, SerializerInterface $serializer, Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('App\Entity\FranchiseeArticle');
+        $article = $repository->find($request->get('id'));
+
+        if($article != null){
+            $response['nom'] = $article->getName();
+            $response['price'] = $article->getPrice();
+            $response['unit'] = $article->getUnit();
+            $response['quantity'] = $article->getQuantity();
+        }else{
+            $response = [];
+        }
+
+        $serializedResponse = $serializer->serialize($response, 'json');
+        return new JsonResponse($serializedResponse, 200, [], true);
+
+    }
+
+    /**
      * @Route("/getcustomerinfo/{id}", name="customerinfo", methods={"GET"})
      */
     public function getCustomerInfo(CustomerRepository $customerRepository,SerializerInterface $serializer,Request $request)
