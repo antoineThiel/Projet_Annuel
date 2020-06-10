@@ -6,6 +6,7 @@ use App\Entity\FranchiseeMenu;
 use App\Form\FranchiseeMenuType;
 use App\Repository\FranchiseeArticleRepository;
 use App\Repository\FranchiseeMenuRepository;
+use App\Repository\MenuToArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -90,30 +91,36 @@ class FranchiseeMenuController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('franchisee_menu_index');
+            return $this->redirectToRoute('franchisee_menu' , ['id' => $this->getUser()->getId()]);
         }
 
         return $this->render('franchisee_menu/edit.html.twig', [
-            'franchisee_menu' => $franchiseeMenu,
+            'menu' => $franchiseeMenu,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="franchisee_menu_delete", methods={"DELETE"})
+     * @Route("/{id}/del", name="franchisee_menu_delete", methods={"GET","DELETE"})
      * @param Request $request
      * @param FranchiseeMenu $franchiseeMenu
      * @return Response
      */
-    public function delete(Request $request, FranchiseeMenu $franchiseeMenu): Response
+    public function delete(Request $request, FranchiseeMenu $franchiseeMenu , MenuToArticleRepository $menuToArticleRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$franchiseeMenu->getId(), $request->request->get('_token'))) {
+
             $entityManager = $this->getDoctrine()->getManager();
+
+            foreach ($franchiseeMenu->getMenuToArticles() as $article){
+                $entityManager->remove($article);
+                $entityManager->flush();
+            }
             $entityManager->remove($franchiseeMenu);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('franchisee_menu_index');
+        return $this->redirectToRoute('franchisee_menu' , ['id' => $this->getUser()->getId()]);
     }
 
     /**

@@ -1,5 +1,5 @@
-<form method="post" action="{{ path('franchisee_menu_delete', {'id': franchisee_menu.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('franchisee_menu_delete', {'id': menu.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
     <input type="hidden" name="_method" value="DELETE">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ franchisee_menu.id) }}">
-    <button class="btn">Delete</button>
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ menu.id) }}">
+    <button class="btn btn-danger btn-sm">{{ 'front.franchisee.buttons.delete'| trans }}</button>
 </form>

@@ -126,13 +126,14 @@ class FranchiseeArticleController extends AbstractController
      */
     public function delete(Request $request, FranchiseeArticle $article): Response
     {
+        return $this->redirectToRoute('franchisee_menu' , ['id' => $this->getUser()->getId() , 'error' => true]);
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($article);
             $entityManager->flush();
+            return $this->redirectToRoute('franchisee_menu' , ['id' => $this->getUser()->getId()]);
         }
 
-        return $this->redirectToRoute('franchisee_menu' , ['id' => $this->getUser()->getId()]);
     }
 
     /**

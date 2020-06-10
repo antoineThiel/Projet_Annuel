@@ -32,10 +32,10 @@
     <!-- Main content -->
     {% if app.request.attributes.get('_route') == 'franchisee_edit_by_franchisee' %}
         <section>
-        {{ include('franchisee/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('franchisee/_form.html.twig', {'button_label': 'Enregistrer'}) }}
     {% else %}
         <section class="content">
-            {{ include('franchisee/_form1.html.twig', {'button_label': 'Update'}) }}
+            {{ include('franchisee/_form1.html.twig', {'button_label': 'Enregistrer'}) }}
             <a href="{{ path('franchisee_index') }}"><button class="btn btn-info">Retour</button></a>
     {% endif %}
         </section>
