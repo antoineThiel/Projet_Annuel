@@ -12,6 +12,7 @@ use App\Repository\FranchiseeMenuRepository;
 use App\Repository\FranchiseeRepository;
 use App\Repository\MenuToArticleRepository;
 use App\Repository\TruckPositionRepository;
+use Mpdf\Tag\S;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -232,11 +233,7 @@ class TestController extends AbstractController
                 $response['order'][$i]['date'] = $order->getDate();
                 $response['order'][$i]['ammount'] = $order->getAmmount();
                 $response['order'][$i]['invoice'] = $order->getInvoice();
-                $menus = $order->getMenues();
-                foreach ($menus as $menu) {
-                    $response['order'][$i]['menu'] = $menu->getName();
-                    //TODO A finir
-                }
+                $i++;
             }
         }else{
             $response = [];
@@ -246,4 +243,44 @@ class TestController extends AbstractController
         return new JsonResponse($serializedResponse, 200, [], true);
     }
 
+    /**
+     * @Route("/getorderinfo/{id}", name="orderinfo", methods={"GET"})
+     */
+    public function getOrderInfo(CustomerOrderRepository $customerOrderRepository, SerializerInterface $serializer, Request$request){
+        $em = $this->getDoctrine()->getManager();
+        $customerOrderRepository = $em->getRepository('App\Entity\CustomerOrder');
+        $orderinfos = $customerOrderRepository->find($request->get('id'));
+        $i = 0;
+        
+        if ($orderinfos != null)
+        {
+                $response['id'] = $orderinfos->getId();
+                $response['invoice'] = $orderinfos->getInvoice();
+                $menus = $orderinfos->getMenues();
+                if($menus != null) {
+                    foreach ($menus as $menu) {
+                        $response['menu'][$i]['nom'] = $menu->getName();
+                        $response['menu'][$i]['price'] = $menu->getPrice();
+                        $i++;
+                    }
+                }
+                $articles = $orderinfos->getArticles();
+                if($articles != null) {
+                    foreach ($articles as $article) {
+                        $response['article'][$i]['nom'] = $article->getName();
+                        $response['article'][$i]['price'] = $article->getPrice();
+                        $response['article'][$i]['unit'] = $article->getUnit();
+                        $response['article'][$i]['quantity'] = $article->getQuantity();
+
+                        $i++;
+                    }
+                }
+        }else{
+            $response = [];
+        }
+
+        $serializedResponse = $serializer->serialize($response, 'json');
+        return new JsonResponse($serializedResponse, 200, [], true);
+
+    }
 }
