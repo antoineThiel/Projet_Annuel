@@ -55,6 +55,7 @@
                             <div class="collapse" id="collapse{{ menu.id }}">
                                 <div class="card card-body">
                                     {%  if menuContents[menu.id]['Articles'] != [] %}
+                                        <p class="card-subtitle card-dark">x{{ menu.stock }} {{ 'front.franchisee.stocks.in_stock' |trans }}</p>
                                         <p class="card-subtitle">Articles</p>
                                         {% for article in menuContents[menu.id]['Articles'] %}
                                             <p class="card-text">{{ article.franchiseeArticle.name }}  x{{ article.quantity }}</p>
@@ -62,6 +63,9 @@
                                     {% else %}
                                         <p class="card-text">Pas d'articles</p>
                                     {% endif %}
+                                    {%  include('franchisee_menu/_delete_form.html.twig') %}
+                                    <a href="{{ path('franchisee_menu_edit' , {id : menu.id}) }}"><button class="btn btn-primary btn-sm app-color-match"> {{ 'front.franchisee.buttons.update'| trans }} </button></a>
+
                                 </div>
                             </div>
                         {%  endfor %}
@@ -72,12 +76,13 @@
             <div class="col-sm-1"></div>
         </div>
     </section>
-    <div id="myDialog"></div>
+    <div id="myDialog">{% if app.request.get('error') == true %}{% include('franchisee_menu/create_error.html.twig') %} {% endif %}</div>
 {% endblock %}
 
 {% block javascripts %}
 
     <script>
+        $(".modal").modal('show');
         const routeStocks = "{{ path('franchisee_article_edit_stock') }}";
         const $myDialog = $('#myDialog');
         const routeMenus = "{{ path('franchisee_modifyMenuQty') }}";

@@ -39,6 +39,7 @@ front:
       alreadyHighestRank: Vous êtes au plus haut pallier !
       noTurnover: Vous n'avez pas encore fait de déclaration
       stocks:
+        in_stock: En stock
         my_inventory: Mon inventaire
         my_menues: Ma carte
         menus_title: Carte des Menus
@@ -65,6 +66,14 @@ front:
         spent_tomuch: Vous avez dépassé de
         spent_tomuchafter: les quotas du contrat ! Veillez à corriger cela
         new_externalinvoice: Déposer une facture externe
+      buttons:
+        update: Modifier
+        delete: Supprimer
+        back: Retour à la liste
+      modals:
+        error_title: Erreur de Stocks
+        error_body: Action Impossible
+        error_button: Compris
   truck_complaint:
     title: Formulaire de plainte
   header:

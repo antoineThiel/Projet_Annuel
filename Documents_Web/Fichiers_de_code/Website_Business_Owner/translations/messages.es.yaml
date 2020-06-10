@@ -39,6 +39,7 @@ front:
     alreadyHighestRank: Usted es en el nivel más alto!
     noTurnover: Aún no has hecho una declaración
     stocks:
+      in_stock: En stock
       my_inventory: Mi inventario
       my_menues: Mi tarjeta
       menus_title: Tarjeta de menú
@@ -65,6 +66,14 @@ front:
       spent_tomuch: Te has excedido
       spent_tomuchafter: cuotas de contrato! Asegúrese de corregir esto
       new_externalinvoice: Archivar una factura externa
+    buttons:
+      update: Actualizar
+      delete: Borrar
+      back: Volver a la lista
+    modals:
+      error_title: Stocks Problema
+      error_body: acción imposible
+      error_button: Entendido
   header:
     my_account: Mi cuenta
     login: Iniciar sesión

@@ -39,6 +39,7 @@ front:
     alreadyHighestRank: You have already reached the highest rank !
     noTurnover: No declaration registered yet
     stocks:
+      in_stock: In stock
       my_inventory: My inventory
       my_menues: My Menus
       menus_title: Menu card
@@ -65,6 +66,14 @@ front:
       spent_tomuch: you exceeded by
       spent_tomuchafter: contract quotas ! Please fix this
       new_externalinvoice: Inquire a new external invoice
+    buttons:
+      update: Update
+      delete: Delete
+      back: Back to list
+    modals:
+      error_title: Stocks Error
+      error_body: Forbiden Action
+      error_button: Ok
   truck_complaint:
     title: Complaint form
   header:
