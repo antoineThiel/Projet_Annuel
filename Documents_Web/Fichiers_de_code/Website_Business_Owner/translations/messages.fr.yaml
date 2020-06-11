@@ -48,6 +48,8 @@ front:
         per_unit: /unité
         articles_only: Articles individuels
         menus_list: Menus différents
+        no_articles: Pas d'articles
+        no_menus: Pas encore de Menus
       8020:
         title: Balance Approvisionement
         total_purchases: Votre total d'achat chez nous depuis le
@@ -69,6 +71,7 @@ front:
       buttons:
         update: Modifier
         delete: Supprimer
+        new: Nouveau
         back: Retour à la liste
       modals:
         error_title: Erreur de Stocks

@@ -47,7 +47,9 @@ front:
       menues: Menus
       per_unit: /unit
       articles_only: Articles individuels
-      menus_list: Menus différents
+      menus_list: different Menus
+      no_articles: No articles
+      no_menus: No menus yet
     8020:
       title: Supply Balance
       total_purchases: Your total purchase since
@@ -69,6 +71,7 @@ front:
     buttons:
       update: Update
       delete: Delete
+      new: New
       back: Back to list
     modals:
       error_title: Stocks Error

@@ -46,8 +46,10 @@ front:
       articles: Artículos
       menues: Menus
       per_unit: /unidad
-      articles_only: Articles individuels
+      articles_only: Articulos individuales
       menus_list: Menus différents
+      no_articles: No articulos
+      no_menus: No tienes menus
     8020:
       title: Balance de suministro
       total_purchases: Su compra total de nosotros desde el
@@ -69,6 +71,7 @@ front:
     buttons:
       update: Actualizar
       delete: Borrar
+      new: Nuevo
       back: Volver a la lista
     modals:
       error_title: Stocks Problema
