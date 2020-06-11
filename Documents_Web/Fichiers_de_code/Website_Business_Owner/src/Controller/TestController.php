@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Entity\CustomerOrder;
 use App\Entity\Franchisee;
 use App\Entity\FranchiseeMenu;
 use App\Repository\CustomerOrderRepository;
@@ -12,11 +13,13 @@ use App\Repository\FranchiseeMenuRepository;
 use App\Repository\FranchiseeRepository;
 use App\Repository\MenuToArticleRepository;
 use App\Repository\TruckPositionRepository;
+use Mpdf\Tag\S;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Constraints\Json;
 
 class TestController extends AbstractController
 {
@@ -119,12 +122,14 @@ class TestController extends AbstractController
                 $response['firstname'] = $franchi->getFirstName();
                 $menus = $franchi->getFranchiseeMenus();
                 foreach ($menus as $menu) {
+                    $response['menu'][$i]['id'] = $menu->getId();
                     $response['menu'][$i]['name'] = $menu->getName();
                     $response['menu'][$i]['price'] = $menu->getPrice();
                     $i++;
                 }
                 $articles = $franchi->getFranchiseeArticles();
                 foreach ($articles as $article){
+                    $response['article'][$j]['id'] = $article->getId();
                     $response['article'][$j]['name'] = $article->getName();
                     $response['article'][$j]['price'] = $article->getPrice();
                     $response['article'][$j]['unit'] = $article->getUnit();
@@ -246,4 +251,46 @@ class TestController extends AbstractController
         return new JsonResponse($serializedResponse, 200, [], true);
     }
 
+    /**
+     * @Route("/addCart", name="addcart", methods={"POST"})
+     */
+    public function addCart(Request $request, SerializerInterface $serializer) : JsonResponse
+    {
+        $decoded = json_decode($request->getContent(), true);
+
+        $em = $this->getDoctrine()->getManager();
+        $orderRep = $em->getRepository('App\Entity\CustomerOrder');
+        $articleRepository = $em->getRepository('App\Entity\FranchiseeArticle');
+        $article = $articleRepository->findOneBy(['id' => $decoded['pid']]);
+        $order = $orderRep->findOneBy(['id' => $decoded['oid']]);
+        $order->addArticle($article);
+
+
+        $response = $serializer->serialize($data, 'json');
+        return new JsonResponse($response, 200, [], true);
+    }
+
+    /**
+     * @Route("/newOrder/{id}", name="newOrder", methods={"GET"})
+     */
+    public function newOrder(Request $request, SerializerInterface $serializer) : JsonResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        $customerRep = $em->getRepository('App\Entity\Customer');
+        $idCustomer = $request->get("id");
+        $customer = $customerRep->findOneBy(['id' => $idCustomer]);
+        $order = new CustomerOrder();
+        $order->setCustomer($customer);
+        $order->setDate(new \DateTime('now'));
+        $order->setAmmount(0);
+
+        $em->persist($order);
+        $em->flush();
+
+        $response['id'] = $order->getId();
+        $response = $serializer->serialize($response, 'json');
+
+        return new JsonResponse($response, 200, [], true);
+
+    }
 }

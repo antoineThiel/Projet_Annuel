@@ -30,11 +30,6 @@ class CustomerOrder
     private $ammount;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $invoice;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Customer::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
