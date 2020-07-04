@@ -20,6 +20,9 @@ front:
     check: Ver
     order: Ordene
     truck_pb: ¿Problemas con tu camión?
+    truck_pb_name: Appelido
+    truck_pb_date: Con fecha de
+    truck_pb_statut: Estado
     position: Danos tu nuevo puesto
     month: Su cifra mensual
     anything_else: Dinos lo que quieres

@@ -20,6 +20,9 @@ front:
     check: Check
     order: Place an order
     truck_pb: Problem with your truck ?
+    truck_pb_name: Name
+    truck_pb_date: Date
+    truck_pb_statut: Status
     position: Give us your new position
     month: Tell us about your month
     anything_else: Tell us anything else

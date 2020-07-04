@@ -20,6 +20,9 @@ front:
       check: Voir
       order: Commander
       truck_pb: Problème avec votre camion ?
+      truck_pb_name: Nom
+      truck_pb_date: Date
+      truck_pb_statut: Statut
       position: Donnez nous votre nouvelle position
       month: Votre chiffre mensuel
       anything_else: Dites nous ce que vous voulez
