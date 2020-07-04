@@ -17,10 +17,6 @@ class Customer
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $login;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -42,32 +38,14 @@ class Customer
      */
     private $mail;
 
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $birthdate;
-
-    /**
-     * @ORM\Column(type="string", length=10, nullable=true)
-     */
-    private $phone;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getLogin(): ?string
-    {
-        return $this->login;
-    }
 
-    public function setLogin(string $login): self
-    {
-        $this->login = $login;
 
-        return $this;
-    }
 
     public function getPassword(): ?string
     {
@@ -117,27 +95,4 @@ class Customer
         return $this;
     }
 
-    public function getBirthdate(): ?\DateTimeInterface
-    {
-        return $this->birthdate;
-    }
-
-    public function setBirthdate(?\DateTimeInterface $birthdate): self
-    {
-        $this->birthdate = $birthdate;
-
-        return $this;
-    }
-
-    public function getPhone(): ?string
-    {
-        return $this->phone;
-    }
-
-    public function setPhone(?string $phone): self
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
 }
