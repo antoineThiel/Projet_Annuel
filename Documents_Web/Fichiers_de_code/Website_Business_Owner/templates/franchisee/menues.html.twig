@@ -3,7 +3,7 @@
 
     <section>
 
-        <h4 class="mx-sm-auto" style="width: 200px">Carte des Menus</h4>
+        <h4 class="mx-sm-auto" style="width: 200px">{{ 'front.franchisee.stocks.menus_title' | trans }}</h4>
 
 
         <div class="row">
@@ -11,21 +11,21 @@
             <div class="col-sm-5">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h3 class="card-title"><strong>Articles individuels</strong></h3>
+                        <h3 class="card-title"><strong>{{ 'front.franchisee.stocks.articles_only' | trans }}</strong></h3>
                     </div>
                     <div class="card-body">
                         {% if franchisee_articles|length > 0 %}
-                        <h6 class="card-subtitle"><strong>Total de {{ franchisee_articles|length }} Articles individuels</strong></h6>
+                        <h6 class="card-subtitle"><strong>{{ 'front.stocks.total_before' | trans }} {{ franchisee_articles|length }} {{ 'front.franchisee.stocks.articles_only' | trans }}</strong></h6>
                         {% endif %}
                         {% for article in franchisee_articles %}
                             <p>
-                                <em>{{ article.stock }}</em> {{ article.name }} | {{ article.quantity }} {{ article.unit }} /unité   {{ article.price |number_format(2) }}€ <a href="{{ path('franchisee_article_edit', { article : article.id}) }}">Modifier</a>
+                                <em>{{ article.stock }}</em> {{ article.name }} | {{ article.quantity }} {{ article.unit }} {{ 'front.franchisee.stocks.per_unit' | trans }}   {{ article.price |number_format(2) }}€ <a href="{{ path('franchisee_article_edit', { article : article.id}) }}">{{ 'front.stocks.modify' | trans }}</a>
                                 <button type="button" class="btn app-color-match stockAdd" nb="{{ article.id }}" ><span class="ui-icon ui-icon-plusthick"></span></button>
                                 <button type="button" class="btn app-color-match stockReduce" nb="{{ article.id }}" ><span class="ui-icon ui-icon-minusthick"></span></button>
                             </p>
                         {% endfor %}
                         <br><br>
-                        <a href="{{ path('franchisee_article_create' , {'id' : franchisee.id}) }}" class="btn btn-primary app-color-match">Nouveau</a>
+                        <a href="{{ path('franchisee_article_create' , {'id' : franchisee.id}) }}" class="btn btn-primary app-color-match">{{ 'front.franchisee.new' | trans }}</a>
                     </div>
                 </div>
             </div>
@@ -34,13 +34,14 @@
             <div class="col-sm-4">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h3 class="card-title"><strong>Menus</strong></h3>
+                        <h3 class="card-title"><strong>{{ 'front.franchisee.stocks.menues' | trans }}</strong></h3>
                     </div>
                     <div class="card-body">
                         {% if franchisee_menues|length > 0 %}
-                            <h6 class="card-subtitle"><strong>Total de {{ franchisee_menues|length }} Menus différents</strong></h6>
+                            <h6 class="card-subtitle"><strong>{{ 'front.stocks.total_before'|trans }}{{ franchisee_menues|length }}
+                                {{ 'front.franchisee.stocks.menus_list'| trans }}</strong></h6>
                         {% else %}
-                            <h6 class="card-subtitle"><strong> Pas encore de Menus</strong></h6>
+                            <h6 class="card-subtitle"><strong> {{ 'front.franchisee.stocks.no_menues'|trans }}</strong></h6>
                         {% endif %}
 
                         {%  for menu in franchisee_menues %}
@@ -55,29 +56,34 @@
                             <div class="collapse" id="collapse{{ menu.id }}">
                                 <div class="card card-body">
                                     {%  if menuContents[menu.id]['Articles'] != [] %}
-                                        <p class="card-subtitle">Articles</p>
+                                        <p class="card-subtitle card-dark">x{{ menu.stock }} {{ 'front.franchisee.stocks.in_stock' |trans }}</p>
+                                        <p class="card-subtitle">{{ 'front.franchisee.stocks.articles'|trans }}</p>
                                         {% for article in menuContents[menu.id]['Articles'] %}
                                             <p class="card-text">{{ article.franchiseeArticle.name }}  x{{ article.quantity }}</p>
                                         {% endfor %}
                                     {% else %}
-                                        <p class="card-text">Pas d'articles</p>
+                                        <p class="card-text">{{ 'front.franchisee.stocks.no_articles'|trans }}</p>
                                     {% endif %}
+                                    {%  include('franchisee_menu/_delete_form.html.twig') %}
+                                    <a href="{{ path('franchisee_menu_edit' , {id : menu.id}) }}"><button class="btn btn-primary btn-sm app-color-match"> {{ 'front.franchisee.buttons.update'| trans }} </button></a>
+
                                 </div>
                             </div>
                         {%  endfor %}
-                        <a href="{{ path('franchisee_menu_new') }}" class="btn btn-primary app-color-match">Nouveau</a>
+                        <a href="{{ path('franchisee_menu_new') }}" class="btn btn-primary app-color-match">{{ 'front.franchisee.buttons.new'|trans }}</a>
                     </div>
                 </div>
             </div>
             <div class="col-sm-1"></div>
         </div>
     </section>
-    <div id="myDialog"></div>
+    <div id="myDialog">{% if app.request.get('error') == true %}{% include('franchisee_menu/create_error.html.twig') %} {% endif %}</div>
 {% endblock %}
 
 {% block javascripts %}
 
     <script>
+        $(".modal").modal('show');
         const routeStocks = "{{ path('franchisee_article_edit_stock') }}";
         const $myDialog = $('#myDialog');
         const routeMenus = "{{ path('franchisee_modifyMenuQty') }}";

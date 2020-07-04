@@ -4,8 +4,8 @@ namespace App\Repository;
 
 use App\Entity\CustomerOrder;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
-
 /**
  * @method CustomerOrder|null find($id, $lockMode = null, $lockVersion = null)
  * @method CustomerOrder|null findOneBy(array $criteria, array $orderBy = null)
@@ -19,6 +19,14 @@ class CustomerOrderRepository extends ServiceEntityRepository
         parent::__construct($registry, CustomerOrder::class);
     }
 
+    public function findMenuByOrder()
+    {
+        return $this->createQueryBuilder('m')
+            ->select('*')
+            ->leftJoin('App\Entity\FranchiseeMenu' , 'f' , Join::WITH , 'f.customerOrders = m.id' )
+            ->getQuery()
+            ->getResult();
+    }
     // /**
     //  * @return CustomerOrder[] Returns an array of CustomerOrder objects
     //  */

@@ -200,7 +200,12 @@ class FranchiseeController extends AbstractController
      * @param FranchiseeArticleRepository $franchiseeArticleRepository
      * @return Response
      */
-    public function show_menus(Request $request , FranchiseeMenuRepository $franchiseeMenuRepository , FranchiseeArticleRepository $franchiseeArticleRepository , MenuToArticleRepository $menuToArticleRepository){
+    public function show_menus(Request $request ,FranchiseeMenuRepository $franchiseeMenuRepository , FranchiseeArticleRepository $franchiseeArticleRepository , MenuToArticleRepository $menuToArticleRepository){
+        if($request->request->get('error') == null) {
+            $error = "";
+        }else{
+            $error = $request->request->get('error');
+        }
         $franchisee = $this->getUser();
         $menus = $franchiseeMenuRepository->findBy(['franchisee' => $franchisee->getId()]);
         $articles = $franchiseeArticleRepository->findBy(['franchisee' => $franchisee->getId()]);
@@ -217,7 +222,8 @@ class FranchiseeController extends AbstractController
             'franchisee_articles' => $articles,
             'franchisee_menues' => $menus,
             'franchisee' => $franchisee,
-            'menuContents' => $menuContent
+            'menuContents' => $menuContent,
+            'error' => $error,
         ]);
     }
 

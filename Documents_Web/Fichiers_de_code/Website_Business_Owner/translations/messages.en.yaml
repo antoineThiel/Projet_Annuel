@@ -48,6 +48,45 @@ front:
     currentTurnover: Last month's declaration
     alreadyHighestRank: You have already reached the highest rank !
     noTurnover: No declaration registered yet
+    stocks:
+      in_stock: In stock
+      my_inventory: My inventory
+      my_menues: My Menus
+      menus_title: Menu card
+      articles: Articles
+      menues: Menus
+      per_unit: /unit
+      articles_only: Articles individuels
+      menus_list: different Menus
+      no_articles: No articles
+      no_menus: No menus yet
+    8020:
+      title: Supply Balance
+      total_purchases: Your total purchase since
+      is_of: is
+      noorders_since: You haven't ordered anything since
+      ru_okay: Are you okay?
+      remedy: Fix it
+      here: here
+      total_external: You inquired
+      outside: of external purchases
+      equals: It is equal to
+      comparedto_maximum: of a maximum of
+      autorised: autorised
+      left_autorised: You have a maximum of
+      comparedto_maximumexternal: left for external purchases
+      spent_tomuch: you exceeded by
+      spent_tomuchafter: contract quotas ! Please fix this
+      new_externalinvoice: Inquire a new external invoice
+    buttons:
+      update: Update
+      delete: Delete
+      new: New
+      back: Back to list
+    modals:
+      error_title: Stocks Error
+      error_body: Forbiden Action
+      error_button: Ok
   truck_complaint:
     title: Complaint form
   header:
@@ -94,3 +133,13 @@ front:
       move: move
       jump: jump
       look: look
+  stocks:
+    detail: Stock detail
+    modify: Edit
+    total_before: Total of
+    products:
+      title: Products
+      total_after: different products
+    plates:
+      title: Plates
+      total_after: different plates

@@ -27,10 +27,11 @@ class WarehouseDishEmbeddedForm extends AbstractType
                 'choice_label' => 'name',
                 'query_builder' => function(DishRepository $pr){
                     return $pr->createQueryBuilder('d')->orderBy('d.name', 'ASC');
-                }
+                },
+                'label' => 'Plat',
             ])
             ->add('quantity', IntegerType::class, [
-                'attr' => ['placeholder' => 'Quantity']
+                'attr' => ['placeholder' => 'Quantité'],
             ])
         ;
     }

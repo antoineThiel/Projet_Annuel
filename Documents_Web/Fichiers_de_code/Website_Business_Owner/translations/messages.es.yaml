@@ -48,6 +48,45 @@ front:
     currentTurnover: Declaración del mes pasado
     alreadyHighestRank: Usted es en el nivel más alto!
     noTurnover: Aún no has hecho una declaración
+    stocks:
+      in_stock: En stock
+      my_inventory: Mi inventario
+      my_menues: Mi tarjeta
+      menus_title: Tarjeta de menú
+      articles: Artículos
+      menues: Menus
+      per_unit: /unidad
+      articles_only: Articulos individuales
+      menus_list: Menus différents
+      no_articles: No articulos
+      no_menus: No tienes menus
+    8020:
+      title: Balance de suministro
+      total_purchases: Su compra total de nosotros desde el
+      is_of: es de
+      noorders_since: No ha realizado ninguna compra desde el
+      ru_okay: ¿Todo va bien?
+      remedy: Arreglalo
+      here: aquí
+      total_external: Has informado
+      outside: gastos fuera de nuestros almacenes
+      equals: Es
+      comparedto_maximum: del maximo de
+      autorised: autorisado
+      left_autorised: Aún tienes
+      comparedto_maximumexternal: máximo para gastar en otras fuentes de suministro
+      spent_tomuch: Te has excedido
+      spent_tomuchafter: cuotas de contrato! Asegúrese de corregir esto
+      new_externalinvoice: Archivar una factura externa
+    buttons:
+      update: Actualizar
+      delete: Borrar
+      new: Nuevo
+      back: Volver a la lista
+    modals:
+      error_title: Stocks Problema
+      error_body: acción imposible
+      error_button: Entendido
   header:
     my_account: Mi cuenta
     login: Iniciar sesión
@@ -94,4 +133,14 @@ front:
       move: mover
       jump: saltar
       look: mirar
+  stocks:
+    detail: Detalle de sus stock
+    modify: Editar
+    total_before: Total de
+    products:
+      title: Productos
+      total_after: diferentes productos
+    plates:
+      title: Platos
+      total_after: diferentes platos
 
