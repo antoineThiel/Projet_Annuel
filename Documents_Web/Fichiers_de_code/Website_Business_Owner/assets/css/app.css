@@ -151,18 +151,36 @@ body {
     margin: auto;
 }
 
-
-
-
-
-
-
-
-
-
-
-
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+.table_profil {
+    width: 100%;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.table_profil .tr {
+    text-align: center;
+    border: 2px solid white;
+    width: 50%;
+}
+
+.th {
+    border: 2px solid white;
+    color: #495057;
+    font-size: large;
+    font-weight: normal;
+}
+.nav-link{
+    color:white;
+    background-color: #80c2e0;
+    border: 1px solid #80c2e0;
+}
+
+.nav-tabs>.nav-item:hover{
+    color: #495057;
+    border-color : #80c2e0;
 }

@@ -1,8 +1,15 @@
 front:
   franchisee:
     you: Tu <3
+    your_email: Su Email
+    your_phone: Su Téléfono
+    your_license: Su Licencia
+    your_adress: Su dirección
     change_informations: Cambie su información
     last_invoices: Sus últimas facturas
+    last_invoices_date: Con fecha de
+    last_invoices_price: Premio
+    last_invoices_view: Detalle
     more_stuff: Necesidad de suministro
     tell_us: ¿Hay algo que quieras decirnos?
     questions: Sus peticiones

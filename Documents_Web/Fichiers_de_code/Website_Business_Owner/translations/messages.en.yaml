@@ -1,8 +1,15 @@
 front:
   franchisee:
     you: You <3
+    your_email: Your Email
+    your_phone: Your Phone
+    your_license: Your License
+    your_adress: Your Adress
     change_informations: Change your informations
     last_invoices: Your last invoices
+    last_invoices_date: Date
+    last_invoices_price: Price
+    last_invoices_view: Detail
     more_stuff: Need more stuff ?
     tell_us: Want to tell us something ?
     questions: What you asked us
