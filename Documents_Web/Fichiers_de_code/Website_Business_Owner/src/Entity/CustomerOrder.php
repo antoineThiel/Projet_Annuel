@@ -30,8 +30,8 @@ class CustomerOrder
     private $ammount;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Customer::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Customer::class, cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $customer;
 
@@ -41,14 +41,20 @@ class CustomerOrder
     private $menues;
 
     /**
-     * @ORM\ManyToMany(targetEntity=FranchiseeArticle::class, inversedBy="customerOrders")
+     * @ORM\ManyToMany(targetEntity=CustomerArticle::class)
      */
-    private $Articles;
+    private $articles;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $validate;
 
     public function __construct()
     {
         $this->menues = new ArrayCollection();
-        $this->Articles = new ArrayCollection();
+        $this->articles = new ArrayCollection();
+        $this->validate = false;
     }
 
     public function getId(): ?int
@@ -76,18 +82,6 @@ class CustomerOrder
     public function setAmmount(float $ammount): self
     {
         $this->ammount = $ammount;
-
-        return $this;
-    }
-
-    public function getInvoice(): ?string
-    {
-        return $this->invoice;
-    }
-
-    public function setInvoice(string $invoice): self
-    {
-        $this->invoice = $invoice;
 
         return $this;
     }
@@ -135,24 +129,42 @@ class CustomerOrder
      */
     public function getArticles(): Collection
     {
-        return $this->Articles;
+        return $this->articles;
     }
 
-    public function addArticle(franchiseeArticle $article): self
+    public function addArticle(CustomerArticle $article): self
     {
-        if (!$this->Articles->contains($article)) {
-            $this->Articles[] = $article;
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
         }
 
         return $this;
     }
 
-    public function removeArticle(franchiseeArticle $article): self
+    public function removeArticle(CustomerArticle $article): self
     {
-        if ($this->Articles->contains($article)) {
-            $this->Articles->removeElement($article);
+        if ($this->articles->contains($article)) {
+            $this->articles->removeElement($article);
         }
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getValidate()
+    {
+        return $this->validate;
+    }
+
+    /**
+     * @param mixed $validate
+     */
+    public function setValidate($validate): void
+    {
+        $this->validate = $validate;
+    }
+
+
 }
