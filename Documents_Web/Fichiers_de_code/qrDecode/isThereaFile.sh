@@ -1,3 +1,4 @@
+echo "press ctrl+c to stop"
 while true
 do
 	if [ -f ./newFranchise.png ]
