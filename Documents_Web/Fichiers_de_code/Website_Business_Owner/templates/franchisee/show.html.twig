@@ -10,15 +10,15 @@
         {% else %}
             <section class="mt-5">
                 <nav class="nav nav-tabs">
-                    <a class="nav-item nav-link active" href="#p1"
+                    <a class="nav-item nav-link active mr-1" href="#p1"
                        data-toggle="tab">{{ 'front.franchisee.you' | trans }}</a>
-                    <a class="nav-item nav-link" href="#p2"
+                    <a class="nav-item nav-link mr-1" href="#p2"
                        data-toggle="tab">{{ 'front.franchisee.order' | trans }}</a>
-                    <a class="nav-item nav-link" href="#p3"
+                    <a class="nav-item nav-link mr-1" href="#p3"
                        data-toggle="tab">{{ 'front.franchisee.truck' | trans }}</a>
-                    <a class="nav-item nav-link" href="#p4"
+                    <a class="nav-item nav-link mr-1" href="#p4"
                        data-toggle="tab">{{ 'front.franchisee.turnover' | trans }}</a>
-                    <a class="nav-item nav-link" href="#p5"
+                    <a class="nav-item nav-link mr-1" href="#p5"
                        data-toggle="tab">Plus</a>
                 </nav>
 
@@ -159,10 +159,8 @@
                             {% if franchisee.truck.truckComplaints is not null %}
                                 <strong class="white-text">{{ 'front.franchisee.question_truck'|trans }} :</strong>
                                 <div class="card-body">
-
                                     <table class="table_profil">
                                         <tr class="tr">
-                                            <!-- A TRADUIRE ! -->
                                             <th class="th"> {{ 'front.franchisee.truck_pb_name'|trans }}</th>
                                             <th class="th"> {{ 'front.franchisee.truck_pb_date'|trans }}</th>
                                             <th class="th"> {{ 'front.franchisee.truck_pb_statut'|trans }}</th>
@@ -201,10 +199,6 @@
                                     </table>
                                 </div>
                             {% endif %}
-                        </div>
-                        <div class="card-body">
-                            <p>{{ 'front.franchisee.truck_number'|trans }} : {{ franchisee.truck.registration }}</p>
-                            <p>{{ 'front.franchisee.actual_position'|trans }} : {{ posAddress }} {{ posCity }}</p>
                         </div>
                     </div>
                     <!-- CHIFFRE D'AFFAIRE-->
@@ -253,47 +247,47 @@
                         </div>
                         <div class="text-center">
                             <!-- A TRADUIRE -->
-                            <strong class="white-text">Balance Approvisionnement :</strong>
+                            <strong class="white-text">{{ 'front.franchisee.8020.title' | trans }}</strong>
                             <div class="card-body">
                                 {% if balance.totalFromInvoices > 0 %}
-                                    <p style="color: #495057">Votre total d'achat chez nous depuis
-                                        le {{ balance.dateLastMonth |date('d/m/Y') }} est de
+                                    <p style="color: #495057">{{ 'front.franchisee.8020.total_purchases' |trans }}
+                                        {{ balance.dateLastMonth |date('d/m/Y') }} {{ 'front.franchisee.8020.is_of' | trans }}
                                         <strong class="white-text">{{ balance.totalFromInvoices }}€</strong></p>
                                 {% else %}
-                                    <p style="color: #495057">Vous n'avez pas fait d'achats depuis
-                                        le {{ balance.dateLastMonth |date('d/m/Y') }}... Tout va bien? </p>
-                                    <p style="color: #495057">Remédiez-y <a
-                                                href="{{ path('order_new_warehouse') }}">ici</a> !</p>
+                                    <p style="color: #495057">{{ 'front.franchisee.8020.noorders_since' | trans }} {{ balance.dateLastMonth |date('d/m/Y') }}
+                                        ... {{ 'front.franchisee.8020.ru_okay' | trans }} </p>
+                                    <p style="color: #495057">{{ 'front.franchisee.8020.remedy' | trans }}<a
+                                                href="{{ path('order_new_warehouse') }}">{{ 'front.franchisee.8020.here' | trans }}</a>
+                                        !</p>
                                 {% endif %}
                                 {% if balance.leftToSpendOutside > 0 %}
 
                                     {% set percentage = balance.totalFromExternal/(balance.totalFromExternal+balance.leftToSpendOutside)*100 %}
 
-                                    <p style="color: #495057">Vous avez renseigné <strong
+                                    <p style="color: #495057">{{ 'front.franchisee.8020.total_external' | trans }}
+                                        <strong
                                                 class="white-text">{{ balance.totalFromExternal }}€</strong> de
-                                        dépenses
-                                        en dehors de nos entrepôts<br>
-                                        Soit <strong
+                                        {{ 'front.franchisee.8020.outside' | trans }}<<br>
+                                        {{ 'front.franchisee.8020.equals' | trans }}<strong
                                                 class="white-text">{{ percentage | format_number({fraction_digit: 2}) }}
                                             %</strong>
-                                        du
-                                        maximum de
+                                        {{ 'front.franchisee.8020.comparedto_maximum' | trans }}
                                         <strong class="white-text">{{ balance.leftToSpendOutside + balance.totalFromExternal }}
-                                            €</strong> autorisé
+                                            €</strong> {{ 'front.franchisee.8020.autorised' | trans }}
                                     </p>
-                                    <p style="color: #495057">Il vous reste <strong
-                                                class="white-text">{{ balance.leftToSpendOutside }}€</strong> au maximum
-                                        a
-                                        dépenser dans d'autres sources d'approvisionnement</p>
+                                    <p style="color: #495057">{{ 'front.franchisee.8020.left_autorised' | trans }}
+                                        <strong
+                                                class="white-text">{{ balance.leftToSpendOutside }}
+                                            €</strong> {{ 'front.franchisee.8020.comparedto_maximumexternal' | trans }}
+                                    </p>
                                 {% elseif balance.leftToSpendOutside < 0 %}
-                                    <p style="color: #495057">Vous avez dépassé de {{ -1*balance.leftToSpendOutside }}€
-                                        les quotas du
-                                        contrat !
-                                        Veillez à corriger cela</p>
+                                    <p style="color: #495057">{{ 'front.franchisee.8020.spent_tomuch' | trans }}  {{ -1*balance.leftToSpendOutside }}
+                                        €
+                                        {{ 'front.franchisee.8020.spent_tomuchafter' | trans }}</p>
                                 {% endif %}
 
                                 <a class="btn login_btn " style="background-color:#FFF0A5; "
-                                   href="{{ path('external_invoice_new') }}">Déposer une facture externe</a>
+                                   href="{{ path('external_invoice_new') }}">{{ 'front.franchisee.8020.new_externalinvoice' | trans }}</a>
                             </div>
                         </div>
                     </div>
@@ -326,93 +320,42 @@
                             </div>
                         </div>
                         {% if franchisee.franchiseeComplaints is not null %}
-                        <div class="text-center">
-                            <strong class="white-text">{{ 'front.franchisee.questions'|trans }} :</strong>
-                            <div class="card-body">
-                                <table class="table_profil">
-                                    <tr class="tr">
-                                        <th class="th">Nom</th>
-                                        <th class="th"> Statue</th>
-                                    </tr>
-                                    {% for complaint in franchisee.franchiseeComplaints %}
+                            <div class="text-center">
+                                <strong class="white-text">{{ 'front.franchisee.questions'|trans }} :</strong>
+                                <div class="card-body">
+                                    <table class="table_profil">
                                         <tr class="tr">
-                                            {% if complaint.isNew %}
-                                                <td class="th"> {{ complaint.title }} </td>
-                                                <td class="th">
-                                                    <button class="btn btn-success disabled">{{ 'front.franchisee.new'|trans }}</button>
-                                                </td>
-                                            {% endif %}
-                                            {% if complaint.isOngoing %}
-                                                <td class="th"> {{ complaint.title }}</td>
-                                                <td class="th">
-                                                    <button class="btn btn-info disabled">{{ 'front.franchisee.ongoing'|trans }}</button>
-                                                </td>
-                                            {% endif %}
-                                            {% if complaint.isClosed %}
-                                                <td class="th"><a
-                                                            href="{{ path('franchisee_complaint_show', {'id': complaint.id}) }}">{{ complaint.title }}</a>
-                                                </td>
-                                                <td class="th">
-                                                    <button class="btn btn-danger disabled">{{ 'front.franchisee.closed'|trans }}</button>
-                                                </td>
-                                            {% endif %}
+                                            <th class="th">Nom</th>
+                                            <th class="th"> Statue</th>
                                         </tr>
-                                    {% endfor %}
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                {% endif %}
-                <div class="col-sm-2">
-                    <div class="card card-primary card-outline">
-                        <div class="card-header">
-                            <strong>{{ 'front.franchisee.ranking' | trans }} : <span class="{{ franchisee.rank }}">{{ franchisee.rank }}</span> </strong>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    {% if turnover is not null %}
-                                        {% if higherRank is not null %}
-                                        <p>{{'front.franchisee.higherRank' | trans }} {{ higherRank }} {{ 'front.franchisee.monthUnit' | trans }} </p>
-                                        {% else %}
-                                        <p>{{ 'front.franchisee.alreadyHighestRank' | trans }}</p>
-                                        {% endif %}
-                                        <p>{{ 'front.franchisee.currentTurnover' | trans }} : {{ turnover.amount }} €</p>
-                                    {% else %}
-                                        <p>{{ 'front.franchisee.noTurnover' | trans }}</p>
-                                    {% endif %}
+                                        {% for complaint in franchisee.franchiseeComplaints %}
+                                            <tr class="tr">
+                                                {% if complaint.isNew %}
+                                                    <td class="th"> {{ complaint.title }} </td>
+                                                    <td class="th">
+                                                        <button class="btn btn-success disabled">{{ 'front.franchisee.new'|trans }}</button>
+                                                    </td>
+                                                {% endif %}
+                                                {% if complaint.isOngoing %}
+                                                    <td class="th"> {{ complaint.title }}</td>
+                                                    <td class="th">
+                                                        <button class="btn btn-info disabled">{{ 'front.franchisee.ongoing'|trans }}</button>
+                                                    </td>
+                                                {% endif %}
+                                                {% if complaint.isClosed %}
+                                                    <td class="th"><a
+                                                                href="{{ path('franchisee_complaint_show', {'id': complaint.id}) }}">{{ complaint.title }}</a>
+                                                    </td>
+                                                    <td class="th">
+                                                        <button class="btn btn-danger disabled">{{ 'front.franchisee.closed'|trans }}</button>
+                                                    </td>
+                                                {% endif %}
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="card card-primary card-outline">
-                        <div class="card-header">
-                            <strong>{{ 'front.franchisee.8020.title' | trans}}</strong>
-                        </div>
-                        <div class="card-body">
-                            {% if balance.totalFromInvoices > 0 %}
-                                <p>{{ 'front.franchisee.8020.total_purchases' |trans}} {{ balance.dateLastMonth |date('d/m/Y') }} {{ 'front.franchisee.8020.is_of' | trans}} <strong>{{ balance.totalFromInvoices }}€</strong></p>
-                            {% else %}
-                                <p>{{ 'front.franchisee.8020.noorders_since' | trans}} {{ balance.dateLastMonth |date('d/m/Y') }}... {{ 'front.franchisee.8020.ru_okay' | trans}} </p>
-                                <p>{{ 'front.franchisee.8020.remedy' | trans}} <a href="{{ path('order_new_warehouse') }}">{{ 'front.franchisee.8020.here' | trans}}</a> !</p>
-                            {% endif %}
-                            {%  if balance.leftToSpendOutside > 0  %}
-
-                                {% set percentage = balance.totalFromExternal/(balance.totalFromExternal+balance.leftToSpendOutside)*100%}
-
-                                <p>{{ 'front.franchisee.8020.total_external' | trans}} <strong>{{ balance.totalFromExternal }}€</strong> {{ 'front.franchisee.8020.outside' | trans}}<br>
-                                    {{ 'front.franchisee.8020.equals' | trans}} <strong>{{ percentage | format_number({fraction_digit: 2}) }}%</strong> {{ 'front.franchisee.8020.comparedto_maximum' | trans}} <strong>{{ balance.leftToSpendOutside + balance.totalFromExternal }}€</strong> {{ 'front.franchisee.8020.autorised' | trans}}
-                                </p>
-                                <p>{{ 'front.franchisee.8020.left_autorised' | trans}} <strong>{{ balance.leftToSpendOutside }}€</strong> {{ 'front.franchisee.8020.comparedto_maximumexternal' | trans}}</p>
-                            {% elseif balance.leftToSpendOutside < 0 %}
-                                <p>{{ 'front.franchisee.8020.spent_tomuch' | trans}} {{ -1*balance.leftToSpendOutside }}€ {{ 'front.franchisee.8020.spent_tomuchafter' | trans}}</p>
-                            {% endif %}
-
-                            <a href="{{ path('external_invoice_new') }}">{{ 'front.franchisee.8020.new_externalinvoice' | trans}}</a>
-                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </section>
