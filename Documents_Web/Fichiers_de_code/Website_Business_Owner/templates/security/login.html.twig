@@ -1,77 +1,48 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>DRIVN'COOK | Log in</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends 'base_front.html.twig' %}
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-</head>
-<body class="hold-transition login-page">
-<div class="login-box">
-    <div class="login-logo">
-        <a href="#"><b>DRIV'N </b>COOK</a>
-    </div>
+{% block content %}
     <!-- /.login-logo -->
-    <div class="card">
-        <div class="card-body login-card-body">
-            <p class="login-box-msg">Sign in to start your session</p>
+    <div class="login connexion_card card p-4 navbar-light" style="background-color: #80c2e0; margin:2% 35% 2% 35%; border: #FFF0A5 2px solid;" >
+        <div class="login-logo">
+            <a href="#"><b>DRIV'N </b>COOK</a>
+        </div>
+        <div class="d-flex justify-content-center m-2 pb-2">
+            <div class="brand_logo_container">
+                <img src="{{ asset('Images/logo2.png') }}" alt="Home" class="brand-image rounded-circle z-depth-3">
+            </div>
+        </div>
+        <p class="login-box-msg">Sign in to start your session</p>
+        <div class="d-flex justify-content-center form_container m-2">
             <form method="post">
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Username" name="username" id="inputUsername" value="{{ last_username }}" required autofocus>
                     <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-user"></span>
-                        </div>
+                        <span class="input-group-text"><i class="fas fa-at" style="color: #E5735E;"></i></span>
                     </div>
+                    <input type="text" class="form-control" placeholder="Email" name="username" id="inputUsername" value="{{ last_username }}" required autofocus>
                 </div>
-                <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Password" name="password" id="inputPassword" required>
+                <div class="input-group mb-2">
                     <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                        </div>
+                        <span class="input-group-text"><i class="fas fa-key" style="color: #E5735E;"></i></span>
                     </div>
+                    <input type="password" class="form-control" placeholder="Password" name="password" id="inputPassword" required>
                 </div>
                 <input type="hidden" name="_csrf_token"
                        value="{{ csrf_token('authenticate') }}"
                 >
-                <div class="row">
-                    <div class="col-8">
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                    </div>
-                    <!-- /.col -->
+                <div class="d-flex justify-content-center mt-3 login_container">
+                    <button type="submit" name="button" class="btn login_btn " style="background-color:#FFF0A5; "> Connexion </button>
                 </div>
             </form>
         </div>
+        <div class="mt-3">
+            <div class="d-flex justify-content-center links">
+                <a href="#" class="blue-text">Mot de passe oublié ?</a>
+            </div>
+        </div>
         <!-- /.login-card-body -->
     </div>
-</div>
 <!-- /.login-box -->
-
-<!-- jQuery -->
-<script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
-
-</body>
-</html>
+{% endblock %}
