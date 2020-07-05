@@ -1,257 +1,364 @@
 {% extends 'base_front.html.twig' %}
 {% block content %}
-<div class="ml-5 mr-5">
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    {% block title %}{% endblock %}
-                </div><!-- /.col -->
-                <!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-    <!-- Main content -->
-    {% if turnover.date|date('d/m/y') != 'now'|date_modify('first day of this month')|date('d/m/y') and 'now'|date('d') >= '20'  %}
-        {{ include('franchisee/block_account_declaration.html.twig')  }}
-    {% elseif turnover.date|date('d/m/y') == 'now'|date_modify('first day of this month')|date('d/m/y') and 'now'|date('d/m/y') >= turnover.date|date_modify('last day of this month')|date('d/m/y') and turnover.isOngoing%}
-        {{ include('franchisee/block_account_pay.html.twig') }}
-    {% else %}
-    <section>
-        <h1>{{ franchisee.lastName|upper }} {{ franchisee.firstName|upper }}</h1>
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="card card-primary card-outline">
-                    <div class="card-header">
-                        <strong>{{ 'front.franchisee.you'| trans }}</strong>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <p>{{ franchisee.mail }}</p>
-                                <p>{{ franchisee.phone }}</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <p>{{ franchisee.license }}</p>
-                                <p>{{ franchisee.address }} {{ franchisee.city }} {{ franchisee.postalCode }}</p>
-                            </div>
-                        </div>
-                        <p><a href="{{ path('franchisee_edit_by_franchisee', { id: franchisee.id } ) }}">{{ 'front.franchisee.change_informations'| trans }}</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="card card-primary card-outline">
-                    <div class="card-header">
-                        <strong>{{ 'front.franchisee.last_invoices'| trans }}</strong>
-                    </div>
-                    {% if invoices is not null %}
-                        <div class="card-body">
-                            {% for invoice in invoices %}
-                                {% if app.request.attributes.get('_locale') == 'en' %}
-                                    <p>{{ invoice.date|date("m/d/y") }} {{ invoice.ammount }}€  <a href="{{ path('invoice_show', {'id': invoice.id}) }}" target="_blank">{{ 'front.franchisee.check'| trans }}</a></p>
-                                {% else %}
-                                    <p>{{ invoice.date|date("d/m/y") }} {{ invoice.ammount }}€  <a href="{{ path('invoice_show', {'id': invoice.id}) }}" target="_blank">{{ 'front.franchisee.check'| trans }}</a></p>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="card card-primary card-outline">
-                    <div class="card-header">
-                        <strong>{{ 'front.franchisee.more_stuff'| trans }}</strong>
-                    </div>
-                    {% if franchisee.truck != null %}
-                        <div class="card-body">
-                            <p><a href="{{ path('order_new_warehouse') }}">{{ 'front.franchisee.order'|trans }}</a></p>
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="card card-primary card-outline">
-                    <div class="card-header">
-                        <strong>{{ 'front.franchisee.tell_us'|trans }}</strong>
-                    </div>
-                    <div class="card-body">
-                        {% if franchisee.truck != null %}
-                            <p><a href="{{ path('truck_complaint_new') }}">{{ 'front.franchisee.truck_pb' | trans }}</a></p>
-                            {# TODO: link the page to fill a truck complaint form #}
-                            <p><a href="{{ path('truck_position_new') }}">{{ 'front.franchisee.position'|trans }}</a></p>
-                            <p><a href="{{ path('invoice_new') }}">{{ 'front.franchisee.month'| trans }}</a></p>
-                        {% endif %}
-                        {# TODO: link the page to fill a number declaration #}
-                        <p><a href="{{ path('franchisee_complaint_new') }}">{{ 'front.franchisee.anything_else'| trans }}</a></p>
-                    </div>
-                </div>
-            </div>
-            {% if franchisee.franchiseeComplaints is not null %}
-                <div class="col-sm-2">
-                    <div class="card card-outline card-primary">
-                        <div class="card-header">
-                            <strong>{{ 'front.franchisee.questions'|trans }}</strong>
-                        </div>
-                        <div class="card-body">
-                            {% for complaint in franchisee.franchiseeComplaints %}
-                                <p>
-                                    {% if complaint.isNew %}
-                                        {{ complaint.title }}
+    <div class="ml-5 mr-5">
 
-                                        <button class="btn btn-success disabled">{{ 'front.franchisee.new'|trans }}</button>
-                                    {% endif %}
-                                    {% if complaint.isOngoing %}
-                                        {{ complaint.title }}
-                                        <button class="btn btn-info disabled">{{ 'front.franchisee.ongoing'|trans }}</button>
-                                    {% endif %}
-                                    {% if complaint.isClosed %}
-                                        <a href="{{ path('franchisee_complaint_show', {'id': complaint.id}) }}">{{ complaint.title }}</a>
-                                        <button class="btn btn-danger disabled">{{ 'front.franchisee.closed'|trans }}</button>
-                                    {% endif %}
-                                </p>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
+        <!-- Main content -->
+        {% if turnover.date|date('d/m/y') != 'now'|date_modify('first day of this month')|date('d/m/y') and 'now'|date('d') >= '20' %}
+            {{ include('franchisee/block_account_declaration.html.twig') }}
+        {% elseif turnover.date|date('d/m/y') == 'now'|date_modify('first day of this month')|date('d/m/y') and 'now'|date('d/m/y') >= turnover.date|date_modify('last day of this month')|date('d/m/y') and turnover.isOngoing %}
+            {{ include('franchisee/block_account_pay.html.twig') }}
+        {% else %}
+            <section class="mt-5">
+                <nav class="nav nav-tabs">
+                    <a class="nav-item nav-link active mr-1" href="#p1"
+                       data-toggle="tab">{{ 'front.franchisee.you' | trans }}</a>
+                    <a class="nav-item nav-link mr-1" href="#p2"
+                       data-toggle="tab">{{ 'front.franchisee.order' | trans }}</a>
+                    <a class="nav-item nav-link mr-1" href="#p3"
+                       data-toggle="tab">{{ 'front.franchisee.truck' | trans }}</a>
+                    <a class="nav-item nav-link mr-1" href="#p4"
+                       data-toggle="tab">{{ 'front.franchisee.turnover' | trans }}</a>
+                    <a class="nav-item nav-link mr-1" href="#p5"
+                       data-toggle="tab">Plus</a>
+                </nav>
 
-        </div>
-        {% if franchisee.truck is not null %}
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="card card-outline card-primary">
-                        <div class="card-header">
-                            <strong>{{ 'front.franchisee.truck'|trans }}</strong>
-                        </div>
-                        <div class="card-body">
-                            <p>{{ 'front.franchisee.truck_number'|trans }} : {{ franchisee.truck.registration }}</p>
-                            <p>{{ 'front.franchisee.actual_position'|trans }} : {{ posAddress }} {{ posCity }}</p>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-                <div class="col-sm-2">
-                    <div class="card card-outline card-primary">
-                        <div class="card-header">
-                            <strong>{{ 'front.franchisee.turnover'|trans }}</strong>
-                        </div>
-                        <div class="card-body">
-                            {% if turnover is not null %}
-                                {% if turnover.date|date('d/m/y') == "now"|date_modify('first day of -1 month')|date('d/m/y') and "now"|date('d') == '20' %}
-                                    <p><a style="color: red;"
-                                          href="{{ path('turnover_new') }}">{{ 'front.franchisee.declaration_turnover'| trans }} {{ "now"|date_modify('-1 month')|date('M') }}</a>
-                                    </p>
-                                {% else %}
-                                    {% if turnover.isNew or turnover.isOngoing and turnover.date|date('d/m/y') == "now"|date_modify('first day of this month')|date('d/m/y')%}
-                                        <p>
-                                            <a href="">{{ 'front.franchisee.already_turnover'| trans }} {{ "now"|date_modify('-1 month')|date('M') }}</a>
-                                        </p>
-                                    {% elseif turnover.isClosed and turnover.date|date('d/m/y') == "now"|date_modify('first day of this month')|date('d/m/y') %}
-                                        <p>
-                                            <a href="">{{ 'front.franchisee.turnover_closed'| trans }} {{ "now"|date_modify('-1 month')|date('M') }}</a>
-                                        </p>
-                                    {% else %}
-                                        <p>
-                                            <a href="{{ path('turnover_new') }}">{{ 'front.franchisee.declaration_turnover'| trans }} {{ "now"|date_modify('-1 month')|date('M') }}</a>
-                                        </p>
-                                    {% endif %}
-                                {% endif %}
-                                {% if turnover.isOngoing and turnover.date|date('d/m/y') == "now"|date_modify('first day of this month')|date('d/m/y') %}
-                                    <p>
-                                        <a href="{{ path('turnover_pay',{'id': turnover.id}) }}">{{ 'front.franchisee.pay_turnover'| trans }}
-                                            ( {{ turnover.date|date("d/m/y") }} : {{ turnover.percentAmount }} € )</a>
-                                    </p>
-                                {% endif %}
-                            {% else %}
-                                <p>
-                                    <a href="{{ path('turnover_new') }}">{{ 'front.franchisee.declaration_turnover'| trans }} {{ "now"|date_modify('-1 month')|date('M') }}</a>
-                                </p>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                {% if franchisee.truck.truckComplaints is not null %}
-                    <div class="col-sm-2">
-                        <div class="card card-outline card-primary">
-                            <div class="card-header">
-                                <strong>{{ 'front.franchisee.question_truck'|trans }}</strong>
-                            </div>
-                            <div class="card-body">
-                                {% for complaint in franchisee.truck.truckComplaints %}
-                                    <p>
-                                        {% if complaint.isNew %}
-                                            <a href="{{ path('truck_complaint_show', {'id': complaint.id}) }}">{{ complaint.title }}</a>
-                                            {{ complaint.date|date("m/d/y") }}
-                                            <button class="btn btn-success disabled">{{ 'front.franchisee.new'|trans }}</button>
-                                        {% endif %}
-                                        {% if complaint.isOngoing %}
-                                            <a href="{{ path('truck_complaint_show', {'id': complaint.id}) }}">{{ complaint.title }}</a>
-                                            <button class="btn btn-info disabled">{{ 'front.franchisee.ongoing'|trans }}</button>
-                                        {% endif %}
-                                        {% if complaint.isClosed %}
-                                            <a href="{{ path('truck_complaint_show', {'id': complaint.id}) }}">{{ complaint.title }}</a>
-                                            <button class="btn btn-danger disabled">{{ 'front.franchisee.closed'|trans }}</button>
-                                        {% endif %}
-                                    </p>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-                <div class="col-sm-2">
-                    <div class="card card-primary card-outline">
-                        <div class="card-header">
-                            <strong>{{ 'front.franchisee.ranking' | trans }} : <span class="{{ franchisee.rank }}">{{ franchisee.rank }}</span> </strong>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-12">
+                <div class="tab-content"
+                     style="background-color: #80c2e0;min-height: 20em; border-radius: 0 1em 1em; margin-bottom: 2%">
+                    <!-- PROFIL-->
+                    <div class="tab-pane fade show active p-3" id="p1">
+                        <h1 class="text-center white-text">{{ franchisee.lastName|upper }} {{ franchisee.firstName|upper }}</h1>
+
+                        <div class="text-center">
+                            <div style="display: inline-block">
+                                <div style="float:left;width: 59%">
+                                    <div class="input-group mb-3" style="margin: auto ; width: 60%">
+                                        <div class="input-group-append white-text">
+                                            <label style="margin:auto"> {{ 'front.franchisee.your_email' | trans }}
+                                                : </label>
+                                        </div>
+                                        <input type="text" style="background-color: transparent; border: none;"
+                                               class="form-control " value="{{ franchisee.mail }}" disabled>
+                                    </div>
+                                    <div class="input-group mb-3" style="margin: auto ; width: 60%">
+                                        <div class="input-group-append white-text">
+                                            <label style="margin:auto;">{{ 'front.franchisee.your_phone' | trans }}
+                                                : </label>
+                                        </div>
+                                        <input type="text" style="background-color: transparent; border: none;"
+                                               class="form-control" value="{{ franchisee.phone }}" disabled>
+                                    </div>
+                                    <div class="input-group mb-3" style="margin: auto ; width: 60%">
+                                        <div class="input-group-append white-text">
+                                            <label style="margin:auto;"> {{ 'front.franchisee.your_license' | trans }}
+                                                : </label>
+                                        </div>
+                                        <input type="text" style="background-color: transparent; border: none;"
+                                               class="form-control " value="{{ franchisee.license }}" disabled>
+                                    </div>
+                                    <div class="input-group mb-3" style="margin: auto ; width: 60%">
+                                        <div class="input-group-append white-text">
+                                            <label style="margin:auto;"> {{ 'front.franchisee.your_adress' | trans }}
+                                                : </label>
+                                        </div>
+                                        <input type="text" style="background-color: transparent; border: none;"
+                                               class="form-control "
+                                               value="{{ franchisee.address }} {{ franchisee.city }} {{ franchisee.postalCode }}"
+                                               disabled>
+                                    </div>
+                                </div>
+
+                                <div class="input-group mb-4" style="margin-left: 60%;width: 30%">
+                                    <div class="input-group-append white-text">
+                                        <label style="margin: auto">{{ 'front.franchisee.ranking' | trans }} :</label>
+                                    </div>
+                                    <input type="text"
+                                           style="font-weight:bold;background-color: transparent; border: none;width: auto; width: 50% "
+                                           class="{{ franchisee.rank }}"
+                                           value="{{ franchisee.rank }}"
+                                           disabled>
                                     {% if turnover is not null %}
                                         {% if higherRank is not null %}
-                                        <p>{{'front.franchisee.higherRank' | trans }} {{ higherRank }} {{ 'front.franchisee.monthUnit' | trans }} </p>
+                                            <p style="color: #495057">{{ 'front.franchisee.higherRank' | trans }} {{ higherRank }} {{ 'front.franchisee.monthUnit' | trans }} </p>
                                         {% else %}
-                                        <p>{{ 'front.franchisee.alreadyHighestRank' | trans }}</p>
+                                            <p style="color: #495057">{{ 'front.franchisee.alreadyHighestRank' | trans }}</p>
                                         {% endif %}
-                                        <p>{{ 'front.franchisee.currentTurnover' | trans }} : {{ turnover.amount }} €</p>
+                                        <span style="color: #495057"> {{ 'front.franchisee.currentTurnover' | trans }} : {{ turnover.amount }} €</span>
                                     {% else %}
-                                        <p>{{ 'front.franchisee.noTurnover' | trans }}</p>
+                                        <p style="color: #495057">{{ 'front.franchisee.noTurnover' | trans }}</p>
                                     {% endif %}
                                 </div>
                             </div>
+                            <p style="margin: auto; text-align: center"><a class="btn login_btn "
+                                                                           style="background-color:#FFF0A5;"
+                                                                           href="{{ path('franchisee_edit_by_franchisee', { id: franchisee.id } ) }}">{{ 'front.franchisee.change_informations'| trans }}</a>
+                            </p>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="card card-primary card-outline">
-                        <div class="card-header">
-                            <strong>{{ 'front.franchisee.8020.title' | trans}}</strong>
-                        </div>
-                        <div class="card-body">
-                            {% if balance.totalFromInvoices > 0 %}
-                                <p>{{ 'front.franchisee.8020.total_purchases' |trans}} {{ balance.dateLastMonth |date('d/m/Y') }} {{ 'front.franchisee.8020.is_of' | trans}} <strong>{{ balance.totalFromInvoices }}€</strong></p>
-                            {% else %}
-                                <p>{{ 'front.franchisee.8020.noorders_since' | trans}} {{ balance.dateLastMonth |date('d/m/Y') }}... {{ 'front.franchisee.8020.ru_okay' | trans}} </p>
-                                <p>{{ 'front.franchisee.8020.remedy' | trans}} <a href="{{ path('order_new_warehouse') }}">{{ 'front.franchisee.8020.here' | trans}}</a> !</p>
+                    <!-- COMMANDE -->
+                    <div class="tab-pane fade p-3" id="p2">
+                        <div style="text-align: center" class="white-text">
+                            <strong>{{ 'front.franchisee.more_stuff'| trans }} :</strong>
+                            {% if franchisee.truck != null %}
+                                <div class="card-body">
+                                    <p style="margin: auto; text-align: center">
+                                        <a class="btn login_btn " style="background-color:#FFF0A5;"
+                                           href="{{ path('order_new_warehouse') }}">{{ 'front.franchisee.order'|trans }}</a>
+                                    </p>
+                                </div>
                             {% endif %}
-                            {%  if balance.leftToSpendOutside > 0  %}
+                        </div>
+                        <div style="text-align: center" class="">
+                            <p class="white-text"><strong>{{ 'front.franchisee.last_invoices'| trans }} :</strong></p>
+                            {% if invoices is not null %}
+                                <div class="card-body">
+                                    <table class="table_profil">
+                                        <tr class="tr">
+                                            <th class="th">{{ 'front.franchisee.last_invoices_date'| trans }}</th>
+                                            <th class="th"> {{ 'front.franchisee.last_invoices_price'| trans }} </th>
+                                            <th class="th"> {{ 'front.franchisee.last_invoices_view'| trans }}</th>
+                                        </tr>
+                                        {% for invoice in invoices %}
+                                            <tr class="tr">
+                                                {% if app.request.attributes.get('_locale') == 'en' %}
+                                                    <td class="th"> {{ invoice.date|date("m/d/y") }} </td>
+                                                    <td class="th">{{ invoice.ammount }}€</td>
+                                                    <td class="th"><a
+                                                                href="{{ path('invoice_show', {'id': invoice.id}) }}"
+                                                                target="_blank">{{ 'front.franchisee.check'| trans }}</a>
+                                                    </td>
+                                                {% else %}
+                                                    <td class="th">{{ invoice.date|date("d/m/y") }}</td>
+                                                    <td class="th"> {{ invoice.ammount }}€</td>
+                                                    <td class="th"><strong><a
+                                                                    href="{{ path('invoice_show', {'id': invoice.id}) }}"
+                                                                    target="_blank">{{ 'front.franchisee.check'| trans }}</a></strong>
+                                                    </td>
+                                                {% endif %}
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- CAMION -->
+                    <div class="tab-pane fade p-3" id="p3">
+                        <div class="text-center">
+                            {% if franchisee.truck is not null %}
+                                <strong class="mt-3  white-text">{{ 'front.franchisee.truck'|trans }} :</strong>
+                                <div class="card-body">
+                                    <p class="white-text">{{ 'front.franchisee.truck_number'|trans }} : <span
+                                                style="color: #495057">
+                                             {{ franchisee.truck.registration }}</span></p>
+                                    <p class="white-text"> {{ 'front.franchisee.actual_position'|trans }}
+                                        :<span style="color: #495057"> {{ posAddress }} {{ posCity }}</span></p>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="text-center">
+                            {% if franchisee.truck.truckComplaints is not null %}
+                                <strong class="white-text">{{ 'front.franchisee.question_truck'|trans }} :</strong>
+                                <div class="card-body">
+                                    <table class="table_profil">
+                                        <tr class="tr">
+                                            <th class="th"> {{ 'front.franchisee.truck_pb_name'|trans }}</th>
+                                            <th class="th"> {{ 'front.franchisee.truck_pb_date'|trans }}</th>
+                                            <th class="th"> {{ 'front.franchisee.truck_pb_statut'|trans }}</th>
+                                        </tr>
+                                        {% for complaint in franchisee.truck.truckComplaints %}
+                                            <tr class="tr">
+                                                {% if complaint.isNew %}
+                                                    <td class="th"><a
+                                                                href="{{ path('truck_complaint_show', {'id': complaint.id}) }}">{{ complaint.title }}</a>
+                                                    </td>
+                                                    <td class="th">{{ complaint.date|date("m/d/y") }}</td>
+                                                    <td class="th">
+                                                        <button class="btn btn-success disabled">{{ 'front.franchisee.new'|trans }}</button>
+                                                    </td>
+                                                {% endif %}
+                                                {% if complaint.isOngoing %}
+                                                    <td class="th"><a
+                                                                href="{{ path('truck_complaint_show', {'id': complaint.id}) }}">{{ complaint.title }}</a>
+                                                    </td>
+                                                    <td class="th">{{ complaint.date|date("m/d/y") }}</td>
+                                                    <td class="th">
+                                                        <button class="btn btn-info disabled">{{ 'front.franchisee.ongoing'|trans }}</button>
+                                                    </td>
+                                                {% endif %}
+                                                {% if complaint.isClosed %}
+                                                    <td class="th"><a
+                                                                href="{{ path('truck_complaint_show', {'id': complaint.id}) }}">{{ complaint.title }}</a>
+                                                    </td>
+                                                    <td class="th">{{ complaint.date|date("m/d/y") }}</td>
+                                                    <td class="th">
+                                                        <button class="btn btn-danger disabled">{{ 'front.franchisee.closed'|trans }}</button>
+                                                    </td>
+                                                {% endif %}
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- CHIFFRE D'AFFAIRE-->
+                    <div class="tab-pane fade p-2" id="p4">
+                        <div class="text-center">
+                            <strong class="white-text">{{ 'front.franchisee.turnover'|trans }} :</strong>
+                            <div class="card-body">
+                                {% if turnover is not null %}
+                                    {% if turnover.date|date('d/m/y') == "now"|date_modify('first day of -1 month')|date('d/m/y') and "now"|date('d') == '20' %}
+                                        <p><a class="btn login_btn " style="background-color:#FFF0A5;color: red;"
+                                              href="{{ path('turnover_new') }}">{{ 'front.franchisee.declaration_turnover'| trans }} {{ "now"|date_modify('-1 month')|date('M') }}</a>
+                                        </p>
+                                    {% else %}
+                                        {% if turnover.isNew or turnover.isOngoing and turnover.date|date('d/m/y') == "now"|date_modify('first day of this month')|date('d/m/y') %}
+                                            <p>
+                                                <a class="btn login_btn " style="background-color:#FFF0A5; "
+                                                   href="">{{ 'front.franchisee.already_turnover'| trans }} {{ "now"|date_modify('-1 month')|date('M') }}</a>
+                                            </p>
+                                        {% elseif turnover.isClosed and turnover.date|date('d/m/y') == "now"|date_modify('first day of this month')|date('d/m/y') %}
+                                            <p>
+                                                <a class="btn login_btn " style="background-color:#FFF0A5; "
+                                                   href="">{{ 'front.franchisee.turnover_closed'| trans }} {{ "now"|date_modify('-1 month')|date('M') }}</a>
+                                            </p>
+                                        {% else %}
+                                            <p>
+                                                <a class="btn login_btn " style="background-color:#FFF0A5; "
+                                                   href="{{ path('turnover_new') }}">{{ 'front.franchisee.declaration_turnover'| trans }} {{ "now"|date_modify('-1 month')|date('M') }}</a>
+                                            </p>
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if turnover.isOngoing and turnover.date|date('d/m/y') == "now"|date_modify('first day of this month')|date('d/m/y') %}
+                                        <p>
+                                            <a class="btn login_btn " style="background-color:#FFF0A5; "
+                                               href="{{ path('turnover_pay',{'id': turnover.id}) }}">{{ 'front.franchisee.pay_turnover'| trans }}
+                                                ( {{ turnover.date|date("d/m/y") }} : {{ turnover.percentAmount }} €
+                                                )</a>
+                                        </p>
+                                    {% endif %}
+                                {% else %}
+                                    <p>
+                                        <a class="btn login_btn " style="background-color:#FFF0A5; "
+                                           href="{{ path('turnover_new') }}">{{ 'front.franchisee.declaration_turnover'| trans }} {{ "now"|date_modify('-1 month')|date('M') }}</a>
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <!-- A TRADUIRE -->
+                            <strong class="white-text">{{ 'front.franchisee.8020.title' | trans }}</strong>
+                            <div class="card-body">
+                                {% if balance.totalFromInvoices > 0 %}
+                                    <p style="color: #495057">{{ 'front.franchisee.8020.total_purchases' |trans }}
+                                        {{ balance.dateLastMonth |date('d/m/Y') }} {{ 'front.franchisee.8020.is_of' | trans }}
+                                        <strong class="white-text">{{ balance.totalFromInvoices }}€</strong></p>
+                                {% else %}
+                                    <p style="color: #495057">{{ 'front.franchisee.8020.noorders_since' | trans }} {{ balance.dateLastMonth |date('d/m/Y') }}
+                                        ... {{ 'front.franchisee.8020.ru_okay' | trans }} </p>
+                                    <p style="color: #495057">{{ 'front.franchisee.8020.remedy' | trans }}<a
+                                                href="{{ path('order_new_warehouse') }}">{{ 'front.franchisee.8020.here' | trans }}</a>
+                                        !</p>
+                                {% endif %}
+                                {% if balance.leftToSpendOutside > 0 %}
 
-                                {% set percentage = balance.totalFromExternal/(balance.totalFromExternal+balance.leftToSpendOutside)*100%}
+                                    {% set percentage = balance.totalFromExternal/(balance.totalFromExternal+balance.leftToSpendOutside)*100 %}
 
-                                <p>{{ 'front.franchisee.8020.total_external' | trans}} <strong>{{ balance.totalFromExternal }}€</strong> {{ 'front.franchisee.8020.outside' | trans}}<br>
-                                    {{ 'front.franchisee.8020.equals' | trans}} <strong>{{ percentage | format_number({fraction_digit: 2}) }}%</strong> {{ 'front.franchisee.8020.comparedto_maximum' | trans}} <strong>{{ balance.leftToSpendOutside + balance.totalFromExternal }}€</strong> {{ 'front.franchisee.8020.autorised' | trans}}
+                                    <p style="color: #495057">{{ 'front.franchisee.8020.total_external' | trans }}
+                                        <strong
+                                                class="white-text">{{ balance.totalFromExternal }}€</strong> de
+                                        {{ 'front.franchisee.8020.outside' | trans }}<<br>
+                                        {{ 'front.franchisee.8020.equals' | trans }}<strong
+                                                class="white-text">{{ percentage | format_number({fraction_digit: 2}) }}
+                                            %</strong>
+                                        {{ 'front.franchisee.8020.comparedto_maximum' | trans }}
+                                        <strong class="white-text">{{ balance.leftToSpendOutside + balance.totalFromExternal }}
+                                            €</strong> {{ 'front.franchisee.8020.autorised' | trans }}
+                                    </p>
+                                    <p style="color: #495057">{{ 'front.franchisee.8020.left_autorised' | trans }}
+                                        <strong
+                                                class="white-text">{{ balance.leftToSpendOutside }}
+                                            €</strong> {{ 'front.franchisee.8020.comparedto_maximumexternal' | trans }}
+                                    </p>
+                                {% elseif balance.leftToSpendOutside < 0 %}
+                                    <p style="color: #495057">{{ 'front.franchisee.8020.spent_tomuch' | trans }}  {{ -1*balance.leftToSpendOutside }}
+                                        €
+                                        {{ 'front.franchisee.8020.spent_tomuchafter' | trans }}</p>
+                                {% endif %}
+
+                                <a class="btn login_btn " style="background-color:#FFF0A5; "
+                                   href="{{ path('external_invoice_new') }}">{{ 'front.franchisee.8020.new_externalinvoice' | trans }}</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PLUS -->
+                    <div class="tab-pane fade p-2" id="p5">
+                        <div class="text-center">
+                            <strong class="white-text">{{ 'front.franchisee.tell_us'|trans }}</strong>
+                            <div class="card-body">
+                                {% if franchisee.truck != null %}
+                                    <p>
+                                        <a class="btn login_btn " style="background-color:#FFF0A5; "
+                                           href="{{ path('truck_complaint_new') }}">{{ 'front.franchisee.truck_pb' | trans }}</a>
+                                    </p>
+                                    {# TODO: link the page to fill a truck complaint form #}
+                                    <p>
+                                        <a class="btn login_btn " style="background-color:#FFF0A5; "
+                                           href="{{ path('truck_position_new') }}">{{ 'front.franchisee.position'|trans }}</a>
+                                    </p>
+                                    <p>
+                                        <a class="btn login_btn " style="background-color:#FFF0A5; "
+                                           href="{{ path('invoice_new') }}">{{ 'front.franchisee.month'| trans }}</a>
+                                    </p>
+                                {% endif %}
+                                {# TODO: link the page to fill a number declaration #}
+                                <p>
+                                    <a class="btn login_btn " style="background-color:#FFF0A5; "
+                                       href="{{ path('franchisee_complaint_new') }}">{{ 'front.franchisee.anything_else'| trans }}</a>
                                 </p>
-                                <p>{{ 'front.franchisee.8020.left_autorised' | trans}} <strong>{{ balance.leftToSpendOutside }}€</strong> {{ 'front.franchisee.8020.comparedto_maximumexternal' | trans}}</p>
-                            {% elseif balance.leftToSpendOutside < 0 %}
-                                <p>{{ 'front.franchisee.8020.spent_tomuch' | trans}} {{ -1*balance.leftToSpendOutside }}€ {{ 'front.franchisee.8020.spent_tomuchafter' | trans}}</p>
-                            {% endif %}
-
-                            <a href="{{ path('external_invoice_new') }}">{{ 'front.franchisee.8020.new_externalinvoice' | trans}}</a>
+                            </div>
                         </div>
+                        {% if franchisee.franchiseeComplaints is not null %}
+                            <div class="text-center">
+                                <strong class="white-text">{{ 'front.franchisee.questions'|trans }} :</strong>
+                                <div class="card-body">
+                                    <table class="table_profil">
+                                        <tr class="tr">
+                                            <th class="th">Nom</th>
+                                            <th class="th"> Statue</th>
+                                        </tr>
+                                        {% for complaint in franchisee.franchiseeComplaints %}
+                                            <tr class="tr">
+                                                {% if complaint.isNew %}
+                                                    <td class="th"> {{ complaint.title }} </td>
+                                                    <td class="th">
+                                                        <button class="btn btn-success disabled">{{ 'front.franchisee.new'|trans }}</button>
+                                                    </td>
+                                                {% endif %}
+                                                {% if complaint.isOngoing %}
+                                                    <td class="th"> {{ complaint.title }}</td>
+                                                    <td class="th">
+                                                        <button class="btn btn-info disabled">{{ 'front.franchisee.ongoing'|trans }}</button>
+                                                    </td>
+                                                {% endif %}
+                                                {% if complaint.isClosed %}
+                                                    <td class="th"><a
+                                                                href="{{ path('franchisee_complaint_show', {'id': complaint.id}) }}">{{ complaint.title }}</a>
+                                                    </td>
+                                                    <td class="th">
+                                                        <button class="btn btn-danger disabled">{{ 'front.franchisee.closed'|trans }}</button>
+                                                    </td>
+                                                {% endif %}
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
-            </div>
-        </section>
-    {% endif %}
+            </section>
+        {% endif %}
     </div>
 {% endblock %}
