@@ -29,9 +29,9 @@ front:
       new: Nouveau
       ongoing: En cours
       closed: Fermé
-      turnover: Chiffres d'affaire
-      declaration_turnover: Déclaration du chiffres d'affaire du mois de
-      pay_turnover: Verser 4% du chiffres d'affaire
+      turnover: Chiffre d'affaires
+      declaration_turnover: Déclaration du chiffre d'affaires du mois de
+      pay_turnover: Verser 4% du chiffre d'affaires
       already_turnover: Vous avez déjà fait la déclaration pour le mois de
       turnover_closed: Vous avez déjà réalisé le paiement du mois de
       block_account:
@@ -40,8 +40,8 @@ front:
         pay_amount_month : € pour le mois de
         link: Vous trouverez le lien ci dessous
         button_pay: Payer les 4% du mois de
-        button_declaration: Déclarer mon chiffres d'affaire
-        declaration: Veuillez déclarer votre chiffre d'affaire du mois de
+        button_declaration: Déclarer mon chiffre d'affaires
+        declaration: Veuillez déclarer votre chiffre d'affaires du mois de
       ranking: Votre rang
       higherRank: Votre Prochain Rang
       monthUnit: €/mois

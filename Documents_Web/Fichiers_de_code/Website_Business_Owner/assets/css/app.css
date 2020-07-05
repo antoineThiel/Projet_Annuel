@@ -174,7 +174,8 @@ body {
     font-size: large;
     font-weight: normal;
 }
-.nav-link{
+
+.nav_front{
     color:white;
     background-color: #80c2e0;
     border: 1px solid #80c2e0;
