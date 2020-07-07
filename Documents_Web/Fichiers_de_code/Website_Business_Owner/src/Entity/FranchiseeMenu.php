@@ -56,6 +56,11 @@ class FranchiseeMenu
      */
     private Collection $menuToArticles;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="menues")
+     */
+    private $event;
+
 
     public function __construct()
     {
@@ -171,6 +176,18 @@ class FranchiseeMenu
                 $menuToArticle->setFranchiseeMenu(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
 
         return $this;
     }

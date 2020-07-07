@@ -66,6 +66,11 @@ class FranchiseeArticle
      */
     private $stock;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="articles")
+     */
+    private $event;
+
 
 
     public function __construct()
@@ -201,6 +206,18 @@ class FranchiseeArticle
     public function setStock(int $stock): self
     {
         $this->stock = $stock;
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
 
         return $this;
     }
