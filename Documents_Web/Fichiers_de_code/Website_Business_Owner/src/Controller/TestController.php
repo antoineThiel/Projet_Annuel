@@ -368,6 +368,7 @@ class TestController extends AbstractController
                 $i++;
             }
         }
+        $response['fidelity'] = $customer->getFidelity();
         $response = $serializer->serialize($response, 'json');
         return new JsonResponse($response, 200, [], true);
     }
@@ -439,16 +440,59 @@ class TestController extends AbstractController
         $idOrder  = $request->get("id");
         $em = $this->getDoctrine()->getManager();
         $orderRep = $em->getRepository('App\Entity\CustomerOrder');
+        $customerRep = $em->getRepository('App\Entity\Customer');
         $order = $orderRep->findOneBy(['id' => $idOrder]);
+        $customer = $customerRep->findOneBy(['id' => $order->getCustomer()]);
         $articles = $order->getArticles();
         $price = 0;
         foreach ($articles as $article)
         {
             $price+=$article->getPrice();
         }
+
+        if ($price >=10){
+            $fid = $price / 10;
+            $customer->setFidelity($customer->getFidelity() + $fid);
+        }
         $order->setValidate(true);
         $order->setAmmount($price);
         $em->persist($order);
+        $em->persist($customer);
+        $em->flush();
+        $response["stat"] = "200";
+        $response = $serializer->serialize($response,'json');
+        return new JsonResponse($response, 200, [], true);
+    }
+
+    /**
+     * @Route("/finalOrderFidelity/{id}/{reduc}", name="finalOrderFid", methods={"GET"})
+     */
+    public function finalOrderFidelity(Request $request, SerializerInterface $serializer) : JsonResponse
+    {
+        $idOrder  = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        $orderRep = $em->getRepository('App\Entity\CustomerOrder');
+        $customerRep = $em->getRepository('App\Entity\Customer');
+        $order = $orderRep->findOneBy(['id' => $idOrder]);
+
+        $customer = $customerRep->findOneBy(['id' => $order->getCustomer()]);
+        $customer->setFidelity($customer->getFidelity() - $request->get("reduc"));
+        $articles = $order->getArticles();
+        $price = 0;
+        foreach ($articles as $article)
+        {
+            $price+=$article->getPrice();
+        }
+        $price -= $request->get("reduc");
+        if ($price >= 10)
+        {
+            $fid = $price / 10;
+            $customer->setFidelity($customer->getFidelity() + $fid);
+        }
+        $order->setValidate(true);
+        $order->setAmmount($price);
+        $em->persist($order);
+        $em->persist($customer);
         $em->flush();
         $response["stat"] = "200";
         $response = $serializer->serialize($response,'json');
@@ -477,6 +521,7 @@ class TestController extends AbstractController
         $customer->setLastname($decoded['lastName']);
         $customer->setMail($decoded['email']);
         $customer->setPassword($decoded['password']); // Securiser
+        $customer->setFidelity(0);
 
         $em->persist($customer);
         $em->flush();
@@ -493,4 +538,5 @@ class TestController extends AbstractController
         $response = $serializer->serialize($response, 'json');
         return new JsonResponse($response, 200, [], true);
     }
+
 }
