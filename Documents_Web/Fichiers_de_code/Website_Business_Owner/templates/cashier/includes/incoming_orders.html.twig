@@ -3,8 +3,19 @@
         <h3 class="card-title"><strong>Nouvelle commande</strong></h3>
     </div>
     <div class="card-body">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad architecto blanditiis expedita ipsa ipsam maxime temporibus. Consequuntur debitis est eveniet explicabo hic natus placeat quidem quisquam reprehenderit repudiandae, saepe, sint.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad architecto blanditiis expedita ipsa ipsam maxime temporibus. Consequuntur debitis est eveniet explicabo hic natus placeat quidem quisquam reprehenderit repudiandae, saepe, sint.</p>
 
+        {% for order in orders %}
+            <a class="btn btn-primary app-color-match" data-toggle="collapse"
+               href="#collapse{{ order.id }}" role="button" aria-expanded="false"
+               aria-controls="collapseExample">
+                {{ order.customer.name }}
+            </a>
+
+        <div class="collapse" id="collapse{{ order.id }}">
+            <div class="card card-body">
+
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </div>

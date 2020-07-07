@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 use App\Entity\Customer;
+use App\Repository\CustomerOrderRepository;
 use App\Repository\DishRepository;
 use App\Repository\FranchiseeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -64,8 +65,12 @@ class CashierController extends AbstractController
     /**
      * @Route("/franchisee/work/ajax/fill_incoming", name="ajax_fill_incoming", methods={"GET"})
      */
-    public function fill_incoming(Request $request , FranchiseeRepository $franchiseeRepository) : Response
+    public function fill_incoming(Request $request ,CustomerOrderRepository $customerOrderRepository , FranchiseeRepository $franchiseeRepository) : Response
     {
+
+        $customerOrderRepository->findBy("franchisee = $this->getUser()");
+
+
         return $this->render('cashier/includes/incoming_orders.html.twig', [
         ]);
     }
@@ -96,7 +101,5 @@ class CashierController extends AbstractController
         return $this->render('cashier/index.html.twig', [
         ]);
     }
-
-
 
 }
