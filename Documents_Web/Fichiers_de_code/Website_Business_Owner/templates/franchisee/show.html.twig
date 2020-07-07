@@ -305,7 +305,7 @@
                             </div>
                             {% if events is not null %}
                                 <div class="text-center">
-                                    <strong class="white-text">Mes evenements passé :</strong>
+                                    <strong class="white-text">Mes evenements :</strong>
                                     <div class="card-body">
                                         <table class="table_profil">
                                             <tr class="tr">
@@ -313,6 +313,7 @@
                                                 <th class="th"> Date fin</th>
                                                 <th class="th"> Produits</th>
                                                 <th class="th"> Reduction</th>
+                                                <th class="th"> Statut</th>
                                             </tr>
                                             {% for event in events %}
                                                 <tr class="tr">
@@ -331,7 +332,16 @@
                                                         {% endif %}
                                                     </td>
                                                     <td class="th"> {{ event.reduction*100 }} %</td>
+                                                    <td class="th">
+                                                        {% if event.endDate|date("d/m/y") < 'now'|date('d/m/y') and event.startDate|date('d/m/y') <= 'now'|date('d/m/y') %}
+                                                            Fini
+                                                        {% elseif event.endDate|date("d/m/y") >= 'now'|date('d/m/y') and event.startDate|date('d/m/y') <= 'now'|date('d/m/y') %}
+                                                            En cours
+                                                        {% elseif event.startDate|date('d/m/y') > 'now'|date('d/m/y') %}
+                                                            Bientôt
+                                                        {% endif %}
 
+                                                    </td>
                                                 </tr>
                                             {% endfor %}
                                         </table>
