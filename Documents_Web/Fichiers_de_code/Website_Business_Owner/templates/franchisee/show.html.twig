@@ -19,7 +19,7 @@
                     <a class="nav-item nav-link nav_front mr-1" href="#p4"
                        data-toggle="tab">{{ 'front.franchisee.turnover' | trans }}</a>
                     <a class="nav-item nav-link nav_front mr-1" href="#p5"
-                       data-toggle="tab">event</a>
+                       data-toggle="tab">{{ 'front.franchisee.evenement.name'|trans }}</a>
                     <a class="nav-item nav-link nav_front mr-1" href="#p6"
                        data-toggle="tab">Plus</a>
                 </nav>
@@ -296,24 +296,23 @@
                     <!-- EVENT -->
                     <div class="tab-pane fade p-2" id="p5">
                         <div class="text-center">
-                            <strong class="white-text">Evenement</strong>
                             <div class="card-body">
                                 <p>
                                     <a class="btn login_btn " style="background-color:#FFF0A5; "
-                                       href="{{ path('event_new') }}">Creer un evenement </a>
+                                       href="{{ path('event_new') }}">{{ 'front.franchisee.evenement.create'|trans }} </a>
                                 </p>
                             </div>
                             {% if events is not null %}
                                 <div class="text-center">
-                                    <strong class="white-text">Mes evenements :</strong>
+                                    <strong class="white-text">{{ 'front.franchisee.evenement.my_evenement'|trans }}:</strong>
                                     <div class="card-body">
                                         <table class="table_profil">
                                             <tr class="tr">
-                                                <th class="th">Date Debut</th>
-                                                <th class="th"> Date fin</th>
-                                                <th class="th"> Produits</th>
-                                                <th class="th"> Reduction</th>
-                                                <th class="th"> Statut</th>
+                                                <th class="th">{{ 'front.franchisee.evenement.date_start'|trans }}</th>
+                                                <th class="th">{{ 'front.franchisee.evenement.date_end'|trans }}</th>
+                                                <th class="th"> {{ 'front.franchisee.evenement.product'|trans }}</th>
+                                                <th class="th"> {{ 'front.franchisee.evenement.reduction'|trans }}</th>
+                                                <th class="th"> {{ 'front.franchisee.evenement.statut'|trans }}</th>
                                             </tr>
                                             {% for event in events %}
                                                 <tr class="tr">
