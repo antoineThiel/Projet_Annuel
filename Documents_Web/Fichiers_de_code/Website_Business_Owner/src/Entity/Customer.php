@@ -38,6 +38,11 @@ class Customer
      */
     private $mail;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $fidelity;
+
 
     public function getId(): ?int
     {
@@ -94,5 +99,23 @@ class Customer
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFidelity()
+    {
+        return $this->fidelity;
+    }
+
+    /**
+     * @param mixed $fidelity
+     */
+    public function setFidelity($fidelity): void
+    {
+        $this->fidelity = $fidelity;
+    }
+
+
 
 }
