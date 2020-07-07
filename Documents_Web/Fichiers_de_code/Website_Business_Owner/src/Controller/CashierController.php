@@ -67,11 +67,11 @@ class CashierController extends AbstractController
      */
     public function fill_incoming(Request $request ,CustomerOrderRepository $customerOrderRepository , FranchiseeRepository $franchiseeRepository) : Response
     {
-
-        $customerOrderRepository->findBy("franchisee = $this->getUser()");
-
+//        $franchisee = $this->getUser();
+//        $orders = $franchisee->getCustomerOrders();
 
         return $this->render('cashier/includes/incoming_orders.html.twig', [
+//            "orders" => $orders
         ]);
     }
 
