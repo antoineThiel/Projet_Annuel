@@ -24,7 +24,7 @@ class EventController extends AbstractController
     {
 
         return $this->render('event/index.html.twig', [
-            'turnovers' => $eventRepository->findAll(),
+            'events' => $eventRepository->findBy([],['startDate' => 'DESC']),
         ]);
     }
 

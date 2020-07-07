@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        {% block title %}{% endblock %}
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ path('admin_home') }}">Accueil</a></li>
+                            <li class="breadcrumb-item active">Evenements</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- Main content -->
+        <section class="content">
+            <h1>Historique des Evenements</h1>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Franchisee</th>
+                    <th>Date Début</th>
+                    <th>Date fin</th>
+                    <th>Produit</th>
+                    <th>Réduction</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for event in events %}
+                    {% if event.startDate|date('Y-m-d') > 'now'|date('Y-m-d') %}
+                        <tr style="background-color: limegreen;">
+                    {% elseif event.endDate|date('Y-m-d') >= 'now'|date('Y-m-d') and event.startDate|date('Y-m-d') <= 'now'|date('Y-m-d') %}
+                        <tr style="background-color: cornflowerblue">
+                    {% elseif  event.endDate|date('Y-m-d') < 'now'|date('Y-m-d')%}
+                        <tr style="background-color: #E5735E;">
+                    {% endif %}
+                    <td>{{ event.franchisee }}</td>
+                    <td>{{ event.startDate|date('d/m/Y') }}</td>
+                    <td>{{ event.startDate|date('d/m/Y') }} </td>
+                    <td>
+                        {% for article in event.articles %}
+                            {{ article.name }} |
+                        {% endfor %}
+                        {% for menu in event.menues %}
+                            {{ menu.name }} |
+                        {% endfor %}
+                    </td>
+                    <td>{{ event.reduction }}%</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">Rien à afficher</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <a href="{{ path('turnover_new') }}">
+                <button class="btn btn-info ml-3 mr-1">Nouveaux</button>
+            </a>
+            <a href="{{ path('turnover_totaux') }}">
+                <button class="btn btn-info ml-3 mr-1">Totaux</button>
+            </a>
+        </section>
+    </div>
+{% endblock %}
