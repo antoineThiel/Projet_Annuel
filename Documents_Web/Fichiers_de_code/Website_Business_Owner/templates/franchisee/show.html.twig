@@ -333,14 +333,13 @@
                                                     </td>
                                                     <td class="th"> {{ event.reduction*100 }} %</td>
                                                     <td class="th">
-                                                        {% if event.endDate|date("d/m/y") < 'now'|date('d/m/y') and event.startDate|date('d/m/y') <= 'now'|date('d/m/y') %}
-                                                            Fini
-                                                        {% elseif event.endDate|date("d/m/y") >= 'now'|date('d/m/y') and event.startDate|date('d/m/y') <= 'now'|date('d/m/y') %}
-                                                            En cours
-                                                        {% elseif event.startDate|date('d/m/y') > 'now'|date('d/m/y') %}
-                                                            Bientôt
+                                                        {% if event.startDate|date('Y-m-d') > 'now'|date('Y-m-d') %}
+                                                            <button class="btn btn-success disabled">{{ 'front.franchisee.new'|trans }}</button>
+                                                        {% elseif event.endDate|date('Y-m-d') >= 'now'|date('Y-m-d') and event.startDate|date('Y-m-d') <= 'now'|date('Y-m-d') %}
+                                                            <button class="btn btn-info disabled">{{ 'front.franchisee.ongoing'|trans }}</button>
+                                                        {% elseif  event.endDate|date('Y-m-d') < 'now'|date('Y-m-d')%}
+                                                            <button class="btn btn-danger disabled">{{ 'front.franchisee.closed'|trans }}</button>
                                                         {% endif %}
-
                                                     </td>
                                                 </tr>
                                             {% endfor %}
