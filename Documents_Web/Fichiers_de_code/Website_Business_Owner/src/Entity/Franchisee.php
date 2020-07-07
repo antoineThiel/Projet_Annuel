@@ -119,6 +119,11 @@ class Franchisee implements UserInterface
      */
     private $franchiseeArticles;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CustomerOrder::class, mappedBy="franchisee")
+     */
+    private $customerOrders;
+
 
 
 
@@ -134,6 +139,7 @@ class Franchisee implements UserInterface
         $this->stockDishes = new ArrayCollection();
         $this->franchiseeMenus = new ArrayCollection();
         $this->franchiseeArticles = new ArrayCollection();
+        $this->customerOrders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -546,6 +552,37 @@ class Franchisee implements UserInterface
             // set the owning side to null (unless already changed)
             if ($franchiseeArticle->getFranchisee() === $this) {
                 $franchiseeArticle->setFranchisee(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CustomerOrder[]
+     */
+    public function getCustomerOrders(): Collection
+    {
+        return $this->customerOrders;
+    }
+
+    public function addCustomerOrder(CustomerOrder $customerOrder): self
+    {
+        if (!$this->customerOrders->contains($customerOrder)) {
+            $this->customerOrders[] = $customerOrder;
+            $customerOrder->setFranchisee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCustomerOrder(CustomerOrder $customerOrder): self
+    {
+        if ($this->customerOrders->contains($customerOrder)) {
+            $this->customerOrders->removeElement($customerOrder);
+            // set the owning side to null (unless already changed)
+            if ($customerOrder->getFranchisee() === $this) {
+                $customerOrder->setFranchisee(null);
             }
         }
 

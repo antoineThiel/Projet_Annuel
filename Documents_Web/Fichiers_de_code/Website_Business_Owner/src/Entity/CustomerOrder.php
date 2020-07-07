@@ -50,6 +50,11 @@ class CustomerOrder
      */
     private $validate;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Franchisee::class, inversedBy="customerOrders")
+     */
+    private $franchisee;
+
     public function __construct()
     {
         $this->menues = new ArrayCollection();
@@ -164,6 +169,18 @@ class CustomerOrder
     public function setValidate($validate): void
     {
         $this->validate = $validate;
+    }
+
+    public function getFranchisee(): ?Franchisee
+    {
+        return $this->franchisee;
+    }
+
+    public function setFranchisee(?Franchisee $franchisee): self
+    {
+        $this->franchisee = $franchisee;
+
+        return $this;
     }
 
 
