@@ -36,7 +36,7 @@ class CustomerOrder
     private $customer;
 
     /**
-     * @ORM\ManyToMany(targetEntity=FranchiseeMenu::class, inversedBy="customerOrders")
+     * @ORM\ManyToMany(targetEntity=CustomerMenu::class)
      */
     private $menues;
 
@@ -106,7 +106,7 @@ class CustomerOrder
         return $this->menues;
     }
 
-    public function addMenue(FranchiseeMenu $menue): self
+    public function addMenue(CustomerMenu $menue): self
     {
         if (!$this->menues->contains($menue)) {
             $this->menues[] = $menue;
@@ -115,7 +115,7 @@ class CustomerOrder
         return $this;
     }
 
-    public function removeMenue(FranchiseeMenu $menue): self
+    public function removeMenue(CustomerMenu $menue): self
     {
         if ($this->menues->contains($menue)) {
             $this->menues->removeElement($menue);
