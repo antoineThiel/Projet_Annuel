@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Customer;
 use App\Entity\CustomerArticle;
+use App\Entity\CustomerMenu;
 use App\Entity\CustomerOrder;
 use App\Entity\Franchisee;
 use App\Entity\FranchiseeMenu;
@@ -155,21 +156,24 @@ class TestController extends AbstractController
     /**
      * @Route("/getmenu/{id}", name="getmenu", methods={"GET"})
      */
-    public function getMenu(MenuToArticleRepository $menuToArticleRepository , FranchiseeMenuRepository $franchiseeMenuRepository, FranchiseeArticleRepository $franchiseeArticleRepository, SerializerInterface $serializer,Request $request ){
+    public function getMenu(SerializerInterface $serializer,Request $request ){
         $em = $this->getDoctrine()->getManager();
-        $customerOrderRepository = $em->getRepository('App\Entity\MenuToArticle');
-        $menus = $customerOrderRepository->findBy(['franchiseeMenu' => $request->get('id')]);
+        $franchiseeMenuRepository = $em->getRepository('App\Entity\FranchiseeMenu');
+        $menu = $franchiseeMenuRepository->findOneBy(['id' => $request->get('id')]);
         $i = 0;
-        if($menus != null){
-                $menuinfo = $menus[$i]->getFranchiseeMenu();
-                $response['nom'] = $menuinfo->getName();
-                $response['price'] = $menuinfo->getPrice();
-                foreach ($menus as $menu) {
-                    $articleinfo = $menu->getFranchiseeArticle();
-                    $response['article'][$i]['nom'] = $articleinfo->getName();
-                    $response['article'][$i]['price'] = $articleinfo->getPrice();
-                    $response['article'][$i]['unit'] = $articleinfo->getUnit();
-                    $response['article'][$i]['quantity'] = $articleinfo->getQuantity();
+        if($menu != null){
+                $response['nom'] = $menu->getName();
+                $response['price'] = $menu->getPrice();
+                $response['stock'] = $menu->getStock();
+                $articles = $menu->getMenuToArticles();
+                $i = 0;
+                foreach ($articles as $article) {
+                    dump($article->getFranchiseeArticle()->getName());
+                    $response['article'][$i]['id'] = $article->getFranchiseeArticle()->getId();
+                    $response['article'][$i]['nom'] = $article->getFranchiseeArticle()->getName();
+                    $response['article'][$i]['price'] = $article->getFranchiseeArticle()->getPrice();
+                    $response['article'][$i]['unit'] = $article->getFranchiseeArticle()->getUnit();
+                    $response['article'][$i]['quantity'] = $article->getFranchiseeArticle()->getQuantity();
                     $i++;
                 }
         }else{
@@ -313,6 +317,61 @@ class TestController extends AbstractController
     }
 
     /**
+     * @Route("/addCartMenu", name="addcartmenu", methods={"POST"})
+     */
+    public function addCartMenu(Request $request, SerializerInterface $serializer) : JsonResponse
+    {
+        $decoded = json_decode($request->getContent(), true);
+
+        $em = $this->getDoctrine()->getManager();
+        $orderRep = $em->getRepository('App\Entity\CustomerOrder');
+        $menuRepository = $em->getRepository('App\Entity\FranchiseeMenu');
+        $menu = $menuRepository->findOneBy(['id' => $decoded['pid']]);
+        $order = $orderRep->findOneBy(['id' => $decoded['oid']]);
+
+        $oldMenus = $order->getMenues();
+        $i = 0;
+        foreach ($oldMenus as $oldMenu)
+        {
+            if ($oldMenu->getName() === $menu->getName())
+            {
+                $oldQuantity = $oldMenu->getQuantity();
+                $addedQty = $decoded['pqty'];
+                $newQty = $oldQuantity + $addedQty;
+                $oldMenu->setQuantity($newQty);
+
+                $oldPrice = $oldMenu->getPrice();
+                $addedPrice = $decoded['price'];
+                $newPrice = $oldPrice + $addedPrice;
+                $oldMenu->setPrice($newPrice);
+                $em->persist($oldMenu);
+                $i = 1;
+            }
+        }
+        if ($i == 0)
+        {
+            $article = new CustomerMenu();
+            $article->setName($menu->getName());
+            $article->setQuantity($decoded['pqty']);
+            $article->setCustomer($order->getCustomer());
+            $article->setCustomerOrder($order);
+            $article->setPrice($decoded['price']);
+            $order->addMenue($article);
+            $menu->setStock($menu->getStock() - $decoded['pqty']);
+            $em->persist($article);
+        }
+
+
+        $em->persist($order);
+        $em->persist($menu);
+        $em->flush();
+
+        $response['status'] = '200';
+        $response = $serializer->serialize($response, 'json');
+        return new JsonResponse($response, 200, [], true);
+    }
+
+    /**
      * @Route("/newOrder/{id}", name="newOrder", methods={"GET"})
      */
     public function newOrder(Request $request, SerializerInterface $serializer) : JsonResponse
@@ -336,6 +395,7 @@ class TestController extends AbstractController
 
     }
 
+    //MODIFIER
     /**
      * @Route("/getCurrentOrder/{id}/{idCusto}", name="getOrder", methods={"GET"})
      */
@@ -349,6 +409,13 @@ class TestController extends AbstractController
 
 
         if ($order == null) {
+            $response["order"] = "nope";
+            $response = $serializer->serialize($response, 'json');
+            return new JsonResponse($response, 200, [], true);
+        }
+
+
+        if ( $order->getMenues()->isEmpty() and $order->getArticles()->isEmpty()){
             $response["order"] = "nope";
             $response = $serializer->serialize($response, 'json');
             return new JsonResponse($response, 200, [], true);
@@ -368,6 +435,7 @@ class TestController extends AbstractController
                 $i++;
             }
         }
+        $response['fidelity'] = $customer->getFidelity();
         $response = $serializer->serialize($response, 'json');
         return new JsonResponse($response, 200, [], true);
     }
@@ -439,16 +507,59 @@ class TestController extends AbstractController
         $idOrder  = $request->get("id");
         $em = $this->getDoctrine()->getManager();
         $orderRep = $em->getRepository('App\Entity\CustomerOrder');
+        $customerRep = $em->getRepository('App\Entity\Customer');
         $order = $orderRep->findOneBy(['id' => $idOrder]);
+        $customer = $customerRep->findOneBy(['id' => $order->getCustomer()]);
         $articles = $order->getArticles();
         $price = 0;
         foreach ($articles as $article)
         {
             $price+=$article->getPrice();
         }
+
+        if ($price >=10){
+            $fid = $price / 10;
+            $customer->setFidelity($customer->getFidelity() + $fid);
+        }
         $order->setValidate(true);
         $order->setAmmount($price);
         $em->persist($order);
+        $em->persist($customer);
+        $em->flush();
+        $response["stat"] = "200";
+        $response = $serializer->serialize($response,'json');
+        return new JsonResponse($response, 200, [], true);
+    }
+
+    /**
+     * @Route("/finalOrderFidelity/{id}/{reduc}", name="finalOrderFid", methods={"GET"})
+     */
+    public function finalOrderFidelity(Request $request, SerializerInterface $serializer) : JsonResponse
+    {
+        $idOrder  = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        $orderRep = $em->getRepository('App\Entity\CustomerOrder');
+        $customerRep = $em->getRepository('App\Entity\Customer');
+        $order = $orderRep->findOneBy(['id' => $idOrder]);
+
+        $customer = $customerRep->findOneBy(['id' => $order->getCustomer()]);
+        $customer->setFidelity($customer->getFidelity() - $request->get("reduc"));
+        $articles = $order->getArticles();
+        $price = 0;
+        foreach ($articles as $article)
+        {
+            $price+=$article->getPrice();
+        }
+        $price -= $request->get("reduc");
+        if ($price >= 10)
+        {
+            $fid = $price / 10;
+            $customer->setFidelity($customer->getFidelity() + $fid);
+        }
+        $order->setValidate(true);
+        $order->setAmmount($price);
+        $em->persist($order);
+        $em->persist($customer);
         $em->flush();
         $response["stat"] = "200";
         $response = $serializer->serialize($response,'json');
@@ -477,6 +588,7 @@ class TestController extends AbstractController
         $customer->setLastname($decoded['lastName']);
         $customer->setMail($decoded['email']);
         $customer->setPassword($decoded['password']); // Securiser
+        $customer->setFidelity(0);
 
         $em->persist($customer);
         $em->flush();
@@ -493,4 +605,5 @@ class TestController extends AbstractController
         $response = $serializer->serialize($response, 'json');
         return new JsonResponse($response, 200, [], true);
     }
+
 }

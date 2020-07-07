@@ -50,8 +50,6 @@ class Customer
     }
 
 
-
-
     public function getPassword(): ?string
     {
         return $this->password;
@@ -100,17 +98,12 @@ class Customer
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
+
     public function getFidelity()
     {
         return $this->fidelity;
     }
 
-    /**
-     * @param mixed $fidelity
-     */
     public function setFidelity($fidelity): void
     {
         $this->fidelity = $fidelity;
