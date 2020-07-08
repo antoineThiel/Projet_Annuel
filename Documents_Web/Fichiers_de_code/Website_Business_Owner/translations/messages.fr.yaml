@@ -87,6 +87,15 @@ front:
         error_title: Erreur de Stocks
         error_body: Action Impossible
         error_button: Compris
+      evenement:
+        name: Evenement
+        create: Creer un évenement
+        my_evenement: Mes évenements
+        date_start: Date de début
+        date_end: Date de fin
+        product: Produits
+        reduction: Réduction
+        statut: Statut
   truck_complaint:
     title: Formulaire de plainte
   header:

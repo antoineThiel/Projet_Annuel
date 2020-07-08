@@ -44,6 +44,12 @@ class Event
      */
     private $reduction;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Franchisee", inversedBy="turnover")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $franchisee;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -151,5 +157,21 @@ class Event
         $this->reduction = $reduction;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFranchisee()
+    {
+        return $this->franchisee;
+    }
+
+    /**
+     * @param mixed $franchisee
+     */
+    public function setFranchisee($franchisee)
+    {
+        $this->franchisee = $franchisee;
     }
 }
