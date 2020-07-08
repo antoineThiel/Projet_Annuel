@@ -42,7 +42,7 @@
                     {% endif %}
                     <td>{{ event.franchisee }}</td>
                     <td>{{ event.startDate|date('d/m/Y') }}</td>
-                    <td>{{ event.startDate|date('d/m/Y') }} </td>
+                    <td>{{ event.endDate|date('d/m/Y') }} </td>
                     <td>
                         {% for article in event.articles %}
                             {{ article.name }} |
@@ -51,7 +51,10 @@
                             {{ menu.name }} |
                         {% endfor %}
                     </td>
-                    <td>{{ event.reduction }}%</td>
+                    <td>{{ event.reduction * 100 }}%</td>
+                    <td>
+                        <a href="{{ path('event_edit', {'id': event.id}) }}">Modifier</a>
+                    </td>
                     </tr>
                 {% else %}
                     <tr>
@@ -60,12 +63,6 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <a href="{{ path('turnover_new') }}">
-                <button class="btn btn-info ml-3 mr-1">Nouveaux</button>
-            </a>
-            <a href="{{ path('turnover_totaux') }}">
-                <button class="btn btn-info ml-3 mr-1">Totaux</button>
-            </a>
         </section>
     </div>
 {% endblock %}
