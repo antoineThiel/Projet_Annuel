@@ -39,6 +39,8 @@ class EventController extends AbstractController
     public function new(Request $request, FranchiseeArticleRepository $franchiseeArticleRepository, FranchiseeMenuRepository $franchiseeMenuRepository): Response
     {
         $events = new Event();
+        $events->setStartDate(new \DateTime());
+        $events->setEndDate(new \DateTime());
         $user = $this->getUser();
         $form = $this->createForm(EventType::class, $events);
         $form->handleRequest($request);
