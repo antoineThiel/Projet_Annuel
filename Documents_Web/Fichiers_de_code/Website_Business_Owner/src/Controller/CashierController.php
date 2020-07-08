@@ -8,6 +8,8 @@ use App\Entity\Customer;
 use App\Repository\CustomerOrderRepository;
 use App\Repository\CustomerRepository;
 use App\Repository\DishRepository;
+use App\Repository\FranchiseeArticleRepository;
+use App\Repository\FranchiseeMenuRepository;
 use App\Repository\FranchiseeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -86,12 +88,21 @@ class CashierController extends AbstractController
     /**
      * @Route("/franchisee/work/ajax/fill_current", name="ajax_fill_current", methods={"GET"})
      */
-    public function fill_current(CustomerRepository $customerRepository) : Response
+    public function fill_current(CustomerRepository $customerRepository , FranchiseeArticleRepository $franchiseeArticleRepository ,FranchiseeMenuRepository $franchiseeMenuRepository) : Response
     {
 
+        $franchisee = $this->getUser();
         $allCustomers = $customerRepository->findAll();
+
+        $franchiseeArticles = $franchiseeArticleRepository->findBy(['franchisee' => $franchisee]);
+        $franchiseeMenues = $franchiseeMenuRepository->findBy(['franchisee' => $franchisee]);
+
+
         return $this->render('cashier/includes/current_order.html.twig', [
             'allCustomers' => $allCustomers,
+            'franchiseeArticles' => $franchiseeArticles,
+            'franchiseeMenus' => $franchiseeMenues,
+
         ]);
     }
 
@@ -131,6 +142,37 @@ class CashierController extends AbstractController
 
         return $this->render('cashier/confirm_order_modal.html.twig', [
             "order" => $currentOrder,
+        ]);
+    }
+
+
+    /**
+     * @Route("/franchisee/work/ajax/addToCart", name="ajax_addTo_cart", methods={"POST"})
+     * @param Request $request
+     * @param FranchiseeMenuRepository $franchiseeMenuRepository
+     * @param FranchiseeArticleRepository $franchiseeArticleRepository
+     * @return Response
+     */
+    public function addToCart(Request $request , FranchiseeMenuRepository $franchiseeMenuRepository , FranchiseeArticleRepository $franchiseeArticleRepository):Response
+    {
+        $franchisee = $this->getUser();
+        $item_name = $request->request->get("item_name");
+        $aORm = $request->request->get("aORm");
+
+        $allArticles = $franchiseeArticleRepository->findBy(["franchisee" => $franchisee ]);
+        $allMenues = $franchiseeMenuRepository->findBy(["franchisee" => $franchisee ]);
+
+
+        if($aORm === "1"){
+            $totalOrder = 50;
+        }
+        else{
+            $totalOrder = 10;
+        }
+
+        return $this->render('cashier/includes/recap_template.html.twig' , [
+           "totalOrder" => $totalOrder,
+//           "items" => $items,
         ]);
     }
 

@@ -42,6 +42,7 @@ Encore
     .addEntry('deleteObj', './assets/js/deleteObject.js')
     .addEntry('menuArticle', './assets/js/menuArticle.js')
     .addEntry('cashier' , './assets/js/cashier.js')
+    .addEntry('manageOrder' , './assets/js/manageOrder.js')
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 

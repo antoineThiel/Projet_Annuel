@@ -4,13 +4,76 @@
         </div>
         <div class="card-body">
 
-            <select class="custom-select">
-                <option selected disabled>Compte du client</option>
-                {% for option in allCustomers %}
-                <option> {{ option.name }}  {{ option.lastname }}</option>
-                {% endfor %}
+            <div class="row mb-2">
+                <div class="col">
+                    <select class="custom-select" id="customer_select">
+                        <option selected disabled>Compte du client</option>
+                        {% for option in allCustomers %}
+                        <option id_cust="{{ option.id }}"> {{ option.name }}  {{ option.lastname }}</option>
+                        {% endfor %}
+                    
+                    </select>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col border-primary ml-2" id="articles">
+                    <div class="card">
+                        <div class="card-body">
+                            <select class="custom-select">
+                                <option selected disabled>Articles</option>
+                                {% for article in franchiseeArticles %}
+                                    {% if article.stock <= 0 %}
+                                        <option class="text-danger" id_article="{{ article.id }}" disabled> {{ article.name }}  <span>{{ article.price |number_format(2)}}€</span></option>
+                                    {% else %}
+                                        <option id_article="{{ article.id }}"> {{ article.name }}  <span>{{ article.price |number_format(2)}}€</span></option>
+                                    {% endif %}
+                                {% endfor %}
 
-            </select>
+                            </select>
+                            <button class="btn btn-primary app-color-match addToCart">Ajouter</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col border-primary mr-2" id="menues">
+                    <div class="card">
+                        <div class="card-body">
+                            <select class="custom-select">
+                                <option selected disabled>Menus</option>
+                                {% for menu in franchiseeMenus %}
+                                    {% if menu.stock <= 0 %}
+                                        <option class="text-danger" id_menu="{{ menu.id }}" disabled> {{ menu.name }}  <span>{{ menu.price |number_format(2)}}€</span></option>
+                                    {% else %}
+                                        <option id_menu="{{ menu.id }}"> {{ menu.name }}  <span>{{ menu.price |number_format(2)}}€</span></option>
+                                    {% endif %}
+                                {% endfor %}
+
+                            </select>
+                            <button class="btn btn-primary app-color-match addToCart">Ajouter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <p class="card-title">Récap commande</p>
+                <div class="card-body" id="recap">
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-danger" id="with_points">Points</button>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-info" id="without_points">Espèces</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
