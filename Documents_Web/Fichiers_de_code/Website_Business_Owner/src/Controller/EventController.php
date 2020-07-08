@@ -103,21 +103,24 @@ class EventController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            if($event->getArticles() != null) {
+                $articles = $event->getArticles();
+                foreach ($articles as $article) {
+                    $articleid = $franchiseeArticleRepository->findOneBy(['franchisee' => $event->getFranchisee(), 'name' => $article->getName()]);
+                    $articleid->setEvent(null);
+                    $entityManager->persist($articleid);
+                }
+            }
+            if($event->getMenues()!=null) {
+                $menues = $event->getMenues();
+                foreach ($menues as $menue) {
+                    $menueid = $franchiseeMenuRepository->findOneBy(['franchisee' => $event->getFranchisee(), 'name' => $menue->getName()]);
+                    $menueid->setEvent(null);
+                    $entityManager->persist($menueid);
+                }
+            }
             $entityManager->remove($event);
-
-            $articles = $event->getArticles();
-            foreach ($articles as $article){
-                $articleid = $franchiseeArticleRepository->findOneBy(['franchisee' => $event->getFranchisee(), 'name' => $article->getName()]);
-                $articleid->setEvent($event);
-                $entityManager->remove($articleid);
-            }
-
-            $menues = $event->getMenues();
-            foreach ($menues as $menue){
-                $menueid = $franchiseeMenuRepository->findOneBy(['franchisee' => $event->getFranchisee(), 'name' => $menue->getName()]);
-                $menueid->setEvent($event);
-                $entityManager->remove($menueid);
-            }
 
             $entityManager->flush();
         }
