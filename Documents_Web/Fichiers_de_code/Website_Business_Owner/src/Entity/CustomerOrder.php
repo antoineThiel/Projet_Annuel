@@ -36,7 +36,7 @@ class CustomerOrder
     private $customer;
 
     /**
-     * @ORM\ManyToMany(targetEntity=FranchiseeMenu::class, inversedBy="customerOrders")
+     * @ORM\ManyToMany(targetEntity=CustomerMenu::class)
      */
     private $menues;
 
@@ -49,6 +49,11 @@ class CustomerOrder
      * @ORM\Column(type="boolean")
      */
     private $validate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Franchisee::class, inversedBy="customerOrders")
+     */
+    private $franchisee;
 
     public function __construct()
     {
@@ -106,7 +111,7 @@ class CustomerOrder
         return $this->menues;
     }
 
-    public function addMenue(FranchiseeMenu $menue): self
+    public function addMenue(CustomerMenu $menue): self
     {
         if (!$this->menues->contains($menue)) {
             $this->menues[] = $menue;
@@ -115,7 +120,7 @@ class CustomerOrder
         return $this;
     }
 
-    public function removeMenue(FranchiseeMenu $menue): self
+    public function removeMenue(CustomerMenu $menue): self
     {
         if ($this->menues->contains($menue)) {
             $this->menues->removeElement($menue);
@@ -164,6 +169,18 @@ class CustomerOrder
     public function setValidate($validate): void
     {
         $this->validate = $validate;
+    }
+
+    public function getFranchisee(): ?Franchisee
+    {
+        return $this->franchisee;
+    }
+
+    public function setFranchisee(?Franchisee $franchisee): self
+    {
+        $this->franchisee = $franchisee;
+
+        return $this;
     }
 
 

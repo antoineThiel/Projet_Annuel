@@ -1,0 +1,25 @@
+{% extends 'base_front.html.twig' %}
+{% block content %}
+
+<div class="row mt-5">
+
+    <div class="col-sm-3  ml-5" id="incoming"></div>
+    <div class="col-sm-1"></div>
+
+    <div class="col-sm-4" id="current"></div>
+    <div class="col-sm-1"></div>
+
+    <div class="col-sm-2 mr-5" id="create"></div>
+</div>
+
+<div id="myDialog"></div>
+
+<div id="vars" f_id="{{ app.user.id }}"></div>
+
+{% block title %}{% endblock %}
+{% endblock %}
+{%  block javascripts %}
+
+    {{ encore_entry_script_tags('cashier') }}
+
+{% endblock %}

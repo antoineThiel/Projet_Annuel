@@ -22,6 +22,9 @@
                 <li class="nav-item">
                     <a class="nav-link white-text" href="{{ path('franchisee_menu', { 'id' : app.user.id }) }}">{{ 'front.franchisee.stocks.my_menues' | trans }}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link white-text" href="{{ path('cashier_index') }}">CAISSE</a>
+                </li>
             {% endif %}
             <a href="{{ path('home', {'_locale': 'en'}) }}" class="nav-link {{ (app.request.attributes.get('_locale') == 'en' ) ? 'd-none' }}">EN</a>
             <a href="{{ path('home', {'_locale': 'fr'}) }}" class="nav-link {{ (app.request.attributes.get('_locale') == 'fr' ) ? 'd-none' }}">FR</a>
