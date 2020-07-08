@@ -125,6 +125,10 @@ class Franchisee implements UserInterface
     private $customerOrders;
 
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Event" , mappedBy="franchisee")
+     */
+    private $event;
 
 
 
@@ -559,6 +563,22 @@ class Franchisee implements UserInterface
     }
 
     /**
+     * @return mixed
+     */
+    public function getEvent()
+    {
+        return $this->event;
+    }
+
+    /**
+     * @param mixed $event
+     */
+    public function setEvent($event)
+    {
+        $this->event = $event;
+    }
+  
+    /*
      * @return Collection|CustomerOrder[]
      */
     public function getCustomerOrders(): Collection
@@ -588,5 +608,4 @@ class Franchisee implements UserInterface
 
         return $this;
     }
-
 }

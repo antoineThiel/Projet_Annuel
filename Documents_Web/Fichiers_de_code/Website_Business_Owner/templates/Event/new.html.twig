@@ -1,0 +1,11 @@
+{% extends 'base_front.html.twig' %}
+{% block content %}
+        <div class="m-5">
+        {% block title %}<h3>Evenement</h3>{% endblock %}
+
+        <!-- Main content -->
+        <section class="content">
+            {{ include('event/_form.html.twig') }}
+        </section>
+        </div>
+{% endblock %}
