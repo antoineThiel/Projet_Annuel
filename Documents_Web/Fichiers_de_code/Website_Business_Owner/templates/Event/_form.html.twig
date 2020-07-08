@@ -1,4 +1,25 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-<button class="btn">{{ button_label|default('Save') }}</button>
+<div style="margin:0 auto; width: 40%">
+<div class="form-row">
+    <div class="form-group col-md-6 text-center">
+        {{ form_row(form.startDate) }}
+    </div>
+    <div class="form-group col-md-6 text-center">
+        {{ form_row(form.endDate) }}
+    </div>
+</div>
+    <div class="form-group" style="display:ruby;">
+        {{ form_row(form.articles) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(form.menues) }}
+    </div>
+    <div class="form-group text-center">
+        {{ form_row(form.reduction) }}
+    </div>
+</div>
+<div style="text-align: center">
+<button class="btn login_btn "
+        style="background-color:#FFF0A5;">{{ button_label|default('Save') }}</button>
+</div>
 {{ form_end(form) }}

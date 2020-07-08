@@ -15,6 +15,7 @@ use Doctrine\ORM\Query\Expr\Join;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -24,32 +25,37 @@ class EventType extends AbstractType
     {
         $builder
             ->add('startDate', DateType::class, [
-                'format' => 'dd/MM/yyyy',
+                'label' => 'Date de début',
+                'html5'=>false,
+                'format' => 'ddMMyyyy',
                 'years' => range(date('Y'), date('Y') + 10),
                 'months' => range(date('m'), 12),
             ])
             ->add('endDate', DateType::class, [
-                'format' => 'dd/MM/yyyy',
+                'label' => 'Date de fin',
+                'format' => 'ddMMyyyy',
                 'html5' => false,
                 'years' => range(date('Y'), date('Y') + 10),
                 'months' => range(date('m'), 12),
             ])
             ->add('articles', EntityType::class, [
+                'label' => 'Les articles',
                 'class' => FranchiseeArticle::class,
                 'choice_label' => 'name',
                 'expanded' => true,
                 'multiple' => true,
                 'empty_data' => '',
-                'required'=> false,
+                'required' => false,
                 'query_builder' => function (FranchiseeArticleRepository $ar) {
                     return $ar->createQueryBuilder('f')
-                        ->leftJoin('App\Entity\Event' , 'e' , Join::WITH , 'f.event = e.id' )
-                        ->andWhere('e.endDate < :date OR f.event is null ')
+                        ->leftJoin('App\Entity\Event', 'e', Join::WITH, 'f.event = e.id')
+                        ->andWhere('e.endDate < :date  OR f.event is null')
                         ->orderBy('f.name', 'ASC')
-                        ->setParameter('date' ,new DateTime(),Type::DATETIME);
+                        ->setParameter('date', new DateTime(), Type::DATETIME);
                 }
             ])
             ->add('menues', EntityType::class, [
+                'label' => 'Les menues',
                 'class' => FranchiseeMenu::class,
                 'choice_label' => 'name',
                 'expanded' => true,
@@ -58,13 +64,15 @@ class EventType extends AbstractType
                 'required' => false,
                 'query_builder' => function (FranchiseeMenuRepository $ar) {
                     return $ar->createQueryBuilder('f')
-                        ->leftJoin('App\Entity\Event' , 'e' , Join::WITH , 'f.event = e.id' )
-                        ->andWhere('e.endDate < :date OR f.event is null ')
+                        ->leftJoin('App\Entity\Event', 'e', Join::WITH, 'f.event = e.id')
+                        ->andWhere('e.endDate < :date OR f.event is null')
                         ->orderBy('f.name', 'ASC')
-                        ->setParameter('date' ,new DateTime(),Type::DATETIME);
+                        ->setParameter('date', new DateTime(), Type::DATETIME);
                 }
             ])
-            ->add('Reduction');
+            ->add('reduction', TextType::class, [
+                'label' => 'Reduction %',
+            ]);
 
     }
 
