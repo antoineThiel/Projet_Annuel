@@ -1,21 +1,24 @@
 function fill_incoming(f_id){
     $.ajax({
         url: "/franchisee/work/ajax/fill_incoming",
-        data:{
-            f_id: f_id,
-        },
+
         success: function (response){
-            $('#incoming').html(response)
+            $('#incoming').html(response);
+
+            $('.incomingOrder').on("click" , function (){
+                let order_id=this.id;
+
+                let id = order_id.match(/\d+/);
+                confirm_order(id[0]);
+            })
         }
     })
 }
 
-function fill_current(f_id){
+
+function fill_current(){
     $.ajax({
         url: "/franchisee/work/ajax/fill_current",
-        data:{
-            f_id: f_id,
-        },
         success: function (response){
             $('#current').html(response)
         }
@@ -53,8 +56,31 @@ function ajax_create(){
     })
 }
 
+function confirm_order(id){
+    $.ajax({
+        url:"/franchisee/work/ajax/confirmOrder",
+        method:"POST",
+        data:{
+            id_order:id,
+        },
+        success:function (response){
+            $("#myDialog").html(response);
+            $(".modal").modal("show");
+
+            fill_incoming();
+        }
+    })
+}
+
 
 const f_id = $('#vars').attr('f_id');
-fill_incoming(f_id);
-fill_current(f_id);
+
+fill_incoming();
+fill_current();
 fill_create();
+
+
+
+setInterval( function (){
+    fill_incoming();
+} , 12000)

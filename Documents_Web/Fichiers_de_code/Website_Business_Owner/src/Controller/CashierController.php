@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Customer;
 use App\Repository\CustomerOrderRepository;
+use App\Repository\CustomerRepository;
 use App\Repository\DishRepository;
 use App\Repository\FranchiseeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -67,20 +68,30 @@ class CashierController extends AbstractController
      */
     public function fill_incoming(Request $request ,CustomerOrderRepository $customerOrderRepository , FranchiseeRepository $franchiseeRepository) : Response
     {
-//        $franchisee = $this->getUser();
-//        $orders = $franchisee->getCustomerOrders();
+        $franchisee = $this->getUser();
+        $orders = $franchisee->getCustomerOrders();
+
+
+        foreach ($orders as $order){
+            if ($order->getValidate() == true && $order->getDelivered() == false){
+                $notTakenOrders[] = $order;
+            }
+        }
 
         return $this->render('cashier/includes/incoming_orders.html.twig', [
-//            "orders" => $orders
+            "orders" => isset($notTakenOrders) ? $notTakenOrders : null,
         ]);
     }
 
     /**
      * @Route("/franchisee/work/ajax/fill_current", name="ajax_fill_current", methods={"GET"})
      */
-    public function fill_current() : Response
+    public function fill_current(CustomerRepository $customerRepository) : Response
     {
+
+        $allCustomers = $customerRepository->findAll();
         return $this->render('cashier/includes/current_order.html.twig', [
+            'allCustomers' => $allCustomers,
         ]);
     }
 
@@ -101,5 +112,27 @@ class CashierController extends AbstractController
         return $this->render('cashier/index.html.twig', [
         ]);
     }
+
+    /**
+     * @Route("/franchisee/work/ajax/confirmOrder", name="ajax_confirm_order", methods={"POST"})
+     */
+    public function confirm_order(Request $request , CustomerOrderRepository $customerOrderRepository): Response
+    {
+
+        $id = $request->request->get('id_order');
+
+        $currentOrder = $customerOrderRepository->find($id);
+
+        $currentOrder->setDelivered(True);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($currentOrder);
+        $em->flush();
+
+        return $this->render('cashier/confirm_order_modal.html.twig', [
+            "order" => $currentOrder,
+        ]);
+    }
+
 
 }

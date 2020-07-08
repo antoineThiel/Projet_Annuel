@@ -55,6 +55,11 @@ class CustomerOrder
      */
     private $franchisee;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $delivered;
+
     public function __construct()
     {
         $this->menues = new ArrayCollection();
@@ -179,6 +184,18 @@ class CustomerOrder
     public function setFranchisee(?Franchisee $franchisee): self
     {
         $this->franchisee = $franchisee;
+
+        return $this;
+    }
+
+    public function getDelivered(): ?bool
+    {
+        return $this->delivered;
+    }
+
+    public function setDelivered(bool $delivered): self
+    {
+        $this->delivered = $delivered;
 
         return $this;
     }
