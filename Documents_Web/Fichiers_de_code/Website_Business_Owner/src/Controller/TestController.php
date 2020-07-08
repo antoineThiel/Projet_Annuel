@@ -72,14 +72,16 @@ class TestController extends AbstractController
     }
 
     /**
-     * @Route("/getfranchisee", name="getFranchisee", methods={"GET"})
+     * @Route("/getfranchisee/{lng}/{lat}", name="getFranchisee", methods={"GET"})
      */
-    public function getFranchise(FranchiseeRepository $franchiseeRepository, TruckPositionRepository $positionRepository, SerializerInterface $serializer)
+    public function getFranchise(Request $request, TruckPositionRepository $positionRepository, SerializerInterface $serializer)
     {
         $entityManager = $this->getDoctrine()->getManager();
         $franchisee = $entityManager->getRepository('App\Entity\Franchisee');
         $franchi = $franchisee->findAll();
         $i = 0;
+        $client['lat'] = $request->get("lat");
+        $client['lng'] = $request->get("lng");
         if ($franchi != null)
         {
             foreach ($franchi as $franchis) {
@@ -91,15 +93,10 @@ class TestController extends AbstractController
                     if($franchis->getTruck() != null) {
                         $pos = $positionRepository->findById($franchis->getTruck()->getId());
                         if($pos != null) {
-                            $response[$i] ['adresse'] = $pos->getAddress();
-                            $response[$i]['city'] = $pos->getCity();
-                        } else {
-                            $response[$i]['position']= null;
-                            $response[$i]['city'] = null;
+                            $response[$i]["distance"] = $this->getDistance($pos->getAddress()." ".$pos->getCity(), $client);
+                            $response[$i]["address"] = $pos->getAddress();
+                            $response[$i]["city"] = $pos->getCity();
                         }
-                    }else{
-                        $response[$i]['position']= null;
-                        $response[$i]['city'] = null;
                     }
                     $i ++;
                 }
@@ -130,7 +127,14 @@ class TestController extends AbstractController
                 foreach ($menus as $menu) {
                     $response['menu'][$i]['id'] = $menu->getId();
                     $response['menu'][$i]['name'] = $menu->getName();
-                    $response['menu'][$i]['price'] = $menu->getPrice();
+                    if ($menu->getEvent() != null)
+                    {
+                        $response['menu'][$i]['reduc'] = "1";
+                        $response['menu'][$i]['price'] = $menu->getPrice() * (1 - $menu->getEvent()->getReduction());
+                    }else{
+                        $response['menu'][$i]['reduc'] = "0";
+                        $response['menu'][$i]['price'] = $menu->getPrice();
+                    }
                     $i++;
                 }
                 $articles = $franchi->getFranchiseeArticles();
@@ -138,7 +142,15 @@ class TestController extends AbstractController
                     if ($article->getStock() != 0) {
                         $response['article'][$j]['id'] = $article->getId();
                         $response['article'][$j]['name'] = $article->getName();
-                        $response['article'][$j]['price'] = $article->getPrice();
+                        if ($article->getEvent() != null)
+                        {
+                            $response['article'][$j]['reduc'] = "1";
+                            $response['article'][$j]['price'] = $article->getPrice() * (1 -  $article->getEvent()->getReduction());
+                        }else {
+                            $response['article'][$j]['reduc'] = "0";
+                            $response['article'][$j]['price'] = $article->getPrice();
+                        }
+
                         $response['article'][$j]['unit'] = $article->getUnit();
                         $response['article'][$j]['quantity'] = $article->getQuantity();
 
@@ -163,17 +175,21 @@ class TestController extends AbstractController
         $i = 0;
         if($menu != null){
                 $response['nom'] = $menu->getName();
-                $response['price'] = $menu->getPrice();
+                if ($menu->getEvent() != null){
+                    $response['price'] = $menu->getPrice() * (1-$menu->getEvent()->getReduction());
+                }else{
+                    $response['price'] = $menu->getPrice();
+                }
                 $response['stock'] = $menu->getStock();
                 $articles = $menu->getMenuToArticles();
                 $i = 0;
                 foreach ($articles as $article) {
-                    dump($article->getFranchiseeArticle()->getName());
                     $response['article'][$i]['id'] = $article->getFranchiseeArticle()->getId();
                     $response['article'][$i]['nom'] = $article->getFranchiseeArticle()->getName();
                     $response['article'][$i]['price'] = $article->getFranchiseeArticle()->getPrice();
                     $response['article'][$i]['unit'] = $article->getFranchiseeArticle()->getUnit();
                     $response['article'][$i]['quantity'] = $article->getFranchiseeArticle()->getQuantity();
+                    $response['article'][$i]['reduc'] = "0";
                     $i++;
                 }
         }else{
@@ -194,7 +210,12 @@ class TestController extends AbstractController
 
         if($article != null){
             $response['nom'] = $article->getName();
-            $response['price'] = $article->getPrice();
+            if ($article->getEvent() != null)
+            {
+                $response['price'] = $article->getPrice() * (1 - $article->getEvent()->getReduction());
+            }else{
+                $response['price'] = $article->getPrice();
+            }
             $response['unit'] = $article->getUnit();
             $response['quantity'] = $article->getQuantity();
             $response['stock'] = $article->getStock();
@@ -395,7 +416,7 @@ class TestController extends AbstractController
 
     }
 
-    //MODIFIER
+
     /**
      * @Route("/getCurrentOrder/{id}/{idCusto}", name="getOrder", methods={"GET"})
      */
@@ -665,4 +686,68 @@ class TestController extends AbstractController
         return new JsonResponse($response, 200, [], true);
     }
 
+    /**
+     * @Route("/getEvents/{lng}/{lat}", name="getEvent", methods={"GET"})
+     */
+    public function getFranchiseeWithEvents(Request $request, SerializerInterface $serializer) : JsonResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        $franchiseeRep = $em->getRepository('App\Entity\Franchisee');
+        $positionRepository = $em->getRepository('App\Entity\TruckPosition');
+        $franchisees = $franchiseeRep->findAll();
+        $client['lat'] = $request->get("lat");
+        $client['lng'] = $request->get("lng");
+        if ($franchisees != null)
+        {
+            $i=0;
+            foreach ($franchisees as $franchisee) {
+                if (!$franchisee->getEvent()->isEmpty())
+                {
+                    if ($franchisee->getTruck() != null)
+                    {
+                        $response[$i]['id'] = $franchisee->getId();
+                        $response[$i]['lastname'] = $franchisee->getLastName();
+                        $response[$i]['firstname'] = $franchisee->getFirstName();
+                        $pos = $positionRepository->findById($franchisee->getTruck()->getId());
+                        if($pos != null) {
+                            $response[$i]['distance'] = $this->getDistance($pos->getAddress()." ".$pos->getCity(), $client);
+                            $response[$i]["address"] = $pos->getAddress();
+                            $response[$i]["city"] = $pos->getCity();
+                        }
+                        $i++;
+                    }
+                }
+            }
+        }else{
+            $response = [];
+        }
+
+        $response = $serializer->serialize($response, "json");
+        return new JsonResponse($response, 200, [], true);
+    }
+
+    public function getDistance(string $address, array $client)
+    {
+        $address = str_replace(" ", "%20", $address);
+        $url = "https://maps.google.com/maps/api/geocode/json?address=".$address."&sensor=false&key=AIzaSyDrlSV5EIbonFEhtydrXFwQFDoizK8Y0H4";
+        $results = file_get_contents($url);
+        $results = json_decode($results, true);
+        $location = $results['results'][0]['geometry']['location'];
+        $lat = $location['lat'];
+        $lng = $location['lng'];
+
+        $franchisee['lat'] = $lat;
+        $franchisee['lng'] = $lng;
+        $R = 6378137;
+        $dLat = $this->rad($client['lat'] - $franchisee['lat']);
+        $dLong = $this->rad($client['lng'] - $franchisee['lng']);
+        $a = sin($dLat/2) * sin($dLat/2) + cos($this->rad($franchisee['lat'])) * cos($this->rad($client['lat'])) * sin($dLong/2) * sin($dLong/2);
+        $c = 2 * atan2(sqrt($a), sqrt(1-$a));
+        return $R * $c;
+    }
+
+    public function rad($pos)
+    {
+        return $pos * pi()/180;
+    }
 }
