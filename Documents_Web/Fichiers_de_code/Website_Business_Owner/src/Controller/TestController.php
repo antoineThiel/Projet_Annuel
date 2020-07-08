@@ -423,7 +423,7 @@ class TestController extends AbstractController
 
         $response['order'] = $order->getId();
         $articles = $order->getArticles();
-        if ($articles != null)
+        if (!$articles->isEmpty())
         {
             $i=0;
             foreach ($articles as $article)
@@ -435,29 +435,54 @@ class TestController extends AbstractController
                 $i++;
             }
         }
+
+        $menus = $order->getMenues();
+        if (!$menus->isEmpty())
+        {
+            $i=0;
+            foreach ($menus as $menu) {
+                $response['menus'][$i]['id'] = $menu->getId();
+                $response['menus'][$i]['name'] = $menu->getName();
+                $response['menus'][$i]['quantity'] = $menu->getQuantity();
+                $response['menus'][$i]['price'] = $menu->getPrice();
+                $i++;
+            }
+        }
+
+
         $response['fidelity'] = $customer->getFidelity();
         $response = $serializer->serialize($response, 'json');
         return new JsonResponse($response, 200, [], true);
     }
 
     /**
-     * @Route("/deleteBasketArticle/{id}/{idOrder}", name="deleteArticle", methods={"GET"})
+     * @Route("/deleteBasketArticle/{id}/{idOrder}/{name}", name="deleteArticle", methods={"GET"})
      */
     public function deleteFromBasket(Request $request, SerializerInterface $serializer) : JsonResponse
     {
         $em = $this->getDoctrine()->getManager();
         $orderRep = $em->getRepository('App\Entity\CustomerOrder');
         $customerArticleRepo = $em->getRepository('App\Entity\CustomerArticle');
-        $article = $customerArticleRepo->findOneBy(['id' => $request->get("id")]);
+        $article = $customerArticleRepo->findOneBy(['id' => $request->get("id"), 'name' => $request->get("name")]);
+        if ($article == null){
+            $article = $em->getRepository('App\Entity\CustomerMenu')->findOneBy(['id' => $request->get('id'), 'name' => $request->get("name")]);
+        }
         $qty = $article->getQuantity();
-        $franchiseeArticleRep = $em->getRepository('App\Entity\FranchiseeArticle');
-        $franchiseeArticle = $franchiseeArticleRep->findOneBy(['name' => $article->getName()]);
-        $franchiseeArticle->setStock($franchiseeArticle->getStock() + $qty);
-
-        $em->persist($franchiseeArticle);
-        $em->remove($article);
+        if ($article instanceof CustomerArticle){
+            $franchiseeArticleRep = $em->getRepository('App\Entity\FranchiseeArticle');
+            $franchiseeArticle = $franchiseeArticleRep->findOneBy(['name' => $article->getName()]);
+            $franchiseeArticle->setStock($franchiseeArticle->getStock() + $qty);
+            $em->persist($franchiseeArticle);
+            $em->remove($article);
+        }
+        if ($article instanceof CustomerMenu){
+            $franchiseeMenuRep = $em->getRepository('App\Entity\FranchiseeMenu');
+            $franchiseeMenu = $franchiseeMenuRep->findOneBy(['name' => $article->getName()]);
+            $franchiseeMenu->setStock($franchiseeMenu->getStock() + $qty);
+            $em->persist($franchiseeMenu);
+            $em->remove($article);
+        }
         $em->flush();
-
         $order = $orderRep->findOneBy(['id' => $request->get("idOrder")]);
         $articles = $order->getArticles();
         ($articles->isEmpty()) ?
@@ -478,8 +503,24 @@ class TestController extends AbstractController
         $order = $orderRep->findOneBy(['id' => $request->get("id")]);
         $customer = $order->getCustomer();
         $articles = $order->getArticles();
+        $menus = $order->getMenues();
         foreach ($articles as $article){
+            $qty = $article->getQuantity();
+            $franchiseeArticleRep = $em->getRepository('App\Entity\FranchiseeArticle');
+            $franchiseeArticle = $franchiseeArticleRep->findOneBy(['name' => $article->getName()]);
+            $franchiseeArticle->setStock($franchiseeArticle->getStock() + $qty);
+            $em->persist($franchiseeArticle);
             $em->remove($article);
+            $em->flush();
+        }
+
+        foreach ($menus as $menu){
+            $qty = $menu->getQuantity();
+            $franchiseeMenuRep = $em->getRepository('App\Entity\FranchiseeMenu');
+            $franchiseeMenu = $franchiseeMenuRep->findOneBy(['name' => $article->getName()]);
+            $franchiseeMenu->setStock($franchiseeMenu->getStock() + $qty);
+            $em->persist($franchiseeMenu);
+            $em->remove($menu);
             $em->flush();
         }
 
@@ -500,23 +541,31 @@ class TestController extends AbstractController
     }
 
     /**
-     * @Route("/finalOrder/{id}", name="finalOrder", methods={"GET"})
+     * @Route("/finalOrder/{id}/{idFr}", name="finalOrder", methods={"GET"})
      */
     public function finalOrder(Request $request, SerializerInterface $serializer) : JsonResponse
     {
         $idOrder  = $request->get("id");
         $em = $this->getDoctrine()->getManager();
         $orderRep = $em->getRepository('App\Entity\CustomerOrder');
+        $franchiseeRe = $em->getRepository('App\Entity\Franchisee');
+        $franchisee = $franchiseeRe->findOneBy(['id' => $request->get("idFr")]);
         $customerRep = $em->getRepository('App\Entity\Customer');
         $order = $orderRep->findOneBy(['id' => $idOrder]);
+        $order->setFranchisee($franchisee);
         $customer = $customerRep->findOneBy(['id' => $order->getCustomer()]);
         $articles = $order->getArticles();
+
         $price = 0;
         foreach ($articles as $article)
         {
             $price+=$article->getPrice();
         }
-
+        $menus = $order->getMenues();
+        foreach ($menus as $menu)
+        {
+            $price+=$menu->getPrice();
+        }
         if ($price >=10){
             $fid = $price / 10;
             $customer->setFidelity($customer->getFidelity() + $fid);
@@ -532,7 +581,7 @@ class TestController extends AbstractController
     }
 
     /**
-     * @Route("/finalOrderFidelity/{id}/{reduc}", name="finalOrderFid", methods={"GET"})
+     * @Route("/finalOrderFidelity/{id}/{reduc}/{idFr}", name="finalOrderFid", methods={"GET"})
      */
     public function finalOrderFidelity(Request $request, SerializerInterface $serializer) : JsonResponse
     {
@@ -540,6 +589,8 @@ class TestController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $orderRep = $em->getRepository('App\Entity\CustomerOrder');
         $customerRep = $em->getRepository('App\Entity\Customer');
+        $franchiseeRe = $em->getRepository('App\Entity\Franchisee');
+        $franchisee = $franchiseeRe->findOneBy(['id' => $request->get("idFr")]);
         $order = $orderRep->findOneBy(['id' => $idOrder]);
 
         $customer = $customerRep->findOneBy(['id' => $order->getCustomer()]);
@@ -550,6 +601,14 @@ class TestController extends AbstractController
         {
             $price+=$article->getPrice();
         }
+
+        $menus = $order->getMenues();
+        foreach ($menus as $menu)
+        {
+            $price+=$menu->getPrice();
+        }
+
+
         $price -= $request->get("reduc");
         if ($price >= 10)
         {
