@@ -24,7 +24,11 @@ class CashierController extends AbstractController
 {
 
     /**
-     * @Route ("/franchisee/work/ajax/create_customer" , name="ajax_create_customer" , methods={"POST"})
+     * @Route ({
+     *     "fr":"/fr/franchisee/work/ajax/create_customer",
+     *     "en":"/en/franchisee/work/ajax/create_customer",
+     *     "es":"/es/franchisee/work/ajax/create_customer"
+     *     }, name="ajax_create_customer" , methods={"POST"})
      * @param Request $request
      * @return Response
      */
@@ -69,7 +73,12 @@ class CashierController extends AbstractController
     }
 
     /**
-     * @Route("/franchisee/work/ajax/fill_incoming", name="ajax_fill_incoming", methods={"GET"})
+     * @Route({
+     *     "fr":"/fr/franchisee/work/ajax/fill_incoming",
+     *     "en":"/en/franchisee/work/ajax/fill_incoming",
+     *     "es":"/es/franchisee/work/ajax/fill_incoming"
+     *
+     *     }, name="ajax_fill_incoming", methods={"GET"})
      */
     public function fill_incoming(Request $request ,CustomerOrderRepository $customerOrderRepository , FranchiseeRepository $franchiseeRepository) : Response
     {
@@ -89,7 +98,12 @@ class CashierController extends AbstractController
     }
 
     /**
-     * @Route("/franchisee/work/ajax/fill_current", name="ajax_fill_current", methods={"GET"})
+     * @Route({
+     *     "fr":"/fr/franchisee/work/ajax/fill_current",
+     *     "en":"/en/franchisee/work/ajax/fill_current",
+     *     "es":"/es/franchisee/work/ajax/fill_current"
+     *
+     *     }, name="ajax_fill_current", methods={"GET"})
      */
     public function fill_current(CustomerRepository $customerRepository , FranchiseeArticleRepository $franchiseeArticleRepository ,FranchiseeMenuRepository $franchiseeMenuRepository) : Response
     {
@@ -108,9 +122,12 @@ class CashierController extends AbstractController
 
         ]);
     }
-
     /**
-     * @Route("/franchisee/work/ajax/fill_create", name="ajax_fill_create", methods={"GET"})
+     * @Route({
+     *     "en":"/en/franchisee/work/ajax/fill_create",
+     *     "fr":"/fr/franchisee/work/ajax/fill_create",
+     *     "es":"/es/franchisee/work/ajax/fill_create",
+     * }, name="ajax_fill_create", methods={"GET"})
      */
     public function fill_create() : Response
     {
@@ -118,8 +135,13 @@ class CashierController extends AbstractController
         ]);
     }
 
+
     /**
-     * @Route("/franchisee/work", name="cashier_index", methods={"GET"})
+     * @Route({
+     *     "fr": "/fr/franchise/travail",
+     *     "en": "/en/franchisee/work",
+     *     "es": "/es/franquisado/trabajo"
+     *      },name="cashier_index", methods={"GET"})
      */
     public function index(): Response
     {
@@ -128,7 +150,12 @@ class CashierController extends AbstractController
     }
 
     /**
-     * @Route("/franchisee/work/ajax/confirmOrder", name="ajax_confirm_order", methods={"POST"})
+     * @Route({
+     *     "fr":"/fr/franchisee/work/ajax/confirmOrder",
+     *     "en":"/en/franchisee/work/ajax/confirmOrder",
+     *     "es":"/es/franchisee/work/ajax/confirmOrder"
+     *
+     *     }, name="ajax_confirm_order", methods={"POST"})
      */
     public function confirm_order(Request $request , CustomerOrderRepository $customerOrderRepository): Response
     {
@@ -150,7 +177,11 @@ class CashierController extends AbstractController
 
 
     /**
-     * @Route("/franchisee/work/ajax/addToCart", name="ajax_addTo_cart", methods={"POST"})
+     * @Route({
+     *     "fr":"/fr/franchisee/work/ajax/addToCart",
+     *     "en":"/en/franchisee/work/ajax/addToCart",
+     *     "es":"/es/franchisee/work/ajax/addToCart"
+     *     }, name="ajax_addTo_cart", methods={"POST"})
      * @param Request $request
      * @param FranchiseeMenuRepository $franchiseeMenuRepository
      * @param FranchiseeArticleRepository $franchiseeArticleRepository
@@ -180,7 +211,11 @@ class CashierController extends AbstractController
     }
 
     /**
-     * @Route("/franchisee/work/ajax/addToValided", name="addTo_valided", methods={"GET","POST"})
+     * @Route({
+     *     "fr":"/fr/franchisee/work/ajax/addToValided",
+     *     "en":"/en/franchisee/work/ajax/addToValided",
+     *     "es":"/es/franchisee/work/ajax/addToValided"
+     *     }, name="addTo_valided", methods={"GET","POST"})
      */
     public function addToValided(Request $request , FranchiseeArticleRepository $franchiseeArticleRepository, FranchiseeMenuRepository$franchiseeMenuRepository ,CustomerRepository $customerRepository):Response
     {

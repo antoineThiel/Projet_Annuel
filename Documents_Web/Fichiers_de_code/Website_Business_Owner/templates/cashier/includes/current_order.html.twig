@@ -1,13 +1,13 @@
     <div class="card card-primary card-outline">
         <div class="card-header">
-            <h3 class="card-title"><strong>Commande en cours</strong></h3>
+            <h3 class="card-title"><strong>{{ 'front.cashier.current.title' | trans }}</strong></h3>
         </div>
         <div class="card-body">
 
             <div class="row mb-2">
                 <div class="col">
                     <select class="custom-select" id="customer_select">
-                        <option selected disabled>Compte du client</option>
+                        <option selected disabled>{{ 'front.cashier.current.option_disabled' | trans }}</option>
                         {% for option in allCustomers %}
                         <option id_cust="{{ option.id }}"  data-toggle="tooltip" data-placement="top" title="{{ option.fidelity }}pts"> {{ option.name }}  {{ option.lastname }} </option>
                         {% endfor %}
@@ -21,7 +21,7 @@
                     <div class="card">
                         <div class="card-body">
                             <select class="custom-select">
-                                <option selected disabled>Articles</option>
+                                <option selected disabled>{{ 'front.cashier.current.articles' | trans }}</option>
                                 {% for article in franchiseeArticles %}
                                     {% if article.stock <= 0 %}
                                         <option class="text-danger" id_article="{{ article.id }}" disabled> {{ article.name }}  <span>{{ article.price |number_format(2)}}€</span></option>
@@ -31,7 +31,7 @@
                                 {% endfor %}
 
                             </select>
-                            <button class="btn btn-primary app-color-match addToCart">Ajouter</button>
+                            <button class="btn btn-primary app-color-match addToCart">{{ 'front.cashier.current.add' | trans }}</button>
                         </div>
                     </div>
 
@@ -40,7 +40,7 @@
                     <div class="card">
                         <div class="card-body">
                             <select class="custom-select">
-                                <option selected disabled>Menus</option>
+                                <option selected disabled>{{ 'front.cashier.current.menus' | trans }}</option>
                                 {% for menu in franchiseeMenus %}
                                     {% if menu.stock <= 0 %}
                                         <option class="text-danger" id_menu="{{ menu.id }}" disabled> {{ menu.name }}  <span>{{ menu.price |number_format(2)}}€</span></option>
@@ -50,13 +50,13 @@
                                 {% endfor %}
 
                             </select>
-                            <button class="btn btn-primary app-color-match addToCart">Ajouter</button>
+                            <button class="btn btn-primary app-color-match addToCart">{{ 'front.cashier.current.add' | trans }}</button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card">
-                <p class="card-title">Récap commande</p>
+                <p class="card-title">{{ 'front.cashier.current.recap' | trans }}</p>
                 <div class="card-body" id="recap">
 
                 </div>
@@ -67,10 +67,10 @@
                 <div class="col"></div>
                 <div class="row">
                     <div class="col">
-                        <button class="btn btn-danger" id="with_points">Points</button>
+                        <button class="btn btn-danger" id="with_points">{{ 'front.cashier.current.points' | trans }}</button>
                     </div>
                     <div class="col">
-                        <button class="btn btn-info" id="without_points">Espèces</button>
+                        <button class="btn btn-info" id="without_points">{{ 'front.cashier.current.no_points' | trans }}</button>
                     </div>
                 </div>
             </div>

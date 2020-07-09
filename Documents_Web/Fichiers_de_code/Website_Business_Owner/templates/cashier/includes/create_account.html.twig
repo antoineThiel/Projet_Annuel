@@ -1,27 +1,27 @@
 <div class="card card-primary card-outline">
     <div class="card-header">
-        <h3 class="card-title"><strong>Créer un compte</strong></h3>
+        <h3 class="card-title"><strong>{{ 'front.cashier.account.create' | trans }}</strong></h3>
     </div>
     <div class="card-body">
         <div id="myform">
             <div class="form-group">
-                <label for="name">Prénom</label>
+                <label for="name">{{ 'front.cashier.account.name' | trans }}</label>
                 </label><input type="text" class="form-control" id="name">
             </div>
             <div class="form-group">
-                <label for="lastname">Nom de Famille</label>
+                <label for="lastname">{{ 'front.cashier.account.lastname' | trans }}</label>
                 <input type="text" class="form-control" id="lastname">
             </div>
             <div class="form-group">
-                <label for="mail">Adresse mail</label>
+                <label for="mail">{{ 'front.cashier.account.mail' | trans }}</label>
                 <input type="email" class="form-control" id="mail">
             </div>
             <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <input type="password" class="form-control" id="password" placeholder="8car. mini dont 1 chiffre">
+                <label for="password">{{ 'front.cashier.account.passwd' | trans }}</label>
+                <input type="password" class="form-control" id="password" placeholder="{{ 'front.cashier.account.pholder_passwd' | trans }}">
             </div>
         </div>
-        <button class="btn btn-primary app-color-match" id="submit"  >Envoyer</button>
+        <button class="btn btn-primary app-color-match" id="submit"  >{{ 'front.cashier.account.send' | trans }}</button>
     </div>
 </div>
 

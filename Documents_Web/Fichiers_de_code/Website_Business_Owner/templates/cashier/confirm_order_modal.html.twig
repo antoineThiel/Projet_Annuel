@@ -2,16 +2,16 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Mise à jour de commande</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{ 'front.cashier.modals.confirm.title' | trans }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Commande confirmée ! Vous pouvez appeler le client pour la commande n° {{ order.id }}
+                {{ 'front.cashier.modals.confirm.content' | trans }} n° {{ order.id }}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn app-color-match" data-dismiss="modal">Fait</button>
+                <button type="button" class="btn app-color-match" data-dismiss="modal">{{ 'front.cashier.modals.confirm.done' | trans }}</button>
             </div>
         </div>
     </div>
