@@ -87,6 +87,15 @@ front:
       error_title: Stocks Error
       error_body: Forbiden Action
       error_button: Ok
+    evenement:
+      name: Event
+      create: Create an event
+      my_evenement: My events
+      date_start: Start date
+      date_end: End date
+      product: Products
+      reduction: Reduction
+      statut: Status
   truck_complaint:
     title: Complaint form
   header:

@@ -19,6 +19,8 @@
                     <a class="nav-item nav-link nav_front mr-1" href="#p4"
                        data-toggle="tab">{{ 'front.franchisee.turnover' | trans }}</a>
                     <a class="nav-item nav-link nav_front mr-1" href="#p5"
+                       data-toggle="tab">{{ 'front.franchisee.evenement.name'|trans }}</a>
+                    <a class="nav-item nav-link nav_front mr-1" href="#p6"
                        data-toggle="tab">Plus</a>
                 </nav>
 
@@ -291,9 +293,63 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- PLUS -->
+                    <!-- EVENT -->
                     <div class="tab-pane fade p-2" id="p5">
+                        <div class="text-center">
+                            <div class="card-body">
+                                <p>
+                                    <a class="btn login_btn " style="background-color:#FFF0A5; "
+                                       href="{{ path('event_new') }}">{{ 'front.franchisee.evenement.create'|trans }} </a>
+                                </p>
+                            </div>
+                            {% if events is not null %}
+                                <div class="text-center">
+                                    <strong class="white-text">{{ 'front.franchisee.evenement.my_evenement'|trans }}:</strong>
+                                    <div class="card-body">
+                                        <table class="table_profil">
+                                            <tr class="tr">
+                                                <th class="th">{{ 'front.franchisee.evenement.date_start'|trans }}</th>
+                                                <th class="th">{{ 'front.franchisee.evenement.date_end'|trans }}</th>
+                                                <th class="th"> {{ 'front.franchisee.evenement.product'|trans }}</th>
+                                                <th class="th"> {{ 'front.franchisee.evenement.reduction'|trans }}</th>
+                                                <th class="th"> {{ 'front.franchisee.evenement.statut'|trans }}</th>
+                                            </tr>
+                                            {% for event in events %}
+                                                <tr class="tr">
+                                                    <td class="th"> {{ event.startDate|date("d/m/y") }} </td>
+                                                    <td class="th"> {{ event.endDate|date("d/m/y") }} </td>
+                                                    <td class="th">
+                                                        {% if event.articles is not null %}
+                                                            {% for article in event.articles %}
+                                                                {{ article.name }} <br>
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                        {% if event.menues is not null %}
+                                                            {% for menue in event.menues %}
+                                                                {{ menue.name }}<br>
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                    </td>
+                                                    <td class="th"> {{ event.reduction*100 }} %</td>
+                                                    <td class="th">
+                                                        {% if event.startDate|date('Y-m-d') > 'now'|date('Y-m-d') %}
+                                                            <button class="btn btn-success disabled">{{ 'front.franchisee.new'|trans }}</button>
+                                                        {% elseif event.endDate|date('Y-m-d') >= 'now'|date('Y-m-d') and event.startDate|date('Y-m-d') <= 'now'|date('Y-m-d') %}
+                                                            <button class="btn btn-info disabled">{{ 'front.franchisee.ongoing'|trans }}</button>
+                                                        {% elseif  event.endDate|date('Y-m-d') < 'now'|date('Y-m-d')%}
+                                                            <button class="btn btn-danger disabled">{{ 'front.franchisee.closed'|trans }}</button>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- PLUS -->
+                    <div class="tab-pane fade p-2" id="p6">
                         <div class="text-center">
                             <strong class="white-text">{{ 'front.franchisee.tell_us'|trans }}</strong>
                             <div class="card-body">

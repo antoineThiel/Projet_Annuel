@@ -1,0 +1,14 @@
+{% extends 'base_front.html.twig' %}
+{% block content %}
+    <div class="m-5">
+        <div class="tab-content"
+             style="background-color: #80c2e0;min-height: 20em; border-radius:  1em 1em; margin-bottom: 2%">
+            {% block title %}<h1 class="text-center white-text">Creer un Evenement</h1>{% endblock %}
+
+            <!-- Main content -->
+            <section class="content">
+                {{ include('event/_form.html.twig') }}
+            </section>
+        </div>
+    </div>
+{% endblock %}

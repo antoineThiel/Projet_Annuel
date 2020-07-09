@@ -424,9 +424,8 @@ class OrderController extends AbstractController
         foreach ($products as $product) {
 
             $OriginalProduct = $product->getProduct()->getProduct();
-            $alreadyExists = $stockProductRep->findOneBy(['name' => $OriginalProduct->getName()]);
+            $alreadyExists = $stockProductRep->findOneBy(['name' => $OriginalProduct->getName() ,'franchisee' => $user]);
             if ($alreadyExists) {
-
                 $alreadyExists->setQuantity($alreadyExists->getQuantity() + $product->getQuantity());
                 $em->persist($alreadyExists);
                 $em->flush();

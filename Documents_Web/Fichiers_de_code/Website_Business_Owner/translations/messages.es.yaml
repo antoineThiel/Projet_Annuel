@@ -87,6 +87,15 @@ front:
       error_title: Stocks Problema
       error_body: acción imposible
       error_button: Entendido
+    evenement:
+      name: Evento
+      create: Crea un evento
+      my_evenement: Mis eventos
+      date_start: Fecha de inicio
+      date_end: Fecha final
+      product: Productos
+      reduction: Reducción
+      statut: Estado
   header:
     my_account: Mi cuenta
     login: Iniciar sesión
@@ -183,5 +192,6 @@ front:
       title: Nuevos pedidos
       rdy: Listo
       no_orders: No tienes pedidos en este momento  :-(
+
 
 
