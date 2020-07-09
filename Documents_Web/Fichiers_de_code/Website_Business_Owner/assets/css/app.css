@@ -185,3 +185,13 @@ body {
     color: #495057;
     border-color : #80c2e0;
 }
+
+#recap{
+    max-height: 180px;
+    overflow: auto;
+    text-align:justify;
+}
+#incoming .card-body{
+    max-height: 500px;
+    overflow: auto;
+}

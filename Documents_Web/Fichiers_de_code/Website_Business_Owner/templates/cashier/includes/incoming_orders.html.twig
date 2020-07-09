@@ -1,6 +1,6 @@
 <div class="card card-primary card-outline">
     <div class="card-header">
-        <h3 class="card-title"><strong>Nouvelle commande</strong></h3>
+        <h3 class="card-title"><strong>Nouvelles commandes</strong></h3>
     </div>
     <div class="card-body">
 
@@ -8,14 +8,30 @@
             <a class="btn btn-primary app-color-match" data-toggle="collapse"
                href="#collapse{{ order.id }}" role="button" aria-expanded="false"
                aria-controls="collapseExample">
-                {{ order.customer.name }}
+                Order n° {{ order.id }} {{ order.customer.name }}
             </a>
 
-        <div class="collapse" id="collapse{{ order.id }}">
-            <div class="card card-body">
+            <span><button class="btn btn-info incomingOrder app-color-match" id="order{{ order.id }}"><span class="ui-icon ui-icon-check"></span></button></span>
 
+            <div class="collapse" id="collapse{{ order.id }}">
+                <div class="card card-body">
+                    {%if order.menues is not null %}
+                        {% for menu in order.menues %}
+                            <p> {{ menu.name }}  x{{ menu.quantity }}
+                            <input type="checkbox" class="ml-2">Prêt
+                            </p>
+                        {% endfor %}
+
+                        {% for article in order.articles %}
+                            <p> {{ article.name }}  x{{ article.quantity }}
+                                <input type="checkbox" class="ml-2">Prêt
+                            </p>
+                        {% endfor %}
+                    {% else %}
+                        <p>Vous n'avez pas de commandes pour le moment :-(</p>
+                    {% endif %}
+                </div>
             </div>
-        </div>
         {% endfor %}
     </div>
 </div>
