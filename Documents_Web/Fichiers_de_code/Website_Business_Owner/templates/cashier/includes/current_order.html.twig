@@ -9,7 +9,7 @@
                     <select class="custom-select" id="customer_select">
                         <option selected disabled>Compte du client</option>
                         {% for option in allCustomers %}
-                        <option id_cust="{{ option.id }}"> {{ option.name }}  {{ option.lastname }}</option>
+                        <option id_cust="{{ option.id }}"  data-toggle="tooltip" data-placement="top" title="{{ option.fidelity }}pts"> {{ option.name }}  {{ option.lastname }} </option>
                         {% endfor %}
                     
                     </select>

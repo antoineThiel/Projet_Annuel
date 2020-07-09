@@ -92,14 +92,79 @@ function add_events_on_current(){
 
     })
 
-    $("#with_points").on("click" , function(){
-        console.log("paiement en cours");
+    $("#with_points,#without_points").on("click" , function(){
+        console.log("paiement en cours" );
+
+        console.log(this.id);
+        let usePoint= this.id === "with_points" ;
+        let $line = $("#customer_select").find("option:selected");
+        if($line.prop("disabled") === false){
+
+            let articles=[];
+            let menus=[];
+            let tmpA=[];
+            let tmpM=[];
+            let $allItems = $("#recap > p");
+            // console.log($allItems);
+            $allItems.each(function (){
+
+                if($(this).attr("aorm") === "1"){
+
+                    if(typeof tmpA[$(this).attr("item_id")] ===  "undefined"){
+                        tmpA[$(this).attr("item_id")] = 0;
+                    }
+                    tmpA[$(this).attr("item_id")] += 1;
+                }else{
+
+                    if(typeof tmpM[$(this).attr("item_id")] ===  "undefined"){
+                        tmpM[$(this).attr("item_id")] = 0;
+                    }
+                    tmpM[$(this).attr("item_id")] += 1;
+                }
+
+            })
+
+
+            for(let i = 0 ; i < tmpA.length ; i++){
+                if(typeof tmpA[i] !==  "undefined"){
+                    articles.push( [i , tmpA[i] ] );
+                }
+            }
+
+
+            for(let i = 0 ; i < tmpM.length ; i++){
+                if(typeof tmpM[i] !==  "undefined"){
+                    menus.push( [i , tmpM[i] ] );
+                }
+            }
+
+
+            $.ajax({
+                url:"/franchisee/work/ajax/addToValided",
+                method: "POST",
+                data:{
+                    customer:$line.attr("id_cust"),
+                    articles:articles,
+                    menues:menus,
+                    point:usePoint,
+                },
+                success:function (response){
+                    fill_current();
+                    $("#myDialog").html(response);
+                    $(".modal").modal("show");
+                }
+            })
+        }
+        else{
+            $("#customer_select").css("background-color","#FF0000");
+            setTimeout(function (){
+                $("#customer_select").css("background-color","initial");
+            } , 300);
+        }
+
+
     });
 
-
-    $("#without_points").on("click" , function(){
-        console.log("paiement en cours");
-    })
 }
 
 function fill_create(){
