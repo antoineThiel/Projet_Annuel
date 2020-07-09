@@ -3,14 +3,16 @@
 
 <div class="row mt-5">
 
-    <div class="col-sm-3  ml-5" id="incoming"></div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-3" id="incoming"></div>
+
+    <div class="col-sm-5" id="current"></div>
+
+    <div class="col-sm-2" id="create"></div>
     <div class="col-sm-1"></div>
 
-    <div class="col-sm-4" id="current"></div>
-    <div class="col-sm-1"></div>
-
-    <div class="col-sm-2 mr-5" id="create"></div>
 </div>
+    <div locale="{{ app.request.attributes.get('_locale') }}" id="getLocale"></div>
 
 <div id="myDialog"></div>
 
@@ -21,5 +23,6 @@
 {%  block javascripts %}
 
     {{ encore_entry_script_tags('cashier') }}
+{#    {{ encore_entry_script_tags('manageOrder') }}#}
 
 {% endblock %}

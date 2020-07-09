@@ -1,26 +1,29 @@
-{% if mode == false %}
-    {%  set title = "Problème dans le formulaire" %}
-{% else %}
-    {%  set title = "Création confirmée" %}
-{% endif %}
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">
+
+                    {% if mode == false %}
+                        {{ 'front.cashier.modals.create.title.bad' | trans }}
+                    {% else %}
+                        {{ 'front.cashier.modals.create.title.good' | trans }}
+                    {% endif %}
+
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 {% if mode == false %}
-                    <p> Vérifiez les champs et réessayez </p>
+                    <p> {{ 'front.cashier.modals.create.content.bad' | trans }} </p>
                 {% else %}
-                    <p> Nouveau compte client créé ! </p>
+                    <p> {{  'front.cashier.modals.create.content.good' | trans }} </p>
                 {% endif %}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn app-color-match" data-dismiss="modal">Compris</button>
+                <button type="button" class="btn app-color-match" data-dismiss="modal">{{ 'front.cashier.modals.create.done' | trans }}</button>
             </div>
         </div>
     </div>

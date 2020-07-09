@@ -27,7 +27,10 @@ class MenuArticleEmbeddedForm extends AbstractType
                 }
             ])
             ->add('quantity', IntegerType::class, [
-                'attr' => ['placeholder' => 'Quantity']
+                'attr' => [
+                    'placeholder' => 'Quantity',
+                    'min' => 1,
+                    ]
             ])
         ;
     }
