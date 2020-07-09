@@ -127,21 +127,17 @@ function add_events_on_current(){
 
             for(let i = 0 ; i < tmpA.length ; i++){
                 if(typeof tmpA[i] !==  "undefined"){
-                    articles.push( i , tmpA[i]  );
+                    articles.push( [i , tmpA[i] ] );
                 }
             }
 
 
             for(let i = 0 ; i < tmpM.length ; i++){
                 if(typeof tmpM[i] !==  "undefined"){
-                    menus.push( i , tmpM[i]  );
+                    menus.push( [i , tmpM[i] ] );
                 }
             }
 
-            console.log($line.attr("id_cust"));
-            console.log(articles);
-            console.log(menus);
-            console.log(usePoint);
 
             $.ajax({
                 url:"/franchisee/work/ajax/addToValided",
@@ -153,7 +149,9 @@ function add_events_on_current(){
                     point:usePoint,
                 },
                 success:function (response){
-                    console.log(response);
+                    fill_current();
+                    $("#myDialog").html(response);
+                    $(".modal").modal("show");
                 }
             })
         }
