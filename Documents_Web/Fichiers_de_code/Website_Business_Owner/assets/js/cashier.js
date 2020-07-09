@@ -39,30 +39,45 @@ function add_events_on_current(){
 
     $(".addToCart").on("click" , function (){
 
-        let aORm;
+        let aORm, item_id;
         let $line = $(this).siblings("select").find("option:selected");
 
-        console.log($line.attr());
-        if($line.attributes["id_menu"] !== undefined){
+        if( typeof $line.attr("id_menu") !== 'undefined'){
             aORm = 0;
+            item_id = $line.attr("id_menu");
         }
         else {
             aORm = 1;
+            item_id = $line.attr("id_article");
+
         }
 
         if( $line.prop("disabled") === false){
-            $.ajax({
-                url:"/franchisee/work/ajax/addToCart",
-                method: "POST",
-                data:{
-                    item_name:"test",
-                    aORm: aORm,
-                },
-                success:function (response){
-                    $("#recap").html(response);
-                }
-            })
+            // $.ajax({
+            //     url:"/franchisee/work/ajax/addToCart",
+            //     method: "POST",
+            //     data:{
+            //         item_id: item_id,
+            //         aORm: aORm,
+            //     },
+            //     success:function (response){
+            //         $("#recap").html(response);
+            //     }
+            // })
 
+            let newLine = $("<p></p>").text($line.text());
+            newLine.attr({
+                "item_id": item_id,
+                "aORm" : aORm,
+            });
+            let $btn = $("<button class='btn app-color-match'><span class='ui-icon ui-icon-trash'></span></button>");
+
+            $btn.on("click",function (){
+                $(this).parent().remove();
+            });
+
+            newLine.append($btn);
+            $("#recap").append(newLine);
 
         }
         else{
