@@ -143,4 +143,45 @@ front:
     plates:
       title: Platos
       total_after: diferentes platos
+  cashier:
+    navbar_link: Mostrador
+    account:
+      create: Crear una cuenta
+      name: nombre
+      lastname: Apellido
+      mail: Correo electrónico
+      passwd: contraseña
+      pholder_passwd: 8car. minimo incluyendo 1 figura
+      send: enviar
+    modals:
+      confirm:
+        title: Orden de actualización
+        content: Pedido confirmado! Puedes llamar al cliente para pedir
+        done: Hecho
+      validate:
+        title: Orden de actualización
+        content: Pedido confirmado! Puedes llamar al client
+        done: Hecho
+      create:
+        title:
+          good: Creación confirmada
+          bad: Problema en el formulario
+        content:
+          good: ¡Nueva cuenta de cliente creada!
+          bad: Verifique los campos e intente nuevamente
+        done: Entendido
+    current:
+      title: Orden pendiente
+      option_disabled: Cuenta de cliente
+      articles: Articulos
+      menus: Menus
+      add: Añadir
+      recap: Resumen del pedido
+      points: Puntos
+      no_points: Dinero
+    incoming:
+      title: Nuevos pedidos
+      rdy: Listo
+      no_orders: No tienes pedidos en este momento  :-(
+
 

@@ -143,3 +143,43 @@ front:
       plates:
           title: Plats
           total_after: plats différents
+  cashier:
+      navbar_link: Caisse
+      account:
+          create: Créer un compte
+          name: Prénom
+          lastname: Nom de famille
+          mail: Adresse mail
+          passwd: Mot de passe
+          pholder_passwd: 8car. mini dont 1 chiffre
+          send: Envoyer
+      modals:
+          confirm:
+              title: Mise à jour de commande
+              content: Commande confirmée ! Vous pouvez appeler le client pour la commande
+              done: Fait
+          validate:
+              title: Mise à jour de commande
+              content: Commande enregistrée ! Vous pouvez encaisser.
+              done: Fait
+          create:
+              title:
+                  good: Création confirmée
+                  bad: Problème dans le formulaire
+              content:
+                  good: Nouveau compte client créé !
+                  bad: Vérifiez les champs et réessayez
+              done: Compris
+      current:
+          title: Commande en cours
+          option_disabled: Compte du client
+          articles: Articles
+          menus: Menus
+          add: Ajouter
+          recap: Récapitulatif commande
+          points: Points
+          no_points: Espèces
+      incoming:
+          title: Nouvelles commandes
+          rdy: Prêt
+          no_orders: Vous n'avez pas de commandes pour le moment :-(

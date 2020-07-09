@@ -1,6 +1,8 @@
+const locale=$("#getLocale").attr("locale");
+
 function fill_incoming(f_id){
     $.ajax({
-        url: "/franchisee/work/ajax/fill_incoming",
+        url: "/"+locale+"/franchisee/work/ajax/fill_incoming",
 
         success: function (response){
             $('#incoming').html(response);
@@ -18,7 +20,7 @@ function fill_incoming(f_id){
 
 function fill_current(){
     $.ajax({
-        url: "/franchisee/work/ajax/fill_current",
+        url: "/"+locale+"/franchisee/work/ajax/fill_current",
         success: function (response){
             $('#current').html(response)
 
@@ -140,7 +142,7 @@ function add_events_on_current(){
 
 
             $.ajax({
-                url:"/franchisee/work/ajax/addToValided",
+                url:"/"+locale+"/franchisee/work/ajax/addToValided",
                 method: "POST",
                 data:{
                     customer:$line.attr("id_cust"),
@@ -169,7 +171,7 @@ function add_events_on_current(){
 
 function fill_create(){
     $.ajax({
-        url: "/franchisee/work/ajax/fill_create",
+        url: "/"+locale+"/franchisee/work/ajax/fill_create",
         success: function (response){
             $('#create').html(response)
 
@@ -182,7 +184,7 @@ function fill_create(){
 
 function ajax_create(){
     $.ajax({
-        url: "/franchisee/work/ajax/create_customer",
+        url: "/"+locale+"/franchisee/work/ajax/create_customer",
         type: 'POST',
         data:{
             name:$("#name").val(),
@@ -199,7 +201,7 @@ function ajax_create(){
 
 function confirm_order(id){
     $.ajax({
-        url:"/franchisee/work/ajax/confirmOrder",
+        url:"/"+locale+"/franchisee/work/ajax/confirmOrder",
         method:"POST",
         data:{
             id_order:id,

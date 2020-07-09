@@ -143,3 +143,43 @@ front:
     plates:
       title: Plates
       total_after: different plates
+  cashier:
+    navbar_link: Counter
+    account:
+      create: Create account
+      name: Name
+      lastname: Last name
+      mail: Mail address
+      passwd: Password
+      pholder_passwd: 8car. min, including 1 number
+      send: send
+    modals:
+      confirm:
+        title: Order update
+        content: Confirmed order! You can call the customer for the order
+        done: Done
+      validate:
+        title: Order update
+        content: Confirmed order!! You can ask the money now.
+        done: Done
+      create:
+        title:
+          good: Confirmed creation
+          bad: Problem in the form
+        content:
+          good: New customer account created!
+          bad: Check the fields and try again
+        done: Understood
+    current:
+      title: Pending order
+      option_disabled: Customer account
+      articles: Articles
+      menus: Menus
+      add: Add
+      recap: Order summary
+      points: Points
+      no_points: Cash
+    incoming:
+      title: New orders
+      rdy: Ready
+      no_orders: You have no orders at the moment :-(
