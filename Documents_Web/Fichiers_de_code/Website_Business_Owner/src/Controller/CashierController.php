@@ -5,6 +5,9 @@ namespace App\Controller;
 
 
 use App\Entity\Customer;
+use App\Entity\CustomerArticle;
+use App\Entity\CustomerMenu;
+use App\Entity\CustomerOrder;
 use App\Repository\CustomerOrderRepository;
 use App\Repository\CustomerRepository;
 use App\Repository\DishRepository;
@@ -176,5 +179,96 @@ class CashierController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/franchisee/work/ajax/addToValided", name="addTo_valided", methods={"GET","POST"})
+     */
+    public function addToValided(Request $request , CustomerOrder $customerOrder , CustomerArticle $customerArticle, CustomerMenu $customerMenu ,FranchiseeArticleRepository $franchiseeArticleRepository, FranchiseeMenuRepository$franchiseeMenuRepository ,CustomerRepository $customerRepository):Response
+    {
+        $user = $this->getUser();
+        $entityManager = $this->getDoctrine()->getManager();
+        $customer = $request->request->get('customer') ?? null;
+        $articles = $request->request->get('articles') ?? null;
+        $menues = $request->request->get('menues') ?? null;
+        $point = $request->request->get('point') ?? null;
+        $price = 0;
+
+
+        $Corder = new CustomerOrder();
+        $Corder->setCustomer($customer);
+        $Corder->setDate(new \DateTime());
+        $Corder->setFranchisee($user);
+        $Corder->setValidate(1);
+        $Corder->setDelivered(0);
+        $i = 0;
+        $entityManager->persist($Corder);
+
+        if($articles) {
+            foreach ($articles as $article1) {
+                $j = $i + 1;
+                $article = $franchiseeArticleRepository->findOneBy(['id' => $article1[$i]]);
+                $Carticle = new CustomerArticle();
+                $Carticle->setCustomer($customer);
+                $Carticle->setName($article->getName());
+                $Carticle->setPrice($article->getPrice());
+                $Carticle->setQuantity($article1[$j]);
+                $Carticle->setCustomerOrder($Corder->getId());
+                $price = $price + $article->getPrice();
+                $article->setStock($article->getStock() - $article1[$j]);
+                $i += 2;
+                $entityManager->persist($Carticle);
+                $entityManager->persist($article);
+            }
+        }
+
+        if($menues){
+            foreach ($menues as $menue1){
+                $j = $i + 1;
+                $menu = $franchiseeMenuRepository->findOneBy(['id' => $menue1[$i]]);
+                $Cmenue = new CustomerMenu();
+                $Cmenue->setCustomer($customer);
+                $Cmenue->setName($menu->getName());
+                $Cmenue->setPrice($menu->getPrice());
+                $Cmenue->setQuantity($menue1[$j]);
+                $Cmenue->setCustomerOrder($Corder->getId());
+                $price = $price + $menu->getPrice();
+                $menu->setStock($menu->getStock() - $menue1[$j]);
+                $i += 2;
+                $entityManager->persist($Cmenue);
+                $entityManager->persist($menu);
+            }
+        }
+
+        $customerid = $customerRepository->findOneBy(['id' => $customer]);
+        $fidelity = $customerid->getFidelity();
+        if($point==1) {
+            if($price<$fidelity) {
+                $pointTotal = $price;
+                $price = 0;
+                $customerid->setFidelity($fidelity - $pointTotal);
+                $entityManager->persist($customerid);
+            }
+            if($price>$fidelity){
+                $pointTotal = $price;
+                $price = $price - $fidelity;
+                $customerid->setFidelity($fidelity - $pointTotal);
+                $entityManager->persist($customerid);
+            }
+            if($price == $fidelity){
+                $pointTotal = $price;
+                $price = 0;
+                $customerid->setFidelity($fidelity - $pointTotal);
+                $entityManager->persist($customerid);
+            }
+        }
+
+        $Corder->setAmmount($price);
+        $entityManager->persist($Corder);
+
+        $entityManager->flush();
+
+
+
+        return $this->redirectToRoute('cashier_index');
+    }
 
 }
